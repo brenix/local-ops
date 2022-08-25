@@ -4,6 +4,7 @@ resources:
   - bitnami.yaml
   - bjw-s.yaml
   - coredns.yaml
+  - grafana.yaml
   - k8s-at-home.yaml
   - metallb.yaml
   - metrics-server.yaml

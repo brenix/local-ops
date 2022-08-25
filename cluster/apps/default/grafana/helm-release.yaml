@@ -1,0 +1,31 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: grafana
+      version: 6.33.0
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    service:
+      type: LoadBalancer
+      loadBalancerIP: "${SVC_GRAFANA_ADDR}"
+    persistence:
+      enabled: true
+      storageClassName: openebs-hostpath
+      size: 2Gi
