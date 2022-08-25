@@ -6,6 +6,7 @@ resources:
   - bazarr
   - grafana
   - nzbget
+  - nzbhydra2
   - overseerr
   - radarr
   - sonarr

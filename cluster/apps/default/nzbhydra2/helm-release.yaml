@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nzbhydra2
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 0.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    image:
+      repository: lscr.io/linuxserver/nzbhydra2
+      tag: dev-version-v4.6.1@sha256:f87f629b798f572b249545a2dbd2b022b058f0b3e8e1534db2ca7de3aad6f35c
+    env:
+      TZ: "${TIMEZONE}"
+      PUID: "${PUID}"
+      PGID: "${PUID}"
+    service:
+      main:
+        type: LoadBalancer
+        externalIPs:
+          - "${SVC_NZBHYDRA_ADDR}"
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            port: 5076
+    persistence:
+      config:
+        enabled: true
+        type: hostPath
+        hostPath: /config/nzbhydra2
+        mountPath: /config
+    probes:
+      liveness:
+        custom: true
+        enabled: true
+        spec:
+          failureThreshold: 5
+          httpGet:
+            path: /actuator/health/livenessState
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 10
+      readiness:
+        custom: true
+        enabled: true
+        spec:
+          failureThreshold: 5
+          httpGet:
+            path: /actuator/health/readinessState
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 10
+      startup:
+        custom: true
+        enabled: true
+        spec:
+          failureThreshold: 5
+          httpGet:
+            path: /actuator/health/readinessState
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 10
