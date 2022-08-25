@@ -5,6 +5,7 @@ resources:
   - namespace.yaml
   - bazarr
   - grafana
+  - nzbget
   - overseerr
   - radarr
   - sonarr
