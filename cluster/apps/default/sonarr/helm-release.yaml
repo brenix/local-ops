@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: sonarr-test
+  name: sonarr
   namespace: default
 spec:
   interval: 15m
@@ -23,20 +23,49 @@ spec:
       retries: 5
   values:
     image:
-      repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 3.0.9.1555@sha256:dc60e4ead825dc2716638e592123db520bf0a2ee1967f897c8174da8f56f4daf
+      repository: lscr.io/linuxserver/sonarr:latest
+      tag: develop-version-3.0.9.1555@sha256:849548e12f1c8a0b654e8446d3c20cd804110e1729ccc7e8bdfd0444f5b565fb
     env:
       TZ: "${TIMEZONE}"
+      PUID: "${PUID}"
+      PGID: "${PUID}"
     service:
       main:
+        type: LoadBalancer
+        externalIPs:
+          - "${SVC_SONARR_ADDR}"
+        externalTrafficPolicy: Local
         ports:
           http:
-            port: 80
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
-    # persistence:
+            port: 8989
+    persistence:
+      config:
+        enabled: true
+        type: hostPath
+        hostPath: /config/sonarr
+        mountPath: /config
+      downloads:
+        enabled: true
+        type: hostPath
+        hostPath: /downloads
+        mountPath: /downloads
+    probes:
+      liveness:
+        enabled: true
+        ## Set this to true if you wish to specify your own livenessProbe
+        custom: true
+        ## The spec field contains the values for the default livenessProbe.
+        ## If you selected custom: true, this field holds the definition of the livenessProbe.
+        spec:
+          exec:
+            command:
+              - /usr/bin/env
+              - bash
+              - -c
+              - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
+                read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+          failureThreshold: 5
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
