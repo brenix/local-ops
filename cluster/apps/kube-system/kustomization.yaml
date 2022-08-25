@@ -5,6 +5,7 @@ resources:
   - namespace.yaml
   # - coredns
   # - kured
+  - metallb
   - metrics-server
   - openebs
   - reloader
