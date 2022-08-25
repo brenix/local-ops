@@ -8,5 +8,6 @@ resources:
   - nzbget
   - nzbhydra2
   - overseerr
+  - plex
   - radarr
   - sonarr
