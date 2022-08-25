@@ -1,0 +1,9 @@
+# See https://toolkit.fluxcd.io/components/source/gitrepositories/#excluding-files
+.github/
+.taskfiles/
+.envrc
+.gitattributes
+.gitignore
+.sops.yaml
+README.md
+Taskfile.yml
