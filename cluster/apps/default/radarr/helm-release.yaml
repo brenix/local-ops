@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: sonarr
+  name: radarr
   namespace: default
 spec:
   interval: 15m
@@ -23,8 +23,8 @@ spec:
       retries: 5
   values:
     image:
-      repository: lscr.io/linuxserver/sonarr
-      tag: develop-version-3.0.9.1555@sha256:849548e12f1c8a0b654e8446d3c20cd804110e1729ccc7e8bdfd0444f5b565fb
+      repository: lscr.io/linuxserver/radarr
+      tag: develop-version-4.2.2.6503@sha256:8553fd94777fa684c7a740498a6d1bf6c306d4e052707e68e30542ca8c95c27b
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
@@ -33,16 +33,16 @@ spec:
       main:
         type: LoadBalancer
         externalIPs:
-          - "${SVC_SONARR_ADDR}"
+          - "${SVC_RADARR_ADDR}"
         externalTrafficPolicy: Local
         ports:
           http:
-            port: 8989
+            port: 7878
     persistence:
       config:
         enabled: true
         type: hostPath
-        hostPath: /config/sonarr
+        hostPath: /config/radarr
         mountPath: /config
       downloads:
         enabled: true
@@ -59,7 +59,7 @@ spec:
               - /usr/bin/env
               - bash
               - -c
-              - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
+              - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
                 read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
           failureThreshold: 5
           initialDelaySeconds: 60
