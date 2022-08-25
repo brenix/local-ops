@@ -1,0 +1,51 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: bazarr
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 0.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    image:
+      repository: lscr.io/linuxserver/bazarr
+      tag: development-version-v1.1.1-beta.19@sha256:014576ca0e88458cc95e4c492141ffe50fc28dbf5119cc5b86d8096835b5e069
+    env:
+      TZ: "${TIMEZONE}"
+      PUID: "${PUID}"
+      PGID: "${PUID}"
+    service:
+      main:
+        type: LoadBalancer
+        externalIPs:
+          - "${SVC_BAZARR_ADDR}"
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            port: 6767
+    persistence:
+      config:
+        enabled: true
+        type: hostPath
+        hostPath: /config/bazarr
+        mountPath: /config
+      downloads:
+        enabled: true
+        type: hostPath
+        hostPath: /downloads
+        mountPath: /downloads
