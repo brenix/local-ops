@@ -1,0 +1,58 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: coredns
+  namespace: kube-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: coredns
+      version: 1.19.4
+      sourceRef:
+        kind: HelmRepository
+        name: coredns
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    service:
+      clusterIP: ${SVC_COREDNS_ADDR}
+    servers:
+      - zones:
+          - zone: .
+        port: 53
+        plugins:
+          - name: errors
+          # - name: log
+          - name: health
+            configBlock: |-
+              lameduck 5s
+          - name: ready
+          # - name: autopath
+          #   parameters: "@kubernetes"
+          - name: kubernetes
+            parameters: cluster.local in-addr.arpa
+            configBlock: |-
+              pods insecure
+              fallthrough in-addr.arpa
+              ttl 30
+          - name: prometheus
+            parameters: 0.0.0.0:9153
+          - name: forward
+            parameters: . 192.168.1.1:53
+          - name: cache
+            configBlock: |-
+              success 9984 30
+              denial 9984 5
+              prefetch 3 60s 15%
+          - name: loop
+          - name: reload
+          - name: loadbalance
