@@ -1,7 +1,53 @@
 ---
+version: "3"
+
 vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
 
 tasks:
+  verify:
+    desc: Verify flux meets the prerequisites
+    cmds:
+      - flux check --preconditions
+
+  install:
+    desc: Install and configure flux
+    cmds:
+      - kubectl apply --kustomize {{.CLUSTER_DIR}}/bootstrap/
+      - cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
+      - kubectl apply --kustomize {{.CLUSTER_DIR}}/flux/flux-system/
+      - task: reconcile
+    preconditions:
+      - sh: test -f {{.SOPS_AGE_KEY_FILE}}
+        msg: |
+          Age key file is not found. Did you forget to create it?
+    vars:
+      SOPS_AGE_KEY_FILE: ~/.config/sops/age/keys.txt
+
+  reconcile:
+    desc: Force update Flux to pull in changes from the Git repository
+    cmds:
+      - flux reconcile -n flux-system source git flux-cluster
+      - flux reconcile -n flux-system kustomization flux-cluster
+
+  kustomizations:
+    desc: List all the kustomizations in the cluster
+    cmds:
+      - kubectl get kustomizations {{.CLI_ARGS | default "-A"}}
+
+  helmreleases:
+    desc: List all the helmreleases in the cluster
+    cmds:
+      - kubectl get helmreleases {{.CLI_ARGS | default "-A"}}
+
+  helmrepositories:
+    desc: List all the helmrepositories in the cluster
+    cmds:
+      - kubectl get helmrepositories {{.CLI_ARGS | default "-A"}}
+
+  gitrepositories:
+    desc: List all the gitrepositories in the cluster
+    cmds:
+      - kubectl get gitrepositories {{.CLI_ARGS | default "-A"}}
