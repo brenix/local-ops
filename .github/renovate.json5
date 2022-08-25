@@ -1,13 +1,13 @@
 {
   "enabled": true,
-  "semanticCommits": "enabled",
+  "semanticCommits": "disabled",
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
   "schedule": ["every weekend"],
   "pre-commit": {
-    "enabled": true
+    "enabled": false
   },
   "flux": {
     "fileMatch": ["cluster/.+\\.ya?ml$"]
