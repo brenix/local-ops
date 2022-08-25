@@ -23,7 +23,7 @@ spec:
       retries: 5
   values:
     image:
-      repository: lscr.io/linuxserver/sonarr:latest
+      repository: lscr.io/linuxserver/sonarr
       tag: develop-version-3.0.9.1555@sha256:849548e12f1c8a0b654e8446d3c20cd804110e1729ccc7e8bdfd0444f5b565fb
     env:
       TZ: "${TIMEZONE}"
