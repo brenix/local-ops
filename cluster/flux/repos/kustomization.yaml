@@ -5,7 +5,7 @@ resources:
   - bjw-s.yaml
   - coredns.yaml
   - grafana.yaml
-  - k8s-at-home.yaml
+  - openebs.yaml
   - metallb.yaml
   - metrics-server.yaml
   - stakater.yaml

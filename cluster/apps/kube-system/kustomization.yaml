@@ -6,4 +6,5 @@ resources:
   # - coredns
   # - kured
   - metrics-server
+  - openebs
   - reloader
