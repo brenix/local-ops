@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: flux-system
+  name: cluster-settings
+data:
+  TIMEZONE: "America/Los_Angeles"
+  # SVC_RADARR_ADDR:
+  # SVC_SONARR_ADDR:
+  # SVC_BAZARR_ADDR:
+  # SVC_NZBGET_ADDR:
+  # SVC_OVERSEERR_ADDR:
+  # SVC_GRAFANA_ADDR:
+  # SVC_TAUTULLI_ADDR:
+  # SVC_UNIFI_ADDR:
