@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/tautulli
-      tag: 2.10.3
+      tag: 2021.12.16
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
