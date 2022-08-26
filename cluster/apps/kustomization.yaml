@@ -5,3 +5,4 @@ resources:
   - default
   - flux-system
   - kube-system
+  - monitoring
