@@ -27,6 +27,9 @@ spec:
       tag: 4.15.5
     env:
       TZ: "${TIMEZONE}"
+    service:
+      main:
+        enabled: false
     hostNetwork: true
     persistence:
       downloads:
