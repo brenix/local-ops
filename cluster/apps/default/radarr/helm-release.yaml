@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/radarr
-      tag: 4.1.0
+      tag: 4.2.2-develop # TODO: switch to stable release once it catches up to this version
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
