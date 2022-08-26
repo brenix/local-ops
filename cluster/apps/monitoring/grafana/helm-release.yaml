@@ -22,6 +22,8 @@ spec:
     remediation:
       retries: 5
   values:
+    admin:
+      existingSecret: grafana-admin
     service:
       type: LoadBalancer
       loadBalancerIP: "${SVC_GRAFANA_ADDR}"
@@ -29,3 +31,39 @@ spec:
       enabled: true
       storageClassName: openebs-hostpath
       size: 2Gi
+    testFramework:
+      enabled: false
+    grafana.ini:
+      analytics:
+        check_for_updates: false
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://prometheus-operated:9090/
+            isDefault: true
+            jsonData:
+              timeInterval: 1m
+    dashboards:
+      default:
+        # Ref: https://grafana.com/grafana/dashboards/15757
+        kubernetes-overview:
+          gnetId: 15757
+          revision: 16
+          datasource: Prometheus
+    sidecar:
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+      datasources:
+        enabled: true
+        searchNamespace: ALL
+    plugins:
+      - grafana-piechart-panel
+      - grafana-worldmap-panel
+      - grafana-clock-panel
+    serviceMonitor:
+      enabled: true
