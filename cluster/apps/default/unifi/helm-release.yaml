@@ -80,3 +80,4 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /config/unifi
+        mountPath: /config
