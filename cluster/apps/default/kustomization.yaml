@@ -10,5 +10,6 @@ resources:
   - overseerr
   - plex
   - radarr
+  - samba
   - sonarr
   - tautulli
