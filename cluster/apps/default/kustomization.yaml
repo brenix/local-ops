@@ -5,9 +5,10 @@ resources:
   - namespace.yaml
   - bazarr
   - nzbget
-  - nzbhydra2
+  # - nzbhydra2
   - overseerr
   - plex
+  - prowlarr
   - radarr
   - recyclarr
   - samba
