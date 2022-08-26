@@ -31,8 +31,6 @@ spec:
     service:
       main:
         type: LoadBalancer
-        externalIPs:
-          - "${SVC_OVERSEERR_ADDR}"
         externalTrafficPolicy: Local
         ports:
           http:

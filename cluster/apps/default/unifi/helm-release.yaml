@@ -32,8 +32,6 @@ spec:
     service:
       main:
         type: LoadBalancer
-        externalIPs:
-          - "${SVC_UNIFI_ADDR}"
         externalTrafficPolicy: Local
         ports:
           # -- Configure Web interface + API port

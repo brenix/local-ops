@@ -26,7 +26,6 @@ spec:
       existingSecret: grafana-admin
     service:
       type: LoadBalancer
-      loadBalancerIP: "${SVC_GRAFANA_ADDR}"
     persistence:
       enabled: true
       storageClassName: openebs-hostpath
