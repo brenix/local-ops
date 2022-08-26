@@ -9,6 +9,7 @@ resources:
   - nzbhydra2
   - overseerr
   - plex
+  - prometheus
   - radarr
   - samba
   - sonarr

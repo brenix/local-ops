@@ -5,8 +5,9 @@ resources:
   - bjw-s.yaml
   - coredns.yaml
   - grafana.yaml
-  - openebs.yaml
   - metallb.yaml
   - metrics-server.yaml
+  - openebs.yaml
+  - prometheus-community.yaml
   - stakater.yaml
   - weaveworks-kured.yaml
