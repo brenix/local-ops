@@ -13,3 +13,4 @@ resources:
   - samba
   - sonarr
   - tautulli
+  - unifi
