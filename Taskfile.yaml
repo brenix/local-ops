@@ -40,9 +40,6 @@ tasks:
     desc: Force update Flux to pull in changes from the Git repository
     cmds:
       - flux reconcile -n flux-system kustomization flux-cluster --with-source
-      - flux reconcile -n flux-system kustomization config --with-source
-      - flux reconcile -n flux-system kustomization crds --with-source
-      - flux reconcile -n flux-system kustomization apps --with-source
 
   kustomizations:
     desc: List all the kustomizations in the cluster
