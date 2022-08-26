@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - metallb
-  - metrics-server
   - openebs
   - reloader
+
+  # FIXME: resolve auth issue
+  # - metrics-server
