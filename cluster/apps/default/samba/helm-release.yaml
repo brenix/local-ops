@@ -27,17 +27,6 @@ spec:
       tag: 4.15.5
     env:
       TZ: "${TIMEZONE}"
-    service:
-      main:
-        ports:
-          tcp:
-            enabled: true
-            protocol: TCP
-            port: 445
-          netbios:
-            enabled: true
-            protocol: TCP
-            port: 139
     hostNetwork: true
     persistence:
       downloads:
