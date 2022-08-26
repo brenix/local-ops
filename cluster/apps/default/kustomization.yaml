@@ -11,6 +11,7 @@ resources:
   - plex
   - prometheus
   - radarr
+  - recyclarr
   - samba
   - sonarr
   - tautulli
