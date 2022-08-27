@@ -5,7 +5,7 @@ resources:
   - namespace.yaml
   - bazarr
   - jellyfin
-  - jellyseerr
+  # - jellyseerr
   - nzbget
   # - nzbhydra2
   - overseerr
