@@ -30,6 +30,8 @@ spec:
       LOG_LEVEL: "info"
     service:
       main:
+        type: LoadBalancer
+        externalTrafficPolicy: Local
         ports:
           http:
             port: 80
