@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: plex
+  name: jellyfin
   namespace: default
 spec:
   interval: 15m
@@ -23,23 +23,23 @@ spec:
       retries: 5
   values:
     image:
-      repository: lscr.io/linuxserver/plex
-      tag: 1.28.1
+      repository: lscr.io/linuxserver/jellyfin
+      tag: 10.8.4
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
-      PGID: "${PUID}"
+      PGID: "${PGID}"
     service:
       main:
         ports:
           http:
-            port: 32400
+            port: 8096
     hostNetwork: true
     persistence:
       config:
         enabled: true
         type: hostPath
-        hostPath: /config/plex
+        hostPath: /config/jellyfin
         mountPath: /config
       transcode:
         enabled: true

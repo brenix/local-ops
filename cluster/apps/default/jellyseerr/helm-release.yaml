@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: plex
+  name: jellyseerr
   namespace: default
 spec:
   interval: 15m
@@ -23,29 +23,19 @@ spec:
       retries: 5
   values:
     image:
-      repository: lscr.io/linuxserver/plex
-      tag: 1.28.1
+      repository: docker.io/fallenbagel/jellyseerr
+      tag: 1.1.1
     env:
       TZ: "${TIMEZONE}"
-      PUID: "${PUID}"
-      PGID: "${PUID}"
+      LOG_LEVEL: "info"
     service:
       main:
         ports:
           http:
-            port: 32400
-    hostNetwork: true
+            port: 80
     persistence:
       config:
         enabled: true
         type: hostPath
-        hostPath: /config/plex
+        hostPath: /config/jellyseerr
         mountPath: /config
-      transcode:
-        enabled: true
-        type: emptyDir
-      media:
-        enabled: true
-        type: hostPath
-        hostPath: /downloads/complete
-        mountPath: /media
