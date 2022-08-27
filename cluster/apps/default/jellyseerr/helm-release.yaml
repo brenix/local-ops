@@ -40,4 +40,4 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /config/jellyseerr
-        mountPath: /config
+        mountPath: /app/config
