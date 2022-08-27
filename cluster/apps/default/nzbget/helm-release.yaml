@@ -24,7 +24,8 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/nzbget
-      tag: version-v21.1
+      # renovate: datasource=github-releases depName=linuxserver/docker-nzbget
+      tag: v21.1-ls122
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
