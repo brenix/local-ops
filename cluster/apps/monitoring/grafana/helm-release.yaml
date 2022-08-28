@@ -53,11 +53,6 @@ spec:
           gnetId: 1860
           revision: 27
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/15757
-        # kubernetes-overview:
-        #   gnetId: 15757
-        #   revision: 16
-        #   datasource: Prometheus
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
