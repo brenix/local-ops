@@ -24,8 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/tautulli
-      # renovate: datasource=github-releases depName=linuxserver/docker-tautulli
-      tag: v2.10.3-ls48
+      tag: 2.10.4@sha256:d393a04fb3f17daf71c2bacefef47346ca3a29e5581bd31b4c66c46b45a121d9
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
