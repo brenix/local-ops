@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: docker.io/fallenbagel/jellyseerr
-      tag: 1.1.1
+      tag: 1.1.1@sha256:5518245b0d84852c29a4a2940c3df11af5fcf45906f7436486ad98caba5571e6
     env:
       TZ: "${TIMEZONE}"
       LOG_LEVEL: "info"
