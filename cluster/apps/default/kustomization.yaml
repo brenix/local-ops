@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - bazarr
-  - jellyfin
+  # - jellyfin
   # - jellyseerr
   - nzbget
   # - nzbhydra2
