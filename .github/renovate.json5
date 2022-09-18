@@ -62,7 +62,7 @@
     // ignore date based images
     {
       "matchDatasources": ["docker"],
-      "allowedVersions": "/^\\d{1,2}\\.\\d+\\.\\d+$/"
+      "allowedVersions": "!/^\\d{4}\\.\\d+\\.\\d+$/"
     },
     // add labels according to package and update types
     {
