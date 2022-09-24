@@ -32,6 +32,11 @@ spec:
         enabled: false
     hostNetwork: true
     persistence:
+      config:
+        enabled: true
+        type: configMap
+        mountPath: /data
+        readOnly: true
       downloads:
         enabled: true
         type: hostPath
