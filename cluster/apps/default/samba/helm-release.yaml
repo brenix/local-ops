@@ -34,10 +34,10 @@ spec:
     persistence:
       config:
         enabled: true
-        name: config
+        name: samba-config
         type: configMap
-        mountPath: /data
-        readOnly: true
+        mountPath: /data/config.yml
+        subPath: config.yml
       downloads:
         enabled: true
         type: hostPath
