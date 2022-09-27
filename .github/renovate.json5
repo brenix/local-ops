@@ -54,5 +54,14 @@
       "matchDatasources": ["docker"],
       "allowedVersions": "!/^\\d{4}\\.\\d+\\.\\d+$/"
     },
+    // auto-merge container digests
+    {
+      "description": "Auto merge container digests",
+      "matchDatasources": ["docker"],
+      "automerge": true,
+      "automergeType": "branch",
+      "requiredStatusChecks": null,
+      "matchUpdateTypes": ["digest"],
+    },
   ]
 }
