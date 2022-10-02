@@ -18,10 +18,6 @@
       "cluster/.+\\.ya?ml$",
     ]
   },
-  "commitMessagePrefix": "[{{datasource}}]",
-  "commitMessageAction": null,
-  "commitMessageExtra": "{{#if isPinDigest}}{{{newDigestShort}}} → {{{currentDigestShort}}}{{else}}{{#if isMajor}}{{{currentVersion}}} → {{newMajor}}{{else}}{{#if isSingleVersion}}{{{currentVersion}}} → {{newVersion}}{{else}}{{#if newValue}}{{{currentValue}}} → {{{newValue}}}{{else}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
-  "commitMessageTopic": "{{depName}}:",
   "regexManagers": [
     {
       "description": "Process CRD dependencies",
@@ -48,23 +44,19 @@
   ],
   "packageRules": [
     {
-      "matchDatasources": ["helm"],
-      "separateMinorPatch": true,
-      "ignoreDeprecated": true
+      "description": "Override commit message for consistency",
+      "matchPaths": ["**"],
+      "commitMessageTopic": "{{depName}}",
+      "commitMessagePrefix": "[{{datasource}}]",
+      "commitMessageSuffix": "",
+      "commitMessageExtra": "{{#if isPinDigest}}{{{newDigestShort}}} → {{{currentDigestShort}}}{{else}}{{#if isMajor}}{{{currentVersion}}} → {{newMajor}}{{else}}{{#if isSingleVersion}}{{{currentVersion}}} → {{newVersion}}{{else}}{{#if newValue}}{{{currentValue}}} → {{{newValue}}}{{else}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
+      "commitMessageAction": "",
     },
-    // ignore date based images
     {
+      "description": "Skip date based images for nzbget",
       "matchDatasources": ["docker"],
-      "allowedVersions": "!/^\\d{4}\\.\\d+\\.\\d+$/"
-    },
-    // auto-merge container digests
-    {
-      "description": "Auto merge container digests",
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "automergeType": "branch",
-      "requiredStatusChecks": null,
-      "matchUpdateTypes": ["digest"],
+      "allowedVersions": "!/^\\d{4}/",
+      "matchPackageNames": ["lscr.io/linuxserver/**"]
     },
   ]
 }
