@@ -53,10 +53,9 @@
       "commitMessageAction": "",
     },
     {
-      "description": "Skip date based images for nzbget",
+      "description": "Skip date based images",
       "matchDatasources": ["docker"],
       "allowedVersions": "!/^\\d{4}.*$/",
-      "matchPackageNames": ["lscr.io"]
     },
   ]
 }
