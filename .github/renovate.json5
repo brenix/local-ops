@@ -18,7 +18,10 @@
       "cluster/.+\\.ya?ml$",
     ]
   },
-  "commitMessage": "[{{datasource}}] {{depName}}: {{#if isPinDigest}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{else}}{{#if isMajor}}{{{currentVersion}}} → {{newMajor}}{{else}}{{#if isSingleVersion}}{{{currentVersion}}} → {{newVersion}}{{else}}{{#if newValue}}{{{currentValue}}} → {{{newValue}}}{{else}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
+  "commitMessagePrefix": "[{{datasource}}]",
+  "commitMessageAction": null,
+  "commitMessageExtra": "{{#if isPinDigest}}{{{newDigestShort}}} → {{{currentDigestShort}}}{{else}}{{#if isMajor}}{{{currentVersion}}} → {{newMajor}}{{else}}{{#if isSingleVersion}}{{{currentVersion}}} → {{newVersion}}{{else}}{{#if newValue}}{{{currentValue}}} → {{{newValue}}}{{else}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
+  "commitMessageTopic": "{{depName}}:",
   "regexManagers": [
     {
       "description": "Process CRD dependencies",
