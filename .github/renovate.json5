@@ -55,8 +55,8 @@
     {
       "description": "Skip date based images for nzbget",
       "matchDatasources": ["docker"],
-      "allowedVersions": "!/^\\d{4}/",
-      "matchPackageNames": ["lscr.io/linuxserver/**"]
+      "allowedVersions": "!/^\\d{4}.*$/",
+      "matchPackageNames": ["lscr.io"]
     },
   ]
 }
