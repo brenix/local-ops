@@ -3,30 +3,36 @@
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
   "rebaseWhen": "conflicted",
-  "schedule": ["every weekday"],
+  "schedule": [
+    "every weekday"
+  ],
   "pre-commit": {
     "enabled": false
   },
   "flux": {
-    "fileMatch": ["cluster/.+\\.ya?ml$"]
+    "fileMatch": [
+      "cluster/.+\\.ya?ml$"
+    ]
   },
   "helm-values": {
-    "fileMatch": ["cluster/.+\\.ya?ml$"]
+    "fileMatch": [
+      "cluster/.+\\.ya?ml$"
+    ]
   },
   "kubernetes": {
     "fileMatch": [
-      "cluster/.+\\.ya?ml$",
+      "cluster/.+\\.ya?ml$"
     ]
   },
   "regexManagers": [
     {
       "description": "Process CRD dependencies",
-      "fileMatch": ["cluster/crds/.+\\.ya?ml$"],
+      "fileMatch": [
+        "cluster/crds/.+\\.ya?ml$"
+      ],
       "matchStrings": [
-        // GitRepository and Flux Kustomization where 'Git release/tag' matches 'Helm' version
         "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
-        // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version
-        "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n"
+        "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)/(?<currentValue>[^/]+)/[^/]+\n"
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
     },
@@ -45,17 +51,21 @@
   "packageRules": [
     {
       "description": "Override commit message for consistency",
-      "matchPaths": ["**"],
+      "matchPaths": [
+        "**"
+      ],
       "commitMessageTopic": "{{depName}}",
       "commitMessagePrefix": "[{{datasource}}]",
       "commitMessageSuffix": "",
       "commitMessageExtra": "{{#if isPinDigest}}{{{newDigestShort}}} → {{{currentDigestShort}}}{{else}}{{#if isMajor}}{{{currentVersion}}} → {{newMajor}}{{else}}{{#if isSingleVersion}}{{{currentVersion}}} → {{newVersion}}{{else}}{{#if newValue}}{{{currentValue}}} → {{{newValue}}}{{else}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
-      "commitMessageAction": "",
+      "commitMessageAction": ""
     },
     {
       "description": "Skip date based images",
-      "matchDatasources": ["docker"],
-      "allowedVersions": "!/^\\d{4}.*$/",
-    },
+      "matchDatasources": [
+        "docker"
+      ],
+      "allowedVersions": "!/^\\d{4}.*$/"
+    }
   ]
 }
