@@ -66,6 +66,16 @@
         "docker"
       ],
       "allowedVersions": "!/^\\d{4}.*$/"
+    },
+    {
+      "description": "Disable kubernetes-api",
+      "matchManagers": [
+        "kubernetes"
+      ],
+      "matchDatasources": [
+        "kubernetes-api"
+      ],
+      "enabled": false
     }
   ]
 }
