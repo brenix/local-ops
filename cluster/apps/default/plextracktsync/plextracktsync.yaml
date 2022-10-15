@@ -1,0 +1,42 @@
+cache:
+  path: $PTS_CACHE_DIR/trakt_cache
+
+excluded-libraries:
+  - Private
+  - Family Holidays
+
+config:
+  dotenv_override: true
+
+plex:
+  timeout: 30
+
+logging:
+  append: true
+  # Whether to show timestamps in console messages
+  console_time: false
+  debug: false
+  filename: plextraktsync.log
+
+sync:
+  plex_to_trakt:
+    collection: false
+    ratings: true
+    watched_status: true
+    watchlist: true
+  trakt_to_plex:
+    liked_lists: true
+    ratings: true
+    watched_status: true
+    watchlist: true
+    watchlist_as_playlist: false
+
+watch:
+  add_collection: false
+  remove_collection: false
+  scrobble_threshold: 80
+  username_filter: true
+
+xbmc-providers:
+  movies: imdb
+  shows: tvdb

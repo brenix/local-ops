@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - secret.sops.yaml
+  - pytrakt-secret.sops.yaml
+  - cron-job.yaml
+namespace: default
+configMapGenerator:
+  - name: plextracktsync
+    files:
+      - plextracktsync.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

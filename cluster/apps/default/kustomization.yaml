@@ -10,6 +10,7 @@ resources:
   # - nzbhydra2
   - overseerr
   - plex
+  - plextracktsync
   - prowlarr
   - radarr
   - recyclarr
