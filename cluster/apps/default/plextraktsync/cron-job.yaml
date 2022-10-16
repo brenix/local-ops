@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: &app plextracktsync
+  name: &app plextraktsync
   namespace: default
 spec:
   schedule: "@hourly"
@@ -14,7 +14,7 @@ spec:
           automountServiceAccountToken: false
           restartPolicy: OnFailure
           containers:
-            - name: plextracktsync
+            - name: plextraktsync
               image: ghcr.io/taxel/plextraktsync:0.22.1@sha256:70ebd7fcbe4b13364342a19b8e1923b0487e105385bb4227f001a5651dc589fc
               envFrom:
                 - secretRef:
@@ -22,7 +22,7 @@ spec:
               volumeMounts:
                 - name: config
                   mountPath: /app/config/config.yml
-                  subPath: plextracktsync.yaml
+                  subPath: plextraktsync.yaml
                   readOnly: true
                 - name: pytrakt
                   mountPath: /app/config/.pytrakt.json
@@ -34,4 +34,4 @@ spec:
                 name: *app
             - name: pytrakt
               secret:
-                secretName: plextracktsync-pytrakt
+                secretName: plextraktsync-pytrakt

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: plextracktsync-watch
+  name: plextraktsync-watch
   namespace: default
 spec:
   interval: 15m
@@ -29,7 +29,7 @@ spec:
       - watch
     envFrom:
       - secretRef:
-          name: plextracktsync
+          name: plextraktsync
     service:
       main:
         enabled: false
@@ -37,14 +37,14 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: plextracktsync
+        name: plextraktsync
         mountPath: /app/config/config.yml
-        subPath: plextracktsync.yaml
+        subPath: plextraktsync.yaml
         readOnly: true
       pytrakt:
         enabled: true
         type: secret
-        name: plextracktsync-pytrakt
+        name: plextraktsync-pytrakt
         mountPath: /app/config/.pytrakt.json
         subPath: .pytrakt.json
         readOnly: true

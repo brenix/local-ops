@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: &app plextracktsync-watch
+  name: &app plextraktsync-watch
   namespace: default
 spec:
   template:
@@ -10,7 +10,7 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: plextracktsync
+        - name: plextraktsync
           image: ghcr.io/taxel/plextraktsync:0.22.1@sha256:70ebd7fcbe4b13364342a19b8e1923b0487e105385bb4227f001a5651dc589fc
           args:
             - watch
@@ -20,7 +20,7 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /app/config/config.yml
-              subPath: plextracktsync.yaml
+              subPath: plextraktsync.yaml
               readOnly: true
             - name: pytrakt
               mountPath: /app/config/.pytrakt.json
@@ -32,4 +32,4 @@ spec:
             name: *app
         - name: pytrakt
           secret:
-            secretName: plextracktsync-pytrakt
+            secretName: plextraktsync-pytrakt

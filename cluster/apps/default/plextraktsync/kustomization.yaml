@@ -8,9 +8,9 @@ resources:
   - helm-release.yaml
 namespace: default
 configMapGenerator:
-  - name: plextracktsync
+  - name: plextraktsync
     files:
-      - plextracktsync.yaml
+      - plextraktsync.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
