@@ -76,6 +76,21 @@
         "kubernetes-api"
       ],
       "enabled": false
+    },
+    {
+      "description": "Auto merge container digests",
+      "matchDatasources": [
+        "docker"
+      ],
+      "automerge": true,
+      "automergeType": "branch",
+      "requiredStatusChecks": null,
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "matchPackagePatterns": [
+        "lscr.io/linuxserver"
+      ]
     }
   ]
 }
