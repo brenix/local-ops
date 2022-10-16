@@ -57,7 +57,7 @@
       "commitMessageTopic": "{{depName}}",
       "commitMessagePrefix": "[{{datasource}}]",
       "commitMessageSuffix": "",
-      "commitMessageExtra": "{{#if isPinDigest}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{else}}{{{currentVersion}}} → {{newVersion}}{{/if}}",
+      "commitMessageExtra": "{{#if (containsString updateType 'digest')}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{else}}{{{currentVersion}}} → {{newVersion}}{{/if}}",
       "commitMessageAction": ""
     },
     {
