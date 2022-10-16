@@ -5,6 +5,7 @@ resources:
   - secret.sops.yaml
   - pytrakt-secret.sops.yaml
   - cron-job.yaml
+  - helm-release.yaml
 namespace: default
 configMapGenerator:
   - name: plextracktsync
