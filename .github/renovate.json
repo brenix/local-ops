@@ -4,7 +4,7 @@
   "dependencyDashboardTitle": "Renovate Dashboard",
   "rebaseWhen": "conflicted",
   "schedule": [
-    "every weekday"
+    "before 10pm"
   ],
   "pre-commit": {
     "enabled": false
@@ -57,7 +57,7 @@
       "commitMessageTopic": "{{depName}}",
       "commitMessagePrefix": "[{{datasource}}]",
       "commitMessageSuffix": "",
-      "commitMessageExtra": "{{#if isPinDigest}}{{{newDigestShort}}} → {{{currentDigestShort}}}{{else}}{{#if isMajor}}{{{currentVersion}}} → {{newMajor}}{{else}}{{#if isSingleVersion}}{{{currentVersion}}} → {{newVersion}}{{else}}{{#if newValue}}{{{currentValue}}} → {{{newValue}}}{{else}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
+      "commitMessageExtra": "{{#if isPinDigest}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{else}}{{{currentVersion}}} → {{newVersion}}{{/if}}",
       "commitMessageAction": ""
     },
     {
