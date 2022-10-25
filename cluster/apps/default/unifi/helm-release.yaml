@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/unifi-controller
-      tag: 7.2.94@sha256:82ffac13afc269d04c194238991ad5fca6a3f26f8de84c829fb095bc09e07571
+      tag: 7.2.94@sha256:df9995c2f139f16912bb72ca22cdc73faf5679f32057d125c9ddb1fb6f36c32d
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
