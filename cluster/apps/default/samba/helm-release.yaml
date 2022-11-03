@@ -47,7 +47,7 @@ spec:
         type: hostPath
         hostPath: /tmp
         mountPath: /temp
-    configmap:
+    configMaps:
       config:
         enabled: true
         data:
