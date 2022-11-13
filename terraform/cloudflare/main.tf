@@ -25,3 +25,11 @@ resource "cloudflare_record" "www" {
   type    = "CNAME"
   proxied = false
 }
+
+resource "cloudflare_record" "test" {
+  zone_id = data.cloudflare_zone.default.id
+  name    = "test"
+  value   = data.cloudflare_zone.default.name
+  type    = "CNAME"
+  proxied = false
+}
