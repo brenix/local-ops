@@ -1,3 +1,6 @@
 # Sops
 .decrypted~*
 *.agekey
+
+# Terraform
+.terraform
