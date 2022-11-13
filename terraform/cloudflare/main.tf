@@ -4,7 +4,7 @@ data "cloudflare_zone" "default" {
 
 resource "cloudflare_record" "overseerr" {
   zone_id = data.cloudflare_zone.default.id
-  name    = format("overseerr.%s", data.cloudflare_zone.default.name)
+  name    = "overseerr"
   value   = data.cloudflare_zone.default.name
   type    = "CNAME"
   proxied = false
@@ -12,7 +12,7 @@ resource "cloudflare_record" "overseerr" {
 
 resource "cloudflare_record" "plex" {
   zone_id = data.cloudflare_zone.default.id
-  name    = format("plex.%s", data.cloudflare_zone.default.name)
+  name    = "plex"
   value   = data.cloudflare_zone.default.name
   type    = "CNAME"
   proxied = false
@@ -20,7 +20,7 @@ resource "cloudflare_record" "plex" {
 
 resource "cloudflare_record" "www" {
   zone_id = data.cloudflare_zone.default.id
-  name    = format("www.%s", data.cloudflare_zone.default.name)
+  name    = "www"
   value   = data.cloudflare_zone.default.name
   type    = "CNAME"
   proxied = false
