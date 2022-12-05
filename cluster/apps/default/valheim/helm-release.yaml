@@ -26,6 +26,8 @@ spec:
       repository: ghcr.io/lloesche/valheim-server
       tag: latest
       pullPolicy: Always
+    termination:
+      gracePeriodSeconds: 300
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
