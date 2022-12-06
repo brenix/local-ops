@@ -32,8 +32,6 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
       PGID: "${PUID}"
-      # Use public test version
-      STEAMCMD_ARGS: "-beta public-test -betapassword yesimadebackups"
       # Valheim plus config
       VPCFG_Map_enabled: "true"
       VPCFG_Map_shareMapProgression: "true"
