@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/tautulli
-      tag: 2.11.1@sha256:fcbb1fe00d05e32f7c8645b98690844928c79e2246b9badc55ff449b41a6d097
+      tag: 2.11.1@sha256:e2aa058f2a7131984028d4ba62beb6d6c1ebf892411bc0227e0e82b152ee1288
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
