@@ -8,6 +8,7 @@ spec:
   schedule: "@hourly"
   jobTemplate:
     spec:
+      suspend: true
       ttlSecondsAfterFinished: 3600
       template:
         spec:
