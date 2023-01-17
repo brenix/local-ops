@@ -6,9 +6,9 @@ sonarr:
   standard:
     base_url: http://sonarr:8989/sonarr
     api_key: ${SONARR_APIKEY}
+    delete_old_custom_formats: true
     quality_definition:
       type: series
-    delete_old_custom_formats: true
     custom_formats:
       - trash_ids:
           # Streaming Services
@@ -52,7 +52,6 @@ sonarr:
           - 9c14d194486c4014d422adc64092d794 # Dubs Only
           - 9c11cd3f07101cdba90a2d81cf0e56b4 # LQ
           - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
-          # - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
           - 06d66ab109d4d2eddb2794d21526d140 # Retags
           - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
         quality_profiles:
@@ -119,10 +118,11 @@ radarr:
           - 90cedc1fea7ea5d11298bebd3d1d3223 # EVO (no WEBDL) -1000
           - 90a6f9a284dff5103f6346090e6280c8 # LQ -10000
           - b8cd450cbfa689c0259a01d9e29ba3d6 # 3D -10000
-          # - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
           - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup removed do avoid multiple downloads
           - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
         quality_profiles:
+          - name: Any
+            reset_unmatched_scores: true
           - name: HD
             reset_unmatched_scores: true
           - name: SD
@@ -131,7 +131,7 @@ radarr:
           - 1c7d7b04b15cc53ea61204bebbcc1ee2 # HQ
         quality_profiles:
           - name: Any
-            score: 1
+            score: 0
           - name: HD
             score: 0
           - name: SD
@@ -141,7 +141,7 @@ radarr:
           - 923b6abef9b17f937fab56cfcf89e1f1 # Optional: DV (WEBDL) without fallback to HDR, set to manual score 0 or -10000
         quality_profiles:
           - name: Any
-            score: 1
+            score: 0
           - name: HD
             score: 0
           - name: SD
