@@ -16,7 +16,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: plextraktsync
-              image: ghcr.io/taxel/plextraktsync:0.25.9@sha256:72c75c712e62c25d9f8757c208fd73c4afc5706aef0caa55adb1000f8a0863b6
+              image: ghcr.io/taxel/plextraktsync:0.25.10@sha256:eb82c4a2d80fdc75ce477c43b26fa73abba09c619c5cafa10b560ab046605810
               envFrom:
                 - secretRef:
                     name: *app
