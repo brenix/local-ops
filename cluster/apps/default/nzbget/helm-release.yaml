@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/nzbget
-      tag: 21.1.20230105@sha256:2af86dcb3194d3bf92931db6f8a14eeaa68bc55e7680f4e0441d8e8c1e2c3c59
+      tag: 21.1.20230119@sha256:ed58a6471591126adee01e704d35264979640bede1fca7ffa13a21d6643c5a18
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
