@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/nzbhydra2
-      tag: 5.0.0@sha256:19003f52aaae59169217c5cc7aa61a314376dac1b7461762334bfdbdc693532d
+      tag: 5.0.5@sha256:2010f5c9e0db31f259ec9d1db3941b7484f8118cdff0800f7a2222c69c13ef84
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
