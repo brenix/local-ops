@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/prowlarr
-      tag: 1.2.0-nightly@sha256:d40f6db2b0bc23f0a89dcfde8a15638218ca152abc6ab83dc2051ad9e4df2e51
+      tag: 1.2.0-nightly@sha256:afc97a040591b87892618c14c764fae707280fcaaa5c9b167fa3d1f721cf52ff
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
