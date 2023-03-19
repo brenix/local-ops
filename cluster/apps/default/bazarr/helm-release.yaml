@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/bazarr
-      tag: 1.2.0@sha256:df57a61a32237a97c23428f5fef6bb8d4e6548cf501b0e68cd68c98ee9c6c8b6
+      tag: 1.2.0@sha256:28873522a3e492e973e7c3f777c6580e9b40499bfdc7818bc4605e0362c3ea2a
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
