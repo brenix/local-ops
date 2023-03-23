@@ -10,6 +10,22 @@ resource "cloudflare_record" "overseerr" {
   proxied = false
 }
 
+resource "cloudflare_record" "jellyfin" {
+  zone_id = data.cloudflare_zone.default.id
+  name    = "jellyfin"
+  value   = data.cloudflare_zone.default.name
+  type    = "CNAME"
+  proxied = false
+}
+
+resource "cloudflare_record" "jellyseerr" {
+  zone_id = data.cloudflare_zone.default.id
+  name    = "jellyseerr"
+  value   = data.cloudflare_zone.default.name
+  type    = "CNAME"
+  proxied = false
+}
+
 resource "cloudflare_record" "plex" {
   zone_id = data.cloudflare_zone.default.id
   name    = "plex"
