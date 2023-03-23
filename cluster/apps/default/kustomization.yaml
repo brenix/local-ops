@@ -7,15 +7,13 @@ resources:
   - jellyfin
   - jellyseerr
   - nzbget
-  # - nzbhydra2
-  - overseerr
-  - plex
-  # - plextraktsync
+  # - overseerr
+  # - plex
   - prowlarr
   - radarr
   - recyclarr
   - samba
   - sonarr
-  - tautulli
+  # - tautulli
   - unifi
   # - valheim
