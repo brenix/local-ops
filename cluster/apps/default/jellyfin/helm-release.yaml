@@ -31,9 +31,9 @@ spec:
       PUID: "${PUID}"
       PGID: "${PGID}"
     service:
-      type: LoadBalancer
-      externalTrafficPolicy: Local
       main:
+        type: LoadBalancer
+        externalTrafficPolicy: Local
         ports:
           http:
             port: 8096
