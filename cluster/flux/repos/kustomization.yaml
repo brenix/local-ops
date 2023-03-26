@@ -9,4 +9,3 @@ resources:
   - openebs.yaml
   - prometheus-community.yaml
   - stakater.yaml
-  - nvdp.yaml
