@@ -6,6 +6,7 @@ resources:
   - metallb
   - openebs
   - reloader
+  - nvidia-device-plugin
 
   # FIXME: resolve auth issue
   # - metrics-server
