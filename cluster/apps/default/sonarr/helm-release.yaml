@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/sonarr
-      tag: develop-version-4.0.0.412@sha256:7bdfccd899dd6a88d60a64c157ae580ca5c6de07b81b16e6df6a463fff39d0ad
+      tag: develop-version-4.0.0.420@sha256:1cba92dac586eb1f6d4adc67668f96b5fe6f8f3ba5fdf2f02834aff48477a968
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
