@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/plex
-      tag: 1.32.0@sha256:f9c3c6e82663b047baf6cab77d02a5424321cb32a918fafb3503db4611941f16
+      tag: 1.32.0@sha256:c9a2f940e7b091d8afd2932c3f523796ff6b266ea3e99eb97d5b66b72bd1e7c6
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
