@@ -78,18 +78,14 @@
       "enabled": false
     },
     {
-      "description": "Auto merge container digests",
-      "matchDatasources": [
-        "docker"
-      ],
+      "description": "Auto merge all minor, patch, and digest updates",
       "automerge": true,
-      "automergeType": "branch",
+      "automergeType": "pr",
       "requiredStatusChecks": null,
       "matchUpdateTypes": [
+        "minor",
+        "patch",
         "digest"
-      ],
-      "matchPackagePatterns": [
-        "lscr.io/linuxserver"
       ]
     }
   ]
