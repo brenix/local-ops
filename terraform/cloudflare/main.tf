@@ -1,5 +1,17 @@
 data "cloudflare_zone" "default" {
-  name = var.cloudflare_domain
+  account_id = var.cloudflare_account_id
+  name       = var.cloudflare_domain
+}
+
+resource "random_password" "default" {
+  length  = 32
+  special = false
+}
+
+resource "cloudflare_tunnel" "default" {
+  account_id = var.cloudflare_account_id
+  name       = var.cloudflare_domain
+  secret     = random_password.default.result
 }
 
 resource "cloudflare_record" "overseerr" {
