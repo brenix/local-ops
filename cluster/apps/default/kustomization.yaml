@@ -6,7 +6,7 @@ resources:
   - bazarr
   - jellyfin
   - jellyseerr
-  - nzbget
+  # - nzbget
   # - overseerr
   # - plex
   - prowlarr
