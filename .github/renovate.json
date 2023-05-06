@@ -68,6 +68,14 @@
       "allowedVersions": "!/^\\d{4}.*$/"
     },
     {
+      "description": "Skip old prowlarr images",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": "lscr.io/linuxserver/prowlarr",
+      "allowedVersions": "<=1.5"
+    },
+    {
       "description": "Disable kubernetes-api",
       "matchManagers": [
         "kubernetes"
