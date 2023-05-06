@@ -73,7 +73,7 @@
         "docker"
       ],
       "matchPackageNames": "lscr.io/linuxserver/prowlarr",
-      "allowedVersions": "<=1.5"
+      "allowedVersions": "<=1.4"
     },
     {
       "description": "Disable kubernetes-api",
