@@ -50,5 +50,5 @@ spec:
       media:
         enabled: true
         type: hostPath
-        hostPath: /downloads/complete
+        hostPath: /media
         mountPath: /media

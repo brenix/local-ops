@@ -47,6 +47,11 @@ spec:
         type: hostPath
         hostPath: /downloads
         mountPath: /downloads
+      media:
+        enabled: true
+        type: hostPath
+        hostPath: /media
+        mountPath: /media
     probes:
       liveness:
         enabled: true
