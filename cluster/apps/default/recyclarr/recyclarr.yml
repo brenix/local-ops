@@ -4,7 +4,7 @@
 
 sonarr:
   standard:
-    base_url: http://sonarr:8989/sonarr
+    base_url: http://sonarr:8989
     api_key: ${SONARR_APIKEY}
     delete_old_custom_formats: true
     quality_definition:
@@ -64,7 +64,7 @@ sonarr:
 
 radarr:
   standard:
-    base_url: http://radarr:7878/radarr
+    base_url: http://radarr:7878
     api_key: ${RADARR_APIKEY}
     delete_old_custom_formats: true
     quality_definition:
