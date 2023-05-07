@@ -50,7 +50,7 @@ sonarr:
           - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
           - 85c61753df5da1fb2aab6f2a47426b09 # BR-DISK
           - 9c14d194486c4014d422adc64092d794 # Dubs Only
-          - 9c11cd3f07101cdba90a2d81cf0e56b4 # LQ
+          # - 9c11cd3f07101cdba90a2d81cf0e56b4 # LQ
           - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
           - 06d66ab109d4d2eddb2794d21526d140 # Retags
           - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
@@ -116,7 +116,7 @@ radarr:
           - e7718d7a3ce595f289bfee26adc178f5 # Repack
           - ed38b889b31be83fda192888e2286d83 # BR-DISK -10000
           - 90cedc1fea7ea5d11298bebd3d1d3223 # EVO (no WEBDL) -1000
-          - 90a6f9a284dff5103f6346090e6280c8 # LQ -10000
+          # - 90a6f9a284dff5103f6346090e6280c8 # LQ -10000
           - b8cd450cbfa689c0259a01d9e29ba3d6 # 3D -10000
           - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup removed do avoid multiple downloads
           - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
