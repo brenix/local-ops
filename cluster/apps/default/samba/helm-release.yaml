@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/crazy-max/samba
-      tag: 4.16.10@sha256:70a6648b75e7cd011dafeed3faf538e5ee84de768741943a3383698f98e1c1a2
+      tag: 4.18.2@sha256:7865b58e8e630ae2bf90a618d98c312443ad5bfe2dd061d575d122ce1c05439a
     env:
       TZ: "${TIMEZONE}"
     service:
