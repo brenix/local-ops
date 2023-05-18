@@ -41,7 +41,7 @@ spec:
       downloads:
         enabled: true
         type: hostPath
-        hostPath: /downloads
+        hostPath: /media/downloads
       media:
         enabled: true
         type: hostPath
