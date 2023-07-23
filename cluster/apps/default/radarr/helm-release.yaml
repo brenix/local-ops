@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/radarr
-      tag: 4.7.1-develop@sha256:620e5759a2888ee741948f77e802d9dd3b4e9ef80a3510ff3a0acf8f0575e900
+      tag: 4.7.2-develop@sha256:230582ed19d9dedb341e8ba95fb333abedbcc3276838d4d83da526b7f7425a0c
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
