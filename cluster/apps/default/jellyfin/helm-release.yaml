@@ -25,7 +25,7 @@ spec:
     image:
       repository: lscr.io/linuxserver/jellyfin
       # renovate: datasource=github-releases depName=linuxserver/docker-jellyfin
-      tag: 10.8.10@sha256:f100f33f0c104a38f070c12a8b9ba6d8484f234bce9a4be20268738be9a62045
+      tag: 10.8.10@sha256:256102cfaa0995cca107e472f0bb45c9430b27dee3eec5406575b134f0c04c13
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
