@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: cloudflare/cloudflared
-      tag: 2023.5.0@sha256:342c358193e6057ecf3e5322e852c6b39869583697286f96afb0597a785694d1
+      tag: 2023.5.0@sha256:20a5410bc564bbdd4330310dcde80898ac2f484c178371d5c92c62b81cdea8ca
     args: ["tunnel", "--no-autoupdate", "run"]
     service:
       main:
