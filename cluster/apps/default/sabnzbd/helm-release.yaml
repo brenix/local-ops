@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: lscr.io/linuxserver/sabnzbd
-      tag: 4.0.3@sha256:f10a2731db3d82a7703cebddd67f0ffff0954904baa062b93db6750cf69a6a50
+      tag: 4.1.0@sha256:4cccd0c81a4aabf35e2134aba6cce27678e1fdd929a658787dea82e94eba2fc9
     env:
       TZ: "${TIMEZONE}"
       PUID: "${PUID}"
