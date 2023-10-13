@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,13 +22,18 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: lscr.io/linuxserver/prowlarr
-      tag: 1.7.4@sha256:e54ba286f1972fa98a130d47935620ba4ea2ae72fe72a191c9b0829e9921042b
-    env:
-      TZ: "${TIMEZONE}"
-      PUID: "${PUID}"
-      PGID: "${PUID}"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: lscr.io/linuxserver/prowlarr
+              tag: 1.7.4@sha256:e54ba286f1972fa98a130d47935620ba4ea2ae72fe72a191c9b0829e9921042b
+            env:
+              TZ: "${TIMEZONE}"
+              PUID: "${PUID}"
+              PGID: "${PUID}"
+
     service:
       main:
         type: LoadBalancer
@@ -36,6 +41,7 @@ spec:
         ports:
           http:
             port: 9696
+
     persistence:
       config:
         enabled: true

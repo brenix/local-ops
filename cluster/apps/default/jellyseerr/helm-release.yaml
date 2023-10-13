@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,12 +22,17 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: docker.io/fallenbagel/jellyseerr
-      tag: 1.7.0@sha256:6dcdb5ba50913a14b2bd7df6388607ce175121f3416679c2746501256ac9f075
-    env:
-      TZ: "${TIMEZONE}"
-      LOG_LEVEL: "info"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/fallenbagel/jellyseerr
+              tag: 1.7.0@sha256:6dcdb5ba50913a14b2bd7df6388607ce175121f3416679c2746501256ac9f075
+            env:
+              TZ: "${TIMEZONE}"
+              LOG_LEVEL: "info"
+
     service:
       main:
         type: LoadBalancer
@@ -35,6 +40,7 @@ spec:
         ports:
           http:
             port: 5055
+
     persistence:
       config:
         enabled: true

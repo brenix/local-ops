@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,13 +22,35 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: lscr.io/linuxserver/radarr
-      tag: 4.7.5-develop@sha256:d6e1ca051a8485308b5f1c1fad9b1b75d8af9c9bbbdee5760aa4587a71071a18
-    env:
-      TZ: "${TIMEZONE}"
-      PUID: "${PUID}"
-      PGID: "${PUID}"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: lscr.io/linuxserver/radarr
+              tag: 4.7.5-develop@sha256:d6e1ca051a8485308b5f1c1fad9b1b75d8af9c9bbbdee5760aa4587a71071a18
+            env:
+              TZ: "${TIMEZONE}"
+              PUID: "${PUID}"
+              PGID: "${PUID}"
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /usr/bin/env
+                      - bash
+                      - -c
+                      - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
+                        read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+                  failureThreshold: 5
+                  initialDelaySeconds: 60
+                  periodSeconds: 10
+                  successThreshold: 1
+                  timeoutSeconds: 10
+
     service:
       main:
         type: LoadBalancer
@@ -36,6 +58,7 @@ spec:
         ports:
           http:
             port: 7878
+
     persistence:
       config:
         enabled: true
@@ -52,20 +75,3 @@ spec:
         type: hostPath
         hostPath: /media
         mountPath: /media
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          exec:
-            command:
-              - /usr/bin/env
-              - bash
-              - -c
-              - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
-                read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
-          failureThreshold: 5
-          initialDelaySeconds: 60
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 10

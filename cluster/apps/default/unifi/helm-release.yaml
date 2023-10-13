@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,13 +22,18 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: lscr.io/linuxserver/unifi-controller
-      tag: 7.5.176@sha256:52e0d8348b81e946325cd6461229eba395367356b1f0cc5d335dffc5f7be75ff
-    env:
-      TZ: "${TIMEZONE}"
-      PUID: "${PUID}"
-      PGID: "${PUID}"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: lscr.io/linuxserver/unifi-controller
+              tag: 7.5.176@sha256:52e0d8348b81e946325cd6461229eba395367356b1f0cc5d335dffc5f7be75ff
+            env:
+              TZ: "${TIMEZONE}"
+              PUID: "${PUID}"
+              PGID: "${PUID}"
+
     service:
       main:
         type: LoadBalancer
@@ -73,6 +78,7 @@ spec:
             enabled: true
             port: 10001
             protocol: UDP
+
     persistence:
       data:
         enabled: true
