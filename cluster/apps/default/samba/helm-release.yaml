@@ -49,12 +49,14 @@ spec:
       downloads:
         enabled: true
         type: hostPath
+        hostPath: /media/downloads
         hostPathType: Directory
         globalMounts:
           - path: /downloads
       media:
         enabled: true
         type: hostPath
+        hostPath: /media
         hostPathType: Directory
         globalMounts:
           - path: /media
