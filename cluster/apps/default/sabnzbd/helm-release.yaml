@@ -26,13 +26,33 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: lscr.io/linuxserver/sabnzbd
-      tag: 4.1.0@sha256:24a54a5ed9a1c7176fa24ebc30bc05a97235aced5d693411aa70bf9cdc8adc93
-    env:
-      TZ: "${TIMEZONE}"
-      PUID: "${PUID}"
-      PGID: "${PUID}"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: lscr.io/linuxserver/sabnzbd
+              tag: 4.1.0@sha256:24a54a5ed9a1c7176fa24ebc30bc05a97235aced5d693411aa70bf9cdc8adc93
+            env:
+              TZ: "${TIMEZONE}"
+              PUID: "${PUID}"
+              PGID: "${PUID}"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api?mode=version
+                    port: 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+ 
     service:
       main:
         type: LoadBalancer
@@ -40,21 +60,7 @@ spec:
         ports:
           http:
             port: 8080
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /api?mode=version
-            port: 8080
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
+
     persistence:
       config:
         enabled: true

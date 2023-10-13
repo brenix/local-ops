@@ -22,14 +22,36 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: lscr.io/linuxserver/sonarr
-      tag: 4.0.0-develop
-      pullPolicy: Always
-    env:
-      TZ: "${TIMEZONE}"
-      PUID: "${PUID}"
-      PGID: "${PUID}"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: lscr.io/linuxserver/sonarr
+              tag: 4.0.0-develop
+              pullPolicy: Always
+            env:
+              TZ: "${TIMEZONE}"
+              PUID: "${PUID}"
+              PGID: "${PUID}"
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /usr/bin/env
+                      - bash
+                      - -c
+                      - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
+                        read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+                  failureThreshold: 5
+                  initialDelaySeconds: 60
+                  periodSeconds: 10
+                  successThreshold: 1
+                  timeoutSeconds: 10
+
     service:
       main:
         type: LoadBalancer
@@ -37,6 +59,7 @@ spec:
         ports:
           http:
             port: 8989
+
     persistence:
       config:
         enabled: true
@@ -53,20 +76,3 @@ spec:
         type: hostPath
         hostPath: /media
         mountPath: /media
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          exec:
-            command:
-              - /usr/bin/env
-              - bash
-              - -c
-              - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
-                read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
-          failureThreshold: 5
-          initialDelaySeconds: 60
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 10
