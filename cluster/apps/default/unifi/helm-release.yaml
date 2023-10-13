@@ -85,4 +85,5 @@ spec:
         type: hostPath
         hostPathType: DirectoryOrCreate
         hostPath: /config/unifi
-        mountPath: /config
+        globalMounts:
+          - path: /config

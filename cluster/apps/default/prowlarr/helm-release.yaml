@@ -48,4 +48,5 @@ spec:
         type: hostPath
         hostPathType: DirectoryOrCreate
         hostPath: /config/prowlarr
-        mountPath: /config
+        globalMounts:
+          - path: /config

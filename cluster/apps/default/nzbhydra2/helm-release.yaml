@@ -48,4 +48,5 @@ spec:
         type: hostPath
         hostPathType: DirectoryOrCreate
         hostPath: /config/nzbhydra2
-        mountPath: /config
+        globalMounts:
+          - path: /config

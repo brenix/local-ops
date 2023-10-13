@@ -47,4 +47,5 @@ spec:
         type: hostPath
         hostPathType: DirectoryOrCreate
         hostPath: /config/jellyseerr
-        mountPath: /app/config
+        globalMounts:
+          - path: /config

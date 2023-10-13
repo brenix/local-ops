@@ -65,7 +65,8 @@ spec:
         type: hostPath
         hostPathType: DirectoryOrCreate
         hostPath: /config/radarr
-        mountPath: /config
+        globalMounts:
+          - path: /config
       downloads:
         enabled: true
         type: hostPath

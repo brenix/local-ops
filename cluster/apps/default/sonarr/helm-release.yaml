@@ -65,7 +65,8 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /config/sonarr
-        mountPath: /config
+        globalMounts:
+          - path: /config
       downloads:
         enabled: true
         type: hostPath
