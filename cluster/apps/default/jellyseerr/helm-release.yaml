@@ -48,4 +48,4 @@ spec:
         hostPathType: DirectoryOrCreate
         hostPath: /config/jellyseerr
         globalMounts:
-          - path: /config
+          - path: /app/config
