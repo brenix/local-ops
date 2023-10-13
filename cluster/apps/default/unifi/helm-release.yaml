@@ -83,5 +83,6 @@ spec:
       data:
         enabled: true
         type: hostPath
+        hostPathType: DirectoryOrCreate
         hostPath: /config/unifi
         mountPath: /config

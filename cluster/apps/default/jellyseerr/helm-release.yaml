@@ -45,5 +45,6 @@ spec:
       config:
         enabled: true
         type: hostPath
+        hostPathType: DirectoryOrCreate
         hostPath: /config/jellyseerr
         mountPath: /app/config

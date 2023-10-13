@@ -63,15 +63,18 @@ spec:
       config:
         enabled: true
         type: hostPath
+        hostPathType: DirectoryOrCreate
         hostPath: /config/radarr
         mountPath: /config
       downloads:
         enabled: true
         type: hostPath
+        hostPathType: Directory
         hostPath: /media/downloads
         mountPath: /downloads
       media:
         enabled: true
         type: hostPath
+        hostPathType: Directory
         hostPath: /media
         mountPath: /media
