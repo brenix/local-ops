@@ -50,18 +50,21 @@ spec:
         enabled: true
         type: hostPath
         hostPathType: Directory
-        hostPath: /media/downloads
+        globalMounts:
+          - path: /downloads
       media:
         enabled: true
         type: hostPath
         hostPathType: Directory
-        hostPath: /media
+        globalMounts:
+          - path: /media
       temp:
         enabled: true
         type: hostPath
         hostPathType: Directory
         hostPath: /tmp
-        mountPath: /temp
+        globalMounts:
+          - path: /temp
 
     configMaps:
       config:

@@ -72,10 +72,12 @@ spec:
         type: hostPath
         hostPathType: Directory
         hostPath: /media/downloads
-        mountPath: /downloads
+        globalMounts:
+          - path: /downloads
       media:
         enabled: true
         type: hostPath
         hostPathType: Directory
         hostPath: /media
-        mountPath: /media
+        globalMounts:
+          - path: /media
