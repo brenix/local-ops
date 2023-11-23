@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/sabnzbd
-              tag: 4.1.0@sha256:eaad91c1504889c86ee9707a5fb8fbcd5d2a2e60cc27471551ab0858463b2d29
+              tag: 4.1.0@sha256:0bf6bb6053734015f226210dca6502e94c90632fa9d68e57c41752ac3027b6be
             env:
               TZ: "${TIMEZONE}"
               PUID: "${PUID}"
