@@ -6,6 +6,3 @@ resources:
   - metallb
   - openebs
   - reloader
-
-  # FIXME: resolve auth issue
-  # - metrics-server
