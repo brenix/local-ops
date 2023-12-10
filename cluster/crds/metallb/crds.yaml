@@ -25,6 +25,7 @@ spec:
   interval: 30m
   prune: false
   wait: true
+  force: true
   sourceRef:
     kind: GitRepository
     name: metallb-source
