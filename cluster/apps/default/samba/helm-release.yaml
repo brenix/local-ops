@@ -31,6 +31,7 @@ spec:
               tag: 4.18.9@sha256:c4a877e6d089cb543cf228311da8df771dca4dc94d7f1484660159e0f9a6e73d
             env:
               TZ: "${TIMEZONE}"
+              CONFIG_FILE: /config/config.yml
 
     service:
       main:
@@ -44,8 +45,6 @@ spec:
         enabled: true
         name: samba-config
         type: configMap
-        mountPath: /data/config.yml
-        subPath: config.yml
       downloads:
         enabled: true
         type: hostPath
