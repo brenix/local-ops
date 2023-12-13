@@ -62,9 +62,9 @@ spec:
 
     persistence:
       config-file:
-        enabled: true
         type: configMap
         name: recyclarr
-        subPath: recyclarr.yml
-        mountPath: /config/recyclarr.yml
-        readOnly: true
+        globalMounts:
+          - path: /config/recyclarr.yml
+            subPath: recyclarr.yml
+            readOnly: true
