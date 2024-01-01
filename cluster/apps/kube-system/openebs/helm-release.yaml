@@ -22,3 +22,12 @@ spec:
   upgrade:
     remediation:
       retries: 5
+  values:
+    ndm:
+      enabled: false
+    ndmOperator:
+      enabled: false
+    localprovisioner:
+      enableDeviceClass: false
+      hostpathClass:
+        isDefaultClass: true
