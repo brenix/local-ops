@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: mongodb
-      version: 4.8.0
+      version: 14.4.9
       sourceRef:
         kind: HelmRepository
         name: bitnami-oci
