@@ -46,8 +46,10 @@ spec:
         type: persistentVolumeClaim
         size: 8Gi
         retain: true
+        accessMode: ReadWriteOnce
         globalMounts:
           - path: /data/db
+
       initdb:
         enabled: true
         type: secret
