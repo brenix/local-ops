@@ -30,15 +30,24 @@ spec:
             image:
               repository: docker.io/library/mongo
               tag: 4.4@sha256:440b3b7bc44e1918b05f7bb6d6326534cb84a3db4fff00861624f9d13437bc0a
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
 
     service:
       main:
         type: ClusterIP
         ports:
+          http:
+            enabled: false
           mongodb:
             enabled: true
             primary: true
-            port: 8096
+            port: 27017
             protocol: TCP
 
     persistence:
