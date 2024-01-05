@@ -36,12 +36,9 @@ spec:
               MONGO_HOST: mongodb.default.svc.cluster.local
               MONGO_PORT: 27017
               MONGO_DBNAME: unifi
-              MONGO_USER: unifi
-              MONGO_PASS:
-                valueFrom:
-                  secretKeyRef:
-                    name: mongodb
-                    key: mongodb-passwords
+            envFrom:
+              - secretRef:
+                  name: unifi
     service:
       main:
         type: LoadBalancer

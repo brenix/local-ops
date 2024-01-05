@@ -1,35 +1,56 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: mongodb
+  name: jellyfin
   namespace: default
 spec:
   interval: 15m
   chart:
     spec:
-      chart: mongodb
-      version: 14.4.9
+      chart: app-template
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
-        name: bitnami-oci
+        name: bjw-s
         namespace: flux-system
-      interval: 15m
   install:
     createNamespace: true
-    crds: Skip
     remediation:
       retries: 5
   upgrade:
     remediation:
       retries: 5
   values:
-    useStatefulSet: true
-    auth:
-      usernames:
-        - unifi
-      databases:
-        - unifi
-      existingSecret: mongodb
-    directoryPerDB: true
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/library/mongo
+              # renovate: datasource=github-releases depName=linuxserver/docker-jellyfin
+              tag: 4.4@sha256:440b3b7bc44e1918b05f7bb6d6326534cb84a3db4fff00861624f9d13437bc0a
+
+    service:
+      main:
+        type: ClusterIP
+        ports:
+          mongodb:
+            enabled: true
+            primary: true
+            port: 8096
+            protocol: TCP
+
+    persistence:
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        size: 8Gi
+        retain: true
+        globalMounts:
+          - path: /data/db
+      initdb:
+        enabled: true
+        type: secret
+        globalMounts:
+          - path: /docker-entrypoint-initdb.d
