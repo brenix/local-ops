@@ -27,13 +27,21 @@ spec:
         containers:
           main:
             image:
-              repository: lscr.io/linuxserver/unifi-controller
-              tag: 8.0.24@sha256:0ae315a3a45635e443899e30e86bd507c2c48922cb27f4bc7241777885f4650e
+              repository: lscr.io/linuxserver/unifi-network-application
+              tag: 8.0.26@sha256:5cf805adc3d1efe833620f09f0c838705587773be08183d0f18374fc422a119a
             env:
               TZ: "${TIMEZONE}"
               PUID: "${PUID}"
               PGID: "${PUID}"
-
+              MONGO_HOST: mongodb.default.svc.cluster.local
+              MONGO_PORT: 27017
+              MONGO_DBNAME: unifi
+              MONGO_USER: root
+              MONGO_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: mongodb
+                    key: mongodb-root-password
     service:
       main:
         type: LoadBalancer
