@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: jellyfin
+  name: mongodb
   namespace: default
 spec:
   interval: 15m
@@ -28,7 +28,6 @@ spec:
           main:
             image:
               repository: docker.io/library/mongo
-              # renovate: datasource=github-releases depName=linuxserver/docker-jellyfin
               tag: 4.4@sha256:440b3b7bc44e1918b05f7bb6d6326534cb84a3db4fff00861624f9d13437bc0a
 
     service:
