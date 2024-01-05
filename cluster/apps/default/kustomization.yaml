@@ -5,6 +5,7 @@ resources:
   - namespace.yaml
   - jellyfin
   - jellyseerr
+  - mongodb
   - prowlarr
   - radarr
   - recyclarr
