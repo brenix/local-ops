@@ -29,5 +29,7 @@ spec:
     auth:
       usernames:
         - unifi
+      databases:
+        - unifi
       existingSecret: mongodb
     directoryPerDB: true
