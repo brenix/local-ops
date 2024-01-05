@@ -28,7 +28,6 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/unifi-network-application
-              # renovate: datasource=github-releases depName=linuxserver/docker-unifi-network-application
               tag: 8.0.26
               pullPolicy: Always
             env:

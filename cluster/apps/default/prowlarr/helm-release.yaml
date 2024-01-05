@@ -28,7 +28,6 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/prowlarr
-              # renovate: datasource=github-releases depName=linuxserver/docker-prowlarr
               tag: 1.11.4
               pullPolicy: Always
             env:

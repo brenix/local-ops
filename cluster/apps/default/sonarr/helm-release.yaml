@@ -28,7 +28,6 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/sonarr
-              # renovate: datasource=github-releases depName=linuxserver/docker-sonarr
               tag: 4.0.0
               pullPolicy: Always
             env:
