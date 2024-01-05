@@ -28,7 +28,8 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/prowlarr
-              tag: 1.7.4@sha256:e54ba286f1972fa98a130d47935620ba4ea2ae72fe72a191c9b0829e9921042b
+              # renovate: datasource=github-releases depName=linuxserver/docker-prowlarr
+              tag: 1.11.4@sha256:81c071af885071c0c597a7cffa8368cc77e7bd87328a59512589930641c31206
             env:
               TZ: "${TIMEZONE}"
               PUID: "${PUID}"

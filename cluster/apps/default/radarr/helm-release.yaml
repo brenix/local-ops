@@ -28,6 +28,7 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/radarr
+              # renovate: datasource=github-releases depName=linuxserver/docker-radarr
               tag: 5.2.6@sha256:5712d210a6b16ed54a62d23e7d7f90c83170495664af7f6c7ee9914a2e3b6638
               pullPolicy: Always
             env:
