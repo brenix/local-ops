@@ -27,5 +27,7 @@ spec:
   values:
     useStatefulSet: true
     auth:
+      usernames:
+        - unifi
       existingSecret: mongodb
     directoryPerDB: true
