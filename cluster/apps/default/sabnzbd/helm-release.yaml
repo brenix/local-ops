@@ -33,7 +33,8 @@ spec:
             image:
               repository: lscr.io/linuxserver/sabnzbd
               # renovate: datasource=github-releases depName=linuxserver/docker-sabnzbd
-              tag: 4.2.0@sha256:1c91d12211069f870a863e686b2603d7b0cf0ef6586eb56ccf9991cbf3aac596
+              tag: 4.2.0
+              pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
               PUID: "${PUID}"

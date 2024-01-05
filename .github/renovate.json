@@ -94,13 +94,12 @@
       "enabled": false
     },
     {
-      "description": "Auto merge all patch and digest updates",
+      "description": "Auto merge all patch updates",
       "automerge": true,
       "automergeType": "pr",
       "requiredStatusChecks": null,
       "matchUpdateTypes": [
-        "patch",
-        "digest"
+        "patch"
       ]
     },
     {

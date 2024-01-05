@@ -29,7 +29,8 @@ spec:
             image:
               repository: lscr.io/linuxserver/prowlarr
               # renovate: datasource=github-releases depName=linuxserver/docker-prowlarr
-              tag: 1.11.4@sha256:81c071af885071c0c597a7cffa8368cc77e7bd87328a59512589930641c31206
+              tag: 1.11.4
+              pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
               PUID: "${PUID}"

@@ -29,7 +29,8 @@ spec:
           main:
             image:
               repository: docker.io/library/mongo
-              tag: 4.4@sha256:440b3b7bc44e1918b05f7bb6d6326534cb84a3db4fff00861624f9d13437bc0a
+              tag: "4.4"
+              pullPolicy: Always
             probes:
               liveness:
                 enabled: false

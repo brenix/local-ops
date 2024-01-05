@@ -29,7 +29,8 @@ spec:
             image:
               repository: lscr.io/linuxserver/unifi-network-application
               # renovate: datasource=github-releases depName=linuxserver/docker-unifi-network-application
-              tag: 8.0.26@sha256:5cf805adc3d1efe833620f09f0c838705587773be08183d0f18374fc422a119a
+              tag: 8.0.26
+              pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
               PUID: "${PUID}"

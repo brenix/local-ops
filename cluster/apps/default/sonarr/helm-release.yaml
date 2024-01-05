@@ -29,7 +29,7 @@ spec:
             image:
               repository: lscr.io/linuxserver/sonarr
               # renovate: datasource=github-releases depName=linuxserver/docker-sonarr
-              tag: 4.0.0@sha256:56be5ed1a521c04727b99f114d2f979401ece31e39efa018e01ec1654677b889
+              tag: 4.0.0
               pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
