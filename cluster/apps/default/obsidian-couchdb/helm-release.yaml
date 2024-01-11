@@ -51,8 +51,6 @@ spec:
               requests:
                 cpu: 48m
                 memory: 146M
-              limits:
-                memory: 146M
 
     service:
       main:
