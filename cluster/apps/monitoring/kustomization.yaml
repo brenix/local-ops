@@ -7,3 +7,4 @@ resources:
   - healthchecks-ping
   - grafana
   - prometheus
+  - unpoller

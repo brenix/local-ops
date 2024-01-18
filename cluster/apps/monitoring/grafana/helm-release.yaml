@@ -51,7 +51,28 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
-          revision: 27
+          revision: 33
+          datasource: Prometheus
+        # Ref: https://unpoller.com/docs/install/grafana
+        unifi-client-dpi:
+          gnetId: 11310
+          revision: 5
+          datasource: Prometheus
+        unifi-sites:
+          gnetId: 11311
+          revision: 5
+          datasource: Prometheus
+        unifi-usw:
+          gnetId: 11312
+          revision: 9
+          datasource: Prometheus
+        unifi-uap:
+          gnetId: 11314
+          revision: 10
+          datasource: Prometheus
+        unifi-clients:
+          gnetId: 11315
+          revision: 9
           datasource: Prometheus
     dashboardProviders:
       dashboardproviders.yaml:
