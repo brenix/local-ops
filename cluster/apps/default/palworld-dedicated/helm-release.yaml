@@ -1,0 +1,65 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: palworld-dedicated
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/jammsen/palworld-dedicated-server
+              tag: latest
+              pullPolicy: Always
+            env:
+              TIMEZONE: America/Los_Angeles
+              PUID: ${PUID}
+              PGID: ${PGID}
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+
+    service:
+      main:
+        type: LoadBalancer
+        annotations:
+        externalTrafficPolicy: Local
+        ports:
+          game:
+            enabled: true
+            port: 8211
+            primary: true
+            protocol: UDP
+          http:
+            enabled: false
+
+    persistence:
+      config:
+        enabled: true
+        type: hostPath
+        hostPath: /config/palworld
+        globalMounts:
+          - path: /palworld
