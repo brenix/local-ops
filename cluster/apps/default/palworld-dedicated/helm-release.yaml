@@ -22,6 +22,8 @@ spec:
     remediation:
       retries: 5
   values:
+    defaultPodOptions:
+      hostNetwork: true
     controllers:
       main:
         containers:
@@ -44,7 +46,8 @@ spec:
 
     service:
       main:
-        type: LoadBalancer
+        enabled: false
+        type: ClusterIP
         annotations:
         externalTrafficPolicy: Local
         ports:
