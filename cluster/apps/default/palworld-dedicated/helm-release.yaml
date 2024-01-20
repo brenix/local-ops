@@ -30,14 +30,16 @@ spec:
         containers:
           main:
             image:
-              repository: docker.io/jammsen/palworld-dedicated-server
+              repository: docker.io/thijsvanloef/palworld-server-docker
               tag: latest
               pullPolicy: Always
             env:
               TIMEZONE: America/Los_Angeles
               PUID: ${PUID}
               PGID: ${PGID}
-              COMMUNITY_SERVER: "false"
+            envFrom:
+              - secretRef:
+                  name: palworld
             probes:
               liveness:
                 enabled: false
@@ -49,17 +51,21 @@ spec:
     service:
       main:
         enabled: false
-        type: ClusterIP
+        type: LoadBalancer
         annotations:
         externalTrafficPolicy: Local
         ports:
+          http:
+            enabled: false
           game:
             enabled: true
             port: 8211
             primary: true
             protocol: UDP
-          http:
-            enabled: false
+          rcon:
+            enabled: true
+            port: 25575
+            protocol: TCP
 
     persistence:
       config:
