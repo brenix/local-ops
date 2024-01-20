@@ -37,6 +37,7 @@ spec:
               TIMEZONE: America/Los_Angeles
               PUID: ${PUID}
               PGID: ${PGID}
+              COMMUNITY_SERVER: "false"
             probes:
               liveness:
                 enabled: false
