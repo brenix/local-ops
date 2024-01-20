@@ -74,3 +74,13 @@ spec:
         hostPath: /config/palworld
         globalMounts:
           - path: /palworld
+      startscript:
+        enabled: true
+        type: configMap
+        name: palworld
+        advancedMounts:
+          main:
+            main:
+              - path: /home/steam/server/start.sh
+                readOnly: true
+                subPath: start.sh
