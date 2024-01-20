@@ -24,6 +24,7 @@ spec:
   values:
     defaultPodOptions:
       hostNetwork: true
+      terminationGracePeriodSeconds: 10
     controllers:
       main:
         containers:
