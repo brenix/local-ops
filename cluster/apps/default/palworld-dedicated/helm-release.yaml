@@ -34,6 +34,7 @@ spec:
               pullPolicy: Always
             env:
               TIMEZONE: America/Los_Angeles
+              COMMUNITY_SERVER: "true"
               PUID: ${PUID}
               PGID: ${PGID}
             probes:
