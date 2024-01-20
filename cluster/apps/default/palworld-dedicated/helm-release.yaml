@@ -82,5 +82,5 @@ spec:
           main:
             main:
               - path: /home/steam/server/start.sh
-                readOnly: true
                 subPath: start.sh
+                defaultMode: 493
