@@ -24,7 +24,7 @@ spec:
   values:
     defaultPodOptions:
       hostNetwork: true
-      terminationGracePeriodSeconds: "10"
+      terminationGracePeriodSeconds: "300"
     controllers:
       main:
         containers:
@@ -50,6 +50,30 @@ spec:
             resources:
               limits:
                 memory: 20Gi
+          rcon:
+            image:
+              repository: docker.io/itzg/rcon-cli
+              tag: 1.6.4-ubuntu
+            envFrom:
+              - secretRef:
+                  name: palworld
+            command:
+              - /bin/sh
+            args:
+              - -c
+              - "sleep infinity"
+            lifecycle:
+              preStop:
+                exec:
+                  command:
+                    - rcon-cli --host 127.0.0.1 -p 25575 -P ${ADMIN_PASSWORD} Shutdown 120 restarting
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
 
     service:
       main:
