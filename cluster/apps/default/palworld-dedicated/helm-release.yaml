@@ -47,6 +47,9 @@ spec:
                 enabled: false
               startup:
                 enabled: false
+            resources:
+              limits:
+                memory: 20Gi
 
     service:
       main:
