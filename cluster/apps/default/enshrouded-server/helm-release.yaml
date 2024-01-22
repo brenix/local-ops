@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: palworld-dedicated
+  name: enshrouded-server
   namespace: default
 spec:
   interval: 30m
@@ -24,14 +24,14 @@ spec:
   values:
     defaultPodOptions:
       hostNetwork: true
-      terminationGracePeriodSeconds: "180"
+      terminationGracePeriodSeconds: "15"
     controllers:
       main:
         containers:
           main:
             image:
-              repository: docker.io/thijsvanloef/palworld-server-docker
-              tag: latest
+              repository: docker.io/sknnr/enshrouded-dedicated-server
+              tag: v1.0.4
               pullPolicy: Always
             env:
               TIMEZONE: America/Los_Angeles
@@ -39,7 +39,7 @@ spec:
               PGID: ${PGID}
             envFrom:
               - secretRef:
-                  name: palworld
+                  name: enshrouded
             probes:
               liveness:
                 enabled: false
@@ -52,30 +52,6 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 16Gi
-          rcon:
-            image:
-              repository: docker.io/itzg/rcon-cli
-              tag: 1.6.4-ubuntu
-            envFrom:
-              - secretRef:
-                  name: palworld
-            command:
-              - /bin/sh
-            args:
-              - -c
-              - "sleep infinity"
-            lifecycle:
-              preStop:
-                exec:
-                  command:
-                    - rcon-cli --host 127.0.0.1 -p 25575 -P $ADMIN_PASSWORD Shutdown 120 restarting
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
 
     service:
       main:
@@ -88,28 +64,18 @@ spec:
             enabled: false
           game:
             enabled: true
-            port: 8211
+            port: 15636
             primary: true
             protocol: UDP
-          rcon:
+          query:
             enabled: true
-            port: 25575
-            protocol: TCP
+            port: 15637
+            protocol: UDP
 
     persistence:
       config:
         enabled: true
         type: hostPath
-        hostPath: /config/palworld
+        hostPath: /config/enshrouded
         globalMounts:
-          - path: /palworld
-      startscript:
-        enabled: true
-        type: configMap
-        name: palworld
-        advancedMounts:
-          main:
-            main:
-              - path: /home/steam/server/start.sh
-                subPath: start.sh
-                defaultMode: 493
+          - path: /home/steam/enshrouded/savegame
