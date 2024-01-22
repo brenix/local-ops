@@ -66,7 +66,7 @@ spec:
               preStop:
                 exec:
                   command:
-                    - rcon-cli --host 127.0.0.1 -p 25575 -P ${ADMIN_PASSWORD} Shutdown 120 restarting
+                    - rcon-cli --host 127.0.0.1 -p 25575 -P $ADMIN_PASSWORD Shutdown 120 restarting
             probes:
               liveness:
                 enabled: false
