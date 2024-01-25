@@ -28,7 +28,7 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/unifi-network-application
-              tag: 8.0.26
+              tag: 8.0.28
               pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
