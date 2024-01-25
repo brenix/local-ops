@@ -31,7 +31,7 @@ spec:
           main:
             image:
               repository: docker.io/sknnr/enshrouded-dedicated-server
-              tag: v1.0.4
+              tag: v2.0.1
               pullPolicy: Always
             env:
               TIMEZONE: America/Los_Angeles
