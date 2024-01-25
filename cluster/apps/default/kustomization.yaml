@@ -7,7 +7,7 @@ resources:
   - jellyseerr
   - mongodb
   - prowlarr
-  - obsidian-couchdb
+  # - obsidian-couchdb
   - radarr
   - recyclarr
   - sabnzbd
@@ -15,3 +15,4 @@ resources:
   - sonarr
   - unifi
   - palworld-dedicated
+  - enshrouded-server
