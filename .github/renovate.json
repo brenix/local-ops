@@ -3,9 +3,6 @@
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
   "rebaseWhen": "conflicted",
-  "schedule": [
-    "after 3am and before 8am"
-  ],
   "pre-commit": {
     "enabled": false
   },
@@ -90,6 +87,9 @@
       "automerge": true,
       "automergeType": "pr",
       "requiredStatusChecks": null,
+      "ignoreDeps": [
+        "docker.io/sknnr/enshrouded-dedicated-server"
+      ],
       "matchUpdateTypes": [
         "minor",
         "patch"
