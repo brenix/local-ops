@@ -70,7 +70,7 @@
         "docker"
       ],
       "matchPackageNames": "docker.io/library/mongo",
-      "allowedVersions": "/^4\\.[0-4]\\.[0-9]$/"
+      "allowedVersions": "<=4.4"
     },
     {
       "description": "Disable kubernetes-api",
@@ -85,10 +85,19 @@
     {
       "description": "Auto merge all patch updates",
       "automerge": true,
-      "automergeType": "pr",
+      "automergeType": "branch",
       "requiredStatusChecks": null,
-      "ignoreDeps": [
-        "docker.io/sknnr/enshrouded-dedicated-server"
+      "matchUpdateTypes": [
+        "patch"
+      ]
+    },
+    {
+      "description": "Auto merge KPS minor and patch updates",
+      "automerge": true,
+      "automergeType": "branch",
+      "requiredStatusChecks": null,
+      "matchPackageNames": [
+        "kube-prometheus-stack"
       ],
       "matchUpdateTypes": [
         "minor",
