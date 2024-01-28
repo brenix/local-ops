@@ -30,8 +30,8 @@ spec:
         containers:
           main:
             image:
-              repository: docker.io/sknnr/enshrouded-dedicated-server
-              tag: v2.0.4
+              repository: docker.io/mornedhels/enshrouded-server
+              tag: dev-proton
               pullPolicy: Always
             env:
               TIMEZONE: America/Los_Angeles
@@ -78,4 +78,4 @@ spec:
         type: hostPath
         hostPath: /config/enshrouded
         globalMounts:
-          - path: /home/steam/enshrouded/savegame
+          - path: /opt/enshrouded
