@@ -24,14 +24,14 @@ spec:
   values:
     defaultPodOptions:
       hostNetwork: true
-      terminationGracePeriodSeconds: "180"
+      terminationGracePeriodSeconds: "30"
     controllers:
       main:
         containers:
           main:
             image:
               repository: docker.io/thijsvanloef/palworld-server-docker
-              tag: latest
+              tag: v0.17.0
               pullPolicy: Always
             env:
               TIMEZONE: America/Los_Angeles
@@ -52,30 +52,30 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 16Gi
-          rcon:
-            image:
-              repository: docker.io/itzg/rcon-cli
-              tag: 1.6.4-ubuntu
-            envFrom:
-              - secretRef:
-                  name: palworld
-            command:
-              - /bin/sh
-            args:
-              - -c
-              - "sleep infinity"
-            lifecycle:
-              preStop:
-                exec:
-                  command:
-                    - rcon-cli --host 127.0.0.1 -p 25575 -P $ADMIN_PASSWORD Shutdown 120 restarting
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
+          # rcon:
+          #   image:
+          #     repository: docker.io/itzg/rcon-cli
+          #     tag: 1.6.4-ubuntu
+          #   envFrom:
+          #     - secretRef:
+          #         name: palworld
+          #   command:
+          #     - /bin/sh
+          #   args:
+          #     - -c
+          #     - "sleep infinity"
+          #   lifecycle:
+          #     preStop:
+          #       exec:
+          #         command:
+          #           - rcon-cli --host 127.0.0.1 -p 25575 -P $ADMIN_PASSWORD Shutdown 120 restarting
+          #   probes:
+          #     liveness:
+          #       enabled: false
+          #     readiness:
+          #       enabled: false
+          #     startup:
+          #       enabled: false
 
     service:
       main:
@@ -103,13 +103,13 @@ spec:
         hostPath: /config/palworld
         globalMounts:
           - path: /palworld
-      startscript:
-        enabled: true
-        type: configMap
-        name: palworld
-        advancedMounts:
-          main:
-            main:
-              - path: /home/steam/server/start.sh
-                subPath: start.sh
-                defaultMode: 493
+      # startscript:
+      #   enabled: true
+      #   type: configMap
+      #   name: palworld
+      #   advancedMounts:
+      #     main:
+      #       main:
+      #         - path: /home/steam/server/start.sh
+      #           subPath: start.sh
+      #           defaultMode: 493
