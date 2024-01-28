@@ -78,4 +78,4 @@ spec:
         type: hostPath
         hostPath: /config/enshrouded
         globalMounts:
-          - path: /opt/enshrouded
+          - path: /opt/enshrouded/server/savegame
