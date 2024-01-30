@@ -92,12 +92,13 @@
       ]
     },
     {
-      "description": "Auto merge KPS minor and patch updates",
+      "description": "Auto merge some minor and patch updates",
       "automerge": true,
       "automergeType": "branch",
       "requiredStatusChecks": null,
       "matchPackageNames": [
-        "kube-prometheus-stack"
+        "kube-prometheus-stack",
+        "grafana"
       ],
       "matchUpdateTypes": [
         "minor",
