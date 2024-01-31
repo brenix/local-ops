@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/sabnzbd
-              tag: 4.2.1
+              tag: 4.2.2
               pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
