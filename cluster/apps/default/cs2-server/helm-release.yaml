@@ -1,0 +1,83 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cs2-server
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    defaultPodOptions:
+      hostNetwork: true
+      terminationGracePeriodSeconds: "15"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/soren90/cs2
+              tag: latest
+              pullPolicy: Always
+            env:
+              TIMEZONE: America/Los_Angeles
+              PUID: ${PUID}
+              PGID: ${PGID}
+              GAME_TYPE: "0"
+              GAME_MODE: "1"
+              MAP: "de_dust"
+              MAXPLAYERS: "12"
+              MAPGROUP: "mg_active"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                memory: 2Gi
+              limits:
+                memory: 16Gi
+
+    service:
+      main:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            enabled: false
+          game:
+            enabled: true
+            port: 15636
+            primary: true
+            protocol: UDP
+          query:
+            enabled: true
+            port: 15637
+            protocol: UDP
+
+    # persistence:
+    #   config:
+    #     enabled: true
+    #     type: hostPath
+    #     hostPath: /config/cs2
+    #     globalMounts:
+    #       - path: /opt/cs2/server/savegame
