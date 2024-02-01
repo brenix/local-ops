@@ -81,4 +81,4 @@ spec:
         type: hostPath
         hostPath: /config/cs2
         globalMounts:
-          - path: /mnt/server/cs2/steamapps
+          - path: /mnt/server/Steam
