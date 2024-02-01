@@ -30,8 +30,8 @@ spec:
         containers:
           main:
             image:
-              repository: docker.io/soren90/cs2
-              tag: latest
+              repository: docker.io/joedwards32/cs2
+              tag: 2.1.1
               pullPolicy: Always
             envFrom:
               - secretRef:
@@ -40,13 +40,6 @@ spec:
               TIMEZONE: America/Los_Angeles
               PUID: ${PUID}
               PGID: ${PGID}
-              SERVER_HOSTNAME: "Solar Fisties"
-              GAME_TYPE: "0"
-              GAME_MODE: "1"
-              MAP: "de_dust"
-              PORT: 27017
-              MAXPLAYERS: "12"
-              MAPGROUP: "mg_active"
             probes:
               liveness:
                 enabled: false
@@ -62,18 +55,7 @@ spec:
 
     service:
       main:
-        enabled: true
-        type: LoadBalancer
-        annotations:
-        externalTrafficPolicy: Local
-        ports:
-          http:
-            enabled: false
-          game:
-            enabled: true
-            port: 27017
-            primary: true
-            protocol: UDP
+        enabled: false
 
     persistence:
       config:
@@ -81,4 +63,4 @@ spec:
         type: hostPath
         hostPath: /config/cs2
         globalMounts:
-          - path: /mnt/server/Steam
+          - path: /home/steam/cs2-dedicated
