@@ -44,6 +44,7 @@ spec:
               GAME_TYPE: "0"
               GAME_MODE: "1"
               MAP: "de_dust"
+              PORT: 27017
               MAXPLAYERS: "12"
               MAPGROUP: "mg_active"
             probes:
@@ -70,7 +71,7 @@ spec:
             enabled: false
           game:
             enabled: true
-            port: 27015
+            port: 27017
             primary: true
             protocol: UDP
 
