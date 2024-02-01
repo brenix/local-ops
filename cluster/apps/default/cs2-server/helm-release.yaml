@@ -40,6 +40,7 @@ spec:
               TIMEZONE: America/Los_Angeles
               PUID: ${PUID}
               PGID: ${PGID}
+              SERVER_HOSTNAME: "Solar Fisties"
               GAME_TYPE: "0"
               GAME_MODE: "1"
               MAP: "de_dust"
@@ -69,18 +70,14 @@ spec:
             enabled: false
           game:
             enabled: true
-            port: 15636
+            port: 27015
             primary: true
             protocol: UDP
-          query:
-            enabled: true
-            port: 15637
-            protocol: UDP
 
-    # persistence:
-    #   config:
-    #     enabled: true
-    #     type: hostPath
-    #     hostPath: /config/cs2
-    #     globalMounts:
-    #       - path: /opt/cs2/server/savegame
+    persistence:
+      config:
+        enabled: true
+        type: hostPath
+        hostPath: /config/cs2
+        globalMounts:
+          - path: /mnt/server/cs2/steamapps
