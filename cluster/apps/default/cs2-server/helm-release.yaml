@@ -33,6 +33,9 @@ spec:
               repository: docker.io/soren90/cs2
               tag: latest
               pullPolicy: Always
+            envFrom:
+              - secretRef:
+                  name: cs2
             env:
               TIMEZONE: America/Los_Angeles
               PUID: ${PUID}
