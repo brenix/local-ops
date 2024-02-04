@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   interval: 10m
-  path: "./cluster/apps/database/mongodb/app"
+  path: "./cluster/apps/default/mongodb/app"
   prune: true
   sourceRef:
     kind: GitRepository
