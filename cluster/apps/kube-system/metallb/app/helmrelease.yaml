@@ -19,6 +19,3 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-  values:
-    controller:
-      webhookMode: disabled
