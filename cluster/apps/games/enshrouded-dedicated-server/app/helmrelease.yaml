@@ -1,0 +1,57 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: enshrouded-dedicated-server
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    defaultPodOptions:
+      hostNetwork: true
+      terminationGracePeriodSeconds: "15"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/mornedhels/enshrouded-server
+              tag: 0.3.0-proton
+              pullPolicy: Always
+            env:
+              TIMEZONE: America/Los_Angeles
+              PUID: ${PUID}
+              PGID: ${PGID}
+            envFrom:
+              - secretRef:
+                  name: enshrouded
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                memory: 2Gi
+              limits:
+                memory: 16Gi
+    service:
+      main:
+        enabled: false
+    persistence:
+      config:
+        enabled: true
+        type: hostPath
+        hostPath: /config/enshrouded
+        globalMounts:
+          - path: /opt/enshrouded/server/savegame

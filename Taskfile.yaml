@@ -6,74 +6,16 @@ vars:
     sh: "git rev-parse --show-toplevel"
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
 
+includes:
+  flux:
+    dir: .taskfiles/flux
+    taskfile: .taskfiles/flux
+  k8s:
+    taskfile: .taskfiles/k8s
+    dir: .taskfiles/k8s
+
 tasks:
-  encrypt:
-    desc: encrypt sops file 'to use must include -- before path to file.' eg "task sops:encrypt -- file.yml"
+  default:
+    silent: true
     cmds:
-      - sops --encrypt --in-place {{.CLI_ARGS}}
-
-  decrypt:
-    desc: decrypt sops file 'to use must include -- before path to file.'  eg "task sops:decrypt -- file.yml"
-    cmds:
-      - sops --decrypt --in-place {{.CLI_ARGS}}
-
-  verify:
-    desc: Verify flux meets the prerequisites
-    cmds:
-      - flux check --preconditions
-
-  install:
-    desc: Install and configure flux
-    cmds:
-      - kubectl apply --kustomize {{.CLUSTER_DIR}}/bootstrap/ --server-side --force-conflicts
-      - cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin || true
-      - sops -d {{.CLUSTER_DIR}}/flux/flux-system/github-deploy-key.sops.yaml | kubectl apply -f -
-      - kubectl apply --kustomize {{.CLUSTER_DIR}}/flux/flux-system/ --server-side --force-conflicts
-      - task: reconcile
-    preconditions:
-      - sh: test -f {{.SOPS_AGE_KEY_FILE}}
-        msg: |
-          Age key file is not found. Did you forget to create it?
-    vars:
-      SOPS_AGE_KEY_FILE: ~/.config/sops/age/keys.txt
-
-  reconcile:
-    desc: Force update Flux to pull in changes from the Git repository
-    cmds:
-      - flux reconcile -n flux-system kustomization flux-cluster --with-source
-
-  kustomizations:
-    desc: List all the kustomizations in the cluster
-    cmds:
-      - kubectl get kustomizations {{.CLI_ARGS | default "-A"}}
-
-  helmreleases:
-    desc: List all the helmreleases in the cluster
-    cmds:
-      - kubectl get helmreleases {{.CLI_ARGS | default "-A"}}
-
-  helmrepositories:
-    desc: List all the helmrepositories in the cluster
-    cmds:
-      - kubectl get helmrepositories {{.CLI_ARGS | default "-A"}}
-
-  gitrepositories:
-    desc: List all the gitrepositories in the cluster
-    cmds:
-      - kubectl get gitrepositories {{.CLI_ARGS | default "-A"}}
-
-  delete-failed-pods:
-    desc: Deletes failed pods
-    cmds:
-      - kubectl delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
-
-  hr-restart:
-    desc: Restart all failed Helm Releases
-    cmds:
-      - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -l bash -c 'flux suspend hr $0 -n $1'
-      - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -l bash -c 'flux resume hr $0 -n $1'
-
-  list-images:
-    desc: List cluster images
-    cmds:
-      - kubectl get pods --all-namespaces -o=jsonpath="{range .items[*]}{'\n'}{range .spec.containers[*]}{.image}{'\n'}{end}{end}" | sort | uniq
+      - task -l
