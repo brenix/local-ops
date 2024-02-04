@@ -4,8 +4,8 @@ type: Opaque
 metadata:
     name: sops-age
     namespace: flux-system
-data:
-    age.agekey: ENC[AES256_GCM,data:7t32IKRmc98sEsLc55gw1DAvinPSl24tZo7nJWXIgC3dwqyMeRxej2EjILyNDq2xnv6goHZEkkCc/S/BC4DYbNCi87dhVuFrihw=,iv:Or1RWr6uq3yWZc0yqGBj9vDBohsYeiBeGBEkYCHu9Tw=,tag:KJuVz7Faj+twjPdB+91mcg==,type:str]
+stringData:
+    age.agekey: ENC[AES256_GCM,data:zqrMy07EfyPUh7Z9cWtpKDGMVbnBDcRKhdhg66umIgtNDNNcvtLa0xd+E9nStNqitobxIg1yPeGB1UPUr1Z0jOfs2i0Wg1D9rrE=,iv:zVPh0RvxS/BKf4rkmE5YDsBaFqZ1YXnDt8pUGD1al/M=,tag:ef76d6k0Od2GaIbHuz3woQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -21,8 +21,8 @@ sops:
             T3d1RDVHZEtMbTVUUmdwa2c4c1hGcVUKQyd/12EzYCiAc787j9LiyTI60eKhwyTP
             ZkQXuT0Lghd4S+CXTjh2KOUnMRix2X/kPNxDZn9cjahcfaB1FjgsPA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-02-04T19:32:31Z"
-    mac: ENC[AES256_GCM,data:c7YhOmGpLfyw5T+HBqCPHHv2DTkDZ+NQyZ3cBgJYnL9UGeoJK7YygJiFfWfmIeUWNknp6uLzArFMH7O9JPkzKeXIVQUGe4woxew+CnS3hWrHydQj5IjXqGYHmavWYDJllNEjBjDwjPz/PspemYUN4+5GjaRtU4qarKPeGcxysuQ=,iv:bYbgTQFXFFvGHDbuiRadJ1ZcKA1xj0iSYt1BDWtvskA=,tag:DXG+bmexZDlulvJaVK8BWg==,type:str]
+    lastmodified: "2024-02-04T21:42:59Z"
+    mac: ENC[AES256_GCM,data:/5JqxSeEA5PGDLTNJh020ahNrzmBrRfkpHKnuc2v4AX/txdTAW9H3XXdBPGkH+wjocukrl5vmX8WWvE4t467y6WYL4g89ZSB2arnYM1uuvGd97kH73G292dtmunT8heMBCAeXYOMjC73y0OOeRMZCGI1T50iy+2MhmuSEGPAnS4=,iv:2qGhw/vWl9lNb1RbPg8ir1kpyL2d0DF+Jl9PwBEofr8=,tag:o/gGqt8OG/ofsqwO9Emk9Q==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.8.1
