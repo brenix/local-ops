@@ -6,7 +6,7 @@ metadata:
   name: &appname mongodb
   namespace: flux-system
 spec:
-  targetNamespace: database
+  targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
