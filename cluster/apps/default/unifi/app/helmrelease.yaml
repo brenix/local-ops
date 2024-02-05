@@ -27,7 +27,7 @@ spec:
               TZ: "${TIMEZONE}"
               PUID: "${PUID}"
               PGID: "${PUID}"
-              MONGO_HOST: mongodb.database.svc.cluster.local
+              MONGO_HOST: mongodb.default.svc.cluster.local
               MONGO_PORT: 27017
               MONGO_DBNAME: unifi
             envFrom:
