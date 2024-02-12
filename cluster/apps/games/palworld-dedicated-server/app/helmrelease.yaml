@@ -24,7 +24,7 @@ spec:
           main:
             image:
               repository: docker.io/thijsvanloef/palworld-server-docker
-              tag: v0.24.2
+              tag: v0.25.0
               pullPolicy: Always
             env:
               TIMEZONE: America/Los_Angeles
