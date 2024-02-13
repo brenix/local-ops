@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: onedev
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: onedev
+      version: 10.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: onedev
+        namespace: flux-system
+      interval: 15m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    service:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+    persistence:
+      size: 5Gi

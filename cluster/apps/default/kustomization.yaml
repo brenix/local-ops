@@ -8,6 +8,7 @@ resources:
   - jellyfin/ks.yaml
   - jellyseerr/ks.yaml
   - mongodb/ks.yaml
+  - onedev/ks.yaml
   - prowlarr/ks.yaml
   - radarr/ks.yaml
   - recyclarr/ks.yaml
