@@ -8,7 +8,6 @@ resources:
   - grafana.yaml
   - metallb.yaml
   - metrics-server.yaml
-  - onedev.yaml
   - openebs.yaml
   - prometheus-community.yaml
   - stakater.yaml
