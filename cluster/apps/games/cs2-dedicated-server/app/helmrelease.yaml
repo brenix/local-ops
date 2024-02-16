@@ -24,7 +24,7 @@ spec:
           main:
             image:
               repository: docker.io/joedwards32/cs2
-              tag: 2.1.1
+              tag: 2.1.2
               pullPolicy: Always
             envFrom:
               - secretRef:
