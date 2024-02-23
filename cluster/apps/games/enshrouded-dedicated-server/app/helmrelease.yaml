@@ -22,6 +22,7 @@ spec:
       main:
         containers:
           main:
+            replicas: 0
             image:
               repository: docker.io/mornedhels/enshrouded-server
               tag: 1.0.0-proton

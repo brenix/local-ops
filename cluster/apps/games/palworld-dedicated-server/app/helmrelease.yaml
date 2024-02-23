@@ -22,6 +22,7 @@ spec:
       main:
         containers:
           main:
+            replicas: 0
             image:
               repository: docker.io/thijsvanloef/palworld-server-docker
               tag: v0.28.1
