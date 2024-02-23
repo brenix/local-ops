@@ -30,7 +30,7 @@ spec:
               tag: 1.24.0
             envFrom:
               - secretRef:
-                  name: linkding
+                  name: linkding-secrets
             resources:
               requests:
                 cpu: 12m
