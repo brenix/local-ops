@@ -33,7 +33,7 @@ spec:
               UP_UNIFI_DEFAULT_PASS:
                 valueFrom:
                   secretKeyRef:
-                    name: unpoller-secret
+                    name: unpoller
                     key: unpoller_password
               UP_INFLUXDB_DISABLE: true
             resources:

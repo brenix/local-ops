@@ -27,9 +27,19 @@ spec:
               tag: v0.28.1
               pullPolicy: Always
             env:
-              TIMEZONE: America/Los_Angeles
-              PUID: ${PUID}
+              COMMUNITY: "false"
+              EXP_RATE: "40.000000"
+              MULTITHREADING: "true"
               PGID: ${PGID}
+              PLAYERS: "8"
+              PORT: "8211"
+              PUBLIC_IP: ""
+              PUBLIC_PORT: ""
+              PUID: ${PUID}
+              QUERY_PORT: "27017"
+              RCON_ENABLED: "true"
+              SERVER_NAME: Solar Fisties
+              TIMEZONE: America/Los_Angeles
             envFrom:
               - secretRef:
                   name: palworld

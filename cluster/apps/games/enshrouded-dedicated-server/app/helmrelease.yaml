@@ -27,9 +27,10 @@ spec:
               tag: 1.0.0-proton
               pullPolicy: Always
             env:
-              TIMEZONE: America/Los_Angeles
-              PUID: ${PUID}
               PGID: ${PGID}
+              PUID: ${PUID}
+              SERVER_NAME: Solar Fisties
+              TIMEZONE: America/Los_Angeles
             envFrom:
               - secretRef:
                   name: enshrouded

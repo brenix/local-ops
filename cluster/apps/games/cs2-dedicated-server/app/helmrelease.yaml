@@ -30,9 +30,16 @@ spec:
               - secretRef:
                   name: cs2
             env:
-              TIMEZONE: America/Los_Angeles
-              PUID: ${PUID}
+              CS2_BOT_DIFFICULTY: "2"
+              CS2_CHEATS: "0"
+              CS2_GAMEALIAS: deathmath
+              CS2_LAN: "1"
+              CS2_MAXPLAYERS: "16"
+              CS2_SERVERNAME: Solar Fisties
+              CS2_STARTMAP: de_dust2
               PGID: ${PGID}
+              PUID: ${PUID}
+              TIMEZONE: America/Los_Angeles
             probes:
               liveness:
                 enabled: false
