@@ -92,3 +92,5 @@ spec:
       - grafana-clock-panel
     serviceMonitor:
       enabled: true
+    serviceAccount:
+      autoMount: true
