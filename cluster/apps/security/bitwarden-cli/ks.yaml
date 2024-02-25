@@ -16,4 +16,4 @@ spec:
   sourceRef:
     kind: GitRepository
     name: local-ops
-  wait: true
+  wait: false
