@@ -31,16 +31,12 @@ spec:
                 enabled: true
                 custom: true
                 spec:
-                  exec:
-                    command:
-                      - wget
-                      - -q
-                      - http://127.0.0.1:8087/sync?force=true
-                      - --post-data=''
+                  tcpSocket:
+                    port: 8087
                   initialDelaySeconds: 20
-                  periodSeconds: 120
-                  timeoutSeconds: 1
                   failureThreshold: 3
+                  timeoutSeconds: 1
+                  periodSeconds: 10
               readiness:
                 enabled: true
                 custom: true
