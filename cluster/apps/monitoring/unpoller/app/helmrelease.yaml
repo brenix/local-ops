@@ -44,12 +44,14 @@ spec:
                 memory: 500Mi
     service:
       main:
+        controller: main
         ports:
           http:
             port: 9130
     serviceMonitor:
       main:
         enabled: true
+        serviceName: unpoller
         endpoints:
           - port: http
             scheme: http

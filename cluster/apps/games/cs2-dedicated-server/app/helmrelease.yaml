@@ -17,7 +17,7 @@ spec:
   values:
     defaultPodOptions:
       hostNetwork: true
-      terminationGracePeriodSeconds: "15"
+      terminationGracePeriodSeconds: 15
     controllers:
       main:
         containers:
@@ -54,6 +54,7 @@ spec:
                 memory: 16Gi
     service:
       main:
+        controller: main
         enabled: false
     persistence:
       config:

@@ -40,12 +40,12 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - name: config
-              mountPath: /config
               accessMode: ReadWriteOnce
               size: 1Gi
               storageClass: openebs-hostpath
     service:
       main:
+        controller: main
         enabled: false
     persistence:
       config-file:
