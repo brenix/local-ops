@@ -27,7 +27,7 @@ spec:
           main:
             image:
               repository: sissbruecker/linkding
-              tag: 1.24.2
+              tag: 1.25.0
             envFrom:
               - secretRef:
                   name: linkding-secrets
