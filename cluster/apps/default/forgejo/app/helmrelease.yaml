@@ -22,10 +22,12 @@ spec:
       http:
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: 192.168.2.12
+          metallb.universe.tf/allow-shared-ip: gitea-192.168.2.11
+          metallb.universe.tf/loadBalancerIPs: 192.168.2.11
       ssh:
         type: LoadBalancer
         annotations:
+          metallb.universe.tf/allow-shared-ip: gitea-192.168.2.11
           metallb.universe.tf/loadBalancerIPs: 192.168.2.11
     gitea:
       admin:
