@@ -22,7 +22,7 @@ spec:
       http:
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: 192.168.2.11
+          metallb.universe.tf/loadBalancerIPs: 192.168.2.12
       ssh:
         type: LoadBalancer
         annotations:
