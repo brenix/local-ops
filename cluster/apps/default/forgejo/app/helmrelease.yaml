@@ -39,6 +39,10 @@ spec:
           ADAPTER: memory
         queue:
           TYPE: level
+        server:
+          SSH_DOMAIN: git.brenix.com
+          DOMAIN: git.brenix.com
+          ROOT_URL: https://git.brenix.com
     redis-cluster:
       enabled: false
     postgresql:
