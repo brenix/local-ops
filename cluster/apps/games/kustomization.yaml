@@ -5,6 +5,6 @@ resources:
   # Pre Flux-Kustomizations
   - namespace.yaml
   # Flux-Kustomizations
-  - cs2-dedicated-server/ks.yaml
+  # - cs2-dedicated-server/ks.yaml
   # - enshrouded-dedicated-server/ks.yaml
   # - palworld-dedicated-server/ks.yaml
