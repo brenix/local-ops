@@ -17,8 +17,13 @@ spec:
   values:
     admin:
       existingSecret: grafana-admin
-    service:
-      type: LoadBalancer
+    ingress:
+      enabled: true
+      ingressClassName: internal
+      hosts:
+        - &host "grafana.brenix.com"
+      tls:
+        - hosts: [*host]
     persistence:
       enabled: true
       storageClassName: openebs-hostpath

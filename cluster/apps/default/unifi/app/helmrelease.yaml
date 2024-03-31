@@ -80,6 +80,20 @@ spec:
             enabled: true
             port: 10001
             protocol: UDP
+    ingress:
+      main:
+        className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        hosts:
+          - host: &host "{{.Release.Name }}.brenix.com"
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+        tls:
+          - hosts: [*host]
     persistence:
       data:
         enabled: true

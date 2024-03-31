@@ -78,4 +78,3 @@ spec:
                   matchLabels:
                     app.kubernetes.io/instance: external-secrets
                     app.kubernetes.io/name: external-secrets
-        

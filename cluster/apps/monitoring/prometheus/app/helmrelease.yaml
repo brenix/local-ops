@@ -52,8 +52,13 @@ spec:
     alertmanager:
       enabled: false
     prometheus:
-      service:
-        type: LoadBalancer
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - &host "{{ .Release.Name }}.brenix.com"
+        tls:
+          - hosts: [*host]
       prometheusSpec:
         additionalScrapeConfigs:
           - job_name: opnsense

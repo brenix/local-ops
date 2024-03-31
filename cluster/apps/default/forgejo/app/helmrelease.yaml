@@ -29,6 +29,16 @@ spec:
         annotations:
           metallb.universe.tf/allow-shared-ip: gitea-192.168.2.11
           metallb.universe.tf/loadBalancerIPs: 192.168.2.11
+    ingress:
+      enabled: true
+      className: internal
+      hosts:
+        - host: &host "git.brenix.com"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts: [*host]
     gitea:
       admin:
         existingSecret: gitea-admin

@@ -54,6 +54,18 @@ spec:
         ports:
           http:
             port: 7878
+    ingress:
+      main:
+        className: internal
+        hosts:
+          - host: &host "{{.Release.Name }}.brenix.com"
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+        tls:
+          - hosts: [*host]
     persistence:
       config:
         enabled: true

@@ -36,6 +36,20 @@ spec:
         ports:
           http:
             port: 5055
+    ingress:
+      main:
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.brenix.com
+        hosts:
+          - host: &host "{{.Release.Name }}.brenix.com"
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+        tls:
+          - hosts: [*host]
     persistence:
       config:
         enabled: true
