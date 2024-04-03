@@ -1,0 +1,112 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: nix-cache
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      main:
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: cgr.dev/chainguard/nginx
+              tag: latest
+              pullPolicy: Always
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64M
+              limits:
+                memory: 256M
+    service:
+      main:
+        controller: main
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: 192.168.2.15
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
+
+    persistence:
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        size: 30Gi
+        retain: false
+        accessMode: ReadWriteOnce
+        globalMounts:
+          - path: /data
+      public-nix-cache:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /public-nix-cache
+      config:
+        enabled: true
+        name: nix-cache-config
+        type: configMap
+        globalMounts:
+          - path: /etc/nginx/conf.d/nginx.default.conf
+            subPath: nginx.default.conf
+
+    configMaps:
+      config:
+        enabled: true
+        data:
+          nginx.default.conf: |
+            server {
+            	listen 8080;
+            	server_name nix-cache ;
+
+            	location / {
+            		root /public-nix-cache;
+            		expires max;
+            		add_header Cache-Control $cache_header always;
+            		# Ask the upstream server if a file isn't available locally
+            		error_page 404 = @fallback;
+            	}
+
+            	location = /nix-cache-info {
+            		proxy_pass $upstream_endpoint;
+            		proxy_cache cachecache;
+            		proxy_cache_valid  200 302  60d;
+            		expires max;
+            		add_header Cache-Control $cache_header always;
+            	}
+
+            	location @fallback {
+            		proxy_pass $upstream_endpoint;
+            		proxy_cache cachecache;
+            		proxy_cache_valid  200 302  60d;
+            		expires max;
+            		add_header Cache-Control $cache_header always;
+            	}
+
+            	resolver 1.1.1.1 ipv6=off;
+            	set $upstream_endpoint http://cache.nixos.org;
+            }
+
+            proxy_cache_path /data/nix-cache levels=1:2 keys_zone=cachecache:100m max_size=25g inactive=365d use_temp_path=off;
+            map $status $cache_header {
+            	200     "public";
+            	302     "public";
+            	default "no-cache";
+            }
