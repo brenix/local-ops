@@ -10,7 +10,7 @@ resources:
   - jellyseerr/ks.yaml
   - linkding/ks.yaml
   - mongodb/ks.yaml
-  - nix-cache/ks.yaml
+  # - nix-cache/ks.yaml
   - prowlarr/ks.yaml
   - radarr/ks.yaml
   - recyclarr/ks.yaml
