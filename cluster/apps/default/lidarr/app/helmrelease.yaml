@@ -20,7 +20,7 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/lidarr
-              tag: 2.1.7
+              tag: 8.1.2135
               pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
