@@ -73,6 +73,14 @@
       "allowedVersions": "<=4.4"
     },
     {
+      "description": "Avoid old lidarr images",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": "lscr.io/linuxserver/lidarr",
+      "allowedVersions": "<=8.0"
+    },
+    {
       "description": "Disable kubernetes-api",
       "matchManagers": [
         "kubernetes"
