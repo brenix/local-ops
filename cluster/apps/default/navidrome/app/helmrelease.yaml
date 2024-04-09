@@ -43,7 +43,9 @@ spec:
             port: 4533
     ingress:
       main:
-        className: internal
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.brenix.com
         hosts:
           - host: &host "music.brenix.com"
             paths:
