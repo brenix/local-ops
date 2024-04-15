@@ -1,6 +1,6 @@
 ## Overview
 
-This is a monoi repository for my home infrastructure and Kubernetes cluster
+Deployments for my self-hosted kubernetes cluster
 
 ## Bootstrapping
 
