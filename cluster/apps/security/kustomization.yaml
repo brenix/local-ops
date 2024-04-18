@@ -8,3 +8,4 @@ resources:
   # Flux-Kustomizations
   - ./bitwarden-cli/ks.yaml
   - ./external-secrets/ks.yaml
+  - ./onepassword-connect/ks.yaml
