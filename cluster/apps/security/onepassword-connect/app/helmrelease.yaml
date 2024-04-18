@@ -17,4 +17,5 @@ spec:
   values:
     connect:
       serviceType: LoadBalancer
+      credentialsName: onepassword-connect-secret
     
