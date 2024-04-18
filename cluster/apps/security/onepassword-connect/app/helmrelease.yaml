@@ -15,5 +15,6 @@ spec:
         name: onepassword
         namespace: flux-system
   values:
-    serviceType: LoadBalancer
+    connect:
+      serviceType: LoadBalancer
     
