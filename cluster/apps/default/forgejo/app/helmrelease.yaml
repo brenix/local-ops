@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: forgejo
-      version: 5.0.4
+      version: 5.0.5
       interval: 30m
       sourceRef:
         kind: HelmRepository
