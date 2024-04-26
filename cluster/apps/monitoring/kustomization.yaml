@@ -7,6 +7,5 @@ resources:
   # Flux-Kustomizations
   - grafana/ks.yaml
   - healthchecks-ping/ks.yaml
-  # - loki/ks.yaml
   - prometheus/ks.yaml
   - unpoller/ks.yaml
