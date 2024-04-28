@@ -8,10 +8,10 @@ resources:
   - forgejo/ks.yaml
   - jellyfin/ks.yaml
   - jellyseerr/ks.yaml
-  - lidarr/ks.yaml
+  # - lidarr/ks.yaml
   - linkding/ks.yaml
   - mongodb/ks.yaml
-  - navidrome/ks.yaml
+  # - navidrome/ks.yaml
   # - nix-cache/ks.yaml
   - prowlarr/ks.yaml
   - radarr/ks.yaml
