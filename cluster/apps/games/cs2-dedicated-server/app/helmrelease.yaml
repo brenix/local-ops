@@ -59,7 +59,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: hostPath
-        hostPath: /config/cs2
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 50Gi
         globalMounts:
           - path: /home/steam/cs2-dedicated

@@ -97,8 +97,8 @@ spec:
     persistence:
       data:
         enabled: true
-        type: hostPath
-        hostPathType: DirectoryOrCreate
-        hostPath: /config/unifi
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 1Gi
         globalMounts:
           - path: /config

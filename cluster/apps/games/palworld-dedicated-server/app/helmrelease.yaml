@@ -62,7 +62,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: hostPath
-        hostPath: /config/palworld
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 5Gi
         globalMounts:
           - path: /palworld

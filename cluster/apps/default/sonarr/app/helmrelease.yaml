@@ -69,8 +69,9 @@ spec:
     persistence:
       config:
         enabled: true
-        type: hostPath
-        hostPath: /config/sonarr
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 1Gi
         globalMounts:
           - path: /config
       downloads:
