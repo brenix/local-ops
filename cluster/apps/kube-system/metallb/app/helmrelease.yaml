@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: metallb
-      version: 6.1.2
+      version: 0.14.5
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: metallb
         namespace: flux-system
       interval: 15m
   install:
