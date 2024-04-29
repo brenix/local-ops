@@ -73,6 +73,14 @@
       "allowedVersions": "<=4.4"
     },
     {
+      "description": "Skip bad metallb chart release",
+      "matchDatasources": [
+        "helm"
+      ],
+      "matchPackageNames": "metallb",
+      "allowedVersions": "!/^6.1.2$/"
+    },
+    {
       "description": "Avoid old lidarr images",
       "matchDatasources": [
         "docker"
