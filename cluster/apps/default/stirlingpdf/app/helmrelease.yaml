@@ -37,7 +37,7 @@ spec:
       main:
         className: internal
         hosts:
-          - host: &host "{{.Release.Name }}.brenix.com"
+          - host: &host "pdf.brenix.com"
             paths:
               - path: /
                 service:
