@@ -16,6 +16,8 @@ spec:
         name: forgejo-contrib
         namespace: flux-system
   values:
+    persistence:
+      storageClass: openebs-hostpath
     strategy:
       type: Recreate
     service:
