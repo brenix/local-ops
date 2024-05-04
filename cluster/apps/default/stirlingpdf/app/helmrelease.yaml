@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: prowlarr
+  name: stirlingpdf
 spec:
   interval: 30m
   chart:
@@ -19,23 +19,20 @@ spec:
         containers:
           main:
             image:
-              repository: lscr.io/linuxserver/prowlarr
-              tag: 1.16.2
-              pullPolicy: Always
+              repository: frooodle/s-pdf
+              tag: 0.23.1
             env:
-              TZ: "${TIMEZONE}"
-              PUID: "${PUID}"
-              PGID: "${PUID}"
+              - name: LANGS
+                value: en_US
     service:
       main:
         controller: main
         type: LoadBalancer
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: 192.168.2.9
         externalTrafficPolicy: Local
         ports:
           http:
-            port: 9696
+            port: 8080
+
     ingress:
       main:
         className: internal
@@ -48,11 +45,11 @@ spec:
                   port: http
         tls:
           - hosts: [*host]
-    persistence:
-      config:
-        enabled: true
-        type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        globalMounts:
-          - path: /config
+    # persistence:
+    #   config:
+    #     enabled: true
+    #     type: persistentVolumeClaim
+    #     accessMode: ReadWriteOnce
+    #     size: 1Gi
+    #     globalMounts:
+    #       - path: /configs

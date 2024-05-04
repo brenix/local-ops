@@ -19,4 +19,5 @@ resources:
   - sabnzbd/ks.yaml
   - samba/ks.yaml
   - sonarr/ks.yaml
+  - stirlingpdf/ks.yaml
   - unifi/ks.yaml
