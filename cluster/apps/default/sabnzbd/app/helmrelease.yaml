@@ -45,8 +45,8 @@ spec:
       main:
         controller: main
         type: LoadBalancer
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: 192.168.2.5
+        # annotations:
+        #   metallb.universe.tf/loadBalancerIPs: 192.168.2.5
         externalTrafficPolicy: Local
         ports:
           http:
