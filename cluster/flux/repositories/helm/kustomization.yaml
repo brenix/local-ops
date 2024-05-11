@@ -15,4 +15,5 @@ resources:
   - onepassword.yaml
   - openebs.yaml
   - prometheus-community.yaml
+  - rancher.yaml
   - stakater.yaml
