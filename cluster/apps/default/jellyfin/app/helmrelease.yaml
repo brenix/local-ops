@@ -22,7 +22,7 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/jellyfin
-              tag: 10.9.0
+              tag: 10.9.1
               pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
