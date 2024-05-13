@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -28,8 +27,8 @@ spec:
               repository: sissbruecker/linkding
               tag: 1.30.0
             envFrom:
-              - secretRef:
-                  name: linkding-secrets
+            - secretRef:
+                name: linkding-secrets
             resources:
               requests:
                 cpu: 12m
@@ -42,7 +41,7 @@ spec:
         controller: main
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: 192.168.2.10
+          metallb.universe.tf/loadBalancerIPs: 192.168.2.9
         externalTrafficPolicy: Local
         ports:
           http:
@@ -51,14 +50,14 @@ spec:
       main:
         className: internal
         hosts:
-          - host: &host "{{.Release.Name }}.brenix.com"
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
+        - host: &host "{{.Release.Name }}.brenix.com"
+          paths:
+          - path: /
+            service:
+              identifier: main
+              port: http
         tls:
-          - hosts: [*host]
+        - hosts: [*host]
 
     persistence:
       data:
@@ -68,4 +67,4 @@ spec:
         retain: true
         accessMode: ReadWriteOnce
         globalMounts:
-          - path: /etc/linkding/data
+        - path: /etc/linkding/data
