@@ -20,7 +20,7 @@ spec:
           main:
             image:
               repository: ghcr.io/navidrome/navidrome
-              tag: 0.52.0
+              tag: 0.52.5
               pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
