@@ -6,6 +6,6 @@ resources:
   - namespace.yaml
   # Flux-Kustomizations
   - metallb/ks.yaml
-  # - multus/ks.yaml
+  - multus/ks.yaml
   - openebs/ks.yaml
   - reloader/ks.yaml
