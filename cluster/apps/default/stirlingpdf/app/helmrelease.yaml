@@ -19,7 +19,7 @@ spec:
           main:
             image:
               repository: frooodle/s-pdf
-              tag: 0.23.1
+              tag: 0.24.3
             env:
             - name: LANGS
               value: en_US
