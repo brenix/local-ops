@@ -106,14 +106,18 @@ spec:
             scrapeTimeout: 10s
     ingress:
       app:
-        className: internal
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.brenix.com
         hosts:
-          - host: sh.brenix.com
+          - host: &host sh.brenix.com
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts: [*host]
     persistence:
       config:
         type: emptyDir
