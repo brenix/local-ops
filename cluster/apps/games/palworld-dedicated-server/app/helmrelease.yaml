@@ -24,7 +24,7 @@ spec:
             replicas: 0
             image:
               repository: docker.io/thijsvanloef/palworld-server-docker
-              tag: v0.37.0
+              tag: v0.37.1
               pullPolicy: Always
             env:
               COMMUNITY: "false"
