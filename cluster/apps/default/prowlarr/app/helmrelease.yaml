@@ -19,7 +19,7 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/prowlarr
-              tag: 1.17.2
+              tag: 1.18.0
               pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
