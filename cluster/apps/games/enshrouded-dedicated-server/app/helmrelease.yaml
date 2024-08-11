@@ -24,7 +24,7 @@ spec:
             replicas: 0
             image:
               repository: docker.io/mornedhels/enshrouded-server
-              tag: 1.2.0-proton
+              tag: 1.3.0-proton
               pullPolicy: Always
             env:
               PGID: ${PGID}
