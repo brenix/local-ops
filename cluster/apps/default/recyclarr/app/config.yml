@@ -21,7 +21,7 @@ sonarr:
     
     quality_profiles:
       - name: WEB-1080p
-      - name: ANY
+      - name: Any
         reset_unmatched_scores:
           enabled: true
         upgrade:
@@ -43,6 +43,21 @@ sonarr:
 
     custom_formats:
       - trash_ids:
+          - c9eafd50846d299b862ca9bb6ea91950 # x265
+          - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
+        assign_scores_to:
+          - name: WEB-1080p
+            score: 3000
+          - name: Any
+            score: 3000
+      - trash_ids:
+          - cddfb4e32db826151d97352b8e37c648 # x264
+        assign_scores_to:
+          - name: WEB-1080p
+            score: 2000
+          - name: Any
+            score: 2000
+      - trash_ids:
           - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
           - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
           - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
@@ -50,14 +65,14 @@ sonarr:
           - 1b3994c551cbb92a2c781af061f4ab44 # Scene
         assign_scores_to:
           - name: WEB-1080p
-          - name: ANY
+          - name: Any
       - trash_ids:
-          - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
+          - 1bef6c151fa35093015b0bfef18279e5 # 2160p
         assign_scores_to:
           - name: WEB-1080p
-            score: 9000
-          - name: ANY
-            score: 9000
+            score: -100
+          - name: Any
+            score: -100
           
 radarr:
   radarr:
@@ -91,7 +106,18 @@ radarr:
         assign_scores_to:
           - name: SQP-1 (1080p)
       - trash_ids:
+          - 9170d55c319f4fe40da8711ba9d8050d # x265
           - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
         assign_scores_to:
           - name: SQP-1 (1080p)
-            score: 9000
+            score: 3000
+      - trash_ids:
+          - 2899d84dc9372de3408e6d8cc18e9666 # x264
+        assign_scores_to:
+          - name: SQP-1 (1080p)
+            score: 2000
+      - trash_ids:
+          - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p
+        assign_scores_to:
+          - name: SQP-1 (1080p)
+            score: -100
