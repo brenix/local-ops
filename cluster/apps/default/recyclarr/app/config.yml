@@ -52,11 +52,12 @@ sonarr:
           - name: WEB-1080p
           - name: ANY
       - trash_ids:
-          - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
+          - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
         assign_scores_to:
           - name: WEB-1080p
+            score: 9000
           - name: ANY
-        score: 12000
+            score: 9000
           
 radarr:
   radarr:
@@ -75,7 +76,7 @@ radarr:
 
     include:
       - template: radarr-quality-definition-sqp-streaming
-      - template: radarr-quality-profile-sqp-1-1080p-default
+      - template: radarr-quality-profile-sqp-1-1080p
       - template: radarr-custom-formats-sqp-1-1080p
 
     custom_formats:
@@ -93,4 +94,4 @@ radarr:
           - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
         assign_scores_to:
           - name: SQP-1 (1080p)
-        score: 12000
+            score: 9000
