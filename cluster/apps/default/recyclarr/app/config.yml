@@ -44,7 +44,6 @@ sonarr:
     custom_formats:
       - trash_ids:
           - c9eafd50846d299b862ca9bb6ea91950 # x265
-          - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
         assign_scores_to:
           - name: WEB-1080p
             score: 3000
@@ -107,7 +106,6 @@ radarr:
           - name: SQP-1 (1080p)
       - trash_ids:
           - 9170d55c319f4fe40da8711ba9d8050d # x265
-          - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
         assign_scores_to:
           - name: SQP-1 (1080p)
             score: 3000
