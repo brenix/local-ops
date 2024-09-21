@@ -19,6 +19,7 @@ spec:
       #   enabled: true
       models:
       - mistral
+      - tavernari/git-commit-message
     ingress:
       enabled: true
       className: internal
