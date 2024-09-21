@@ -19,7 +19,7 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/radarr
-              tag: 5.9.1
+              tag: 5.10.4
               pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
