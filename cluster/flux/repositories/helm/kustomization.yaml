@@ -12,7 +12,6 @@ resources:
   - jetstack.yaml
   - metallb.yaml
   - metrics-server.yaml
-  - ollama.yaml
   - onepassword.yaml
   - openebs.yaml
   - prometheus-community.yaml

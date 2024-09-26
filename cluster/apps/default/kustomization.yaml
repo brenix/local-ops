@@ -14,7 +14,6 @@ resources:
   - mongodb/ks.yaml
   # - navidrome/ks.yaml
   # - nix-cache/ks.yaml
-  # - ollama/ks.yaml
   - prowlarr/ks.yaml
   - radarr/ks.yaml
   - recyclarr/ks.yaml
