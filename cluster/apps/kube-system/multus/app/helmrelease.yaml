@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: rke2-multus
-      version: v4.0.207
+      version: v4.1.200
       sourceRef:
         kind: HelmRepository
         name: rancher
