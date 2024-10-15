@@ -1,0 +1,16 @@
+zfs-localpv:
+  enabled: false
+  crds:
+    zfsLocalPv:
+      enabled: false
+
+mayastor:
+  enabled: false
+
+engines:
+  local:
+    zfs:
+      enabled: false
+  replicated:
+    mayastor:
+      enabled: false

@@ -1,0 +1,5 @@
+connect:
+  serviceType: LoadBalancer
+  serviceAnnotations:
+    metallb.universe.tf/loadBalancerIPs: 192.168.2.12
+  credentialsName: onepassword-connect-secret

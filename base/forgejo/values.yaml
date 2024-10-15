@@ -1,0 +1,48 @@
+persistence:
+  storageClass: openebs-hostpath
+strategy:
+  type: Recreate
+service:
+  http:
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/allow-shared-ip: gitea-192.168.2.11
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.11
+  ssh:
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/allow-shared-ip: gitea-192.168.2.11
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.11
+ingress:
+  enabled: true
+  apiVersion: networking.k8s.io/v1
+  className: internal
+  hosts:
+    - host: &host "git.brenix.com"
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts: [*host]
+gitea:
+  admin:
+    existingSecret: gitea-admin
+  config:
+    database:
+      DB_TYPE: sqlite3
+    session:
+      PROVIDER: memory
+    cache:
+      ADAPTER: memory
+    queue:
+      TYPE: level
+    server:
+      SSH_DOMAIN: git.brenix.com
+      DOMAIN: git.brenix.com
+      ROOT_URL: https://git.brenix.com
+redis-cluster:
+  enabled: false
+postgresql:
+  enabled: false
+postgresql-ha:
+  enabled: false
