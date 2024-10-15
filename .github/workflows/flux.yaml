@@ -1,0 +1,76 @@
+name: push-artifact
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  push:
+    branches:
+      - 'main'
+
+permissions:
+  packages: write  # needed for ghcr.io access
+  contents: write  # needed for committing changes to PR
+
+env:
+  OCI_REPO: "oci://ghcr.io/my-org/manifests/${{ github.event.repository.name }}"
+
+jobs:
+  pr-workflow:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@main
+
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate manifests
+        run: |
+          fd . clusters/main -t d -d 1 -x make OUT=rendered
+
+      - name: Commit rendered manifests
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add rendered/
+          git commit -m "chore: update rendered manifests [skip ci]"
+          git push origin HEAD:${{ github.head_ref }}
+
+      - name: Push manifests
+        run: |
+          flux push artifact $OCI_REPO:$(git rev-parse --short HEAD) \
+            --path="./rendered" \
+            --source="$(git config --get remote.origin.url)" \
+            --revision="$(git branch --show-current)@sha1:$(git rev-parse HEAD)"
+
+  main-workflow:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@main
+
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push manifests
+        run: |
+          flux push artifact $OCI_REPO:main \
+            --path="./rendered" \
+            --source="$(git config --get remote.origin.url)" \
+            --revision="main@sha1:$(git rev-parse HEAD)"   

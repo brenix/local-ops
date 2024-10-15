@@ -1,0 +1,46 @@
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/fallenbagel/jellyseerr
+          tag: 2.0.1
+          pullPolicy: Always
+        env:
+          TZ: America/Los_Angeles
+          LOG_LEVEL: "info"
+
+service:
+  main:
+    controller: main
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.8
+    externalTrafficPolicy: Local
+    ports:
+      http:
+        port: 5055
+
+ingress:
+  main:
+    className: external
+    annotations:
+      external-dns.alpha.kubernetes.io/target: external.brenix.com
+    hosts:
+      - host: &host "{{.Release.Name }}.brenix.com"
+        paths:
+          - path: /
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts: [*host]
+
+persistence:
+  config:
+    enabled: true
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    globalMounts:
+      - path: /app/config

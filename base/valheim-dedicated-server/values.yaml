@@ -1,0 +1,59 @@
+defaultPodOptions:
+  hostNetwork: true
+  terminationGracePeriodSeconds: 120
+
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: ghcr.io/lloesche/valheim-server
+          tag: latest
+          pullPolicy: Always
+        env:
+          PGID: ${PGID}
+          PUID: ${PUID}
+          TZ: America/Los_Angeles
+          SERVER_PUBLIC: false
+        envFrom:
+          - secretRef:
+              name: valheim
+        probes:
+          liveness:
+            enabled: false
+          readiness:
+            enabled: false
+          startup:
+            enabled: false
+        resources:
+          requests:
+            memory: 2Gi
+          limits:
+            memory: 16Gi
+        securityContext:
+          capabilities:
+            add:
+              - CAP_NICE
+
+service:
+  main:
+    controller: main
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: openebs-hostpath
+    size: 12Gi
+    globalMounts:
+      - path: /config
+  game:
+    enabled: true
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: openebs-hostpath
+    size: 12Gi
+    globalMounts:
+      - path: /opt/valheim

@@ -1,0 +1,63 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: postgres-superuser
+  namespace: database
+spec:
+  data:
+  - remoteRef:
+      key: cloudnative-pg
+      property: POSTGRES_SUPER_USER
+    secretKey: username
+  - remoteRef:
+      key: cloudnative-pg
+      property: POSTGRES_SUPER_PASS
+    secretKey: password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    deletionPolicy: Delete
+    name: postgres-superuser
+    template:
+      engineVersion: v2
+      metadata:
+        labels:
+          cnpg.io/reload: "true"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres16
+  namespace: database
+spec:
+  enableSuperuserAccess: true
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.2-10
+  instances: 1
+  monitoring:
+    enablePodMonitor: true
+    podMonitorMetricRelabelings:
+    - action: replace
+      sourceLabels:
+      - cluster
+      targetLabel: cnpg_cluster
+    - action: labeldrop
+      regex: cluster
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: true
+  postgresql:
+    parameters:
+      max_connections: "400"
+      shared_buffers: 256MB
+  primaryUpdateStrategy: unsupervised
+  resources:
+    limits:
+      memory: 4Gi
+    requests:
+      cpu: 500m
+  storage:
+    size: 20Gi
+    storageClass: openebs-hostpath
+  superuserSecret:
+    name: postgres-superuser
