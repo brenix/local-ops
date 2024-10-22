@@ -1,0 +1,54 @@
+controllers:
+  main:
+    strategy: RollingUpdate
+    annotations:
+      reloader.stakater.com/auto: "true"
+
+    containers:
+      main:
+        image:
+          repository: sissbruecker/linkding
+          tag: 1.36.0
+        envFrom:
+        - secretRef:
+            name: linkding-secrets
+        resources:
+          requests:
+            cpu: 12m
+            memory: 64M
+          limits:
+            memory: 512M
+
+service:
+  main:
+    controller: main
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.9
+    externalTrafficPolicy: Local
+    ports:
+      http:
+        port: 9090
+
+ingress:
+  main:
+    className: internal
+    hosts:
+    - host: &host "{{.Release.Name }}.brenix.com"
+      paths:
+      - path: /
+        service:
+          identifier: main
+          port: http
+    tls:
+    - hosts: [*host]
+
+persistence:
+  data:
+    enabled: true
+    type: persistentVolumeClaim
+    size: 1Gi
+    retain: true
+    accessMode: ReadWriteOnce
+    globalMounts:
+    - path: /etc/linkding/data
