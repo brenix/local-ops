@@ -1,0 +1,46 @@
+controllers:
+  main:
+    type: statefulset
+    containers:
+      main:
+        image:
+          repository: docker.io/library/mongo
+          tag: "4.4"
+          pullPolicy: Always
+        probes:
+          liveness:
+            enabled: false
+          readiness:
+            enabled: false
+          startup:
+            enabled: false
+
+service:
+  main:
+    controller: main
+    type: ClusterIP
+    ports:
+      http:
+        enabled: false
+        port: 80
+      mongodb:
+        enabled: true
+        primary: true
+        port: 27017
+        protocol: TCP
+
+persistence:
+  data:
+    enabled: true
+    type: persistentVolumeClaim
+    size: 8Gi
+    retain: true
+    accessMode: ReadWriteOnce
+    globalMounts:
+      - path: /data/db
+  initdb:
+    enabled: true
+    type: secret
+    name: mongodb-init
+    globalMounts:
+      - path: /docker-entrypoint-initdb.d

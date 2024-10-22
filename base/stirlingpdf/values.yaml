@@ -1,0 +1,34 @@
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: frooodle/s-pdf
+          tag: 0.29.0
+        env:
+        - name: LANGS
+          value: en_US
+
+service:
+  main:
+    controller: main
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.14
+    externalTrafficPolicy: Local
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  main:
+    className: internal
+    hosts:
+    - host: &host "pdf.brenix.com"
+      paths:
+      - path: /
+        service:
+          identifier: main
+          port: http
+    tls:
+    - hosts: [*host]
