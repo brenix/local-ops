@@ -1,0 +1,147 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: network-attachment-definitions.k8s.cni.cncf.io
+spec:
+  group: k8s.cni.cncf.io
+  names:
+    kind: NetworkAttachmentDefinition
+    plural: network-attachment-definitions
+    shortNames:
+    - net-attach-def
+    singular: network-attachment-definition
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              config:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: multus
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: rke2-multus
+rules:
+- apiGroups:
+  - k8s.cni.cncf.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/status
+  verbs:
+  - get
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: rke2-multus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: rke2-multus
+subjects:
+- kind: ServiceAccount
+  name: multus
+  namespace: kube-system
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: rke2-multus
+    tier: node
+  name: multus
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: rke2-multus
+  template:
+    metadata:
+      annotations:
+        checksum/config: fd23672d720fdddd8faf8f629c7eec5c444ad6484d2a654621fa7d4b5c65c4fc
+      labels:
+        app: rke2-multus
+        tier: node
+    spec:
+      containers:
+      - args:
+        - --multus-conf-file=auto
+        - --multus-kubeconfig-file-host=/var/lib/rancher/k3s/agent/etc/cni/net.d/multus.d/multus.kubeconfig
+        command:
+        - /thin_entrypoint
+        env:
+        - name: KUBERNETES_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        image: rancher/hardened-multus-cni:v4.1.2-build20241009
+        imagePullPolicy: IfNotPresent
+        name: kube-rke2-multus
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 1024Mi
+          requests:
+            cpu: 250m
+            memory: 128Mi
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /host/etc/cni/net.d
+          name: cni
+        - mountPath: /host/opt/cni/bin
+          name: cnibin
+      hostNetwork: true
+      initContainers:
+      - env:
+        - name: SKIP_CNI_BINARIES
+          value: flannel
+        image: rancher/hardened-cni-plugins:v1.5.1-build20241009
+        name: cni-plugins
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /host/opt/cni/bin
+          name: cnibin
+      nodeSelector:
+        kubernetes.io/os: linux
+      priorityClassName: system-node-critical
+      serviceAccountName: multus
+      volumes:
+      - hostPath:
+          path: /var/lib/rancher/k3s/agent/etc/cni/net.d
+        name: cni
+      - hostPath:
+          path: /var/lib/rancher/k3s/data/current/bin/
+        name: cnibin
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate

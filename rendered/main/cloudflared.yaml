@@ -1,0 +1,218 @@
+apiVersion: v1
+data:
+  config.yaml: |
+    ---
+    originRequest:
+      originServerName: external.brenix.com
+
+    ingress:
+      - hostname: brenix.com
+        service: https://nginx-external-controller.network.svc.cluster.local:443
+      - hostname: "*.brenix.com"
+        service: https://nginx-external-controller.network.svc.cluster.local:443
+      - service: http_status:404
+kind: ConfigMap
+metadata:
+  name: cloudflared-configmap
+  namespace: network
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: cloudflared
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cloudflared
+    app.kubernetes.io/service: cloudflared
+    helm.sh/chart: app-template-3.5.1
+  name: cloudflared
+  namespace: network
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/component: cloudflared
+    app.kubernetes.io/instance: cloudflared
+    app.kubernetes.io/name: cloudflared
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app.kubernetes.io/component: cloudflared
+    app.kubernetes.io/instance: cloudflared
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cloudflared
+    helm.sh/chart: app-template-3.5.1
+  name: cloudflared
+  namespace: network
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: cloudflared
+      app.kubernetes.io/instance: cloudflared
+      app.kubernetes.io/name: cloudflared
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: cloudflared
+        app.kubernetes.io/instance: cloudflared
+        app.kubernetes.io/name: cloudflared
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - args:
+        - tunnel
+        - --config
+        - /etc/cloudflared/config/config.yaml
+        - run
+        - 7f90e49b-765b-4de7-854a-70e3d3d1e5eb
+        env:
+        - name: NO_AUTOUPDATE
+          value: "true"
+        - name: TUNNEL_CRED_FILE
+          value: /etc/cloudflared/creds/credentials.json
+        - name: TUNNEL_METRICS
+          value: 0.0.0.0:8080
+        - name: TUNNEL_ORIGIN_ENABLE_HTTP2
+          value: "true"
+        - name: TUNNEL_POST_QUANTUM
+          value: "true"
+        - name: TUNNEL_TRANSPORT_PROTOCOL
+          value: quic
+        image: docker.io/cloudflare/cloudflared:2024.3.0@sha256:8acfc9e4e65e0d1e26686177a3a0c4baa3b0330c0fc6adc899c2b673bc938e77
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+        name: main
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+        resources:
+          limits:
+            memory: 256Mi
+          requests:
+            cpu: 10m
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /etc/cloudflared/config/config.yaml
+          name: config
+          readOnly: true
+          subPath: config.yaml
+        - mountPath: /etc/cloudflared/creds/credentials.json
+          name: creds
+          readOnly: true
+          subPath: credentials.json
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      securityContext:
+        runAsGroup: 568
+        runAsNonRoot: true
+        runAsUser: 568
+      serviceAccountName: default
+      topologySpreadConstraints:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: cloudflared
+        maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+      volumes:
+      - configMap:
+          name: cloudflared-configmap
+        name: config
+      - name: creds
+        secret:
+          secretName: cloudflared-tunnel-secret
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: cloudflared-tunnel
+  namespace: network
+spec:
+  dataFrom:
+  - extract:
+      key: cloudflare
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    deletionPolicy: Delete
+    name: cloudflared-tunnel-secret
+    template:
+      data:
+        credentials.json: |
+          {
+            "AccountTag": "{{ .ACCOUNT_TAG }}",
+            "TunnelSecret": "{{ .TUNNEL_SECRET }}",
+            "TunnelID": "7f90e49b-765b-4de7-854a-70e3d3d1e5eb"
+          }
+      engineVersion: v2
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: cloudflared
+  namespace: network
+spec:
+  endpoints:
+  - dnsName: external.brenix.com
+    recordType: CNAME
+    targets:
+    - 7f90e49b-765b-4de7-854a-70e3d3d1e5eb.cfargotunnel.com
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: cloudflared
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cloudflared
+    helm.sh/chart: app-template-3.5.1
+  name: cloudflared
+  namespace: network
+spec:
+  endpoints:
+  - interval: 1m
+    path: /metrics
+    port: http
+    scheme: http
+    scrapeTimeout: 10s
+  jobLabel: cloudflared
+  namespaceSelector:
+    matchNames:
+    - network
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: cloudflared
+      app.kubernetes.io/name: cloudflared
+      app.kubernetes.io/service: cloudflared

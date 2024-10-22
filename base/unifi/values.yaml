@@ -1,0 +1,90 @@
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: lscr.io/linuxserver/unifi-network-application
+          tag: 8.5.6
+          pullPolicy: Always
+        env:
+          TZ: America/Los_Angeles
+          PUID: "1000"
+          PGID: "100"
+          MONGO_HOST: mongodb.default.svc.cluster.local
+          MONGO_PORT: 27017
+          MONGO_DBNAME: unifi
+        envFrom:
+          - secretRef:
+              name: unifi
+
+service:
+  main:
+    controller: main
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.2
+    externalTrafficPolicy: Local
+    ports:
+      # -- Configure Web interface + API port
+      http:
+        port: 8443
+        protocol: HTTPS
+      # -- Configure Controller port used for device command/control
+      controller:
+        enabled: true
+        port: 8080
+        protocol: TCP
+      # -- Configure Captive Portal HTTP port
+      portal-http:
+        enabled: false
+        port: 8880
+        protocol: HTTP
+      # -- Configure Captive Portal HTTPS port
+      portal-https:
+        enabled: false
+        port: 8843
+        protocol: HTTPS
+      # -- Configure Speedtest port (used for UniFi mobile speed test)
+      speedtest:
+        enabled: true
+        port: 6789
+        protocol: TCP
+      # -- Configure STUN port
+      stun:
+        enabled: true
+        port: 3478
+        protocol: UDP
+      # -- Configure remote syslog port
+      syslog:
+        enabled: true
+        port: 5514
+        protocol: UDP
+      # -- Configure device discovery port
+      discovery:
+        enabled: true
+        port: 10001
+        protocol: UDP
+
+ingress:
+  main:
+    className: internal
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    hosts:
+      - host: &host "{{.Release.Name }}.brenix.com"
+        paths:
+          - path: /
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts: [*host]
+
+persistence:
+  data:
+    enabled: true
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    globalMounts:
+      - path: /config

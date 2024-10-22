@@ -1,0 +1,52 @@
+defaultPodOptions:
+  hostNetwork: true
+  terminationGracePeriodSeconds: 15
+
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/joedwards32/cs2
+          tag: 2.1.6
+          pullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: cs2
+        env:
+          CS2_BOT_DIFFICULTY: "2"
+          CS2_CHEATS: "0"
+          CS2_GAMEALIAS: deathmath
+          CS2_LAN: "1"
+          CS2_MAXPLAYERS: "16"
+          CS2_SERVERNAME: Solar Fisties
+          CS2_STARTMAP: de_dust2
+          PGID: ${PGID}
+          PUID: ${PUID}
+          TIMEZONE: America/Los_Angeles
+        probes:
+          liveness:
+            enabled: false
+          readiness:
+            enabled: false
+          startup:
+            enabled: false
+        resources:
+          requests:
+            memory: 2Gi
+          limits:
+            memory: 16Gi
+
+service:
+  main:
+    controller: main
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 50Gi
+    globalMounts:
+      - path: /home/steam/cs2-dedicated

@@ -1,0 +1,88 @@
+defaultPodOptions:
+  hostNetwork: true
+  terminationGracePeriodSeconds: 15
+
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: ghcr.io/crazy-max/samba
+          tag: 4.19.6
+          pullPolicy: Always
+        env:
+          TZ: "${TIMEZONE}"
+          CONFIG_FILE: /config/config.yml
+service:
+  main:
+    controller: main
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    name: samba-config
+    type: configMap
+  downloads:
+    enabled: true
+    type: hostPath
+    hostPath: /media/downloads
+    hostPathType: Directory
+    globalMounts:
+      - path: /downloads
+  media:
+    enabled: true
+    type: hostPath
+    hostPath: /media
+    hostPathType: Directory
+    globalMounts:
+      - path: /media
+  temp:
+    enabled: true
+    type: hostPath
+    hostPathType: Directory
+    hostPath: /tmp
+    globalMounts:
+      - path: /temp
+
+configMaps:
+  config:
+    enabled: true
+    data:
+      config.yml: |
+        auth:
+          - user: nobody
+            group: nobody
+            uid: 65534
+            gid: 65534
+            password:
+
+        global:
+          - "force user = nobody"
+          - "force group = nobody"
+
+        share:
+          - name: downloads
+            path: /downloads
+            browseable: yes
+            readonly: no
+            guestok: yes
+            validusers: nobody
+            writelist: nobody
+            veto: no
+          - name: media
+            path: /media
+            browseable: yes
+            readonly: no
+            guestok: yes
+            validusers: nobody
+            writelist: nobody
+            veto: no
+          - name: tmp
+            path: /temp
+            browseable: yes
+            readonly: no
+            guestok: yes
+            validusers: nobody
+            writelist: nobody
+            veto: no

@@ -1,0 +1,45 @@
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: lscr.io/linuxserver/prowlarr
+          tag: 1.24.3
+          pullPolicy: Always
+        env:
+          TZ: "${TIMEZONE}"
+          PUID: "${PUID}"
+          PGID: "${PUID}"
+
+service:
+  main:
+    controller: main
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.5
+    externalTrafficPolicy: Local
+    ports:
+      http:
+        port: 9696
+
+ingress:
+  main:
+    className: internal
+    hosts:
+    - host: &host "{{.Release.Name }}.brenix.com"
+      paths:
+      - path: /
+        service:
+          identifier: main
+          port: http
+    tls:
+    - hosts: [*host]
+
+persistence:
+  config:
+    enabled: true
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    globalMounts:
+    - path: /config
