@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: brenix.com
+  namespace: network
+spec:
+  commonName: brenix.com
+  dnsNames:
+  - brenix.com
+  - '*.brenix.com'
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  secretName: brenix.com-tls

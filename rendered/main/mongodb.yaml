@@ -1,0 +1,123 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: mongodb
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mongodb
+    app.kubernetes.io/service: mongodb
+    helm.sh/chart: app-template-3.5.1
+  name: mongodb
+  namespace: default
+spec:
+  ports:
+  - name: mongodb
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    app.kubernetes.io/component: main
+    app.kubernetes.io/instance: mongodb
+    app.kubernetes.io/name: mongodb
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    helm.sh/resource-policy: keep
+  labels:
+    app.kubernetes.io/instance: mongodb
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mongodb
+    helm.sh/chart: app-template-3.5.1
+  name: mongodb-data
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/component: main
+    app.kubernetes.io/instance: mongodb
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mongodb
+    helm.sh/chart: app-template-3.5.1
+  name: mongodb
+  namespace: default
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: null
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: main
+      app.kubernetes.io/instance: mongodb
+      app.kubernetes.io/name: mongodb
+  serviceName: mongodb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: main
+        app.kubernetes.io/instance: mongodb
+        app.kubernetes.io/name: mongodb
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: docker.io/library/mongo:4.4
+        imagePullPolicy: Always
+        name: main
+        volumeMounts:
+        - mountPath: /data/db
+          name: data
+        - mountPath: /docker-entrypoint-initdb.d
+          name: initdb
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: mongodb-data
+      - name: initdb
+        secret:
+          secretName: mongodb-init
+  updateStrategy:
+    type: RollingUpdate
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: mongodb
+  namespace: default
+spec:
+  data:
+  - remoteRef:
+      key: mongodb
+      property: username
+    secretKey: username
+  - remoteRef:
+      key: mongodb
+      property: password
+    secretKey: password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    deletionPolicy: Delete
+    name: mongodb-init
+    template:
+      data:
+        init-mongo.js: |-
+          db.getSiblingDB("unifi").createUser({user: "{{ .username }}", pwd: "{{ .password }}", roles: [{role: "dbOwner", db: "unifi"}]});
+          db.getSiblingDB("unifi_stat").createUser({user: "{{ .username }}", pwd: "{{ .password }}", roles: [{role: "dbOwner", db: "unifi_stat"}]});
+      engineVersion: v2
