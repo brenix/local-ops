@@ -1,0 +1,173 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    meta.helm.sh/release-name: reloader
+    meta.helm.sh/release-namespace: kube-system
+  labels:
+    app: reloader
+    app.kubernetes.io/managed-by: Helm
+    chart: reloader-1.2.0
+    heritage: Helm
+    release: reloader
+  name: reloader
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    meta.helm.sh/release-name: reloader
+    meta.helm.sh/release-namespace: kube-system
+  labels:
+    app: reloader
+    app.kubernetes.io/managed-by: Helm
+    chart: reloader-1.2.0
+    heritage: Helm
+    release: reloader
+  name: reloader-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - configmaps
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - statefulsets
+  verbs:
+  - list
+  - get
+  - update
+  - patch
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  verbs:
+  - list
+  - get
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  annotations:
+    meta.helm.sh/release-name: reloader
+    meta.helm.sh/release-namespace: kube-system
+  labels:
+    app: reloader
+    app.kubernetes.io/managed-by: Helm
+    chart: reloader-1.2.0
+    heritage: Helm
+    release: reloader
+  name: reloader-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: reloader-role
+subjects:
+- kind: ServiceAccount
+  name: reloader
+  namespace: kube-system
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    meta.helm.sh/release-name: reloader
+    meta.helm.sh/release-namespace: kube-system
+  labels:
+    app: reloader
+    app.kubernetes.io/managed-by: Helm
+    chart: reloader-1.2.0
+    group: com.stakater.platform
+    heritage: Helm
+    provider: stakater
+    release: reloader
+    version: v1.2.0
+  name: reloader
+  namespace: kube-system
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: reloader
+      release: reloader
+  template:
+    metadata:
+      labels:
+        app: reloader
+        app.kubernetes.io/managed-by: Helm
+        chart: reloader-1.2.0
+        group: com.stakater.platform
+        heritage: Helm
+        provider: stakater
+        release: reloader
+        version: v1.2.0
+    spec:
+      containers:
+      - args:
+        - --log-level=info
+        env:
+        - name: GOMAXPROCS
+          valueFrom:
+            resourceFieldRef:
+              divisor: "1"
+              resource: limits.cpu
+        - name: GOMEMLIMIT
+          valueFrom:
+            resourceFieldRef:
+              divisor: "1"
+              resource: limits.memory
+        image: ghcr.io/stakater/reloader:v1.2.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /live
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: reloader
+        ports:
+        - containerPort: 9090
+          name: http
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /metrics
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        securityContext: {}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: reloader

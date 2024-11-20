@@ -1,0 +1,651 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: forgejo
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: forgejo
+    app.kubernetes.io/version: 9.0.2
+    helm.sh/chart: forgejo-10.1.1
+    version: 9.0.2
+  name: forgejo
+  namespace: default
+stringData:
+  assertions: ""
+  config_environment.sh: |-
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    function env2ini::log() {
+      printf "${1}\n"
+    }
+
+    function env2ini::read_config_to_env() {
+      local section="${1}"
+      local line="${2}"
+
+      if [[ -z "${line}" ]]; then
+        # skip empty line
+        return
+      fi
+
+      # 'xargs echo -n' trims all leading/trailing whitespaces and a trailing new line
+      local setting="$(awk -F '=' '{print $1}' <<< "${line}" | xargs echo -n)"
+
+      if [[ -z "${setting}" ]]; then
+        env2ini::log '  ! invalid setting'
+        exit 1
+      fi
+
+      local value=''
+      local regex="^${setting}(\s*)=(\s*)(.*)"
+      if [[ $line =~ $regex ]]; then
+        value="${BASH_REMATCH[3]}"
+      else
+        env2ini::log '  ! invalid setting'
+        exit 1
+      fi
+
+      env2ini::log "    + '${setting}'"
+
+      if [[ -z "${section}" ]]; then
+        export "FORGEJO____${setting^^}=${value}"                           # '^^' makes the variable content uppercase
+        return
+      fi
+
+      local masked_section="${section//./_0X2E_}"                           # '//' instructs to replace all matches
+      masked_section="${masked_section//-/_0X2D_}"
+
+      export "FORGEJO__${masked_section^^}__${setting^^}=${value}"          # '^^' makes the variable content uppercase
+    }
+
+    function env2ini::reload_preset_envs() {
+      env2ini::log "Reloading preset envs..."
+
+      while read -r line; do
+        if [[ -z "${line}" ]]; then
+          # skip empty line
+          return
+        fi
+
+        # 'xargs echo -n' trims all leading/trailing whitespaces and a trailing new line
+        local setting="$(awk -F '=' '{print $1}' <<< "${line}" | xargs echo -n)"
+
+        if [[ -z "${setting}" ]]; then
+          env2ini::log '  ! invalid setting'
+          exit 1
+        fi
+
+        local value=''
+        local regex="^${setting}(\s*)=(\s*)(.*)"
+        if [[ $line =~ $regex ]]; then
+          value="${BASH_REMATCH[3]}"
+        else
+          env2ini::log '  ! invalid setting'
+          exit 1
+        fi
+
+        env2ini::log "  + '${setting}'"
+
+        export "${setting^^}=${value}"                           # '^^' makes the variable content uppercase
+      done < "/tmp/existing-envs"
+
+      rm /tmp/existing-envs
+    }
+
+
+    function env2ini::process_config_file() {
+      local config_file="${1}"
+      local section="$(basename "${config_file}")"
+
+      if [[ $section == '_generals_' ]]; then
+        env2ini::log "  [ini root]"
+        section=''
+      else
+        env2ini::log "  ${section}"
+      fi
+
+      while read -r line; do
+        env2ini::read_config_to_env "${section}" "${line}"
+      done < <(awk 1 "${config_file}")                             # Helm .toYaml trims the trailing new line which breaks line processing; awk 1 ... adds it back while reading
+    }
+
+    function env2ini::load_config_sources() {
+      local path="${1}"
+
+      if [[ -d "${path}" ]]; then
+        env2ini::log "Processing $(basename "${path}")..."
+
+        while read -d '' configFile; do
+          env2ini::process_config_file "${configFile}"
+        done < <(find "${path}" -type l -not -name '..data' -print0)
+
+        env2ini::log "\n"
+      fi
+    }
+
+    function env2ini::generate_initial_secrets() {
+      # These environment variables will either be
+      #   - overwritten with user defined values,
+      #   - initially used to set up Forgejo
+      # Anyway, they won't harm existing app.ini files
+
+      export FORGEJO__SECURITY__INTERNAL_TOKEN=$(gitea generate secret INTERNAL_TOKEN)
+      export FORGEJO__SECURITY__SECRET_KEY=$(gitea generate secret SECRET_KEY)
+      export FORGEJO__OAUTH2__JWT_SECRET=$(gitea generate secret JWT_SECRET)
+      export FORGEJO__SERVER__LFS_JWT_SECRET=$(gitea generate secret LFS_JWT_SECRET)
+
+      env2ini::log "...Initial secrets generated\n"
+    }
+
+    # save existing envs prior to script execution. Necessary to keep order of
+    # preexisting and custom envs
+    env | (grep -e '^FORGEJO__' || [[ $? == 1 ]]) > /tmp/existing-envs
+
+    # MUST BE CALLED BEFORE OTHER CONFIGURATION
+    env2ini::generate_initial_secrets
+
+    env2ini::load_config_sources '/env-to-ini-mounts/inlines/'
+    env2ini::load_config_sources '/env-to-ini-mounts/additionals/'
+
+    # load existing envs to override auto generated envs
+    env2ini::reload_preset_envs
+
+    env2ini::log "=== All configuration sources loaded ===\n"
+
+    # safety to prevent rewrite of secret keys if an app.ini already exists
+    if [ -f ${GITEA_APP_INI} ]; then
+      env2ini::log 'An app.ini file already exists. To prevent overwriting secret keys, these settings are dropped and remain unchanged:'
+      env2ini::log '  - security.INTERNAL_TOKEN'
+      env2ini::log '  - security.SECRET_KEY'
+      env2ini::log '  - oauth2.JWT_SECRET'
+      env2ini::log '  - server.LFS_JWT_SECRET'
+
+      unset FORGEJO__SECURITY__INTERNAL_TOKEN
+      unset FORGEJO__SECURITY__SECRET_KEY
+      unset FORGEJO__OAUTH2__JWT_SECRET
+      unset FORGEJO__SERVER__LFS_JWT_SECRET
+    fi
+
+    environment-to-ini -o $GITEA_APP_INI
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: forgejo
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: forgejo
+    app.kubernetes.io/version: 9.0.2
+    helm.sh/chart: forgejo-10.1.1
+    version: 9.0.2
+  name: forgejo-init
+  namespace: default
+stringData:
+  configure_gitea.sh: |-
+    #!/usr/bin/env bash
+
+    set -euo pipefail
+
+    echo '==== BEGIN GITEA CONFIGURATION ===='
+
+    { # try
+      gitea migrate
+    } || { # catch
+      echo "Forgejo migrate might fail due to database connection...This init-container will try again in a few seconds"
+      exit 1
+    }
+    function configure_admin_user() {
+      local full_admin_list=$(gitea admin user list --admin)
+      local actual_user_table=''
+
+      # We might have distorted output due to warning logs, so we have to detect the actual user table by its headline and trim output above that line
+      local regex="(.*)(ID\s+Username\s+Email\s+IsActive.*)"
+      if [[ "${full_admin_list}" =~ $regex ]]; then
+        actual_user_table=$(echo "${BASH_REMATCH[2]}" | tail -n+2) # tail'ing to drop the table headline
+      else
+        # This code block should never be reached, as long as the output table header remains the same.
+        # If this code block is reached, the regex doesn't match anymore and we probably have to adjust this script.
+
+        echo "ERROR: 'configure_admin_user' was not able to determine the current list of admin users."
+        echo "       Please review the output of 'gitea admin user list --admin' shown below."
+        echo "       If you think it is an issue with the Helm Chart provisioning, file an issue at https://gitea.com/gitea/helm-chart/issues."
+        echo "DEBUG: Output of 'gitea admin user list --admin'"
+        echo "--"
+        echo "${full_admin_list}"
+        echo "--"
+        exit 1
+      fi
+
+      local ACCOUNT_ID=$(echo "${actual_user_table}" | grep -E "\s+${GITEA_ADMIN_USERNAME}\s+" | awk -F " " "{printf \$1}")
+      if [[ -z "${ACCOUNT_ID}" ]]; then
+        local -a create_args
+        create_args=(--admin --username "${GITEA_ADMIN_USERNAME}" --password "${GITEA_ADMIN_PASSWORD}" --email "gitea@local.domain")
+        if [[ "${GITEA_ADMIN_PASSWORD_MODE}" = initialOnlyRequireReset ]]; then
+          create_args+=(--must-change-password=true)
+        else
+          create_args+=(--must-change-password=false)
+        fi
+        echo "No admin user '${GITEA_ADMIN_USERNAME}' found. Creating now..."
+        gitea admin user create "${create_args[@]}"
+        echo '...created.'
+      else
+        if [[ "${GITEA_ADMIN_PASSWORD_MODE}" = keepUpdated ]]; then
+          echo "Admin account '${GITEA_ADMIN_USERNAME}' already exist. Running update to sync password..."
+          local -a change_args
+          change_args=(--username "${GITEA_ADMIN_USERNAME}" --password "${GITEA_ADMIN_PASSWORD}" --must-change-password=false)
+          gitea admin user change-password "${change_args[@]}"
+          echo '...password sync done.'
+        else
+          echo "Admin account '${GITEA_ADMIN_USERNAME}' already exist, but update mode is set to '${GITEA_ADMIN_PASSWORD_MODE}'. Skipping."
+        fi
+      fi
+    }
+
+    configure_admin_user
+
+    function configure_ldap() {
+        echo 'no ldap configuration... skipping.'
+    }
+
+    configure_ldap
+
+    function configure_oauth() {
+        echo 'no oauth configuration... skipping.'
+    }
+
+    configure_oauth
+
+    echo '==== END GITEA CONFIGURATION ===='
+  configure_gpg_environment.sh: |-
+    #!/usr/bin/env bash
+    set -eu
+
+    gpg --batch --import /raw/private.asc
+  init_directory_structure.sh: |-
+    #!/usr/bin/env bash
+
+    set -euo pipefail
+
+    set -x
+    mkdir -p /data/git/.ssh
+    chmod -R 700 /data/git/.ssh
+    [ ! -d /data/gitea/conf ] && mkdir -p /data/gitea/conf
+
+    # prepare temp directory structure
+    mkdir -p "${GITEA_TEMP}"
+    chmod ug+rwx "${GITEA_TEMP}"
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: forgejo
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: forgejo
+    app.kubernetes.io/version: 9.0.2
+    helm.sh/chart: forgejo-10.1.1
+    version: 9.0.2
+  name: forgejo-inline-config
+  namespace: default
+stringData:
+  _generals_: |-
+    APP_NAME=Forgejo: Beyond coding. We forge.
+    RUN_MODE=prod
+  cache: |-
+    ADAPTER=memory
+    HOST=
+  database: DB_TYPE=sqlite3
+  indexer: ISSUE_INDEXER_TYPE=db
+  metrics: ENABLED=false
+  queue: |-
+    CONN_STR=
+    TYPE=level
+  repository: ROOT=/data/git/gitea-repositories
+  security: INSTALL_LOCK=true
+  server: |-
+    APP_DATA_PATH=/data
+    DOMAIN=git.brenix.com
+    ENABLE_PPROF=false
+    HTTP_PORT=3000
+    PROTOCOL=http
+    ROOT_URL=https://git.brenix.com
+    SSH_DOMAIN=git.brenix.com
+    SSH_LISTEN_PORT=2222
+    SSH_PORT=22
+    START_SSH_SERVER=true
+  session: |-
+    PROVIDER=memory
+    PROVIDER_CONFIG=
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: gitea-192.168.2.11
+    metallb.universe.tf/loadBalancerIPs: 192.168.2.11
+  labels:
+    app: forgejo
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: forgejo
+    app.kubernetes.io/version: 9.0.2
+    helm.sh/chart: forgejo-10.1.1
+    version: 9.0.2
+  name: forgejo-http
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 3000
+    targetPort: null
+  selector:
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/name: forgejo
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: gitea-192.168.2.11
+    metallb.universe.tf/loadBalancerIPs: 192.168.2.11
+  labels:
+    app: forgejo
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: forgejo
+    app.kubernetes.io/version: 9.0.2
+    helm.sh/chart: forgejo-10.1.1
+    version: 9.0.2
+  name: forgejo-ssh
+  namespace: default
+spec:
+  ports:
+  - name: ssh
+    port: 22
+    protocol: TCP
+    targetPort: 2222
+  selector:
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/name: forgejo
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    helm.sh/resource-policy: keep
+  name: gitea-shared-storage
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: forgejo
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: forgejo
+    app.kubernetes.io/version: 9.0.2
+    helm.sh/chart: forgejo-10.1.1
+    version: 9.0.2
+  name: forgejo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: forgejo
+      app.kubernetes.io/name: forgejo
+  strategy:
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        checksum/config: b345682227260ecb4889ddbcc69bb4455a5080d7c8459d1f6c971af8dd5164f4
+      labels:
+        app: forgejo
+        app.kubernetes.io/instance: forgejo
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: forgejo
+        app.kubernetes.io/version: 9.0.2
+        helm.sh/chart: forgejo-10.1.1
+        version: 9.0.2
+    spec:
+      containers:
+      - env:
+        - name: SSH_LISTEN_PORT
+          value: "2222"
+        - name: SSH_PORT
+          value: "22"
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_CUSTOM
+          value: /data/gitea
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        - name: TMPDIR
+          value: /tmp/gitea
+        - name: HOME
+          value: /data/gitea/git
+        image: code.forgejo.org/forgejo/forgejo:9.0.2-rootless
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 10
+          initialDelaySeconds: 200
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 1
+        name: forgejo
+        ports:
+        - containerPort: 2222
+          name: ssh
+        - containerPort: 3000
+          name: http
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 1
+        resources: {}
+        securityContext: {}
+        volumeMounts:
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /data
+          name: data
+      initContainers:
+      - command:
+        - /usr/sbin/init_directory_structure.sh
+        env:
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_CUSTOM
+          value: /data/gitea
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        image: code.forgejo.org/forgejo/forgejo:9.0.2-rootless
+        imagePullPolicy: IfNotPresent
+        name: init-directories
+        resources:
+          limits: {}
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext: {}
+        volumeMounts:
+        - mountPath: /usr/sbin
+          name: init
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /data
+          name: data
+      - command:
+        - /usr/sbin/config_environment.sh
+        env:
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_CUSTOM
+          value: /data/gitea
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        image: code.forgejo.org/forgejo/forgejo:9.0.2-rootless
+        imagePullPolicy: IfNotPresent
+        name: init-app-ini
+        resources:
+          limits: {}
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext: {}
+        volumeMounts:
+        - mountPath: /usr/sbin
+          name: config
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /data
+          name: data
+        - mountPath: /env-to-ini-mounts/inlines/
+          name: inline-config-sources
+      - command:
+        - /usr/sbin/configure_gitea.sh
+        env:
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_CUSTOM
+          value: /data/gitea
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        - name: HOME
+          value: /data/gitea/git
+        - name: GITEA_ADMIN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: gitea-admin
+        - name: GITEA_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: gitea-admin
+        - name: GITEA_ADMIN_PASSWORD_MODE
+          value: keepUpdated
+        image: code.forgejo.org/forgejo/forgejo:9.0.2-rootless
+        imagePullPolicy: IfNotPresent
+        name: configure-gitea
+        resources:
+          limits: {}
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext:
+          runAsUser: 1000
+        volumeMounts:
+        - mountPath: /usr/sbin
+          name: init
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /data
+          name: data
+      securityContext:
+        fsGroup: 1000
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - name: init
+        secret:
+          defaultMode: 110
+          secretName: forgejo-init
+      - name: config
+        secret:
+          defaultMode: 110
+          secretName: forgejo
+      - name: inline-config-sources
+        secret:
+          secretName: forgejo-inline-config
+      - emptyDir: {}
+        name: temp
+      - name: data
+        persistentVolumeClaim:
+          claimName: gitea-shared-storage
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: forgejo
+  namespace: default
+spec:
+  dataFrom:
+  - extract:
+      key: gitea
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: gitea-admin
+    template:
+      data:
+        email: '{{ .EMAIL }}'
+        password: '{{ .PASSWORD }}'
+        username: '{{ .USERNAME }}'
+      engineVersion: v2
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: forgejo
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: forgejo
+    app.kubernetes.io/version: 9.0.2
+    helm.sh/chart: forgejo-10.1.1
+    version: 9.0.2
+  name: forgejo
+  namespace: default
+spec:
+  ingressClassName: internal
+  rules:
+  - host: git.brenix.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: forgejo-http
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - git.brenix.com
+    secretName: null

@@ -1,60 +1,53 @@
 {
+  "extends": [
+    "docker:enableMajor",
+    ":disableRateLimiting"
+  ],
   "enabled": true,
-  "dependencyDashboard": true,
-  "dependencyDashboardTitle": "Renovate Dashboard",
   "rebaseWhen": "conflicted",
   "pre-commit": {
     "enabled": false
   },
-  "flux": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
-  },
-  "helm-values": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
-  },
-  "kubernetes": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
-  },
+  "ignorePaths": [
+    "deploy/**",
+    "components/**/vendor/**"
+  ],
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Process CRD dependencies",
+      "description": [
+        "Process helm chart dependencies in cue components"
+      ],
       "fileMatch": [
-        "cluster/crds/.+\\.ya?ml$"
+        "^components/.*\\.cue$"
       ],
       "matchStrings": [
-        "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
-        "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)/(?<currentValue>[^/]+)/[^/]+\n"
+        "Chart:\\s*{\\s*name:\\s*\"(?<depName>[^\"]+)\"\\s*version:\\s*\"(?<currentValue>[^\"]+)\"\\s*repository:\\s*{\\s*name:\\s*\"[^\"]*\"\\s*url:\\s*\"(?<registryUrl>[^\"]+)\"\\s*}\\s*}"
       ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
+      "datasourceTemplate": "helm"
     },
     {
       "customType": "regex",
-      "description": "Process various other dependencies",
+      "description": [
+        "Process docker image dependencies in cue components"
+      ],
       "fileMatch": [
-        "cluster/.+\\.ya?ml$"
+        "^components/.*\\.cue$"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
+        "image:\\s*{\\s*repository:\\s*\"(?<depName>[^\"]+)\"\\s*tag:\\s*\"(?<currentValue>[^\"]+)\"\\s*}"
       ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+      "datasourceTemplate": "docker"
     }
   ],
   "packageRules": [
     {
       "description": "Override commit message for consistency",
-      "matchFileNames": [
+      "matchPaths": [
         "**"
       ],
       "commitMessageTopic": "{{depName}}",
-      "commitMessagePrefix": "[{{datasource}}]",
+      "commitMessagePrefix": "{{datasource}}",
       "commitMessageSuffix": "",
       "commitMessageExtra": "{{#if (containsString updateType 'digest')}}{{{currentDigestShort}}} → {{{newDigestShort}}}{{else}}{{{currentVersion}}} → {{newVersion}}{{/if}}",
       "commitMessageAction": ""
@@ -81,39 +74,6 @@
       ],
       "matchPackageNames": "lscr.io/linuxserver/lidarr",
       "allowedVersions": "<=8.0"
-    },
-    {
-      "description": "Disable kubernetes-api",
-      "matchManagers": [
-        "kubernetes"
-      ],
-      "matchDatasources": [
-        "kubernetes-api"
-      ],
-      "enabled": false
-    },
-    {
-      "description": "Auto merge all patch updates",
-      "automerge": true,
-      "automergeType": "branch",
-      "ignoreTests": true,
-      "matchUpdateTypes": [
-        "patch"
-      ]
-    },
-    {
-      "description": "Auto merge some minor and patch updates",
-      "automerge": true,
-      "automergeType": "branch",
-      "ignoreTests": true,
-      "matchPackageNames": [
-        "kube-prometheus-stack",
-        "grafana"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ]
     }
   ]
 }

@@ -1,6 +1,10 @@
-# Sops
-.decrypted~*
-*.agekey
-
-# Terraform
-.terraform
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+vendor/
+node_modules/
+tmp/

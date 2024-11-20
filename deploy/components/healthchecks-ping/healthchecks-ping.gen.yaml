@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: healthchecks-ping
+  namespace: monitoring
+spec:
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - args:
+            - $(HC_URL)
+            env:
+            - name: HC_URL
+              valueFrom:
+                secretKeyRef:
+                  key: url
+                  name: healthchecks-ping
+            image: cgr.dev/chainguard/curl:latest
+            name: healthcheck-ping
+          restartPolicy: Never
+      ttlSecondsAfterFinished: 300
+  schedule: '*/20 * * * *'
+  successfulJobsHistoryLimit: 1
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: healthchecks-ping
+  namespace: monitoring
+spec:
+  dataFrom:
+  - extract:
+      key: healthchecksio
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: healthchecks-ping
+    template:
+      data:
+        url: '{{ .KUBERNETES_URL}}'
+      engineVersion: v2

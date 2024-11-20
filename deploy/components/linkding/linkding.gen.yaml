@@ -1,0 +1,148 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: 192.168.2.9
+  labels:
+    app.kubernetes.io/instance: linkding
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: linkding
+    app.kubernetes.io/service: linkding
+    helm.sh/chart: app-template-3.5.1
+  name: linkding
+  namespace: default
+spec:
+  externalTrafficPolicy: Local
+  ports:
+  - name: http
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app.kubernetes.io/component: main
+    app.kubernetes.io/instance: linkding
+    app.kubernetes.io/name: linkding
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    helm.sh/resource-policy: keep
+  labels:
+    app.kubernetes.io/instance: linkding
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: linkding
+    helm.sh/chart: app-template-3.5.1
+  name: linkding-data
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app.kubernetes.io/component: main
+    app.kubernetes.io/instance: linkding
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: linkding
+    helm.sh/chart: app-template-3.5.1
+  name: linkding
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: main
+      app.kubernetes.io/instance: linkding
+      app.kubernetes.io/name: linkding
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: main
+        app.kubernetes.io/instance: linkding
+        app.kubernetes.io/name: linkding
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - envFrom:
+        - secretRef:
+            name: linkding
+        image: sissbruecker/linkding:1.36.0
+        name: main
+        resources:
+          limits:
+            memory: 512M
+          requests:
+            cpu: 12m
+            memory: 64M
+        volumeMounts:
+        - mountPath: /etc/linkding/data
+          name: data
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: linkding-data
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: linkding
+  namespace: default
+spec:
+  dataFrom:
+  - extract:
+      key: linkding
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: linkding
+    template:
+      data:
+        LD_SUPERUSER_NAME: '{{ .username }}'
+        LD_SUPERUSER_PASSWORD: '{{ .password }}'
+      engineVersion: v2
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: linkding
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: linkding
+    helm.sh/chart: app-template-3.5.1
+  name: linkding
+  namespace: default
+spec:
+  ingressClassName: internal
+  rules:
+  - host: linkding.brenix.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: linkding
+            port:
+              number: 9090
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - linkding.brenix.com
