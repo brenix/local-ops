@@ -41,7 +41,6 @@ spec:
             - name: config
               accessMode: ReadWriteOnce
               size: 1Gi
-              storageClass: local-path
     service:
       main:
         controller: main

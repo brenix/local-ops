@@ -58,7 +58,6 @@ spec:
         enabled: true
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
-        storageClass: local-path
         size: 12Gi
         globalMounts:
           - path: /config
@@ -66,7 +65,6 @@ spec:
         enabled: true
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
-        storageClass: local-path
         size: 12Gi
         globalMounts:
           - path: /opt/valheim

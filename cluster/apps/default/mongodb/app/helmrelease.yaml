@@ -50,7 +50,6 @@ spec:
         size: 8Gi
         retain: true
         accessMode: ReadWriteOnce
-        storageClass: local-path
         globalMounts:
           - path: /data/db
       initdb:

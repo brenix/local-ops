@@ -66,6 +66,5 @@ spec:
         size: 1Gi
         retain: true
         accessMode: ReadWriteOnce
-        storageClass: local-path
         globalMounts:
         - path: /etc/linkding/data

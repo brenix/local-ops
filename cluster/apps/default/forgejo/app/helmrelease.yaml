@@ -16,7 +16,6 @@ spec:
         namespace: flux-system
   values:
     persistence:
-      storageClass: local-path
     strategy:
       type: Recreate
     service:

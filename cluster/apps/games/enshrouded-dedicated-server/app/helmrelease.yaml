@@ -54,7 +54,6 @@ spec:
         enabled: true
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
-        storageClass: local-path
         size: 1Gi
         globalMounts:
           - path: /opt/enshrouded/server/savegame
