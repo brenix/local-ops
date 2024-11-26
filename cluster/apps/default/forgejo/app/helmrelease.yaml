@@ -15,9 +15,6 @@ spec:
         name: forgejo-contrib
         namespace: flux-system
   values:
-    persistence:
-    strategy:
-      type: Recreate
     service:
       http:
         type: LoadBalancer
