@@ -13,9 +13,6 @@ spec:
         kind: HelmRepository
         name: cloudnative-pg
         namespace: flux-system
-  dependsOn:
-    - name: openebs
-      namespace: kube-system
   values:
     crds:
       create: true
