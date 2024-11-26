@@ -50,6 +50,7 @@ spec:
         size: 8Gi
         retain: true
         accessMode: ReadWriteOnce
+        storageClass: openebs-hostpath
         globalMounts:
           - path: /data/db
       initdb:

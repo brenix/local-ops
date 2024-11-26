@@ -66,5 +66,6 @@ spec:
         size: 1Gi
         retain: true
         accessMode: ReadWriteOnce
+        storageClass: openebs-hostpath
         globalMounts:
         - path: /etc/linkding/data
