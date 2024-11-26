@@ -74,7 +74,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: openebs-hostpath
+              storageClassName: local-path
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:

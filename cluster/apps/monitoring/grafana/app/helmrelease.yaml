@@ -25,7 +25,7 @@ spec:
         - hosts: [*host]
     persistence:
       enabled: true
-      storageClassName: openebs-hostpath
+      storageClassName: local-path
       size: 2Gi
     testFramework:
       enabled: false
