@@ -19,7 +19,7 @@ spec:
           main:
             image:
               repository: lscr.io/linuxserver/sonarr
-              tag: 4.0.10
+              tag: 4.0.11
               pullPolicy: Always
             env:
               TZ: "${TIMEZONE}"
