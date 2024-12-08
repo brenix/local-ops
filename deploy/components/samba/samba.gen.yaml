@@ -1,0 +1,121 @@
+apiVersion: v1
+data:
+  config.yml: |
+    auth:
+      - user: nobody
+        group: nobody
+        uid: 65534
+        gid: 65534
+        password:
+
+    global:
+      - "force user = nobody"
+      - "force group = nobody"
+
+    share:
+      - name: downloads
+        path: /downloads
+        browseable: yes
+        readonly: no
+        guestok: yes
+        validusers: nobody
+        writelist: nobody
+        veto: no
+      - name: media
+        path: /media
+        browseable: yes
+        readonly: no
+        guestok: yes
+        validusers: nobody
+        writelist: nobody
+        veto: no
+      - name: tmp
+        path: /temp
+        browseable: yes
+        readonly: no
+        guestok: yes
+        validusers: nobody
+        writelist: nobody
+        veto: no
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: samba
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: samba
+    helm.sh/chart: app-template-3.5.1
+  name: samba-config
+  namespace: default
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: main
+    app.kubernetes.io/instance: samba
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: samba
+    helm.sh/chart: app-template-3.5.1
+  name: samba
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: main
+      app.kubernetes.io/instance: samba
+      app.kubernetes.io/name: samba
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        checksum/configMaps: 631f757a2f82e8cf717f6960a1dcab5ea4f1c3552aaf9a02de041ac83c59dea6
+      labels:
+        app.kubernetes.io/component: main
+        app.kubernetes.io/instance: samba
+        app.kubernetes.io/name: samba
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - env:
+        - name: CONFIG_FILE
+          value: /config/config.yml
+        - name: TZ
+          value: America/Los_Angeles
+        image: ghcr.io/crazy-max/samba:4.19.9
+        imagePullPolicy: Always
+        name: main
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /downloads
+          name: downloads
+        - mountPath: /media
+          name: media
+        - mountPath: /temp
+          name: temp
+      dnsPolicy: ClusterFirstWithHostNet
+      enableServiceLinks: false
+      hostIPC: false
+      hostNetwork: true
+      hostPID: false
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 15
+      volumes:
+      - configMap:
+          name: samba-config
+        name: config
+      - hostPath:
+          path: /media/downloads
+          type: Directory
+        name: downloads
+      - hostPath:
+          path: /media
+          type: Directory
+        name: media
+      - hostPath:
+          path: /tmp
+          type: Directory
+        name: temp
