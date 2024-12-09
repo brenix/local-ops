@@ -11,7 +11,7 @@ import (
 	OutputBaseDir: _
 
 	let ArtifactPath = path.Join([OutputBaseDir, "gitops", "\(Name).kustomization.gen.yaml"], path.Unix)
-	let ResourcesPath = path.Join(["deploy", OutputBaseDir, "components", Name], path.Unix)
+	let ResourcesPath = path.Join([OutputBaseDir, "components", Name], path.Unix)
 
 	Artifacts: "\(Name)-kustomization": {
 		artifact: ArtifactPath
@@ -27,8 +27,8 @@ import (
 					path:            ResourcesPath
 					prune:           true
 					sourceRef: {
-						kind: "GitRepository"
-						name: "local-ops"
+						kind: "OCIRepository"
+						name: "default"
 					}
 				}
 			}

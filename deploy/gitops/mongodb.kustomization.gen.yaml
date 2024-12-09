@@ -5,9 +5,9 @@ metadata:
     namespace: flux-system
 spec:
     interval: 10m
-    path: deploy/components/mongodb
+    path: components/mongodb
     prune: true
     sourceRef:
-        kind: GitRepository
-        name: local-ops
+        kind: OCIRepository
+        name: default
     targetNamespace: default
