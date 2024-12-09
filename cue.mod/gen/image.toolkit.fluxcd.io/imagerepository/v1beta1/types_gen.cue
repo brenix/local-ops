@@ -6,8 +6,8 @@ package v1beta1
 
 import "strings"
 
-// HelmRepository is the Schema for the helmrepositories API
-#HelmRepository: {
+// ImageRepository is the Schema for the imagerepositories API
+#ImageRepository: {
 	// APIVersion defines the versioned schema of this representation
 	// of an object.
 	// Servers should convert recognized schemas to the latest
@@ -15,7 +15,7 @@ import "strings"
 	// may reject unrecognized values.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	apiVersion: "source.toolkit.fluxcd.io/v1beta1"
+	apiVersion: "image.toolkit.fluxcd.io/v1beta1"
 
 	// Kind is a string value representing the REST resource this
 	// object represents.
@@ -25,7 +25,7 @@ import "strings"
 	// In CamelCase.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	kind: "HelmRepository"
+	kind: "ImageRepository"
 	metadata!: {
 		name!: strings.MaxRunes(253) & strings.MinRunes(1) & {
 			string
@@ -41,12 +41,16 @@ import "strings"
 		}
 	}
 
-	// HelmRepositorySpec defines the reference to a Helm repository.
-	spec!: #HelmRepositorySpec
+	// ImageRepositorySpec defines the parameters for scanning an
+	// image
+	// repository, e.g., `fluxcd/flux`.
+	spec!: #ImageRepositorySpec
 }
 
-// HelmRepositorySpec defines the reference to a Helm repository.
-#HelmRepositorySpec: {
+// ImageRepositorySpec defines the parameters for scanning an
+// image
+// repository, e.g., `fluxcd/flux`.
+#ImageRepositorySpec: {
 	accessFrom?: {
 		// NamespaceSelectors is the list of namespace selectors to which
 		// this ACL applies.
@@ -63,33 +67,39 @@ import "strings"
 			}
 		}]
 	}
+	certSecretRef?: {
+		// Name of the referent.
+		name: string
+	}
 
-	// The interval at which to check the upstream for updates.
-	interval: string
+	// ExclusionList is a list of regex strings used to exclude
+	// certain tags
+	// from being stored in the database.
+	exclusionList?: [...string]
 
-	// PassCredentials allows the credentials from the SecretRef to be
-	// passed on to
-	// a host that does not match the host as defined in URL.
-	// This may be required if the host of the advertised chart URLs
-	// in the index
-	// differ from the defined URL.
-	// Enabling this should be done with caution, as it can
-	// potentially result in
-	// credentials getting stolen in a MITM-attack.
-	passCredentials?: bool
+	// Image is the name of the image repository
+	image: string
+
+	// Interval is the length of time to wait between
+	// scans of the image repository.
+	interval: =~"^([0-9]+(\\.[0-9]+)?(ms|s|m|h))+$"
 	secretRef?: {
 		// Name of the referent.
 		name: string
 	}
 
-	// This flag tells the controller to suspend the reconciliation of
-	// this source.
+	// ServiceAccountName is the name of the Kubernetes ServiceAccount
+	// used to authenticate
+	// the image pull if the service account has attached pull
+	// secrets.
+	serviceAccountName?: strings.MaxRunes(253)
+
+	// This flag tells the controller to suspend subsequent image
+	// scans.
+	// It does not apply to already started scans. Defaults to false.
 	suspend?: bool
 
-	// The timeout of index downloading, defaults to 60s.
-	timeout?: string | *"60s"
-
-	// The Helm repository URL, a valid URL contains at least a
-	// protocol and host.
-	url: string
+	// Timeout for image scanning.
+	// Defaults to 'Interval' duration.
+	timeout?: =~"^([0-9]+(\\.[0-9]+)?(ms|s|m))+$"
 }
