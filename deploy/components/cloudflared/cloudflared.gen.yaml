@@ -89,7 +89,7 @@ spec:
           value: "true"
         - name: TUNNEL_TRANSPORT_PROTOCOL
           value: quic
-        image: docker.io/cloudflare/cloudflared:2024.3.0@sha256:8acfc9e4e65e0d1e26686177a3a0c4baa3b0330c0fc6adc899c2b673bc938e77
+        image: docker.io/cloudflare/cloudflared:2024.11.1
         livenessProbe:
           failureThreshold: 3
           httpGet:
