@@ -1,0 +1,42 @@
+name: artifact
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - deploy/**
+
+permissions:
+  packages: write  # needed for ghcr.io access
+  contents: write  # needed for committing changes to PR
+
+env:
+  OCI_REPO: "oci://ghcr.io/brenix/${{ github.event.repository.name }}"
+
+jobs:
+  push-artifact:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@main
+
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push artifact
+        run: |
+          flux push artifact $OCI_REPO:main \
+            --path="./deploy" \
+            --source="$(git config --get remote.origin.url)" \
+            --revision="$(git branch --show-current)@sha1:$(git rev-parse HEAD)"
