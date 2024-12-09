@@ -1,0 +1,51 @@
+name: Render
+run-name: Render
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - main
+    paths:
+      - components/**
+      - platform/**
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: write
+  packages: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # In a pull request trigger, ref is required as GitHub Actions checks out in detached HEAD mode, meaning it doesn’t check out your branch by default.
+          ref: ${{ github.head_ref }}
+
+      - name: Install holos
+        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        with: 
+          repo: holos-run/holos
+          tag: v0.101.4
+
+      - name: Render platform
+        shell: bash
+        run: |
+          holos render platform
+      
+      - name: Commit changes and push
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rendered/*
+          git commit -m 'chore(manifests): rendered output for commit ${{ github.sha }} [skip ci]' || echo "No changes to commit"
+          git push
+

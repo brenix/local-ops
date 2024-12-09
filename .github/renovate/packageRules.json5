@@ -1,0 +1,28 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": "Skip date based images",
+      "matchDatasources": [
+        "docker"
+      ],
+      "allowedVersions": "!/^\\d{4}.*$/"
+    },
+    {
+      "description": "Pin Mongo for Unifi",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": "docker.io/library/mongo",
+      "allowedVersions": "<=4.4"
+    },
+    {
+      "description": "Avoid old lidarr images",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": "lscr.io/linuxserver/lidarr",
+      "allowedVersions": "<=8.0"
+    }
+  ]
+}
