@@ -38,6 +38,7 @@ jobs:
       - name: Render platform
         shell: bash
         run: |
+          rm -rf deploy
           holos render platform
       
       - name: Commit changes and push
