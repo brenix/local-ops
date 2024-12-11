@@ -78,7 +78,7 @@ spec:
           value: "1000"
         - name: TZ
           value: America/Los_Angeles
-        image: lscr.io/linuxserver/sabnzbd:4.3.3
+        image: lscr.io/linuxserver/sabnzbd:4.4.0
         livenessProbe:
           failureThreshold: 3
           httpGet:
