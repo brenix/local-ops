@@ -7,7 +7,6 @@ package holos
 			TZ:        "America/Los_Angeles"
 		}
 		image: {
-			pullPolicy: "Always"
 			repository: "docker.io/fallenbagel/jellyseerr"
 			tag:        "2.1.0"
 		}

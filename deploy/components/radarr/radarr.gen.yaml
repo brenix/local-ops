@@ -79,7 +79,6 @@ spec:
         - name: TZ
           value: America/Los_Angeles
         image: lscr.io/linuxserver/radarr:5.15.1
-        imagePullPolicy: Always
         livenessProbe:
           exec:
             command:

@@ -71,7 +71,6 @@ spec:
       automountServiceAccountToken: true
       containers:
       - image: docker.io/library/mongo:4.4
-        imagePullPolicy: Always
         name: main
         volumeMounts:
         - mountPath: /data/db

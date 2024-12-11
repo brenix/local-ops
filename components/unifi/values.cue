@@ -14,7 +14,6 @@ package holos
 			secretRef: name: "unifi"
 		}]
 		image: {
-			pullPolicy: "Always"
 			repository: "lscr.io/linuxserver/unifi-network-application"
 			tag:        "8.6.9"
 		}

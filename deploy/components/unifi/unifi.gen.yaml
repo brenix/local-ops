@@ -108,7 +108,6 @@ spec:
         - secretRef:
             name: unifi
         image: lscr.io/linuxserver/unifi-network-application:8.6.9
-        imagePullPolicy: Always
         name: main
         volumeMounts:
         - mountPath: /config

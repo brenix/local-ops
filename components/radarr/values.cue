@@ -8,7 +8,6 @@ package holos
 			TZ:   "America/Los_Angeles"
 		}
 		image: {
-			pullPolicy: "Always"
 			repository: "lscr.io/linuxserver/radarr"
 			tag:        "5.15.1"
 		}

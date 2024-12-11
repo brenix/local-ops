@@ -4,7 +4,6 @@ package holos
 	controllers: main: {
 		containers: main: {
 			image: {
-				pullPolicy: "Always"
 				repository: "docker.io/library/mongo"
 				tag:        "4.4"
 			}

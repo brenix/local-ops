@@ -85,7 +85,6 @@ spec:
         - name: TZ
           value: America/Los_Angeles
         image: ghcr.io/crazy-max/samba:4.19.9
-        imagePullPolicy: Always
         name: main
         volumeMounts:
         - mountPath: /config

@@ -49,7 +49,6 @@ package holos
 			TZ:          "America/Los_Angeles"
 		}
 		image: {
-			pullPolicy: "Always"
 			repository: "ghcr.io/crazy-max/samba"
 			tag:        "4.19.9"
 		}

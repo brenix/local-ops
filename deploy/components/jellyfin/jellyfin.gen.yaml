@@ -79,7 +79,6 @@ spec:
         - name: TZ
           value: America/Los_Angeles
         image: lscr.io/linuxserver/jellyfin:10.10.3
-        imagePullPolicy: Always
         name: main
         volumeMounts:
         - mountPath: /config

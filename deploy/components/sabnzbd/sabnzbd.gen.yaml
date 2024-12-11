@@ -79,7 +79,6 @@ spec:
         - name: TZ
           value: America/Los_Angeles
         image: lscr.io/linuxserver/sabnzbd:4.3.3
-        imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
           httpGet:

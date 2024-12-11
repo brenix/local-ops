@@ -79,7 +79,6 @@ spec:
         - name: TZ
           value: America/Los_Angeles
         image: lscr.io/linuxserver/prowlarr:1.27.0
-        imagePullPolicy: Always
         name: main
         volumeMounts:
         - mountPath: /config
