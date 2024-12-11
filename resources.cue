@@ -14,14 +14,6 @@ import (
 	ap "argoproj.io/appproject/v1alpha1"
 	es "external-secrets.io/externalsecret/v1beta1"
 	ss "external-secrets.io/secretstore/v1beta1"
-	css "external-secrets.io/clustersecretstore/v1beta1"
-	ed "externaldns.k8s.io/dnsendpoint/v1alpha1"
-	bgpadv "metallb.io/bgpadvertisement/v1beta1"
-	bgppeer "metallb.io/bgppeer/v1beta2"
-	ipaddresspool "metallb.io/ipaddresspool/v1beta1"
-	ocirepository "source.toolkit.fluxcd.io/ocirepository/v1beta2"
-	ks "kustomize.toolkit.fluxcd.io/kustomization/v1"
-
 )
 
 #Resources: {
@@ -47,7 +39,6 @@ import (
 	RoleBinding?: [_]:        rbacv1.#RoleBinding
 	Secret?: [_]:             corev1.#Secret
 	SecretStore?: [_]:        ss.#SecretStore
-	ClusterSecretStore?: [_]: css.#ClusterSecretStore
 	Service?: [_]:            corev1.#Service
 	ServiceAccount?: [_]:     corev1.#ServiceAccount
 	StatefulSet?: [_]:        appsv1.#StatefulSet
@@ -55,11 +46,4 @@ import (
 	Gateway?: [_]: gwv1.#Gateway & {
 		spec: gatewayClassName: string | *"istio"
 	}
-
-	DNSEndpoint?: [_]:      ed.#DNSEndpoint
-	BGPAdvertisement?: [_]: bgpadv.#BGPAdvertisement
-	BGPPeer?: [_]:          bgppeer.#BGPPeer
-	IPAddressPool?: [_]:    ipaddresspool.#IPAddressPool
-	OCIRepository?: [_]:    ocirepository.#OCIRepository
-	Kustomization?: [_]:    ks.#Kustomization
 }
