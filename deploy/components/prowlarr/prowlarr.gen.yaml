@@ -78,7 +78,7 @@ spec:
           value: "1000"
         - name: TZ
           value: America/Los_Angeles
-        image: lscr.io/linuxserver/prowlarr:1.27.0
+        image: lscr.io/linuxserver/prowlarr:1.28.2
         name: main
         volumeMounts:
         - mountPath: /config
