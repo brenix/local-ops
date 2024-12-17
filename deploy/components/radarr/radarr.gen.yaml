@@ -78,7 +78,7 @@ spec:
           value: "1000"
         - name: TZ
           value: America/Los_Angeles
-        image: lscr.io/linuxserver/radarr:5.15.1
+        image: lscr.io/linuxserver/radarr:5.16.3
         livenessProbe:
           exec:
             command:
