@@ -29,14 +29,11 @@ package holos
 		}]
 	}
 	persistence: config: {
-		accessMode: "ReadWriteOnce"
-		enabled:    true
+		existingClaim: "jellyseerr"
 		globalMounts: [{path: "/app/config"}]
-		size: "1Gi"
-		type: "persistentVolumeClaim"
 	}
 	service: main: {
-		annotations: "metallb.universe.tf/loadBalancerIPs": "192.168.2.8"
+		annotations: "lbipam.cilium.io/ips": "192.168.2.8"
 		controller:            "main"
 		externalTrafficPolicy: "Local"
 		ports: http: port: 5055

@@ -3,8 +3,9 @@ package holos
 holos: Component.BuildPlan
 
 Component: #Helm & {
-	Name:      "nginx-internal"
-	Namespace: "network"
+	Name:        "nginx-internal"
+	Namespace:   "network"
+	EnableHooks: true
 	Chart: {
 		name:    "ingress-nginx"
 		release: "nginx-internal"

@@ -36,15 +36,15 @@ package holos
 	service: {
 		http: {
 			annotations: {
-				"metallb.universe.tf/allow-shared-ip": "gitea-192.168.2.11"
-				"metallb.universe.tf/loadBalancerIPs": "192.168.2.11"
+				"lbipam.cilium.io/sharing-key": "gitea-192.168.2.11"
+				"lbipam.cilium.io/ips":         "192.168.2.11"
 			}
 			type: "LoadBalancer"
 		}
 		ssh: {
 			annotations: {
-				"metallb.universe.tf/allow-shared-ip": "gitea-192.168.2.11"
-				"metallb.universe.tf/loadBalancerIPs": "192.168.2.11"
+				"lbipam.cilium.io/sharing-key": "gitea-192.168.2.11"
+				"lbipam.cilium.io/ips":         "192.168.2.11"
 			}
 			type: "LoadBalancer"
 		}

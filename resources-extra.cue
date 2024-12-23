@@ -1,6 +1,7 @@
 package holos
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	bgpadv "metallb.io/bgpadvertisement/v1beta1"
 	bgppeer "metallb.io/bgppeer/v1beta2"
 	css "external-secrets.io/clustersecretstore/v1beta1"
@@ -11,11 +12,12 @@ import (
 )
 
 #Resources: {
-	BGPAdvertisement?: [_]:   bgpadv.#BGPAdvertisement
-	BGPPeer?: [_]:            bgppeer.#BGPPeer
-	ClusterSecretStore?: [_]: css.#ClusterSecretStore
-	DNSEndpoint?: [_]:        ed.#DNSEndpoint
-	IPAddressPool?: [_]:      ipaddresspool.#IPAddressPool
-	Kustomization?: [_]:      ks.#Kustomization
-	OCIRepository?: [_]:      ocirepository.#OCIRepository
+	BGPAdvertisement?: [_]:      bgpadv.#BGPAdvertisement
+	BGPPeer?: [_]:               bgppeer.#BGPPeer
+	ClusterSecretStore?: [_]:    css.#ClusterSecretStore
+	DNSEndpoint?: [_]:           ed.#DNSEndpoint
+	IPAddressPool?: [_]:         ipaddresspool.#IPAddressPool
+	Kustomization?: [_]:         ks.#Kustomization
+	OCIRepository?: [_]:         ocirepository.#OCIRepository
+	PersistentVolumeClaim?: [_]: corev1.#PersistentVolumeClaim
 }

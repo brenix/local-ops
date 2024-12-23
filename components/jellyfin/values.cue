@@ -32,18 +32,17 @@ package holos
 	}
 	persistence: {
 		config: {
-			accessMode: "ReadWriteOnce"
-			enabled:    true
-			globalMounts: [{path: "/config"}]
-			size: "1Gi"
-			type: "persistentVolumeClaim"
+			existingClaim: "jellyfin-data"
+		}
+		cache: {
+			enabled:       true
+			existingClaim: "jellyfin-cache"
+			globalMounts: [{path: "/config/cache"}]
 		}
 		media: {
-			enabled: true
+			enabled:       true
+			existingClaim: "media"
 			globalMounts: [{path: "/media"}]
-			hostPath:     "/media"
-			hostPathType: "Directory"
-			type:         "hostPath"
 		}
 		transcode: {
 			enabled: true
@@ -51,7 +50,7 @@ package holos
 		}
 	}
 	service: main: {
-		annotations: "metallb.universe.tf/loadBalancerIPs": "192.168.2.7"
+		annotations: "lbipam.cilium.io/ips": "192.168.2.7"
 		controller:            "main"
 		externalTrafficPolicy: "Local"
 		ports: http: port: 8096

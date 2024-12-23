@@ -61,22 +61,16 @@ package holos
 	}
 	persistence: {
 		config: {
-			accessMode: "ReadWriteOnce"
-			enabled:    true
-			globalMounts: [{path: "/config"}]
-			size: "1Gi"
-			type: "persistentVolumeClaim"
+			existingClaim: "sabnzbd"
 		}
 		downloads: {
-			enabled: true
-			globalMounts: [{path: "/downloads"}]
-			hostPath:     "/media/downloads"
-			hostPathType: "Directory"
-			type:         "hostPath"
+			enabled:       true
+			existingClaim: "media"
+			globalMounts: [{path: "/downloads", subPath: "downloads"}]
 		}
 	}
 	service: main: {
-		annotations: "metallb.universe.tf/loadBalancerIPs": "192.168.2.10"
+		annotations: "lbipam.cilium.io/ips": "192.168.2.10"
 		controller:            "main"
 		externalTrafficPolicy: "Local"
 		ports: http: port: 8080

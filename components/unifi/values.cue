@@ -36,14 +36,12 @@ package holos
 		}]
 	}
 	persistence: data: {
-		accessMode: "ReadWriteOnce"
-		enabled:    true
+		enabled:       true
+		existingClaim: "unifi-data"
 		globalMounts: [{path: "/config"}]
-		size: "1Gi"
-		type: "persistentVolumeClaim"
 	}
 	service: main: {
-		annotations: "metallb.universe.tf/loadBalancerIPs": "192.168.2.2"
+		annotations: "lbipam.cilium.io/ips": "192.168.2.2"
 		controller:            "main"
 		externalTrafficPolicy: "Local"
 		ports: {

@@ -3,8 +3,9 @@ package holos
 holos: Component.BuildPlan
 
 Component: #Helm & {
-	Name:      "prometheus"
-	Namespace: "monitoring"
+	Name:        "prometheus"
+	Namespace:   "monitoring"
+	EnableHooks: true
 	Chart: {
 		name:    "kube-prometheus-stack"
 		release: "prometheus"

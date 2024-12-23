@@ -63,26 +63,15 @@ package holos
 			name:    "samba-config"
 			type:    "configMap"
 		}
-		downloads: {
-			enabled: true
-			globalMounts: [{path: "/downloads"}]
-			hostPath:     "/media/downloads"
-			hostPathType: "Directory"
-			type:         "hostPath"
-		}
 		media: {
-			enabled: true
-			globalMounts: [{path: "/media"}]
-			hostPath:     "/media"
-			hostPathType: "Directory"
-			type:         "hostPath"
+			enabled:       true
+			existingClaim: "media"
+			globalMounts: [{path: "/media"}, {path: "/downloads", subPath: "downloads"}]
 		}
 		temp: {
 			enabled: true
 			globalMounts: [{path: "/temp"}]
-			hostPath:     "/tmp"
-			hostPathType: "Directory"
-			type:         "hostPath"
+			type: "emptyDir"
 		}
 	}
 	service: main: {

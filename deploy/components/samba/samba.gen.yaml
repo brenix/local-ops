@@ -89,10 +89,11 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: config
-        - mountPath: /downloads
-          name: downloads
         - mountPath: /media
           name: media
+        - mountPath: /downloads
+          name: media
+          subPath: downloads
         - mountPath: /temp
           name: temp
       dnsPolicy: ClusterFirstWithHostNet
@@ -106,15 +107,8 @@ spec:
       - configMap:
           name: samba-config
         name: config
-      - hostPath:
-          path: /media/downloads
-          type: Directory
-        name: downloads
-      - hostPath:
-          path: /media
-          type: Directory
-        name: media
-      - hostPath:
-          path: /tmp
-          type: Directory
+      - name: media
+        persistentVolumeClaim:
+          claimName: media
+      - emptyDir: {}
         name: temp

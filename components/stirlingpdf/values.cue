@@ -28,7 +28,7 @@ package holos
 		}]
 	}
 	service: main: {
-		annotations: "metallb.universe.tf/loadBalancerIPs": "192.168.2.14"
+		annotations: "lbipam.cilium.io/ips": "192.168.2.14"
 		controller:            "main"
 		externalTrafficPolicy: "Local"
 		ports: http: port: 8080

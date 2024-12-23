@@ -68,7 +68,7 @@ package holos
 	}
 	persistence: {
 		enabled: true
-		size:    "2Gi"
+		size:    "1Gi"
 	}
 	plugins: [
 		"grafana-piechart-panel",

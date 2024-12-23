@@ -54,7 +54,7 @@ package holos
 		}
 		service: annotations: {
 			"external-dns.alpha.kubernetes.io/hostname": "external.brenix.com"
-			"metallb.universe.tf/loadBalancerIPs":       "192.168.2.20"
+			"lbipam.cilium.io/ips":       "192.168.2.20"
 		}
 		terminationGracePeriodSeconds: 120
 		topologySpreadConstraints: [{

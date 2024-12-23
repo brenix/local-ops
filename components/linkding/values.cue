@@ -38,15 +38,12 @@ package holos
 		}]
 	}
 	persistence: data: {
-		accessMode: "ReadWriteOnce"
-		enabled:    true
+		enabled:       true
+		existingClaim: "linkding-data"
 		globalMounts: [{path: "/etc/linkding/data"}]
-		retain: true
-		size:   "1Gi"
-		type:   "persistentVolumeClaim"
 	}
 	service: main: {
-		annotations: "metallb.universe.tf/loadBalancerIPs": "192.168.2.9"
+		annotations: "lbipam.cilium.io/ips": "192.168.2.9"
 		controller:            "main"
 		externalTrafficPolicy: "Local"
 		ports: http: port: 9090

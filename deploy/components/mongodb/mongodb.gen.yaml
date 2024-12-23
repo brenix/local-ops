@@ -24,21 +24,15 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  annotations:
-    helm.sh/resource-policy: keep
-  labels:
-    app.kubernetes.io/instance: mongodb
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: mongodb
-    helm.sh/chart: app-template-3.5.1
-  name: mongodb-data
+  name: mongo-data
   namespace: default
 spec:
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 8Gi
+      storage: 1Gi
+  storageClassName: ceph-block
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -86,7 +80,7 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: mongodb-data
+          claimName: mongo-data
       - name: initdb
         secret:
           secretName: mongodb-init

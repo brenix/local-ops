@@ -47,29 +47,20 @@ package holos
 	}
 	persistence: {
 		config: {
-			accessMode: "ReadWriteOnce"
-			enabled:    true
-			globalMounts: [{path: "/config"}]
-			size: "1Gi"
-			type: "persistentVolumeClaim"
+			existingClaim: "radarr-data"
 		}
-		downloads: {
-			enabled: true
-			globalMounts: [{path: "/downloads"}]
-			hostPath:     "/media/downloads"
-			hostPathType: "Directory"
-			type:         "hostPath"
+		cache: {
+			existingClaim: "radarr-cache"
+			globalMounts: [{path: "/config/MediaCover"}]
 		}
 		media: {
-			enabled: true
-			globalMounts: [{path: "/media"}]
-			hostPath:     "/media"
-			hostPathType: "Directory"
-			type:         "hostPath"
+			enabled:       true
+			existingClaim: "media"
+			globalMounts: [{path: "/media"}, {path: "/downloads", subPath: "downloads"}]
 		}
 	}
 	service: main: {
-		annotations: "metallb.universe.tf/loadBalancerIPs": "192.168.2.3"
+		annotations: "lbipam.cilium.io/ips": "192.168.2.3"
 		controller:            "main"
 		externalTrafficPolicy: "Local"
 		ports: http: port: 7878

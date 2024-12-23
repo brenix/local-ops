@@ -17,12 +17,9 @@ package holos
 	}
 	persistence: {
 		data: {
-			accessMode: "ReadWriteOnce"
-			enabled:    true
+			enabled:       true
+			existingClaim: "mongo-data"
 			globalMounts: [{path: "/data/db"}]
-			retain: true
-			size:   "8Gi"
-			type:   "persistentVolumeClaim"
 		}
 		initdb: {
 			enabled: true
