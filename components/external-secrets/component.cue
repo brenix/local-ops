@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "external-secrets"
-		version: "0.11.0"
+		version: "0.12.1"
 		repository: {
 			name: "external-secrets"
 			url:  "https://charts.external-secrets.io"
