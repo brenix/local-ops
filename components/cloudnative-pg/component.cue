@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "cloudnative-pg"
-		version: "0.22.1"
+		version: "0.23.0"
 		repository: {
 			name: "cloudnative-pg"
 			url:  "https://cloudnative-pg.github.io/charts"
