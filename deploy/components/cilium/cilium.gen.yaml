@@ -1651,3 +1651,69 @@ spec:
     rollingUpdate:
       maxUnavailable: 2
     type: RollingUpdate
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPAdvertisement
+metadata:
+  labels:
+    advertise: bgp
+  name: bgp-advertisements
+  namespace: kube-system
+spec:
+  advertisements:
+  - advertisementType: Service
+    attributes:
+      communities:
+        standard:
+        - "64512"
+    selector:
+      matchExpressions:
+      - key: somekey
+        operator: NotIn
+        values:
+        - never-used-value
+    service:
+      addresses:
+      - LoadBalancerIP
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPClusterConfig
+metadata:
+  name: cilium-bgp
+  namespace: kube-system
+spec:
+  bgpInstances:
+  - localASN: 64513
+    name: node
+    peers:
+    - name: opnsense
+      peerASN: 64512
+      peerAddress: 192.168.1.1
+      peerConfigRef:
+        name: cilium-peer
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPPeerConfig
+metadata:
+  name: cilium-peer
+  namespace: kube-system
+spec:
+  authSecretRef: bgp-auth-secret
+  families:
+  - advertisements:
+      matchLabels:
+        advertise: bgp
+    afi: ipv4
+    safi: unicast
+  gracefulRestart:
+    enabled: true
+    restartTimeSeconds: 15
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: default
+  namespace: kube-system
+spec:
+  blocks:
+  - cidr: 192.168.2.0/24

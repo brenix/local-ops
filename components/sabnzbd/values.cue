@@ -64,8 +64,10 @@ package holos
 			existingClaim: "sabnzbd"
 		}
 		downloads: {
-			enabled:       true
-			existingClaim: "media"
+			enabled: true
+			type:    "nfs"
+			server:  "truenas.lan"
+			path:    "/mnt/main/media"
 			globalMounts: [{path: "/downloads", subPath: "downloads"}]
 		}
 	}

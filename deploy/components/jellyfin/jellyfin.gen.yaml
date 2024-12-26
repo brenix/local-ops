@@ -112,8 +112,9 @@ spec:
         persistentVolumeClaim:
           claimName: jellyfin-data
       - name: media
-        persistentVolumeClaim:
-          claimName: media
+        nfs:
+          path: /mnt/main/media
+          server: truenas.lan
       - emptyDir: {}
         name: transcode
 ---

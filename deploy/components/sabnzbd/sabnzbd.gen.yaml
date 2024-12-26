@@ -109,8 +109,9 @@ spec:
         persistentVolumeClaim:
           claimName: sabnzbd
       - name: downloads
-        persistentVolumeClaim:
-          claimName: media
+        nfs:
+          path: /mnt/main/media
+          server: truenas.lan
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

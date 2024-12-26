@@ -40,8 +40,10 @@ package holos
 			globalMounts: [{path: "/config/cache"}]
 		}
 		media: {
-			enabled:       true
-			existingClaim: "media"
+			enabled: true
+			type:    "nfs"
+			server:  "truenas.lan"
+			path:    "/mnt/main/media"
 			globalMounts: [{path: "/media"}]
 		}
 		transcode: {
