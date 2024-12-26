@@ -23,6 +23,13 @@
       ],
       "matchPackageNames": "lscr.io/linuxserver/lidarr",
       "allowedVersions": "<=8.0"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "automerge": true,
+      "automergeType": "branch",
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "ignoreTests": true
     }
   ]
 }

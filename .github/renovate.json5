@@ -8,6 +8,7 @@
     ":skipStatusChecks",
     "github>brenix/local-ops//.github/renovate/packageRules.json5",
     "github>brenix/local-ops//.github/renovate/commitMessage.json5",
+    "github>brenix/local-ops//.github/renovate/semantic-commits.json5",
     "github>brenix/local-ops//.github/renovate/customManagers.json5"
   ],
   "enabled": true,
