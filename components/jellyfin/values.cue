@@ -12,7 +12,6 @@ package holos
 			tag:        "10.10.3"
 		}
 	}
-	defaultPodOptions: hostNetwork: true
 	ingress: main: {
 		annotations: "external-dns.alpha.kubernetes.io/target": "external.brenix.com"
 		className: "external"
