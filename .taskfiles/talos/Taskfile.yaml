@@ -1,0 +1,77 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  generate-clusterconfig:
+    desc: Generate clusterconfig for Talos
+    preconditions:
+      - which test talhelper
+      - test -f talos/talsecret.sops.yaml
+      - test -f talos/talconfig.yaml
+    cmds:
+      - talhelper genconfig
+        --secret-file talos/talsecret.sops.yaml
+        --config-file talos/talconfig.yaml
+        --out-dir talos/clusterconfig
+
+  apply-clusterconfig:
+    desc: Apply clusterconfig for a Talos cluster
+    vars:
+      NODES:
+        sh: yq -r '.nodes[].ipAddress | split(", ")[]' talos/talconfig.yaml
+    cmds:
+      - for:
+          var: NODES
+        task: _apply-machineconfig
+        vars:
+          FILENAME: "talos/clusterconfig/k8s-controller.yaml"
+          HOSTNAME: "{{ .ITEM }}"
+          DRY_RUN: "{{ .DRY_RUN }}"
+          INSECURE: "{{ .INSECURE }}"
+
+  apply-node:
+    desc: Apply Talos config to a node [NODE=required]
+      - talosctl --nodes {{.NODE}} get machineconfig
+    requires:
+      vars:
+        - NODE
+    cmds:
+      - task: _apply-machineconfig
+        vars:
+          FILENAME: "talos/clusterconfig/k8s-controller.yaml"
+          HOSTNAME: "{{.NODE}}"
+      - talosctl --nodes {{.NODE}} health --wait-timeout=10m --server=false
+
+  upgrade-node:
+    desc: Upgrade Talos on a single node [NODE=required]
+    requires:
+      vars:
+        - NODE
+    vars:
+      FILE: "talos/clusterconfig/k8s-controller.yaml"
+      TALOS_IMAGE:
+        sh: yq '.machine.install.image' < "{{.FILE}}"
+    cmds:
+      - talosctl --nodes {{.NODE}} upgrade --image="{{.TALOS_IMAGE}}" --timeout=10m
+      - talosctl --nodes {{.NODE}} health --wait-timeout=10m --server=false
+
+  _apply-machineconfig:
+    internal: true
+    desc: Apply a single Talos machineConfig to a Talos node
+    preconditions:
+      - which talosctl
+      - test -f "{{.FILENAME}}"
+    requires:
+      vars:
+        - HOSTNAME
+        - FILENAME
+    vars:
+      MODE: '{{.MODE | default "auto"}}'
+    cmds:
+      - talosctl apply-config
+        --nodes "{{.HOSTNAME}}"
+        --file "{{.FILENAME}}"
+        --mode="{{.MODE}}"
+        {{ if eq "true" .INSECURE }}--insecure{{ end }}
+        {{ if eq "true" .DRY_RUN }}--dry-run{{ end }}
