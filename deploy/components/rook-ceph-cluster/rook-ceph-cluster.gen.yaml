@@ -1272,3 +1272,17 @@ spec:
               name: http-dashboard
         path: /
         pathType: Prefix
+---
+apiVersion: snapshot.storage.k8s.io/v1
+deletionPolicy: Delete
+driver: rook-ceph.rbd.csi.ceph.com
+kind: VolumeSnapshotClass
+metadata:
+  annotations:
+    snapshot.storage.kubernetes.io/is-default-class: "false"
+  name: csi-ceph-blockpool
+  namespace: rook-ceph
+parameters:
+  clusterID: rook-ceph
+  csi.storage.k8s.io/snapshotter-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/snapshotter-secret-namespace: rook-ceph

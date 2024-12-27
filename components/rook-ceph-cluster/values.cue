@@ -94,12 +94,12 @@ package holos
 			}
 		}
 	}]
-	// cephBlockPoolsVolumeSnapshotClass: {
-	// 	enabled:        true
-	// 	name:           "csi-ceph-blockpool"
-	// 	isDefault:      false
-	// 	deletionPolicy: "Delete"
-	// }
+	cephBlockPoolsVolumeSnapshotClass: {
+		enabled:        true
+		name:           "csi-ceph-blockpool"
+		isDefault:      false
+		deletionPolicy: "Delete"
+	}
 
 	cephFileSystems: []
 	// cephFileSystems: [{
