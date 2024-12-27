@@ -2,7 +2,7 @@ clusterName: k8s
 endpoint: https://k8s.lan:6443
 
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
-talosVersion: v1.9.0
+talosVersion: v1.9.1
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
 kubernetesVersion: v1.32.0
 
@@ -44,6 +44,13 @@ controlPlane:
           - siderolabs/amdgpu
 
   patches:
+    # Fix RBAC issue (https://github.com/siderolabs/talos/issues/9980)
+    - |-
+      cluster:
+        apiServer:
+          extraArgs:
+            feature-gates: AuthorizeNodeWithSelectors=false
+
     # Configure containerd
     - |-
       machine:
