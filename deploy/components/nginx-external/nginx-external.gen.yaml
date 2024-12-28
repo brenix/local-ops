@@ -748,12 +748,13 @@ metadata:
   name: nginx-external
   namespace: network
 spec:
-  dataFrom:
-  - extract:
-      key: maxmind
+  data:
+  - remoteRef:
+      key: MAXMIND_API_KEY
+    secretKey: MAXMIND_API_KEY
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: doppler
   target:
     name: nginx-external-maxmind-secret
     template:

@@ -10,7 +10,7 @@ Component: {
 		spec: {
 			secretStoreRef: {
 				kind: "ClusterSecretStore"
-				name: "onepassword-connect"
+				name: "doppler"
 			}
 			target: {
 				name:           "mongodb-init"
@@ -18,24 +18,15 @@ Component: {
 				template: {
 					engineVersion: "v2"
 					data: "init-mongo.js": """
-						db.getSiblingDB("unifi").createUser({user: "{{ .username }}", pwd: "{{ .password }}", roles: [{role: "dbOwner", db: "unifi"}]});
-						db.getSiblingDB("unifi_stat").createUser({user: "{{ .username }}", pwd: "{{ .password }}", roles: [{role: "dbOwner", db: "unifi_stat"}]});
+						db.getSiblingDB("unifi").createUser({user: "{{ .MONGODB_USER }}", pwd: "{{ .MONGODB_PASS }}", roles: [{role: "dbOwner", db: "unifi"}]});
+						db.getSiblingDB("unifi_stat").createUser({user: "{{ .MONGODB_USER }}", pwd: "{{ .MONGODB_PASS }}", roles: [{role: "dbOwner", db: "unifi_stat"}]});
 						"""
 				}
 			}
-			data: [{
-				secretKey: "username"
-				remoteRef: {
-					key:      Name
-					property: "username"
-				}
-			}, {
-				secretKey: "password"
-				remoteRef: {
-					key:      Name
-					property: "password"
-				}
-			}]
+			data: [
+				{secretKey: "MONGODB_USER", remoteRef: {key: "MONGODB_USER"}},
+				{secretKey: "MONGODB_PASS", remoteRef: {key: "MONGODB_PASS"}},
+			]
 		}
 	}
 }

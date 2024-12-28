@@ -100,18 +100,22 @@ metadata:
   name: linkding
   namespace: default
 spec:
-  dataFrom:
-  - extract:
-      key: linkding
+  data:
+  - remoteRef:
+      key: LINKDING_USER
+    secretKey: LINKDING_USER
+  - remoteRef:
+      key: LINKDING_PASS
+    secretKey: LINKDING_PASS
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: doppler
   target:
     name: linkding
     template:
       data:
-        LD_SUPERUSER_NAME: '{{ .username }}'
-        LD_SUPERUSER_PASSWORD: '{{ .password }}'
+        LD_SUPERUSER_NAME: '{{ .LINKDING_USER }}'
+        LD_SUPERUSER_PASSWORD: '{{ .LINKDING_PASS }}'
       engineVersion: v2
 ---
 apiVersion: networking.k8s.io/v1

@@ -16,12 +16,12 @@ Component: {
 					SONARR_API_KEY: "{{ .SONARR_API_KEY }}"
 				}
 			}
-			dataFrom: [
-				{extract: key: "radarr"},
-				{extract: key: "sonarr"},
+			data: [
+				{secretKey: "RADARR_API_KEY", remoteRef: {key: "RADARR_API_KEY"}},
+				{secretKey: "SONARR_API_KEY", remoteRef: {key: "SONARR_API_KEY"}},
 			]
 			secretStoreRef: kind: "ClusterSecretStore"
-			secretStoreRef: name: "onepassword-connect"
+			secretStoreRef: name: "doppler"
 		}
 	}
 }

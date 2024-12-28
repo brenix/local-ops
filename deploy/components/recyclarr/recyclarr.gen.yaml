@@ -130,14 +130,16 @@ metadata:
   name: recyclarr
   namespace: default
 spec:
-  dataFrom:
-  - extract:
-      key: radarr
-  - extract:
-      key: sonarr
+  data:
+  - remoteRef:
+      key: RADARR_API_KEY
+    secretKey: RADARR_API_KEY
+  - remoteRef:
+      key: SONARR_API_KEY
+    secretKey: SONARR_API_KEY
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: doppler
   target:
     name: recyclarr
     template:

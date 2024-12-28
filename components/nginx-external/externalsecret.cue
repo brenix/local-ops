@@ -13,9 +13,9 @@ Component: {
 				engineVersion: "v2"
 				data: MAXMIND_LICENSE_KEY: "{{ .MAXMIND_API_KEY }}"
 			}
-			dataFrom: [{extract: key: "maxmind"}]
+			data: [{secretKey: "MAXMIND_API_KEY", remoteRef: {key: "MAXMIND_API_KEY"}}]
 			secretStoreRef: kind: "ClusterSecretStore"
-			secretStoreRef: name: "onepassword-connect"
+			secretStoreRef: name: "doppler"
 		}
 	}
 }

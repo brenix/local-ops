@@ -40,11 +40,11 @@ Component: #Kubernetes & {
 				target: name: metadata.name
 				target: template: {
 					engineVersion: "v2"
-					data: url: "{{ .KUBERNETES_URL}}"
+					data: url: "{{ .HEALTHCHECKS_IO_URL }}"
 				}
-				dataFrom: [{extract: key: "healthchecksio"}]
+				data: [{secretKey: "HEALTHCHECKS_IO_URL", remoteRef: {key: "HEALTHCHECKS_IO_URL"}}]
 				secretStoreRef: kind: "ClusterSecretStore"
-				secretStoreRef: name: "onepassword-connect"
+				secretStoreRef: name: "doppler"
 			}
 		}
 	}

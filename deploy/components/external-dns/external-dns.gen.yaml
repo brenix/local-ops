@@ -289,12 +289,16 @@ metadata:
   name: external-dns-cloudflare
   namespace: network
 spec:
-  dataFrom:
-  - extract:
-      key: cloudflare
+  data:
+  - remoteRef:
+      key: CLOUDFLARE_API_EMAIL
+    secretKey: CLOUDFLARE_API_EMAIL
+  - remoteRef:
+      key: CLOUDFLARE_API_KEY
+    secretKey: CLOUDFLARE_API_KEY
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: doppler
   target:
     name: external-dns-cloudflare
     template:

@@ -12,14 +12,18 @@ Component: {
 			target: template: {
 				engineVersion: "v2"
 				data: {
-					username: "{{ .USERNAME }}"
-					password: "{{ .PASSWORD }}"
-					email:    "{{ .EMAIL }}"
+					username: "{{ .GITEA_USER }}"
+					password: "{{ .GITEA_PASS }}"
+					email:    "{{ .GITEA_EMAIL }}"
 				}
 			}
-			dataFrom: [{extract: key: "gitea"}]
+			data: [
+				{secretKey: "GITEA_USER", remoteRef: {key: "GITEA_USER"}},
+				{secretKey: "GITEA_PASS", remoteRef: {key: "GITEA_PASS"}},
+				{secretKey: "GITEA_EMAIL", remoteRef: {key: "GITEA_EMAIL"}},
+			]
 			secretStoreRef: kind: "ClusterSecretStore"
-			secretStoreRef: name: "onepassword-connect"
+			secretStoreRef: name: "doppler"
 		}
 	}
 }

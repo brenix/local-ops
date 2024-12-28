@@ -11,11 +11,11 @@ Component: {
 			target: name: Name
 			target: template: {
 				engineVersion: "v2"
-				data: unpoller_password: "{{ .password }}"
+				data: unpoller_password: "{{ .UNPOLLER_PASS }}"
 			}
-			dataFrom: [{extract: key: Name}]
+			data: [{secretKey: "UNPOLLER_PASS", remoteRef: {key: "UNPOLLER_PASS"}}]
 			secretStoreRef: kind: "ClusterSecretStore"
-			secretStoreRef: name: "onepassword-connect"
+			secretStoreRef: name: "doppler"
 		}
 	}
 }

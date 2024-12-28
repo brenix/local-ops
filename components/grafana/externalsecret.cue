@@ -12,13 +12,16 @@ Component: {
 			target: template: {
 				engineVersion: "v2"
 				data: {
-					"admin-user":     "{{ .username }}"
-					"admin-password": "{{ .password }}"
+					"admin-user":     "{{ .GRAFANA_USER }}"
+					"admin-password": "{{ .GRAFANA_PASS }}"
 				}
 			}
-			dataFrom: [{extract: key: "grafana"}]
+			data: [
+				{secretKey: "GRAFANA_USER", remoteRef: {key: "GRAFANA_USER"}},
+				{secretKey: "GRAFANA_PASS", remoteRef: {key: "GRAFANA_PASS"}},
+			]
 			secretStoreRef: kind: "ClusterSecretStore"
-			secretStoreRef: name: "onepassword-connect"
+			secretStoreRef: name: "doppler"
 		}
 	}
 }

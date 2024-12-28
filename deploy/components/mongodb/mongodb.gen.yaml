@@ -95,22 +95,20 @@ metadata:
 spec:
   data:
   - remoteRef:
-      key: mongodb
-      property: username
-    secretKey: username
+      key: MONGODB_USER
+    secretKey: MONGODB_USER
   - remoteRef:
-      key: mongodb
-      property: password
-    secretKey: password
+      key: MONGODB_PASS
+    secretKey: MONGODB_PASS
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: doppler
   target:
     deletionPolicy: Delete
     name: mongodb-init
     template:
       data:
         init-mongo.js: |-
-          db.getSiblingDB("unifi").createUser({user: "{{ .username }}", pwd: "{{ .password }}", roles: [{role: "dbOwner", db: "unifi"}]});
-          db.getSiblingDB("unifi_stat").createUser({user: "{{ .username }}", pwd: "{{ .password }}", roles: [{role: "dbOwner", db: "unifi_stat"}]});
+          db.getSiblingDB("unifi").createUser({user: "{{ .MONGODB_USER }}", pwd: "{{ .MONGODB_PASS }}", roles: [{role: "dbOwner", db: "unifi"}]});
+          db.getSiblingDB("unifi_stat").createUser({user: "{{ .MONGODB_USER }}", pwd: "{{ .MONGODB_PASS }}", roles: [{role: "dbOwner", db: "unifi_stat"}]});
       engineVersion: v2

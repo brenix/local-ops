@@ -13,15 +13,18 @@ Component: {
 				engineVersion: "v2"
 				data: "credentials.json": """
 					{
-					  "AccountTag": "{{ .ACCOUNT_TAG }}",
-					  "TunnelSecret": "{{ .TUNNEL_SECRET }}",
+					  "AccountTag": "{{ .CLOUDFLARE_ACCOUNT_TAG }}",
+					  "TunnelSecret": "{{ .CLOUDFLARE_TUNNEL_SECRET }}",
 					  "TunnelID": "7f90e49b-765b-4de7-854a-70e3d3d1e5eb"
 					}
 					"""
 			}
-			dataFrom: [{extract: key: "cloudflare"}]
+			data: [
+				{secretKey: "CLOUDFLARE_ACCOUNT_TAG", remoteRef: {key: "CLOUDFLARE_ACCOUNT_TAG"}},
+				{secretKey: "CLOUDFLARE_TUNNEL_SECRET", remoteRef: {key: "CLOUDFLARE_TUNNEL_SECRET"}},
+			]
 			secretStoreRef: kind: "ClusterSecretStore"
-			secretStoreRef: name: "onepassword-connect"
+			secretStoreRef: name: "doppler"
 		}
 	}
 }

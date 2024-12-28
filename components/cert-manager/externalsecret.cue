@@ -10,9 +10,9 @@ Component: {
 		spec: {
 			target: name: metadata.name
 			target: template: data: CLOUDFLARE_API_KEY: "{{ .CLOUDFLARE_API_KEY }}"
-			dataFrom: [{extract: key: metadata.name}]
+			data: [{secretKey: "CLOUDFLARE_API_KEY", remoteRef: {key: "CLOUDFLARE_API_KEY"}}]
 			secretStoreRef: kind: "ClusterSecretStore"
-			secretStoreRef: name: "onepassword-connect"
+			secretStoreRef: name: "doppler"
 		}
 	}
 }

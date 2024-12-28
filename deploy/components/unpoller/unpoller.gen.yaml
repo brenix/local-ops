@@ -90,17 +90,18 @@ metadata:
   name: unpoller
   namespace: monitoring
 spec:
-  dataFrom:
-  - extract:
-      key: unpoller
+  data:
+  - remoteRef:
+      key: UNPOLLER_PASS
+    secretKey: UNPOLLER_PASS
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: doppler
   target:
     name: unpoller
     template:
       data:
-        unpoller_password: '{{ .password }}'
+        unpoller_password: '{{ .UNPOLLER_PASS }}'
       engineVersion: v2
 ---
 apiVersion: monitoring.coreos.com/v1

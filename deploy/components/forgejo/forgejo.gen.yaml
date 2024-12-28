@@ -604,19 +604,26 @@ metadata:
   name: forgejo
   namespace: default
 spec:
-  dataFrom:
-  - extract:
-      key: gitea
+  data:
+  - remoteRef:
+      key: GITEA_USER
+    secretKey: GITEA_USER
+  - remoteRef:
+      key: GITEA_PASS
+    secretKey: GITEA_PASS
+  - remoteRef:
+      key: GITEA_EMAIL
+    secretKey: GITEA_EMAIL
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: doppler
   target:
     name: gitea-admin
     template:
       data:
-        email: '{{ .EMAIL }}'
-        password: '{{ .PASSWORD }}'
-        username: '{{ .USERNAME }}'
+        email: '{{ .GITEA_EMAIL }}'
+        password: '{{ .GITEA_PASS }}'
+        username: '{{ .GITEA_USER }}'
       engineVersion: v2
 ---
 apiVersion: networking.k8s.io/v1

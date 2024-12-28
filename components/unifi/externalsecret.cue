@@ -12,13 +12,16 @@ Component: {
 			target: template: {
 				engineVersion: "v2"
 				data: {
-					MONGO_USER: "{{ .username }}"
-					MONGO_PASS: "{{ .password }}"
+					MONGO_USER: "{{ .MONGODB_USER }}"
+					MONGO_PASS: "{{ .MONGODB_PASS }}"
 				}
 			}
-			dataFrom: [{extract: key: "mongodb"}]
+			data: [
+				{secretKey: "MONGODB_USER", remoteRef: {key: "MONGODB_USER"}},
+				{secretKey: "MONGODB_PASS", remoteRef: {key: "MONGODB_PASS"}},
+			]
 			secretStoreRef: kind: "ClusterSecretStore"
-			secretStoreRef: name: "onepassword-connect"
+			secretStoreRef: name: "doppler"
 		}
 	}
 }

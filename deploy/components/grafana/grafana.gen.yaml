@@ -495,18 +495,22 @@ metadata:
   name: grafana-admin
   namespace: monitoring
 spec:
-  dataFrom:
-  - extract:
-      key: grafana
+  data:
+  - remoteRef:
+      key: GRAFANA_USER
+    secretKey: GRAFANA_USER
+  - remoteRef:
+      key: GRAFANA_PASS
+    secretKey: GRAFANA_PASS
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: doppler
   target:
     name: grafana-admin
     template:
       data:
-        admin-password: '{{ .password }}'
-        admin-user: '{{ .username }}'
+        admin-password: '{{ .GRAFANA_PASS }}'
+        admin-user: '{{ .GRAFANA_USER }}'
       engineVersion: v2
 ---
 apiVersion: monitoring.coreos.com/v1

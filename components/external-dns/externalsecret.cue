@@ -16,9 +16,12 @@ Component: {
 					CF_API_KEY:   "{{ .CLOUDFLARE_API_KEY }}"
 				}
 			}
-			dataFrom: [{extract: key: "cloudflare"}]
+			data: [
+				{secretKey: "CLOUDFLARE_API_EMAIL", remoteRef: {key: "CLOUDFLARE_API_EMAIL"}},
+				{secretKey: "CLOUDFLARE_API_KEY", remoteRef: {key: "CLOUDFLARE_API_KEY"}},
+			]
 			secretStoreRef: kind: "ClusterSecretStore"
-			secretStoreRef: name: "onepassword-connect"
+			secretStoreRef: name: "doppler"
 		}
 	}
 }

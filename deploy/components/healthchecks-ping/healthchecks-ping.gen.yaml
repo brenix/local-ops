@@ -31,15 +31,16 @@ metadata:
   name: healthchecks-ping
   namespace: monitoring
 spec:
-  dataFrom:
-  - extract:
-      key: healthchecksio
+  data:
+  - remoteRef:
+      key: HEALTHCHECKS_IO_URL
+    secretKey: HEALTHCHECKS_IO_URL
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: doppler
   target:
     name: healthchecks-ping
     template:
       data:
-        url: '{{ .KUBERNETES_URL}}'
+        url: '{{ .HEALTHCHECKS_IO_URL }}'
       engineVersion: v2

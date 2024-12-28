@@ -158,20 +158,24 @@ metadata:
   name: cloudflared-tunnel
   namespace: network
 spec:
-  dataFrom:
-  - extract:
-      key: cloudflare
+  data:
+  - remoteRef:
+      key: CLOUDFLARE_ACCOUNT_TAG
+    secretKey: CLOUDFLARE_ACCOUNT_TAG
+  - remoteRef:
+      key: CLOUDFLARE_TUNNEL_SECRET
+    secretKey: CLOUDFLARE_TUNNEL_SECRET
   secretStoreRef:
     kind: ClusterSecretStore
-    name: onepassword-connect
+    name: doppler
   target:
     name: cloudflared-tunnel
     template:
       data:
         credentials.json: |-
           {
-            "AccountTag": "{{ .ACCOUNT_TAG }}",
-            "TunnelSecret": "{{ .TUNNEL_SECRET }}",
+            "AccountTag": "{{ .CLOUDFLARE_ACCOUNT_TAG }}",
+            "TunnelSecret": "{{ .CLOUDFLARE_TUNNEL_SECRET }}",
             "TunnelID": "7f90e49b-765b-4de7-854a-70e3d3d1e5eb"
           }
       engineVersion: v2
