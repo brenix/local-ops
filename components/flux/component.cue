@@ -104,7 +104,7 @@ Component: #Kustomize & {
 		spec: {
 			interval: "10m"
 			path:     "./gitops"
-			prune:    false
+			prune:    true
 			wait:     true
 			sourceRef: {
 				kind: "OCIRepository"
