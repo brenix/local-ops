@@ -1260,7 +1260,7 @@ metadata:
   name: rook-ceph-dashboard
   namespace: rook-ceph
 spec:
-  ingressClassName: internal-nginx
+  ingressClassName: internal
   rules:
   - host: rook.brenix.com
     http:

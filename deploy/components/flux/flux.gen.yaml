@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 10m
   path: ./gitops
-  prune: false
+  prune: true
   sourceRef:
     kind: OCIRepository
     name: default

@@ -6,7 +6,7 @@ package holos
 		createPrometheusRules: true
 	}
 	ingress: dashboard: {
-		ingressClassName: "internal-nginx"
+		ingressClassName: "internal"
 		host: {
 			name: "rook.brenix.com"
 			path: "/"
