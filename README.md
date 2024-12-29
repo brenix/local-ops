@@ -1,6 +1,7 @@
 ## Overview
 
-Deployments for my self-hosted kubernetes cluster
+Configuration for my self-hosted kubernetes cluster, managed using
+[holos](https://holos.run) and [talos](https://talos.dev)
 
 ## Bootstrapping
 
@@ -11,6 +12,10 @@ Deployments for my self-hosted kubernetes cluster
 ```sh
 kubectl apply --server-side --kustomize ./bootstrap
 ```
+
+#### Create doppler secret
+
+See [external-secrets README](/components/external-secrets/README.md)
 
 ### Apply Cluster Configuration
 
