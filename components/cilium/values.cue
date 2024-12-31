@@ -1,9 +1,22 @@
 package holos
 
 #Values: {
-	rollOutCiliumPods:    true
-	priorityClassName:    "system-cluster-critical"
-	autoDirectNodeRoutes: false
+	rollOutCiliumPods:     true
+	priorityClassName:     "system-cluster-critical"
+	autoDirectNodeRoutes:  true
+	routingMode:           "native"
+	ipv4NativeRoutingCIDR: "10.244.0.0/16"
+	bandwidthManager: {
+		bbr:     true
+		enabled: true
+	}
+	endpointRoutes: enabled: true
+	bpf: {
+		datapathMode:    "netkit"
+		masquerade:      true
+		preallocateMaps: true
+		tproxy:          true
+	}
 	bgp: {
 		enabled: false
 		announce: {
@@ -17,8 +30,12 @@ package holos
 	k8sNetworkPolicy: {
 		enabled: false
 	}
-	hubble: {
-		enabled: false
+	envoy: enabled:  false
+	hubble: enabled: false
+	loadBalancer: {
+		acceleration: "best-effort"
+		algorithm:    "maglev"
+		mode:         "dsr"
 	}
 	operator: {
 		enabled:           true
