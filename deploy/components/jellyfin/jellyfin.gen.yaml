@@ -47,7 +47,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 2Gi
   storageClassName: ceph-block
 ---
 apiVersion: apps/v1
@@ -94,11 +94,15 @@ spec:
             memory: 2Gi
           requests:
             memory: 512Mi
+        securityContext:
+          privileged: true
         volumeMounts:
         - mountPath: /config/cache
           name: cache
         - mountPath: /config
           name: config
+        - mountPath: /dev/dri
+          name: dri
         - mountPath: /media
           name: media
         - mountPath: /transcode
@@ -116,6 +120,10 @@ spec:
       - name: config
         persistentVolumeClaim:
           claimName: jellyfin-data
+      - hostPath:
+          path: /dev/dri
+          type: Directory
+        name: dri
       - name: media
         nfs:
           path: /mnt/main/media

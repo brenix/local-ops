@@ -15,6 +15,7 @@ package holos
 			requests: memory: "512Mi"
 			limits: memory:   "2Gi"
 		}
+		securityContext: privileged: true
 	}
 	ingress: main: {
 		annotations: "external-dns.alpha.kubernetes.io/target": "external.brenix.com"
@@ -52,6 +53,12 @@ package holos
 		transcode: {
 			enabled: true
 			type:    "emptyDir"
+		}
+		dri: {
+			enabled:      true
+			type:         "hostPath"
+			hostPathType: "Directory"
+			hostPath:     "/dev/dri"
 		}
 	}
 	service: main: {
