@@ -43,7 +43,7 @@ package holos
 			parameters: ". /etc/resolv.conf"
 		}, {
 			name:       "cache"
-			parameters: 30
+			parameters: 300
 		}, {
 			name: "loop"
 		}, {
