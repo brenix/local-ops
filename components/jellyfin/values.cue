@@ -11,6 +11,10 @@ package holos
 			repository: "lscr.io/linuxserver/jellyfin"
 			tag:        "10.10.3"
 		}
+		resources: {
+			requests: memory: "512Mi"
+			limits: memory:   "2Gi"
+		}
 	}
 	ingress: main: {
 		annotations: "external-dns.alpha.kubernetes.io/target": "external.brenix.com"
