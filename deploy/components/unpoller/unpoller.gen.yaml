@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: unpoller
     app.kubernetes.io/service: unpoller
-    helm.sh/chart: app-template-3.5.1
+    helm.sh/chart: app-template-3.6.0
   name: unpoller
   namespace: monitoring
 spec:
@@ -31,7 +31,7 @@ metadata:
     app.kubernetes.io/instance: unpoller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: unpoller
-    helm.sh/chart: app-template-3.5.1
+    helm.sh/chart: app-template-3.6.0
   name: unpoller
   namespace: monitoring
 spec:
@@ -82,6 +82,7 @@ spec:
       hostIPC: false
       hostNetwork: false
       hostPID: false
+      hostUsers: true
       serviceAccountName: default
 ---
 apiVersion: external-secrets.io/v1beta1
@@ -111,7 +112,7 @@ metadata:
     app.kubernetes.io/instance: unpoller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: unpoller
-    helm.sh/chart: app-template-3.5.1
+    helm.sh/chart: app-template-3.6.0
   name: unpoller
   namespace: monitoring
 spec:
