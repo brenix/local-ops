@@ -7,8 +7,8 @@ Component: #Helm & {
 	Namespace: "network"
 	Chart: {
 		name:    "app-template"
-		release: "cloudflared"
 		version: "3.5.1"
+		release: "cloudflared"
 		repository: {
 			name: "bjw-s"
 			url:  "https://bjw-s.github.io/helm-charts"

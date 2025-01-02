@@ -8,8 +8,8 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "snapshot-controller"
-		release: "snapshot-controller"
 		version: "4.0.0"
+		release: "snapshot-controller"
 		repository: {
 			name: "piraeus-charts"
 			url:  "https://piraeus.io/helm-charts/"

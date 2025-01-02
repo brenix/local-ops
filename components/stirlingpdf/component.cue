@@ -7,8 +7,8 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		release: "stirlingpdf"
 		version: "3.5.1"
+		release: "stirlingpdf"
 		repository: {
 			name: "bjw-s"
 			url:  "https://bjw-s.github.io/helm-charts"

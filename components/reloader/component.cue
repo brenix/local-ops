@@ -7,8 +7,8 @@ Component: #Helm & {
 	Namespace: "kube-system"
 	Chart: {
 		name:    "reloader"
-		release: "reloader"
 		version: "1.2.0"
+		release: "reloader"
 		repository: {
 			name: "stakater"
 			url:  "https://stakater.github.io/stakater-charts"

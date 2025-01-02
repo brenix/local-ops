@@ -7,8 +7,8 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		release: "nix-cache"
 		version: "3.5.1"
+		release: "nix-cache"
 		repository: {
 			name: "bjw-s"
 			url:  "https://bjw-s.github.io/helm-charts"

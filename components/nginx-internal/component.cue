@@ -8,8 +8,8 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "ingress-nginx"
-		release: "nginx-internal"
 		version: "4.11.3"
+		release: "nginx-internal"
 		repository: {
 			name: "ingress-nginx"
 			url:  "https://kubernetes.github.io/ingress-nginx"

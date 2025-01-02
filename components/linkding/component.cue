@@ -7,8 +7,8 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		release: "linkding"
 		version: "3.5.1"
+		release: "linkding"
 		repository: {
 			name: "bjw-s"
 			url:  "https://bjw-s.github.io/helm-charts"

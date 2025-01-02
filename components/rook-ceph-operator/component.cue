@@ -7,8 +7,8 @@ Component: #Helm & {
 	Namespace: "rook-ceph"
 	Chart: {
 		name:    "rook-ceph"
-		release: "rook-ceph-operator"
 		version: "1.15.7"
+		release: "rook-ceph-operator"
 		repository: {
 			name: "rook-ceph"
 			url:  "https://charts.rook.io/release"
