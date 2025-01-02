@@ -1,0 +1,14 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+    name: kubelet-csr-approver
+    namespace: flux-system
+spec:
+    force: true
+    interval: 10m
+    path: components/kubelet-csr-approver
+    prune: true
+    sourceRef:
+        kind: OCIRepository
+        name: default
+    targetNamespace: kube-system

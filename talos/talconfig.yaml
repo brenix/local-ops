@@ -120,7 +120,6 @@ controlPlane:
           net.ipv4.tcp_wmem: 4096 65536 33554432
           net.ipv4.tcp_window_scaling: 1
           net.ipv4.tcp_adv_win_scale: -2
-          net.ipv4.tcp_collapse_max_bytes: 6291456
           net.ipv4.tcp_notsent_lowat: 131072
           vm.nr_hugepages: 1024
           vm.max_map_count: 1048576
@@ -155,6 +154,20 @@ controlPlane:
                         - maxSkew: 1
                           topologyKey: kubernetes.io/hostname
                           whenUnsatisfiable: ScheduleAnyway
+
+    # Configure NFS mount options
+    - |
+      machine:
+        files:
+          - op: overwrite
+            path: /etc/nfsmount.conf
+            permissions: 0o644
+            content: |
+              [ NFSMount_Global_Options ]
+              nfsvers=4.2
+              hard=True
+              noatime=True
+              nconnect=16
 
     # Configure static host entries
     - |-
