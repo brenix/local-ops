@@ -2,8 +2,8 @@ package holos
 
 #Values: {
 	monitoring: {
-		enabled:               true
-		createPrometheusRules: true
+		enabled:               false
+		createPrometheusRules: false
 	}
 	ingress: dashboard: {
 		ingressClassName: "internal"
