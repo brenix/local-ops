@@ -60,6 +60,42 @@ spec:
                 x-kubernetes-validations:
                 - message: blockPoolName is immutable
                   rule: self == oldSelf
+              mirroring:
+                description: Mirroring configuration of CephBlockPoolRadosNamespace
+                properties:
+                  mode:
+                    description: Mode is the mirroring mode; either pool or image
+                    enum:
+                    - ""
+                    - pool
+                    - image
+                    type: string
+                  remoteNamespace:
+                    description: RemoteNamespace is the name of the CephBlockPoolRadosNamespace
+                      on the secondary cluster CephBlockPool
+                    type: string
+                  snapshotSchedules:
+                    description: SnapshotSchedules is the scheduling of snapshot for
+                      mirrored images
+                    items:
+                      description: SnapshotScheduleSpec represents the snapshot scheduling
+                        settings of a mirrored pool
+                      properties:
+                        interval:
+                          description: Interval represent the periodicity of the snapshot.
+                          type: string
+                        path:
+                          description: Path is the path to snapshot, only valid for
+                            CephFS
+                          type: string
+                        startTime:
+                          description: StartTime indicates when to start the snapshot
+                          type: string
+                      type: object
+                    type: array
+                required:
+                - mode
+                type: object
               name:
                 description: The name of the CephBlockPoolRadosNamespaceSpec namespace.
                   If not set, the default is the name of the CR.
@@ -78,9 +114,159 @@ spec:
                   type: string
                 nullable: true
                 type: object
+              mirroringInfo:
+                description: MirroringInfoSpec is the status of the pool/radosnamespace
+                  mirroring
+                properties:
+                  details:
+                    type: string
+                  lastChanged:
+                    type: string
+                  lastChecked:
+                    type: string
+                  mode:
+                    description: Mode is the mirroring mode
+                    type: string
+                  peers:
+                    description: Peers are the list of peer sites connected to that
+                      cluster
+                    items:
+                      description: PeersSpec contains peer details
+                      properties:
+                        client_name:
+                          description: ClientName is the CephX user used to connect
+                            to the peer
+                          type: string
+                        direction:
+                          description: Direction is the peer mirroring direction
+                          type: string
+                        mirror_uuid:
+                          description: MirrorUUID is the mirror UUID
+                          type: string
+                        site_name:
+                          description: SiteName is the current site name
+                          type: string
+                        uuid:
+                          description: UUID is the peer UUID
+                          type: string
+                      type: object
+                    type: array
+                  site_name:
+                    description: SiteName is the current site name
+                    type: string
+                type: object
+              mirroringStatus:
+                description: MirroringStatusSpec is the status of the pool/radosNamespace
+                  mirroring
+                properties:
+                  details:
+                    description: Details contains potential status errors
+                    type: string
+                  lastChanged:
+                    description: LastChanged is the last time time the status last
+                      changed
+                    type: string
+                  lastChecked:
+                    description: LastChecked is the last time time the status was
+                      checked
+                    type: string
+                  summary:
+                    description: Summary is the mirroring status summary
+                    properties:
+                      daemon_health:
+                        description: DaemonHealth is the health of the mirroring daemon
+                        type: string
+                      health:
+                        description: Health is the mirroring health
+                        type: string
+                      image_health:
+                        description: ImageHealth is the health of the mirrored image
+                        type: string
+                      states:
+                        description: States is the various state for all mirrored
+                          images
+                        nullable: true
+                        properties:
+                          error:
+                            description: Error is when the mirroring state is errored
+                            type: integer
+                          replaying:
+                            description: Replaying is when the replay of the mirroring
+                              journal is on-going
+                            type: integer
+                          starting_replay:
+                            description: StartingReplay is when the replay of the
+                              mirroring journal starts
+                            type: integer
+                          stopped:
+                            description: Stopped is when the mirroring state is stopped
+                            type: integer
+                          stopping_replay:
+                            description: StopReplaying is when the replay of the mirroring
+                              journal stops
+                            type: integer
+                          syncing:
+                            description: Syncing is when the image is syncing
+                            type: integer
+                          unknown:
+                            description: Unknown is when the mirroring state is unknown
+                            type: integer
+                        type: object
+                    type: object
+                type: object
               phase:
                 description: ConditionType represent a resource's status
                 type: string
+              snapshotScheduleStatus:
+                description: SnapshotScheduleStatusSpec is the status of the snapshot
+                  schedule
+                properties:
+                  details:
+                    description: Details contains potential status errors
+                    type: string
+                  lastChanged:
+                    description: LastChanged is the last time time the status last
+                      changed
+                    type: string
+                  lastChecked:
+                    description: LastChecked is the last time time the status was
+                      checked
+                    type: string
+                  snapshotSchedules:
+                    description: SnapshotSchedules is the list of snapshots scheduled
+                    items:
+                      description: SnapshotSchedulesSpec is the list of snapshot scheduled
+                        for images in a pool
+                      properties:
+                        image:
+                          description: Image is the mirrored image
+                          type: string
+                        items:
+                          description: Items is the list schedules times for a given
+                            snapshot
+                          items:
+                            description: SnapshotSchedule is a schedule
+                            properties:
+                              interval:
+                                description: Interval is the interval in which snapshots
+                                  will be taken
+                                type: string
+                              start_time:
+                                description: StartTime is the snapshot starting time
+                                type: string
+                            type: object
+                          type: array
+                        namespace:
+                          description: Namespace is the RADOS namespace the image
+                            is part of
+                          type: string
+                        pool:
+                          description: Pool is the pool name
+                          type: string
+                      type: object
+                    nullable: true
+                    type: array
+                type: object
             type: object
             x-kubernetes-preserve-unknown-fields: true
         required:
@@ -396,7 +582,8 @@ spec:
                 nullable: true
                 type: object
               mirroringInfo:
-                description: MirroringInfoSpec is the status of the pool mirroring
+                description: MirroringInfoSpec is the status of the pool/radosnamespace
+                  mirroring
                 properties:
                   details:
                     type: string
@@ -436,7 +623,8 @@ spec:
                     type: string
                 type: object
               mirroringStatus:
-                description: MirroringStatusSpec is the status of the pool mirroring
+                description: MirroringStatusSpec is the status of the pool/radosNamespace
+                  mirroring
                 properties:
                   details:
                     description: Details contains potential status errors
@@ -501,6 +689,9 @@ spec:
               phase:
                 description: ConditionType represent a resource's status
                 type: string
+              poolID:
+                description: optional
+                type: integer
               snapshotScheduleStatus:
                 description: SnapshotScheduleStatusSpec is the status of the snapshot
                   schedule
@@ -1337,7 +1528,8 @@ spec:
                             alive or ready to receive traffic.
                           properties:
                             exec:
-                              description: Exec specifies the action to take.
+                              description: Exec specifies a command to execute in
+                                the container.
                               properties:
                                 command:
                                   description: |-
@@ -1358,8 +1550,7 @@ spec:
                               format: int32
                               type: integer
                             grpc:
-                              description: GRPC specifies an action involving a GRPC
-                                port.
+                              description: GRPC specifies a GRPC HealthCheckRequest.
                               properties:
                                 port:
                                   description: Port number of the gRPC service. Number
@@ -1378,7 +1569,8 @@ spec:
                               - port
                               type: object
                             httpGet:
-                              description: HTTPGet specifies the http request to perform.
+                              description: HTTPGet specifies an HTTP GET request to
+                                perform.
                               properties:
                                 host:
                                   description: |-
@@ -1445,8 +1637,8 @@ spec:
                               format: int32
                               type: integer
                             tcpSocket:
-                              description: TCPSocket specifies an action involving
-                                a TCP port.
+                              description: TCPSocket specifies a connection to a TCP
+                                port.
                               properties:
                                 host:
                                   description: 'Optional: Host name to connect to,
@@ -1494,7 +1686,8 @@ spec:
                             alive or ready to receive traffic.
                           properties:
                             exec:
-                              description: Exec specifies the action to take.
+                              description: Exec specifies a command to execute in
+                                the container.
                               properties:
                                 command:
                                   description: |-
@@ -1515,8 +1708,7 @@ spec:
                               format: int32
                               type: integer
                             grpc:
-                              description: GRPC specifies an action involving a GRPC
-                                port.
+                              description: GRPC specifies a GRPC HealthCheckRequest.
                               properties:
                                 port:
                                   description: Port number of the gRPC service. Number
@@ -1535,7 +1727,8 @@ spec:
                               - port
                               type: object
                             httpGet:
-                              description: HTTPGet specifies the http request to perform.
+                              description: HTTPGet specifies an HTTP GET request to
+                                perform.
                               properties:
                                 host:
                                   description: |-
@@ -1602,8 +1795,8 @@ spec:
                               format: int32
                               type: integer
                             tcpSocket:
-                              description: TCPSocket specifies an action involving
-                                a TCP port.
+                              description: TCPSocket specifies a connection to a TCP
+                                port.
                               properties:
                                 host:
                                   description: 'Optional: Host name to connect to,
@@ -2711,7 +2904,7 @@ spec:
                       other network providers.
 
                       Valid keys are "public" and "cluster". Refer to Ceph networking documentation for more:
-                      https://docs.ceph.com/en/reef/rados/configuration/network-config-ref/
+                      https://docs.ceph.com/en/latest/rados/configuration/network-config-ref/
 
                       Refer to Multus network annotation documentation for help selecting values:
                       https://github.com/k8snetworkplumbingwg/multus-cni/blob/master/docs/how-to-use.md#run-pod-with-network-annotation
@@ -3442,6 +3635,16 @@ spec:
                     minimum: 0
                     nullable: true
                     type: number
+                  migration:
+                    description: Migration handles the OSD migration
+                    properties:
+                      confirmation:
+                        description: |-
+                          A user confirmation to migrate the OSDs. It destroys each OSD one at a time, cleans up the backing disk
+                          and prepares OSD with same ID on that disk
+                        pattern: ^$|^yes-really-migrate-osds$
+                        type: string
+                    type: object
                   nearFullRatio:
                     description: NearFullRatio is the ratio at which the cluster is
                       considered nearly full and will raise a ceph health warning.
@@ -5587,6 +5790,13 @@ spec:
                   osd:
                     description: OSDStatus represents OSD status of the ceph Cluster
                     properties:
+                      migrationStatus:
+                        description: MigrationStatus status represents the current
+                          status of any OSD migration.
+                        properties:
+                          pending:
+                            type: integer
+                        type: object
                       storeType:
                         additionalProperties:
                           type: integer
@@ -7441,7 +7651,8 @@ spec:
                           alive or ready to receive traffic.
                         properties:
                           exec:
-                            description: Exec specifies the action to take.
+                            description: Exec specifies a command to execute in the
+                              container.
                             properties:
                               command:
                                 description: |-
@@ -7462,8 +7673,7 @@ spec:
                             format: int32
                             type: integer
                           grpc:
-                            description: GRPC specifies an action involving a GRPC
-                              port.
+                            description: GRPC specifies a GRPC HealthCheckRequest.
                             properties:
                               port:
                                 description: Port number of the gRPC service. Number
@@ -7482,7 +7692,8 @@ spec:
                             - port
                             type: object
                           httpGet:
-                            description: HTTPGet specifies the http request to perform.
+                            description: HTTPGet specifies an HTTP GET request to
+                              perform.
                             properties:
                               host:
                                 description: |-
@@ -7549,8 +7760,8 @@ spec:
                             format: int32
                             type: integer
                           tcpSocket:
-                            description: TCPSocket specifies an action involving a
-                              TCP port.
+                            description: TCPSocket specifies a connection to a TCP
+                              port.
                             properties:
                               host:
                                 description: 'Optional: Host name to connect to, defaults
@@ -8169,7 +8380,8 @@ spec:
                           alive or ready to receive traffic.
                         properties:
                           exec:
-                            description: Exec specifies the action to take.
+                            description: Exec specifies a command to execute in the
+                              container.
                             properties:
                               command:
                                 description: |-
@@ -8190,8 +8402,7 @@ spec:
                             format: int32
                             type: integer
                           grpc:
-                            description: GRPC specifies an action involving a GRPC
-                              port.
+                            description: GRPC specifies a GRPC HealthCheckRequest.
                             properties:
                               port:
                                 description: Port number of the gRPC service. Number
@@ -8210,7 +8421,8 @@ spec:
                             - port
                             type: object
                           httpGet:
-                            description: HTTPGet specifies the http request to perform.
+                            description: HTTPGet specifies an HTTP GET request to
+                              perform.
                             properties:
                               host:
                                 description: |-
@@ -8277,8 +8489,8 @@ spec:
                             format: int32
                             type: integer
                           tcpSocket:
-                            description: TCPSocket specifies an action involving a
-                              TCP port.
+                            description: TCPSocket specifies a connection to a TCP
+                              port.
                             properties:
                               host:
                                 description: 'Optional: Host name to connect to, defaults
@@ -9989,7 +10201,8 @@ spec:
                           alive or ready to receive traffic.
                         properties:
                           exec:
-                            description: Exec specifies the action to take.
+                            description: Exec specifies a command to execute in the
+                              container.
                             properties:
                               command:
                                 description: |-
@@ -10010,8 +10223,7 @@ spec:
                             format: int32
                             type: integer
                           grpc:
-                            description: GRPC specifies an action involving a GRPC
-                              port.
+                            description: GRPC specifies a GRPC HealthCheckRequest.
                             properties:
                               port:
                                 description: Port number of the gRPC service. Number
@@ -10030,7 +10242,8 @@ spec:
                             - port
                             type: object
                           httpGet:
-                            description: HTTPGet specifies the http request to perform.
+                            description: HTTPGet specifies an HTTP GET request to
+                              perform.
                             properties:
                               host:
                                 description: |-
@@ -10097,8 +10310,8 @@ spec:
                             format: int32
                             type: integer
                           tcpSocket:
-                            description: TCPSocket specifies an action involving a
-                              TCP port.
+                            description: TCPSocket specifies a connection to a TCP
+                              port.
                             properties:
                               host:
                                 description: 'Optional: Host name to connect to, defaults
@@ -11500,6 +11713,72 @@ spec:
                     nullable: true
                     type: object
                     x-kubernetes-preserve-unknown-fields: true
+                  opsLogSidecar:
+                    description: Enable enhanced operation Logs for S3 in a sidecar
+                      named ops-log
+                    nullable: true
+                    properties:
+                      resources:
+                        description: Resources represents the way to specify resource
+                          requirements for the ops-log sidecar
+                        properties:
+                          claims:
+                            description: |-
+                              Claims lists the names of resources, defined in spec.resourceClaims,
+                              that are used by this container.
+
+                              This is an alpha field and requires enabling the
+                              DynamicResourceAllocation feature gate.
+
+                              This field is immutable. It can only be set for containers.
+                            items:
+                              description: ResourceClaim references one entry in PodSpec.ResourceClaims.
+                              properties:
+                                name:
+                                  description: |-
+                                    Name must match the name of one entry in pod.spec.resourceClaims of
+                                    the Pod where this field is used. It makes that resource available
+                                    inside a container.
+                                  type: string
+                                request:
+                                  description: |-
+                                    Request is the name chosen for a request in the referenced claim.
+                                    If empty, everything from the claim is made available, otherwise
+                                    only the result of this request.
+                                  type: string
+                              required:
+                              - name
+                              type: object
+                            type: array
+                            x-kubernetes-list-map-keys:
+                            - name
+                            x-kubernetes-list-type: map
+                          limits:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            description: |-
+                              Limits describes the maximum amount of compute resources allowed.
+                              More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                            type: object
+                          requests:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            description: |-
+                              Requests describes the minimum amount of compute resources required.
+                              If Requests is omitted for a container, it defaults to Limits if that is explicitly specified,
+                              otherwise to an implementation-defined value. Requests cannot exceed Limits.
+                              More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                            type: object
+                        type: object
+                    type: object
                   placement:
                     nullable: true
                     properties:
@@ -12080,6 +12359,26 @@ spec:
                         type: object
                     type: object
                     x-kubernetes-preserve-unknown-fields: true
+                  rgwCommandFlags:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      RgwCommandFlags sets Ceph RGW config values for the gateway clients that serve this object
+                      store. Values are modified at RGW startup, resulting in RGW pod restarts.
+                      This feature is intended for advanced users. It allows breaking configurations to be easily
+                      applied. Use with caution.
+                    nullable: true
+                    type: object
+                  rgwConfig:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      RgwConfig sets Ceph RGW config values for the gateway clients that serve this object store.
+                      Values are modified at runtime without RGW restart.
+                      This feature is intended for advanced users. It allows breaking configurations to be easily
+                      applied. Use with caution.
+                    nullable: true
+                    type: object
                   securePort:
                     description: The port the rgw service will be listening on (https)
                     format: int32
@@ -12125,7 +12424,8 @@ spec:
                           alive or ready to receive traffic.
                         properties:
                           exec:
-                            description: Exec specifies the action to take.
+                            description: Exec specifies a command to execute in the
+                              container.
                             properties:
                               command:
                                 description: |-
@@ -12146,8 +12446,7 @@ spec:
                             format: int32
                             type: integer
                           grpc:
-                            description: GRPC specifies an action involving a GRPC
-                              port.
+                            description: GRPC specifies a GRPC HealthCheckRequest.
                             properties:
                               port:
                                 description: Port number of the gRPC service. Number
@@ -12166,7 +12465,8 @@ spec:
                             - port
                             type: object
                           httpGet:
-                            description: HTTPGet specifies the http request to perform.
+                            description: HTTPGet specifies an HTTP GET request to
+                              perform.
                             properties:
                               host:
                                 description: |-
@@ -12233,8 +12533,8 @@ spec:
                             format: int32
                             type: integer
                           tcpSocket:
-                            description: TCPSocket specifies an action involving a
-                              TCP port.
+                            description: TCPSocket specifies a connection to a TCP
+                              port.
                             properties:
                               host:
                                 description: 'Optional: Host name to connect to, defaults
@@ -12279,7 +12579,8 @@ spec:
                           alive or ready to receive traffic.
                         properties:
                           exec:
-                            description: Exec specifies the action to take.
+                            description: Exec specifies a command to execute in the
+                              container.
                             properties:
                               command:
                                 description: |-
@@ -12300,8 +12601,7 @@ spec:
                             format: int32
                             type: integer
                           grpc:
-                            description: GRPC specifies an action involving a GRPC
-                              port.
+                            description: GRPC specifies a GRPC HealthCheckRequest.
                             properties:
                               port:
                                 description: Port number of the gRPC service. Number
@@ -12320,7 +12620,8 @@ spec:
                             - port
                             type: object
                           httpGet:
-                            description: HTTPGet specifies the http request to perform.
+                            description: HTTPGet specifies an HTTP GET request to
+                              perform.
                             properties:
                               host:
                                 description: |-
@@ -12387,8 +12688,8 @@ spec:
                             format: int32
                             type: integer
                           tcpSocket:
-                            description: TCPSocket specifies an action involving a
-                              TCP port.
+                            description: TCPSocket specifies a connection to a TCP
+                              port.
                             properties:
                               host:
                                 description: 'Optional: Host name to connect to, defaults
@@ -12470,7 +12771,6 @@ spec:
                       If the DNS name corresponds to an endpoint with DNS wildcard support, do not include the
                       wildcard itself in the list of hostnames.
                       E.g., use "mystore.example.com" instead of "*.mystore.example.com".
-                      The feature is supported only for Ceph v18 and later versions.
                     items:
                       type: string
                     type: array
@@ -12682,6 +12982,25 @@ spec:
               protocols:
                 description: The protocol specification
                 properties:
+                  enableAPIs:
+                    description: |-
+                      Represents RGW 'rgw_enable_apis' config option. See: https://docs.ceph.com/en/reef/radosgw/config-ref/#confval-rgw_enable_apis
+                      If no value provided then all APIs will be enabled: s3, s3website, swift, swift_auth, admin, sts, iam, notifications
+                      If enabled APIs are set, all remaining APIs will be disabled.
+                      This option overrides S3.Enabled value.
+                    items:
+                      enum:
+                      - s3
+                      - s3website
+                      - swift
+                      - swift_auth
+                      - admin
+                      - sts
+                      - iam
+                      - notifications
+                      type: string
+                    nullable: true
+                    type: array
                   s3:
                     description: The spec for S3
                     nullable: true
@@ -12695,9 +13014,9 @@ spec:
                         nullable: true
                         type: boolean
                       enabled:
-                        description: Whether to enable S3. This defaults to true (even
-                          if protocols.s3 is not present in the CRD). This maintains
-                          backwards compatibility – by default S3 is enabled.
+                        description: |-
+                          Deprecated: use protocol.enableAPIs instead.
+                          Whether to enable S3. This defaults to true (even if protocols.s3 is not present in the CRD). This maintains backwards compatibility – by default S3 is enabled.
                         nullable: true
                         type: boolean
                     type: object
@@ -13015,7 +13334,7 @@ spec:
                 properties:
                   amz-cache:
                     description: Add capabilities for user to send request to RGW
-                      Cache API header. Documented in https://docs.ceph.com/en/quincy/radosgw/rgw-cache/#cache-api
+                      Cache API header. Documented in https://docs.ceph.com/en/latest/radosgw/rgw-cache/#cache-api
                     enum:
                     - '*'
                     - read
@@ -14775,7 +15094,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cmd-reporter
@@ -14797,7 +15116,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr
@@ -14810,7 +15129,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-osd
@@ -14829,7 +15148,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-rgw
@@ -14842,7 +15161,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -15080,7 +15399,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -15400,7 +15719,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rbd-csi-nodeplugin
@@ -15636,7 +15955,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cluster-mgmt
@@ -15669,7 +15988,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -15857,7 +16176,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr-cluster
@@ -15913,7 +16232,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-object-bucket
@@ -15989,7 +16308,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16190,7 +16509,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16280,7 +16599,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -16339,7 +16658,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16422,7 +16741,6 @@ data:
           cpu: 50m
         limits:
           memory: 256Mi
-  CSI_DISABLE_HOLDER_PODS: "true"
   CSI_ENABLE_CEPHFS_SNAPSHOTTER: "true"
   CSI_ENABLE_CSIADDONS: "false"
   CSI_ENABLE_ENCRYPTION: "false"
@@ -16555,7 +16873,7 @@ data:
   ROOK_CEPH_ALLOW_LOOP_DEVICES: "false"
   ROOK_CEPH_COMMANDS_TIMEOUT_SECONDS: "15"
   ROOK_CSI_ATTACHER_IMAGE: registry.k8s.io/sig-storage/csi-attacher:v4.6.1
-  ROOK_CSI_CEPH_IMAGE: quay.io/cephcsi/cephcsi:v3.12.3
+  ROOK_CSI_CEPH_IMAGE: quay.io/cephcsi/cephcsi:v3.13.0
   ROOK_CSI_DISABLE_DRIVER: "false"
   ROOK_CSI_ENABLE_CEPHFS: "true"
   ROOK_CSI_ENABLE_NFS: "false"
@@ -16565,7 +16883,7 @@ data:
   ROOK_CSI_REGISTRAR_IMAGE: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.11.1
   ROOK_CSI_RESIZER_IMAGE: registry.k8s.io/sig-storage/csi-resizer:v1.11.1
   ROOK_CSI_SNAPSHOTTER_IMAGE: registry.k8s.io/sig-storage/csi-snapshotter:v8.0.1
-  ROOK_CSIADDONS_IMAGE: quay.io/csiaddons/k8s-sidecar:v0.9.1
+  ROOK_CSIADDONS_IMAGE: quay.io/csiaddons/k8s-sidecar:v0.11.0
   ROOK_ENABLE_DISCOVERY_DAEMON: "true"
   ROOK_LOG_LEVEL: INFO
   ROOK_OBC_WATCH_OPERATOR_NAMESPACE: "true"
@@ -16581,7 +16899,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.15.7
+    helm.sh/chart: rook-ceph-v1.16.0
     operator: rook
     storage-backend: ceph
   name: rook-ceph-operator
@@ -16597,7 +16915,7 @@ spec:
     metadata:
       labels:
         app: rook-ceph-operator
-        helm.sh/chart: rook-ceph-v1.15.7
+        helm.sh/chart: rook-ceph-v1.16.0
     spec:
       containers:
       - args:
@@ -16624,7 +16942,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: docker.io/rook/ceph:v1.15.7
+        image: docker.io/rook/ceph:v1.16.0
         imagePullPolicy: IfNotPresent
         name: rook-ceph-operator
         resources:
