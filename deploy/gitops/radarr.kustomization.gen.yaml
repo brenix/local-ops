@@ -4,6 +4,7 @@ metadata:
     name: radarr
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/radarr
     prune: true

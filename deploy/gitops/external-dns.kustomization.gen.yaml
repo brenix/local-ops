@@ -4,6 +4,7 @@ metadata:
     name: external-dns
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/external-dns
     prune: true

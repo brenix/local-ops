@@ -4,6 +4,7 @@ metadata:
     name: flux
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/flux
     prune: true

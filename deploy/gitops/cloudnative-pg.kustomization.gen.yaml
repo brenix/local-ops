@@ -4,6 +4,7 @@ metadata:
     name: cloudnative-pg
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/cloudnative-pg
     prune: true

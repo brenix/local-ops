@@ -26,6 +26,7 @@ import (
 					interval:        "10m"
 					path:            ResourcesPath
 					prune:           true
+					force:           true
 					sourceRef: {
 						kind: "OCIRepository"
 						name: "default"

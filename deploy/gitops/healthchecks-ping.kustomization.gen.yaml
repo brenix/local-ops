@@ -4,6 +4,7 @@ metadata:
     name: healthchecks-ping
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/healthchecks-ping
     prune: true

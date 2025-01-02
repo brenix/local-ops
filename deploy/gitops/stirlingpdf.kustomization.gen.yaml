@@ -4,6 +4,7 @@ metadata:
     name: stirlingpdf
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/stirlingpdf
     prune: true

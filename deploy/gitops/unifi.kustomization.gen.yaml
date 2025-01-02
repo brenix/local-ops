@@ -4,6 +4,7 @@ metadata:
     name: unifi
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/unifi
     prune: true

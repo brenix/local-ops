@@ -4,6 +4,7 @@ metadata:
     name: node-feature-discovery
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/node-feature-discovery
     prune: true

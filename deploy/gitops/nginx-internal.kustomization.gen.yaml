@@ -4,6 +4,7 @@ metadata:
     name: nginx-internal
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/nginx-internal
     prune: true

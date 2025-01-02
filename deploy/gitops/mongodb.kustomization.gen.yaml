@@ -4,6 +4,7 @@ metadata:
     name: mongodb
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/mongodb
     prune: true

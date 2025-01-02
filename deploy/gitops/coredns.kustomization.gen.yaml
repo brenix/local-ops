@@ -4,6 +4,7 @@ metadata:
     name: coredns
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/coredns
     prune: true

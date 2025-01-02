@@ -4,6 +4,7 @@ metadata:
     name: snapshot-controller
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/snapshot-controller
     prune: true

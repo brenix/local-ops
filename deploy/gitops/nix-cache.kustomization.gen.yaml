@@ -4,6 +4,7 @@ metadata:
     name: nix-cache
     namespace: flux-system
 spec:
+    force: true
     interval: 10m
     path: components/nix-cache
     prune: true
