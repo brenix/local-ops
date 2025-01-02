@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-    operator.prometheus.io/version: 0.79.0
+    operator.prometheus.io/version: 0.79.2
   name: alertmanagerconfigs.monitoring.coreos.com
 spec:
   group: monitoring.coreos.com
@@ -10040,7 +10040,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-    operator.prometheus.io/version: 0.79.0
+    operator.prometheus.io/version: 0.79.2
   name: alertmanagers.monitoring.coreos.com
 spec:
   group: monitoring.coreos.com
@@ -18752,7 +18752,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-    operator.prometheus.io/version: 0.79.0
+    operator.prometheus.io/version: 0.79.2
   name: podmonitors.monitoring.coreos.com
 spec:
   group: monitoring.coreos.com
@@ -18824,6 +18824,18 @@ spec:
 
                   It requires Prometheus >= v2.28.0.
                 pattern: (^0|([0-9]*[.])?[0-9]+((K|M|G|T|E|P)i?)?B)$
+                type: string
+              fallbackScrapeProtocol:
+                description: |-
+                  The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
+
+                  It requires Prometheus >= v3.0.0.
+                enum:
+                - PrometheusProto
+                - OpenMetricsText0.0.1
+                - OpenMetricsText1.0.0
+                - PrometheusText0.0.4
+                - PrometheusText1.0.0
                 type: string
               jobLabel:
                 description: |-
@@ -19841,18 +19853,6 @@ spec:
                   Whether to scrape a classic histogram that is also exposed as a native histogram.
                   It requires Prometheus >= v2.45.0.
                 type: boolean
-              scrapeFallbackProtocol:
-                description: |-
-                  The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
-
-                  It requires Prometheus >= v3.0.0.
-                enum:
-                - PrometheusProto
-                - OpenMetricsText0.0.1
-                - OpenMetricsText1.0.0
-                - PrometheusText0.0.4
-                - PrometheusText1.0.0
-                type: string
               scrapeProtocols:
                 description: |-
                   `scrapeProtocols` defines the protocols to negotiate during a scrape. It tells clients the
@@ -19958,7 +19958,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-    operator.prometheus.io/version: 0.79.0
+    operator.prometheus.io/version: 0.79.2
   name: probes.monitoring.coreos.com
 spec:
   group: monitoring.coreos.com
@@ -20127,6 +20127,18 @@ spec:
                 - key
                 type: object
                 x-kubernetes-map-type: atomic
+              fallbackScrapeProtocol:
+                description: |-
+                  The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
+
+                  It requires Prometheus >= v3.0.0.
+                enum:
+                - PrometheusProto
+                - OpenMetricsText0.0.1
+                - OpenMetricsText1.0.0
+                - PrometheusText0.0.4
+                - PrometheusText1.0.0
+                type: string
               interval:
                 description: |-
                   Interval at which targets are probed using the configured prober.
@@ -20636,18 +20648,6 @@ spec:
                   Whether to scrape a classic histogram that is also exposed as a native histogram.
                   It requires Prometheus >= v2.45.0.
                 type: boolean
-              scrapeFallbackProtocol:
-                description: |-
-                  The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
-
-                  It requires Prometheus >= v3.0.0.
-                enum:
-                - PrometheusProto
-                - OpenMetricsText0.0.1
-                - OpenMetricsText1.0.0
-                - PrometheusText0.0.4
-                - PrometheusText1.0.0
-                type: string
               scrapeProtocols:
                 description: |-
                   `scrapeProtocols` defines the protocols to negotiate during a scrape. It tells clients the
@@ -21131,7 +21131,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-    operator.prometheus.io/version: 0.79.0
+    operator.prometheus.io/version: 0.79.2
   name: prometheusagents.monitoring.coreos.com
 spec:
   group: monitoring.coreos.com
@@ -27982,18 +27982,6 @@ spec:
                     type: object
                 type: object
                 x-kubernetes-map-type: atomic
-              scrapeFallbackProtocol:
-                description: |-
-                  The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
-
-                  It requires Prometheus >= v3.0.0.
-                enum:
-                - PrometheusProto
-                - OpenMetricsText0.0.1
-                - OpenMetricsText1.0.0
-                - PrometheusText0.0.4
-                - PrometheusText1.0.0
-                type: string
               scrapeInterval:
                 default: 30s
                 description: |-
@@ -31895,7 +31883,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-    operator.prometheus.io/version: 0.79.0
+    operator.prometheus.io/version: 0.79.2
   name: prometheuses.monitoring.coreos.com
 spec:
   group: monitoring.coreos.com
@@ -40454,18 +40442,6 @@ spec:
                     type: object
                 type: object
                 x-kubernetes-map-type: atomic
-              scrapeFallbackProtocol:
-                description: |-
-                  The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
-
-                  It requires Prometheus >= v3.0.0.
-                enum:
-                - PrometheusProto
-                - OpenMetricsText0.0.1
-                - OpenMetricsText1.0.0
-                - PrometheusText0.0.4
-                - PrometheusText1.0.0
-                type: string
               scrapeInterval:
                 default: 30s
                 description: |-
@@ -44888,7 +44864,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-    operator.prometheus.io/version: 0.79.0
+    operator.prometheus.io/version: 0.79.2
   name: prometheusrules.monitoring.coreos.com
 spec:
   group: monitoring.coreos.com
@@ -45047,7 +45023,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-    operator.prometheus.io/version: 0.79.0
+    operator.prometheus.io/version: 0.79.2
   name: scrapeconfigs.monitoring.coreos.com
 spec:
   group: monitoring.coreos.com
@@ -49117,6 +49093,18 @@ spec:
                   - server
                   type: object
                 type: array
+              fallbackScrapeProtocol:
+                description: |-
+                  The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
+
+                  It requires Prometheus >= v3.0.0.
+                enum:
+                - PrometheusProto
+                - OpenMetricsText0.0.1
+                - OpenMetricsText1.0.0
+                - PrometheusText0.0.4
+                - PrometheusText1.0.0
+                type: string
               fileSDConfigs:
                 description: FileSDConfigs defines a list of file service discovery
                   configurations.
@@ -56301,18 +56289,6 @@ spec:
                   Whether to scrape a classic histogram that is also exposed as a native histogram.
                   It requires Prometheus >= v2.45.0.
                 type: boolean
-              scrapeFallbackProtocol:
-                description: |-
-                  The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
-
-                  It requires Prometheus >= v3.0.0.
-                enum:
-                - PrometheusProto
-                - OpenMetricsText0.0.1
-                - OpenMetricsText1.0.0
-                - PrometheusText0.0.4
-                - PrometheusText1.0.0
-                type: string
               scrapeInterval:
                 description: ScrapeInterval is the interval between consecutive scrapes.
                 pattern: ^(0|(([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?)$
@@ -56561,7 +56537,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-    operator.prometheus.io/version: 0.79.0
+    operator.prometheus.io/version: 0.79.2
   name: servicemonitors.monitoring.coreos.com
 spec:
   group: monitoring.coreos.com
@@ -57567,6 +57543,18 @@ spec:
                       type: boolean
                   type: object
                 type: array
+              fallbackScrapeProtocol:
+                description: |-
+                  The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
+
+                  It requires Prometheus >= v3.0.0.
+                enum:
+                - PrometheusProto
+                - OpenMetricsText0.0.1
+                - OpenMetricsText1.0.0
+                - PrometheusText0.0.4
+                - PrometheusText1.0.0
+                type: string
               jobLabel:
                 description: |-
                   `jobLabel` selects the label from the associated Kubernetes `Service`
@@ -57664,18 +57652,6 @@ spec:
                   Whether to scrape a classic histogram that is also exposed as a native histogram.
                   It requires Prometheus >= v2.45.0.
                 type: boolean
-              scrapeFallbackProtocol:
-                description: |-
-                  The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
-
-                  It requires Prometheus >= v3.0.0.
-                enum:
-                - PrometheusProto
-                - OpenMetricsText0.0.1
-                - OpenMetricsText1.0.0
-                - PrometheusText0.0.4
-                - PrometheusText1.0.0
-                type: string
               scrapeProtocols:
                 description: |-
                   `scrapeProtocols` defines the protocols to negotiate during a scrape. It tells clients the
@@ -57789,7 +57765,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-    operator.prometheus.io/version: 0.79.0
+    operator.prometheus.io/version: 0.79.2
   name: thanosrulers.monitoring.coreos.com
 spec:
   group: monitoring.coreos.com
@@ -65913,8 +65889,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-admission
@@ -65931,8 +65907,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-operator
@@ -65949,8 +65925,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-prometheus
@@ -65985,8 +65961,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-admission
@@ -66013,8 +65989,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-admission
@@ -66038,8 +66014,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-operator
@@ -66143,8 +66119,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-prometheus
@@ -66196,8 +66172,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-admission
@@ -66224,8 +66200,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-admission
@@ -66248,8 +66224,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-operator
@@ -66270,8 +66246,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-prometheus
@@ -66294,8 +66270,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-prometheus-scrape-confg
@@ -66311,8 +66287,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-operator
@@ -66335,8 +66311,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
     self-monitor: "true"
@@ -66396,8 +66372,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-operator
@@ -66418,8 +66394,8 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
         app.kubernetes.io/part-of: kube-prometheus-stack
-        app.kubernetes.io/version: 66.7.1
-        chart: kube-prometheus-stack-66.7.1
+        app.kubernetes.io/version: 67.5.0
+        chart: kube-prometheus-stack-67.5.0
         heritage: Helm
         release: prometheus
     spec:
@@ -66430,7 +66406,7 @@ spec:
         - --kubelet-endpoints=true
         - --kubelet-endpointslice=false
         - --localhost=127.0.0.1
-        - --prometheus-config-reloader=quay.io/prometheus-operator/prometheus-config-reloader:v0.79.0
+        - --prometheus-config-reloader=quay.io/prometheus-operator/prometheus-config-reloader:v0.79.2
         - --config-reloader-cpu-request=0
         - --config-reloader-cpu-limit=0
         - --config-reloader-memory-request=0
@@ -66445,7 +66421,7 @@ spec:
         env:
         - name: GOGC
           value: "30"
-        image: quay.io/prometheus-operator/prometheus-operator:v0.79.0
+        image: quay.io/prometheus-operator/prometheus-operator:v0.79.2
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -66629,8 +66605,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-admission-create
@@ -66645,8 +66621,8 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
         app.kubernetes.io/part-of: kube-prometheus-stack
-        app.kubernetes.io/version: 66.7.1
-        chart: kube-prometheus-stack-66.7.1
+        app.kubernetes.io/version: 67.5.0
+        chart: kube-prometheus-stack-67.5.0
         heritage: Helm
         release: prometheus
       name: prometheus-kube-prometheus-admission-create
@@ -66690,8 +66666,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-admission-patch
@@ -66706,8 +66682,8 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
         app.kubernetes.io/part-of: kube-prometheus-stack
-        app.kubernetes.io/version: 66.7.1
-        chart: kube-prometheus-stack-66.7.1
+        app.kubernetes.io/version: 67.5.0
+        chart: kube-prometheus-stack-67.5.0
         heritage: Helm
         release: prometheus
       name: prometheus-kube-prometheus-admission-patch
@@ -66747,8 +66723,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus
@@ -66777,7 +66753,7 @@ spec:
   enableAdminAPI: true
   externalUrl: http://prometheus.brenix.com/
   hostNetwork: false
-  image: quay.io/prometheus/prometheus:v2.55.1
+  image: quay.io/prometheus/prometheus:v3.0.1
   listenLocal: false
   logFormat: logfmt
   logLevel: info
@@ -66821,7 +66797,7 @@ spec:
             storage: 10Gi
   tsdb:
     outOfOrderTimeWindow: 0s
-  version: v2.55.1
+  version: v3.0.1
   walCompression: true
 ---
 apiVersion: monitoring.coreos.com/v1
@@ -66834,8 +66810,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-operator
@@ -66868,8 +66844,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-prometheus
@@ -66923,8 +66899,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-prometheus
@@ -66956,8 +66932,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-admission
@@ -66995,8 +66971,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 66.7.1
-    chart: kube-prometheus-stack-66.7.1
+    app.kubernetes.io/version: 67.5.0
+    chart: kube-prometheus-stack-67.5.0
     heritage: Helm
     release: prometheus
   name: prometheus-kube-prometheus-admission
