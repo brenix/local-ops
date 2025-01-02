@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: linkding
     app.kubernetes.io/service: linkding
-    helm.sh/chart: app-template-3.5.1
+    helm.sh/chart: app-template-3.6.0
   name: linkding
   namespace: default
 spec:
@@ -47,7 +47,7 @@ metadata:
     app.kubernetes.io/instance: linkding
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: linkding
-    helm.sh/chart: app-template-3.5.1
+    helm.sh/chart: app-template-3.6.0
   name: linkding
   namespace: default
 spec:
@@ -88,6 +88,7 @@ spec:
       hostIPC: false
       hostNetwork: false
       hostPID: false
+      hostUsers: true
       serviceAccountName: default
       volumes:
       - name: data
@@ -125,7 +126,7 @@ metadata:
     app.kubernetes.io/instance: linkding
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: linkding
-    helm.sh/chart: app-template-3.5.1
+    helm.sh/chart: app-template-3.6.0
   name: linkding
   namespace: default
 spec:

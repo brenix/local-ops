@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: stirlingpdf
     app.kubernetes.io/service: stirlingpdf
-    helm.sh/chart: app-template-3.5.1
+    helm.sh/chart: app-template-3.6.0
   name: stirlingpdf
   namespace: default
 spec:
@@ -32,7 +32,7 @@ metadata:
     app.kubernetes.io/instance: stirlingpdf
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: stirlingpdf
-    helm.sh/chart: app-template-3.5.1
+    helm.sh/chart: app-template-3.6.0
   name: stirlingpdf
   namespace: default
 spec:
@@ -64,6 +64,7 @@ spec:
       hostIPC: false
       hostNetwork: false
       hostPID: false
+      hostUsers: true
       serviceAccountName: default
 ---
 apiVersion: networking.k8s.io/v1
@@ -73,7 +74,7 @@ metadata:
     app.kubernetes.io/instance: stirlingpdf
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: stirlingpdf
-    helm.sh/chart: app-template-3.5.1
+    helm.sh/chart: app-template-3.6.0
   name: stirlingpdf
   namespace: default
 spec:
