@@ -10,7 +10,7 @@
         "^components/.*\\.cue$"
       ],
       "matchStrings": [
-        "Chart:\\s*{\\s*name:\\s*\"(?<depName>[^\"]+)\"\\s*version:\\s*\"(?<currentValue>[^\"]+)\"\\s*repository:\\s*{\\s*name:\\s*\"[^\"]*\"\\s*url:\\s*\"(?<registryUrl>[^\"]+)\"\\s*}\\s*}"
+        "Chart:\\s*{\\s*name:\\s*"(?<depName>[^"]+)"\\s*version:\\s*"(?<currentValue>[^"]+)"[\\s\\S]*?repository:\\s*{\\s*name:\\s*"[^"]*"\\s*url:\\s*"(?<registryUrl>[^"]+)"\\s*}"
       ],
       "datasourceTemplate": "helm"
     },
