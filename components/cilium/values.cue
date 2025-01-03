@@ -16,6 +16,7 @@ package holos
 		masquerade:      true
 		preallocateMaps: true
 		tproxy:          true
+		events: trace: enabled: false
 	}
 	bgp: {
 		enabled: false

@@ -441,7 +441,7 @@ data:
   bgp-secrets-namespace: kube-system
   bpf-events-drop-enabled: "true"
   bpf-events-policy-verdict-enabled: "true"
-  bpf-events-trace-enabled: "true"
+  bpf-events-trace-enabled: "false"
   bpf-lb-acceleration: best-effort
   bpf-lb-algorithm: maglev
   bpf-lb-external-clusterip: "false"
@@ -593,7 +593,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 15a8d4c8be03d6ab420d82557fbe0921154ee92a61efa5d94e84be32aec7061d
+        cilium.io/cilium-configmap-checksum: f0b2eeb98efe7145af65430f4235f6137eb50821c9ce4035b5f15f4b685d905f
         prometheus.io/port: "9963"
         prometheus.io/scrape: "true"
       labels:
@@ -698,7 +698,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 15a8d4c8be03d6ab420d82557fbe0921154ee92a61efa5d94e84be32aec7061d
+        cilium.io/cilium-configmap-checksum: f0b2eeb98efe7145af65430f4235f6137eb50821c9ce4035b5f15f4b685d905f
       labels:
         app.kubernetes.io/name: cilium-agent
         app.kubernetes.io/part-of: cilium
