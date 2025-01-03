@@ -23,7 +23,7 @@ import (
 				metadata: namespace: "flux-system"
 				spec: {
 					targetNamespace: Namespace
-					interval:        "10m"
+					interval:        "30m"
 					path:            ResourcesPath
 					prune:           true
 					force:           true
