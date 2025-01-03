@@ -32,7 +32,6 @@ tasks:
 
   apply-node:
     desc: Apply Talos config to a node [NODE=required]
-      - talosctl --nodes {{.NODE}} get machineconfig
     requires:
       vars:
         - NODE
