@@ -33,7 +33,6 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.10.0
         with: 
           repo: holos-run/holos
-          tag: v0.101.4
 
       - name: Render platform
         shell: bash
