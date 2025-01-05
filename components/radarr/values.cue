@@ -9,7 +9,7 @@ package holos
 		}
 		image: {
 			repository: "lscr.io/linuxserver/radarr"
-			tag:        "5.16.3"
+			tag:        "5.17.2"
 		}
 		probes: liveness: {
 			custom:  true
