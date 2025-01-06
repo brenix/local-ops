@@ -9,7 +9,7 @@ package holos
 		}
 		image: {
 			repository: "lscr.io/linuxserver/sonarr"
-			tag:        "4.0.11"
+			tag:        "4.0.12"
 		}
 		probes: liveness: {
 			custom:  true
