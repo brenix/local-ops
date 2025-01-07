@@ -15,7 +15,7 @@ package holos
 		}]
 		image: {
 			repository: "lscr.io/linuxserver/unifi-network-application"
-			tag:        "8.6.9"
+			tag:        "9.0.108"
 		}
 	}
 	ingress: main: {
