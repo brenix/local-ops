@@ -230,3 +230,29 @@ spec:
             path: Corefile
           name: coredns
         name: config-volume
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: coredns
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: coredns
+    helm.sh/chart: coredns-1.37.0
+    k8s-app: coredns
+    kubernetes.io/cluster-service: "true"
+    kubernetes.io/name: CoreDNS
+  name: coredns
+  namespace: kube-system
+spec:
+  endpoints:
+  - port: metrics
+  namespaceSelector:
+    matchNames:
+    - kube-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: metrics
+      app.kubernetes.io/instance: coredns
+      app.kubernetes.io/name: coredns
+      k8s-app: coredns

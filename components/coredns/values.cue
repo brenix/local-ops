@@ -10,6 +10,7 @@ package holos
 		create: true
 	}
 	priorityClassName: "system-cluster-critical"
+	prometheus: monitor: enabled: true
 
 	servers: [{
 		zones: [{zone: "."}]
