@@ -1,0 +1,74 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    app.kubernetes.io/component: fstrim
+    app.kubernetes.io/instance: fstrim
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: fstrim
+    helm.sh/chart: app-template-3.6.0
+  name: fstrim
+  namespace: default
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 6
+      parallelism: 3
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: fstrim
+            app.kubernetes.io/instance: fstrim
+            app.kubernetes.io/name: fstrim
+        spec:
+          automountServiceAccountToken: true
+          containers:
+          - env:
+            - name: SCRIPT_NAME
+              value: fstrim.sh
+            image: ghcr.io/onedr0p/kubanetics:2024.12.4@sha256:4941a46bd7c05ce1de1f0f2e98137db44cf116312b33d9c7d0e3619679250bd4
+            name: app
+            resources:
+              limits:
+                memory: 128Mi
+              requests:
+                cpu: 25m
+            securityContext:
+              privileged: true
+            volumeMounts:
+            - mountPath: /host/net
+              name: netfs
+              readOnly: true
+            - mountPath: /host/proc
+              name: procfs
+              readOnly: true
+          dnsPolicy: ClusterFirstWithHostNet
+          enableServiceLinks: false
+          hostIPC: false
+          hostNetwork: true
+          hostPID: true
+          hostUsers: true
+          restartPolicy: Never
+          serviceAccountName: default
+          topologySpreadConstraints:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: fstrim
+            maxSkew: 1
+            topologyKey: kubernetes.io/hostname
+            whenUnsatisfiable: DoNotSchedule
+          volumes:
+          - hostPath:
+              path: /sys
+              type: Directory
+            name: netfs
+          - hostPath:
+              path: /proc
+              type: Directory
+            name: procfs
+  schedule: 0 0 * * 0
+  startingDeadlineSeconds: 30
+  successfulJobsHistoryLimit: 1
+  suspend: false
