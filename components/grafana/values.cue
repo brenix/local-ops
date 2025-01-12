@@ -97,5 +97,6 @@ package holos
 			searchNamespace: "ALL"
 		}
 	}
-	testFramework: enabled: false
+	testFramework: enabled:   false
+	deploymentStrategy: type: "Recreate"
 }
