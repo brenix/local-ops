@@ -30,11 +30,6 @@ package holos
 			gnetId:     14314
 			revision:   2
 		}
-		"nodes": {
-			datasource: "Prometheus"
-			gnetId:     22001
-			revision:   1
-		}
 		"unifi-client-dpi": {
 			datasource: "Prometheus"
 			gnetId:     11310

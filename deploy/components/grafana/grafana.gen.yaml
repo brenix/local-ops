@@ -116,10 +116,6 @@ data:
     \\\n  | sed '/-- .* --/! s/\"datasource\":.*,/\"datasource\": \"Prometheus\",/g'
     \\\n> \"/var/lib/grafana/dashboards/default/nginx.json\"\n  \ncurl -skf \\\n--connect-timeout
     60 \\\n--max-time 60 \\\n-H \"Accept: application/json\" \\\n-H \"Content-Type:
-    application/json;charset=UTF-8\" \\\n  \"https://grafana.com/api/dashboards/22001/revisions/1/download\"
-    \\\n  | sed '/-- .* --/! s/\"datasource\":.*,/\"datasource\": \"Prometheus\",/g'
-    \\\n> \"/var/lib/grafana/dashboards/default/nodes.json\"\n  \ncurl -skf \\\n--connect-timeout
-    60 \\\n--max-time 60 \\\n-H \"Accept: application/json\" \\\n-H \"Content-Type:
     application/json;charset=UTF-8\" \\\n  \"https://grafana.com/api/dashboards/11310/revisions/5/download\"
     \\\n  | sed '/-- .* --/! s/\"datasource\":.*,/\"datasource\": \"Prometheus\",/g'
     \\\n> \"/var/lib/grafana/dashboards/default/unifi-client-dpi.json\"\n  \ncurl
@@ -265,7 +261,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 2acbaaf3b70ec50ef33c07ce768522a37d6ef9a94f0f1085fc6309d2c2d973d0
+        checksum/config: 36b299468b79b4b7fc5491da5194a329c21f67fab312e818b002890b3e079fde
         checksum/dashboards-json-config: 0c848f4c62dd4a4ba44eaf0d50490a6a4f537224a476f29bf66a7e4405847be1
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         kubectl.kubernetes.io/default-container: grafana

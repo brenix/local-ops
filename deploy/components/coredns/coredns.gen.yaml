@@ -78,6 +78,9 @@ data:
             fallthrough in-addr.arpa ip6.arpa
             ttl 30
         }
+        template IN AAAA {
+            rcode NOERROR
+        }
         prometheus 0.0.0.0:9153
         forward . /etc/resolv.conf
         cache 300
@@ -184,7 +187,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 491ba4403bfc2b15ea0d37b324dc0034c0aadbb8ec60ddbd38d7d78ef5be26c2
+        checksum/config: 20f3cb1aedcb56539c6a742c612d4760cddee39b200def0fb22e6ab44f9a9ba7
         scheduler.alpha.kubernetes.io/tolerations: '[{"key":"CriticalAddonsOnly",
           "operator":"Exists"}]'
       labels:

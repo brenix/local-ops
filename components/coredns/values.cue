@@ -37,6 +37,12 @@ package holos
 				ttl 30
 				"""
 		}, {
+			name:       "template"
+			parameters: "IN AAAA"
+			configBlock: """
+				rcode NOERROR
+				"""
+		}, {
 
 			// Serves a /metrics endpoint on :9153, required for serviceMonitor
 			name:       "prometheus"
