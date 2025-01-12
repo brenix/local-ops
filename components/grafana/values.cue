@@ -15,10 +15,25 @@ package holos
 		}]
 	}
 	dashboards: default: {
-		"node-exporter-full": {
+		"cert-manager": {
 			datasource: "Prometheus"
-			gnetId:     1860
-			revision:   33
+			gnetId:     20842
+			revision:   3
+		}
+		"coredns": {
+			datasource: "Prometheus"
+			gnetId:     15762
+			revision:   19
+		}
+		"nginx": {
+			datasource: "Prometheus"
+			gnetId:     14314
+			revision:   2
+		}
+		"nodes": {
+			datasource: "Prometheus"
+			gnetId:     22001
+			revision:   1
 		}
 		"unifi-client-dpi": {
 			datasource: "Prometheus"

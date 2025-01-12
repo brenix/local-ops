@@ -104,11 +104,23 @@ data:
       url: http://prometheus-operated:9090/
   download_dashboards.sh: "#!/usr/bin/env sh\nset -euf\nmkdir -p /var/lib/grafana/dashboards/default\n\ncurl
     -skf \\\n--connect-timeout 60 \\\n--max-time 60 \\\n-H \"Accept: application/json\"
-    \\\n-H \"Content-Type: application/json;charset=UTF-8\" \\\n  \"https://grafana.com/api/dashboards/1860/revisions/33/download\"
+    \\\n-H \"Content-Type: application/json;charset=UTF-8\" \\\n  \"https://grafana.com/api/dashboards/20842/revisions/3/download\"
     \\\n  | sed '/-- .* --/! s/\"datasource\":.*,/\"datasource\": \"Prometheus\",/g'
-    \\\n> \"/var/lib/grafana/dashboards/default/node-exporter-full.json\"\n  \ncurl
-    -skf \\\n--connect-timeout 60 \\\n--max-time 60 \\\n-H \"Accept: application/json\"
-    \\\n-H \"Content-Type: application/json;charset=UTF-8\" \\\n  \"https://grafana.com/api/dashboards/11310/revisions/5/download\"
+    \\\n> \"/var/lib/grafana/dashboards/default/cert-manager.json\"\n  \ncurl -skf
+    \\\n--connect-timeout 60 \\\n--max-time 60 \\\n-H \"Accept: application/json\"
+    \\\n-H \"Content-Type: application/json;charset=UTF-8\" \\\n  \"https://grafana.com/api/dashboards/15762/revisions/19/download\"
+    \\\n  | sed '/-- .* --/! s/\"datasource\":.*,/\"datasource\": \"Prometheus\",/g'
+    \\\n> \"/var/lib/grafana/dashboards/default/coredns.json\"\n  \ncurl -skf \\\n--connect-timeout
+    60 \\\n--max-time 60 \\\n-H \"Accept: application/json\" \\\n-H \"Content-Type:
+    application/json;charset=UTF-8\" \\\n  \"https://grafana.com/api/dashboards/14314/revisions/2/download\"
+    \\\n  | sed '/-- .* --/! s/\"datasource\":.*,/\"datasource\": \"Prometheus\",/g'
+    \\\n> \"/var/lib/grafana/dashboards/default/nginx.json\"\n  \ncurl -skf \\\n--connect-timeout
+    60 \\\n--max-time 60 \\\n-H \"Accept: application/json\" \\\n-H \"Content-Type:
+    application/json;charset=UTF-8\" \\\n  \"https://grafana.com/api/dashboards/22001/revisions/1/download\"
+    \\\n  | sed '/-- .* --/! s/\"datasource\":.*,/\"datasource\": \"Prometheus\",/g'
+    \\\n> \"/var/lib/grafana/dashboards/default/nodes.json\"\n  \ncurl -skf \\\n--connect-timeout
+    60 \\\n--max-time 60 \\\n-H \"Accept: application/json\" \\\n-H \"Content-Type:
+    application/json;charset=UTF-8\" \\\n  \"https://grafana.com/api/dashboards/11310/revisions/5/download\"
     \\\n  | sed '/-- .* --/! s/\"datasource\":.*,/\"datasource\": \"Prometheus\",/g'
     \\\n> \"/var/lib/grafana/dashboards/default/unifi-client-dpi.json\"\n  \ncurl
     -skf \\\n--connect-timeout 60 \\\n--max-time 60 \\\n-H \"Accept: application/json\"
@@ -253,7 +265,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 9a70f29a6bef6dff62276904b64eb5e1cf063846aec1117b0c0fa72f093bbe72
+        checksum/config: 2acbaaf3b70ec50ef33c07ce768522a37d6ef9a94f0f1085fc6309d2c2d973d0
         checksum/dashboards-json-config: 0c848f4c62dd4a4ba44eaf0d50490a6a4f537224a476f29bf66a7e4405847be1
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         kubectl.kubernetes.io/default-container: grafana
