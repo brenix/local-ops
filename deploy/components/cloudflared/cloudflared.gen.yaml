@@ -23,7 +23,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
     app.kubernetes.io/service: cloudflared
-    helm.sh/chart: app-template-3.6.0
+    helm.sh/chart: app-template-3.6.1
   name: cloudflared
   namespace: network
 spec:
@@ -48,7 +48,7 @@ metadata:
     app.kubernetes.io/instance: cloudflared
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
-    helm.sh/chart: app-template-3.6.0
+    helm.sh/chart: app-template-3.6.1
   name: cloudflared
   namespace: network
 spec:
@@ -132,7 +132,6 @@ spec:
       hostIPC: false
       hostNetwork: false
       hostPID: false
-      hostUsers: true
       securityContext:
         runAsGroup: 568
         runAsNonRoot: true
@@ -200,7 +199,7 @@ metadata:
     app.kubernetes.io/instance: cloudflared
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
-    helm.sh/chart: app-template-3.6.0
+    helm.sh/chart: app-template-3.6.1
   name: cloudflared
   namespace: network
 spec:
