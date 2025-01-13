@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: radarr
     app.kubernetes.io/service: radarr
-    helm.sh/chart: app-template-3.6.0
+    helm.sh/chart: app-template-3.6.1
   name: radarr
   namespace: default
 spec:
@@ -58,7 +58,7 @@ metadata:
     app.kubernetes.io/instance: radarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: radarr
-    helm.sh/chart: app-template-3.6.0
+    helm.sh/chart: app-template-3.6.1
   name: radarr
   namespace: default
 spec:
@@ -118,7 +118,6 @@ spec:
       hostIPC: false
       hostNetwork: false
       hostPID: false
-      hostUsers: true
       serviceAccountName: default
       volumes:
       - name: cache
@@ -139,7 +138,7 @@ metadata:
     app.kubernetes.io/instance: radarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: radarr
-    helm.sh/chart: app-template-3.6.0
+    helm.sh/chart: app-template-3.6.1
   name: radarr
   namespace: default
 spec:

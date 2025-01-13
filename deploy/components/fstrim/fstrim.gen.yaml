@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/instance: fstrim
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: fstrim
-    helm.sh/chart: app-template-3.6.0
+    helm.sh/chart: app-template-3.6.1
   name: fstrim
   namespace: default
 spec:
@@ -49,7 +49,6 @@ spec:
           hostIPC: false
           hostNetwork: true
           hostPID: true
-          hostUsers: true
           restartPolicy: Never
           serviceAccountName: default
           topologySpreadConstraints:
