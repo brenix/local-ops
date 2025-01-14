@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "kube-system"
 	Chart: {
 		name:    "reloader"
-		version: "1.2.0"
+		version: "1.2.1"
 		release: "reloader"
 		repository: {
 			name: "stakater"
