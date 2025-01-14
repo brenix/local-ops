@@ -57,7 +57,7 @@ spec:
       - env:
         - name: LANGS
           value: en_US
-        image: frooodle/s-pdf:0.36.6
+        image: frooodle/s-pdf:0.37.0
         name: main
       dnsPolicy: ClusterFirst
       enableServiceLinks: false
