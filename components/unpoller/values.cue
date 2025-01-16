@@ -17,7 +17,7 @@ package holos
 			}
 			image: {
 				repository: "ghcr.io/unpoller/unpoller"
-				tag:        "v2.14.0"
+				tag:        "v2.14.1"
 			}
 			resources: {
 				limits: memory: "500Mi"
