@@ -1,6 +1,5 @@
 ---
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: "renovate"
+name: Renovate
 
 on:
   workflow_dispatch:

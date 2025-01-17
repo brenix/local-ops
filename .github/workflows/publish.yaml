@@ -1,4 +1,5 @@
-name: artifact
+---
+name: Publish
 
 on:
   push:

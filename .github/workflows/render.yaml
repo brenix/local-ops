@@ -1,3 +1,4 @@
+---
 name: Render
 run-name: Render
 
@@ -29,23 +30,15 @@ jobs:
           # In a pull request trigger, ref is required as GitHub Actions checks out in detached HEAD mode, meaning it doesn’t check out your branch by default.
           ref: ${{ github.head_ref }}
 
-      - name: Install holos
-        uses: jaxxstorm/action-install-gh-release@v1.10.0
-        with: 
-          repo: holos-run/holos
-
-      - name: Render platform
-        shell: bash
-        run: |
-          rm -rf deploy
-          holos render platform
-      
+      - name: Render manifests with Holos
+        uses: holos-run/holos-action@v1
+              
       - name: Commit changes and push
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add deploy/*
+          git add deploy
           git commit -m 'chore(manifests): rendered output for commit ${{ github.sha }} [skip ci]' || echo "No changes to commit"
           git push
 
