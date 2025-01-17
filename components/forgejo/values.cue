@@ -30,7 +30,7 @@ package holos
 			hosts: ["git.brenix.com"]
 		}]
 	}
-	postgresql: enabled:      false
+	postgresql: enabled:      true
 	"postgresql-ha": enabled: false
 	"redis-cluster": enabled: false
 	service: {
