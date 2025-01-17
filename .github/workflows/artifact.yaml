@@ -6,6 +6,7 @@ on:
       - 'main'
     paths:
       - deploy/**
+  workflow_dispatch:
 
 permissions:
   packages: write  # needed for ghcr.io access
