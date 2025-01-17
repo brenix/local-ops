@@ -1784,7 +1784,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: snapshot-controller
     app.kubernetes.io/version: v8.2.0
-    helm.sh/chart: snapshot-controller-4.0.0
+    helm.sh/chart: snapshot-controller-4.0.1
   name: snapshot-controller
   namespace: kube-system
 ---
@@ -1962,7 +1962,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: snapshot-controller
     app.kubernetes.io/version: v8.2.0
-    helm.sh/chart: snapshot-controller-4.0.0
+    helm.sh/chart: snapshot-controller-4.0.1
   name: snapshot-controller
   namespace: kube-system
 spec:
