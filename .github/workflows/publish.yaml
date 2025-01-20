@@ -4,9 +4,9 @@ name: Publish
 on:
   push:
     branches:
-      - 'main'
+      - main
     paths:
-      - deploy/**
+      - 'deploy/**'
   workflow_dispatch:
 
 permissions:
