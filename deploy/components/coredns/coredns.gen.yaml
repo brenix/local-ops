@@ -86,7 +86,7 @@ data:
         cache 300 {
             success 10000 300 300
             denial 10000 5 5
-            prefetch 30%
+            prefetch 10 1m 30%
         }
         loop
         reload
@@ -191,7 +191,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: b5c4577e5e289f6ede22e4c8cee2ee76f3248b398184df4e19ab995111ab4f55
+        checksum/config: 7d061b1722502d7c3d1bdb40e472a8126e1c3039f8d5ec8be25aef2c3ceedb1a
         scheduler.alpha.kubernetes.io/tolerations: '[{"key":"CriticalAddonsOnly",
           "operator":"Exists"}]'
       labels:
