@@ -53,6 +53,11 @@ package holos
 		}, {
 			name:       "cache"
 			parameters: 300
+			configBlock: """
+				success 10000 300 300
+				denial 10000 5 5
+				prefetch 30%
+				"""
 		}, {
 			name: "loop"
 		}, {

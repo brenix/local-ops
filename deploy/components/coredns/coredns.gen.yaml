@@ -83,7 +83,11 @@ data:
         }
         prometheus 0.0.0.0:9153
         forward . /etc/resolv.conf
-        cache 300
+        cache 300 {
+            success 10000 300 300
+            denial 10000 5 5
+            prefetch 30%
+        }
         loop
         reload
         loadbalance
@@ -187,7 +191,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 0e2cbf1f7d8a6608bc4b69296b34c4890bf6f25f0752e5adf0020a9d484fb6c8
+        checksum/config: b5c4577e5e289f6ede22e4c8cee2ee76f3248b398184df4e19ab995111ab4f55
         scheduler.alpha.kubernetes.io/tolerations: '[{"key":"CriticalAddonsOnly",
           "operator":"Exists"}]'
       labels:
