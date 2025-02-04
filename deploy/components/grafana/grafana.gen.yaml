@@ -5,8 +5,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana
   namespace: monitoring
 ---
@@ -16,8 +16,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana
   namespace: monitoring
 rules: []
@@ -28,8 +28,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana-clusterrole
 rules:
 - apiGroups:
@@ -48,8 +48,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana
   namespace: monitoring
 roleRef:
@@ -67,8 +67,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana-clusterrolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -155,8 +155,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana
   namespace: monitoring
 ---
@@ -181,8 +181,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana-config-dashboards
   namespace: monitoring
 ---
@@ -193,9 +193,9 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
+    app.kubernetes.io/version: 11.5.1
     dashboard-provider: default
-    helm.sh/chart: grafana-8.8.6
+    helm.sh/chart: grafana-8.9.0
   name: grafana-dashboards-default
   namespace: monitoring
 ---
@@ -205,8 +205,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana
   namespace: monitoring
 spec:
@@ -228,8 +228,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana
   namespace: monitoring
 spec:
@@ -245,8 +245,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana
   namespace: monitoring
 spec:
@@ -262,14 +262,14 @@ spec:
     metadata:
       annotations:
         checksum/config: 36b299468b79b4b7fc5491da5194a329c21f67fab312e818b002890b3e079fde
-        checksum/dashboards-json-config: 9611129b3fadcf8f23d89be44778130d43551af0e749edc3f07ea07a36efe500
+        checksum/dashboards-json-config: 2eb096370d073feb6fc7c5cf5ba2dd044a615a65102c9fcc520d3139126ef769
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         kubectl.kubernetes.io/default-container: grafana
       labels:
         app.kubernetes.io/instance: grafana
         app.kubernetes.io/name: grafana
-        app.kubernetes.io/version: 11.4.1
-        helm.sh/chart: grafana-8.8.6
+        app.kubernetes.io/version: 11.5.1
+        helm.sh/chart: grafana-8.9.0
     spec:
       automountServiceAccountToken: true
       containers:
@@ -377,7 +377,7 @@ spec:
           value: /var/lib/grafana/plugins
         - name: GF_PATHS_PROVISIONING
           value: /etc/grafana/provisioning
-        image: docker.io/grafana/grafana:11.4.1
+        image: docker.io/grafana/grafana:11.5.1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 10
@@ -527,8 +527,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana
   namespace: monitoring
 spec:
@@ -554,8 +554,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 11.4.1
-    helm.sh/chart: grafana-8.8.6
+    app.kubernetes.io/version: 11.5.1
+    helm.sh/chart: grafana-8.9.0
   name: grafana
   namespace: monitoring
 spec:
