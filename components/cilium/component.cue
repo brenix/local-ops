@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "cilium"
-		version: "1.16.6"
+		version: "1.17.0"
 		repository: {
 			name: "cilium"
 			url:  "https://helm.cilium.io"
