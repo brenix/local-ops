@@ -13,7 +13,7 @@ package holos
 		}
 		resources: {
 			requests: memory: "512Mi"
-			limits: memory:   "2Gi"
+			limits: memory:   "8Gi"
 		}
 		securityContext: privileged: true
 	}
