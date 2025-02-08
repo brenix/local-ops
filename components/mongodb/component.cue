@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		version: "3.6.1"
+		version: "3.7.0"
 		release: "mongodb"
 		repository: {
 			name: "bjw-s"
