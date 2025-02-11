@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		version: "3.7.0"
+		version: "3.7.1"
 		release: "fstrim"
 		repository: {
 			name: "bjw-s"
