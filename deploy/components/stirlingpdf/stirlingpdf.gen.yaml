@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: stirlingpdf
     app.kubernetes.io/service: stirlingpdf
-    helm.sh/chart: app-template-3.7.0
+    helm.sh/chart: app-template-3.7.1
   name: stirlingpdf
   namespace: default
 spec:
@@ -32,7 +32,7 @@ metadata:
     app.kubernetes.io/instance: stirlingpdf
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: stirlingpdf
-    helm.sh/chart: app-template-3.7.0
+    helm.sh/chart: app-template-3.7.1
   name: stirlingpdf
   namespace: default
 spec:
@@ -73,7 +73,7 @@ metadata:
     app.kubernetes.io/instance: stirlingpdf
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: stirlingpdf
-    helm.sh/chart: app-template-3.7.0
+    helm.sh/chart: app-template-3.7.1
   name: stirlingpdf
   namespace: default
 spec:
