@@ -87,7 +87,7 @@ spec:
           value: "1000"
         - name: TZ
           value: America/Los_Angeles
-        image: lscr.io/linuxserver/jellyfin:10.10.5
+        image: lscr.io/linuxserver/jellyfin:10.10.6
         name: main
         resources:
           limits:
