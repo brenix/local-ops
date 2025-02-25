@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "kube-system"
 	Chart: {
 		name:    "node-feature-discovery"
-		version: "0.17.1"
+		version: "0.17.2"
 		repository: {
 			name: "node-feature-discovery"
 			url:  "https://kubernetes-sigs.github.io/node-feature-discovery/charts"
