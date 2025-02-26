@@ -19,7 +19,7 @@ package holos
 				}
 			}
 		}
-		strategy: "RollingUpdate"
+		strategy: "Recreate"
 	}
 	ingress: main: {
 		className: "internal"

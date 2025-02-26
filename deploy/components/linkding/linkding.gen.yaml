@@ -59,7 +59,7 @@ spec:
       app.kubernetes.io/instance: linkding
       app.kubernetes.io/name: linkding
   strategy:
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
       labels:
