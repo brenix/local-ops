@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "monitoring"
 	Chart: {
 		name:    "app-template"
-		version: "3.7.1"
+		version: "3.7.2"
 		release: "unpoller"
 		repository: {
 			name: "bjw-s"
