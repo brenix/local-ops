@@ -70,7 +70,7 @@ metadata:
     app.kubernetes.io/instance: recyclarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: recyclarr
-    helm.sh/chart: app-template-3.7.1
+    helm.sh/chart: app-template-3.7.2
   name: recyclarr
   namespace: default
 spec:
