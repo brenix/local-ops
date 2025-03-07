@@ -12379,6 +12379,38 @@ spec:
                       applied. Use with caution.
                     nullable: true
                     type: object
+                  rgwConfigFromSecret:
+                    additionalProperties:
+                      description: SecretKeySelector selects a key of a Secret.
+                      properties:
+                        key:
+                          description: The key of the secret to select from.  Must
+                            be a valid secret key.
+                          type: string
+                        name:
+                          default: ""
+                          description: |-
+                            Name of the referent.
+                            This field is effectively required, but due to backwards compatibility is
+                            allowed to be empty. Instances of this type with an empty value here are
+                            almost certainly wrong.
+                            More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                          type: string
+                        optional:
+                          description: Specify whether the Secret or its key must
+                            be defined
+                          type: boolean
+                      required:
+                      - key
+                      type: object
+                      x-kubernetes-map-type: atomic
+                    description: |-
+                      RgwConfigFromSecret works exactly like RgwConfig but takes config value from Secret Key reference.
+                      Values are modified at runtime without RGW restart.
+                      This feature is intended for advanced users. It allows breaking configurations to be easily
+                      applied. Use with caution.
+                    nullable: true
+                    type: object
                   securePort:
                     description: The port the rgw service will be listening on (https)
                     format: int32
@@ -15094,7 +15126,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cmd-reporter
@@ -15116,7 +15148,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr
@@ -15129,7 +15161,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-osd
@@ -15148,7 +15180,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-rgw
@@ -15161,7 +15193,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -15399,7 +15431,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -15715,7 +15747,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rbd-csi-nodeplugin
@@ -15947,7 +15979,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cluster-mgmt
@@ -15980,7 +16012,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -16168,7 +16200,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr-cluster
@@ -16224,7 +16256,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-object-bucket
@@ -16300,7 +16332,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16501,7 +16533,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16591,7 +16623,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -16650,7 +16682,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16891,7 +16923,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.4
+    helm.sh/chart: rook-ceph-v1.16.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-operator
@@ -16907,7 +16939,7 @@ spec:
     metadata:
       labels:
         app: rook-ceph-operator
-        helm.sh/chart: rook-ceph-v1.16.4
+        helm.sh/chart: rook-ceph-v1.16.5
     spec:
       containers:
       - args:
@@ -16934,7 +16966,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: docker.io/rook/ceph:v1.16.4
+        image: docker.io/rook/ceph:v1.16.5
         imagePullPolicy: IfNotPresent
         name: rook-ceph-operator
         resources:
