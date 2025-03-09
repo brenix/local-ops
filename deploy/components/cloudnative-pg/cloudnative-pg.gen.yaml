@@ -2,7 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.16.5
+    controller-gen.kubebuilder.io/version: v0.17.2
     helm.sh/resource-policy: keep
   name: backups.postgresql.cnpg.io
 spec:
@@ -444,7 +444,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.16.5
+    controller-gen.kubebuilder.io/version: v0.17.2
     helm.sh/resource-policy: keep
   name: clusterimagecatalogs.postgresql.cnpg.io
 spec:
@@ -526,7 +526,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.16.5
+    controller-gen.kubebuilder.io/version: v0.17.2
     helm.sh/resource-policy: keep
   name: clusters.postgresql.cnpg.io
 spec:
@@ -3466,6 +3466,12 @@ spec:
                           default: true
                           description: Enabled is true if this plugin will be used
                           type: boolean
+                        isWALArchiver:
+                          default: false
+                          description: |-
+                            Only one plugin can be declared as WALArchiver.
+                            Cannot be active if ".spec.backup.barmanObjectStore" configuration is present.
+                          type: boolean
                         name:
                           description: Name is the plugin name
                           type: string
@@ -4491,6 +4497,12 @@ spec:
                     enabled:
                       default: true
                       description: Enabled is true if this plugin will be used
+                      type: boolean
+                    isWALArchiver:
+                      default: false
+                      description: |-
+                        Only one plugin can be declared as WALArchiver.
+                        Cannot be active if ".spec.backup.barmanObjectStore" configuration is present.
                       type: boolean
                     name:
                       description: Name is the plugin name
@@ -6942,7 +6954,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.16.5
+    controller-gen.kubebuilder.io/version: v0.17.2
     helm.sh/resource-policy: keep
   name: databases.postgresql.cnpg.io
 spec:
@@ -7205,7 +7217,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.16.5
+    controller-gen.kubebuilder.io/version: v0.17.2
     helm.sh/resource-policy: keep
   name: imagecatalogs.postgresql.cnpg.io
 spec:
@@ -7286,7 +7298,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.16.5
+    controller-gen.kubebuilder.io/version: v0.17.2
     helm.sh/resource-policy: keep
   name: poolers.postgresql.cnpg.io
 spec:
@@ -16065,6 +16077,7 @@ spec:
                 enum:
                 - rw
                 - ro
+                - r
                 type: string
             required:
             - cluster
@@ -16145,7 +16158,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.16.5
+    controller-gen.kubebuilder.io/version: v0.17.2
     helm.sh/resource-policy: keep
   name: publications.postgresql.cnpg.io
 spec:
@@ -16341,7 +16354,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.16.5
+    controller-gen.kubebuilder.io/version: v0.17.2
     helm.sh/resource-policy: keep
   name: scheduledbackups.postgresql.cnpg.io
 spec:
@@ -16533,7 +16546,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.16.5
+    controller-gen.kubebuilder.io/version: v0.17.2
     helm.sh/resource-policy: keep
   name: subscriptions.postgresql.cnpg.io
 spec:
@@ -16683,8 +16696,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
-    helm.sh/chart: cloudnative-pg-0.23.1
+    app.kubernetes.io/version: 1.25.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cloudnative-pg
   namespace: database
 ---
@@ -16695,8 +16708,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
-    helm.sh/chart: cloudnative-pg-0.23.1
+    app.kubernetes.io/version: 1.25.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cloudnative-pg
 rules:
 - apiGroups:
@@ -16922,8 +16935,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
-    helm.sh/chart: cloudnative-pg-0.23.1
+    app.kubernetes.io/version: 1.25.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cloudnative-pg-edit
 rules:
 - apiGroups:
@@ -16950,8 +16963,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
-    helm.sh/chart: cloudnative-pg-0.23.1
+    app.kubernetes.io/version: 1.25.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cloudnative-pg-view
 rules:
 - apiGroups:
@@ -16976,8 +16989,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
-    helm.sh/chart: cloudnative-pg-0.23.1
+    app.kubernetes.io/version: 1.25.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cloudnative-pg
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -16996,8 +17009,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
-    helm.sh/chart: cloudnative-pg-0.23.1
+    app.kubernetes.io/version: 1.25.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cnpg-controller-manager-config
   namespace: database
 ---
@@ -17457,9 +17470,9 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
+    app.kubernetes.io/version: 1.25.1
     cnpg.io/reload: ""
-    helm.sh/chart: cloudnative-pg-0.23.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cnpg-default-monitoring
   namespace: database
 ---
@@ -26669,8 +26682,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
-    helm.sh/chart: cloudnative-pg-0.23.1
+    app.kubernetes.io/version: 1.25.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cnpg-webhook-service
   namespace: database
 spec:
@@ -26690,8 +26703,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
-    helm.sh/chart: cloudnative-pg-0.23.1
+    app.kubernetes.io/version: 1.25.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cloudnative-pg
   namespace: database
 spec:
@@ -26703,9 +26716,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 1094cf2f737efd5006b3b55bea5b5622272ec8df00aabfc788aae617753a9a26
-        checksum/monitoring-config: 61687ffb31c7c1df0b11bde8ded1094a1bd77372bf7a4aa4a5138cde073b16ce
-        checksum/rbac: 3009811b07cfc9433ea7c3fa5f6a96015062d1fd27a0240197406ef27de789be
+        checksum/config: e862717d73269386a64d69c2ed11935dfe8c30dea6cd96cf7f8088695c1399d7
+        checksum/monitoring-config: f9ed49e6bb907f4b5ef189c3762306c4c9619d0eb38169dd039c24dc8f10e056
+        checksum/rbac: 642d48218725e6d13cddd0074bbecada81fc6161d1e11809ae4a38b8631abb24
       labels:
         app.kubernetes.io/instance: cloudnative-pg
         app.kubernetes.io/name: cloudnative-pg
@@ -26721,14 +26734,14 @@ spec:
         - /manager
         env:
         - name: OPERATOR_IMAGE_NAME
-          value: ghcr.io/cloudnative-pg/cloudnative-pg:1.25.0
+          value: ghcr.io/cloudnative-pg/cloudnative-pg:1.25.1
         - name: OPERATOR_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MONITORING_QUERIES_CONFIGMAP
           value: cnpg-default-monitoring
-        image: ghcr.io/cloudnative-pg/cloudnative-pg:1.25.0
+        image: ghcr.io/cloudnative-pg/cloudnative-pg:1.25.1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -26761,6 +26774,13 @@ spec:
           runAsUser: 10001
           seccompProfile:
             type: RuntimeDefault
+        startupProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /readyz
+            port: 9443
+            scheme: HTTPS
+          periodSeconds: 5
         volumeMounts:
         - mountPath: /controller
           name: scratch-data
@@ -26788,8 +26808,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
-    helm.sh/chart: cloudnative-pg-0.23.1
+    app.kubernetes.io/version: 1.25.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cnpg-mutating-webhook-configuration
 webhooks:
 - admissionReviewVersions:
@@ -26863,8 +26883,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.0
-    helm.sh/chart: cloudnative-pg-0.23.1
+    app.kubernetes.io/version: 1.25.1
+    helm.sh/chart: cloudnative-pg-0.23.2
   name: cnpg-validating-webhook-configuration
 webhooks:
 - admissionReviewVersions:
