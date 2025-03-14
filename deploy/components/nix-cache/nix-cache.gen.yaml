@@ -18,7 +18,7 @@ metadata:
     app.kubernetes.io/instance: nix-cache
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: nix-cache
-    helm.sh/chart: app-template-3.7.2
+    helm.sh/chart: app-template-3.7.3
   name: nix-cache-config
   namespace: default
 ---
@@ -32,7 +32,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: nix-cache
     app.kubernetes.io/service: nix-cache
-    helm.sh/chart: app-template-3.7.2
+    helm.sh/chart: app-template-3.7.3
   name: nix-cache
   namespace: default
 spec:
@@ -71,7 +71,7 @@ metadata:
     app.kubernetes.io/instance: nix-cache
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: nix-cache
-    helm.sh/chart: app-template-3.7.2
+    helm.sh/chart: app-template-3.7.3
   name: nix-cache
   namespace: default
 spec:
