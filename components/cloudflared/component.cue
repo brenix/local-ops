@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "network"
 	Chart: {
 		name:    "app-template"
-		version: "3.7.2"
+		version: "3.7.3"
 		release: "cloudflared"
 		repository: {
 			name: "bjw-s"
