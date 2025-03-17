@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana
   namespace: monitoring
 ---
@@ -17,7 +17,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana
   namespace: monitoring
 rules: []
@@ -29,7 +29,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana-clusterrole
 rules:
 - apiGroups:
@@ -49,7 +49,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana
   namespace: monitoring
 roleRef:
@@ -68,7 +68,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana-clusterrolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -156,7 +156,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana
   namespace: monitoring
 ---
@@ -182,7 +182,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana-config-dashboards
   namespace: monitoring
 ---
@@ -195,7 +195,7 @@ metadata:
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
     dashboard-provider: default
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana-dashboards-default
   namespace: monitoring
 ---
@@ -206,7 +206,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana
   namespace: monitoring
 spec:
@@ -229,7 +229,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana
   namespace: monitoring
 spec:
@@ -246,7 +246,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana
   namespace: monitoring
 spec:
@@ -262,14 +262,14 @@ spec:
     metadata:
       annotations:
         checksum/config: 36b299468b79b4b7fc5491da5194a329c21f67fab312e818b002890b3e079fde
-        checksum/dashboards-json-config: 380fb6a3f1efbfcbeb3b029e26c8db8c005494ec3a2f03032eade557618723a8
+        checksum/dashboards-json-config: 1cfbd531c9d6c449522fe4cd948ccc16dde7091f96fbdd2c971978daa7ba8aa5
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         kubectl.kubernetes.io/default-container: grafana
       labels:
         app.kubernetes.io/instance: grafana
         app.kubernetes.io/name: grafana
         app.kubernetes.io/version: 11.5.2
-        helm.sh/chart: grafana-8.10.3
+        helm.sh/chart: grafana-8.10.4
     spec:
       automountServiceAccountToken: true
       containers:
@@ -529,7 +529,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana
   namespace: monitoring
 spec:
@@ -556,7 +556,7 @@ metadata:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/version: 11.5.2
-    helm.sh/chart: grafana-8.10.3
+    helm.sh/chart: grafana-8.10.4
   name: grafana
   namespace: monitoring
 spec:
