@@ -1437,11 +1437,7 @@ spec:
                     format: int64
                     type: integer
                   pgHealthCheckTimeout:
-                    description: |-
-                      PGHealthCheckTimeout is the time (in minutes) that the operator will wait for the placement groups to become
-                      healthy (active+clean) after a drain was completed and OSDs came back up. Rook will continue with the next drain
-                      if the timeout exceeds. It only works if managePodBudgets is true.
-                      No values or 0 means that the operator will wait until the placement groups are healthy before unblocking the next drain.
+                    description: 'DEPRECATED: PGHealthCheckTimeout is no longer implemented'
                     format: int64
                     type: integer
                   pgHealthyRegex:
@@ -15126,7 +15122,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cmd-reporter
@@ -15148,7 +15144,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr
@@ -15161,7 +15157,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-osd
@@ -15180,7 +15176,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-rgw
@@ -15193,7 +15189,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -15431,7 +15427,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -15747,7 +15743,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rbd-csi-nodeplugin
@@ -15979,7 +15975,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cluster-mgmt
@@ -16012,7 +16008,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -16200,7 +16196,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr-cluster
@@ -16256,7 +16252,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-object-bucket
@@ -16332,7 +16328,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16533,7 +16529,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16623,7 +16619,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -16682,7 +16678,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16897,7 +16893,7 @@ data:
   ROOK_CEPH_ALLOW_LOOP_DEVICES: "false"
   ROOK_CEPH_COMMANDS_TIMEOUT_SECONDS: "15"
   ROOK_CSI_ATTACHER_IMAGE: registry.k8s.io/sig-storage/csi-attacher:v4.8.0
-  ROOK_CSI_CEPH_IMAGE: quay.io/cephcsi/cephcsi:v3.13.0
+  ROOK_CSI_CEPH_IMAGE: quay.io/cephcsi/cephcsi:v3.13.1
   ROOK_CSI_DISABLE_DRIVER: "false"
   ROOK_CSI_ENABLE_CEPHFS: "true"
   ROOK_CSI_ENABLE_NFS: "false"
@@ -16923,7 +16919,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.16.5
+    helm.sh/chart: rook-ceph-v1.16.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-operator
@@ -16939,7 +16935,7 @@ spec:
     metadata:
       labels:
         app: rook-ceph-operator
-        helm.sh/chart: rook-ceph-v1.16.5
+        helm.sh/chart: rook-ceph-v1.16.6
     spec:
       containers:
       - args:
@@ -16966,7 +16962,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: docker.io/rook/ceph:v1.16.5
+        image: docker.io/rook/ceph:v1.16.6
         imagePullPolicy: IfNotPresent
         name: rook-ceph-operator
         resources:
