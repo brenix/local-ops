@@ -1,0 +1,142 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    lbipam.cilium.io/ips: 192.168.2.12
+  labels:
+    app.kubernetes.io/instance: navidrome
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: navidrome
+    app.kubernetes.io/service: navidrome
+    helm.sh/chart: app-template-3.7.3
+  name: navidrome
+  namespace: default
+spec:
+  externalTrafficPolicy: Local
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app.kubernetes.io/component: main
+    app.kubernetes.io/instance: navidrome
+    app.kubernetes.io/name: navidrome
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: navidrome-data
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-block
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: main
+    app.kubernetes.io/instance: navidrome
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: navidrome
+    helm.sh/chart: app-template-3.7.3
+  name: navidrome
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: main
+      app.kubernetes.io/instance: navidrome
+      app.kubernetes.io/name: navidrome
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: main
+        app.kubernetes.io/instance: navidrome
+        app.kubernetes.io/name: navidrome
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - env:
+        - name: ND_ENABLEFAVOURITES
+          value: "false"
+        - name: ND_ENABLESTARRATING
+          value: "false"
+        - name: ND_ENABLETRANSCODINGCONFIG
+          value: "false"
+        - name: ND_LOGLEVEL
+          value: info
+        - name: ND_SCANSCHEDULE
+          value: 12h
+        - name: ND_SESSIONTIMEOUT
+          value: 24h
+        - name: ND_TRANSCODINGCACHESIZE
+          value: 512MB
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: America/Los_Angeles
+        image: ghcr.io/navidrome/navidrome:0.55.0
+        imagePullPolicy: Always
+        name: main
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /music
+          name: music
+          subPath: music
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: navidrome-data
+      - name: music
+        nfs:
+          path: /mnt/main/media
+          server: truenas.lan
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/target: external.brenix.com
+  labels:
+    app.kubernetes.io/instance: navidrome
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: navidrome
+    helm.sh/chart: app-template-3.7.3
+  name: navidrome
+  namespace: default
+spec:
+  ingressClassName: external
+  rules:
+  - host: music.brenix.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: navidrome
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - music.brenix.com
