@@ -92,7 +92,7 @@ spec:
         imagePullPolicy: Always
         name: main
         volumeMounts:
-        - mountPath: /config
+        - mountPath: /data
           name: config
         - mountPath: /music
           name: music

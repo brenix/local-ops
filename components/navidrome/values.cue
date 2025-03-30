@@ -47,6 +47,7 @@ package holos
 	persistence: {
 		config: {
 			existingClaim: "navidrome-data"
+			globalMounts: [{path: "/data"}]
 		}
 		music: {
 			enabled: true
