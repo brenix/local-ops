@@ -24,7 +24,7 @@ package holos
 		annotations: "lbipam.cilium.io/ips": "192.168.2.12"
 		controller:            "main"
 		externalTrafficPolicy: "Local"
-		ports: http: port: 80
+		ports: http: port: 4533
 		type: "LoadBalancer"
 	}
 	ingress: main: {
