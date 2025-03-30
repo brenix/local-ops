@@ -77,7 +77,7 @@ spec:
         - name: ND_LOGLEVEL
           value: info
         - name: ND_SCANSCHEDULE
-          value: 12h
+          value: '*/5 * * * *'
         - name: ND_SESSIONTIMEOUT
           value: 24h
         - name: ND_TRANSCODINGCACHESIZE

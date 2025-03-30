@@ -11,7 +11,7 @@ package holos
 			PGID:                       1000
 			PUID:                       1000
 			TZ:                         "America/Los_Angeles"
-			ND_SCANSCHEDULE:            "12h"
+			ND_SCANSCHEDULE:            "*/5 * * * *"
 			ND_SESSIONTIMEOUT:          "24h"
 			ND_LOGLEVEL:                "info"
 			ND_ENABLETRANSCODINGCONFIG: "false"
