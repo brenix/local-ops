@@ -181,6 +181,9 @@ spec:
           name: config-file
           readOnly: true
           subPath: beets.sh
+        - mountPath: /music
+          name: media
+          subPath: music
         - mountPath: /media/downloads/soulseek
           name: media
           subPath: downloads/soulseek

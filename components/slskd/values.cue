@@ -108,7 +108,7 @@ package holos
 			type:    "nfs"
 			server:  "truenas.lan"
 			path:    "/mnt/main/media"
-			globalMounts: [{path: "/media/downloads/soulseek", subPath: "downloads/soulseek"}]
+			globalMounts: [{path: "/music", subPath: "music"}, {path: "/media/downloads/soulseek", subPath: "downloads/soulseek"}]
 		}
 		tmp: type: "emptyDir"
 	}
