@@ -1,0 +1,141 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    lbipam.cilium.io/ips: 192.168.2.13
+  labels:
+    app.kubernetes.io/instance: lidarr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: lidarr
+    app.kubernetes.io/service: lidarr
+    helm.sh/chart: app-template-3.7.3
+  name: lidarr
+  namespace: default
+spec:
+  externalTrafficPolicy: Local
+  ports:
+  - name: http
+    port: 8686
+    protocol: TCP
+    targetPort: 8686
+  selector:
+    app.kubernetes.io/component: main
+    app.kubernetes.io/instance: lidarr
+    app.kubernetes.io/name: lidarr
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lidarr-data
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-block
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: main
+    app.kubernetes.io/instance: lidarr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: lidarr
+    helm.sh/chart: app-template-3.7.3
+  name: lidarr
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: main
+      app.kubernetes.io/instance: lidarr
+      app.kubernetes.io/name: lidarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: main
+        app.kubernetes.io/instance: lidarr
+        app.kubernetes.io/name: lidarr
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: America/Los_Angeles
+        image: lscr.io/linuxserver/lidarr:2.10.3
+        livenessProbe:
+          exec:
+            command:
+            - /usr/bin/env
+            - bash
+            - -c
+            - curl --fail localhost:8686/api/v1/system/status?apiKey=`IFS=\> && while
+              read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done <
+              /config/config.xml`
+          failureThreshold: 5
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: main
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /media
+          name: media
+        - mountPath: /downloads
+          name: media
+          subPath: downloads
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: lidarr-data
+      - name: media
+        nfs:
+          path: /mnt/main/media
+          server: truenas.lan
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: lidarr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: lidarr
+    helm.sh/chart: app-template-3.7.3
+  name: lidarr
+  namespace: default
+spec:
+  ingressClassName: internal
+  rules:
+  - host: lidarr.brenix.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: lidarr
+            port:
+              number: 8686
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - lidarr.brenix.com
