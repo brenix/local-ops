@@ -9,7 +9,7 @@ package holos
 		}
 		image: {
 			repository: "lscr.io/linuxserver/sabnzbd"
-			tag:        "4.4.1"
+			tag:        "4.5.0"
 		}
 		probes: {
 			liveness: {
