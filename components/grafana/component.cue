@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "grafana"
-		version: "8.11.1"
+		version: "8.11.2"
 		repository: {
 			name: "grafana"
 			url:  "https://grafana.github.io/helm-charts"
