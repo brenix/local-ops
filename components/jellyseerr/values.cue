@@ -8,7 +8,7 @@ package holos
 		}
 		image: {
 			repository: "docker.io/fallenbagel/jellyseerr"
-			tag:        "2.5.1"
+			tag:        "2.5.2"
 		}
 	}
 	ingress: main: {
