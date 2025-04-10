@@ -9,7 +9,7 @@ package holos
 		}
 		image: {
 			repository: "lscr.io/linuxserver/prowlarr"
-			tag:        "1.32.2"
+			tag:        "1.33.3"
 		}
 	}
 	ingress: main: {
