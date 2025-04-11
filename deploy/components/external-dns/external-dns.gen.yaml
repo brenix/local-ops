@@ -98,15 +98,15 @@ spec:
       status: {}
 ---
 apiVersion: v1
-automountServiceAccountToken: null
+automountServiceAccountToken: true
 kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.15.1
-    helm.sh/chart: external-dns-1.15.2
+    app.kubernetes.io/version: 0.16.1
+    helm.sh/chart: external-dns-1.16.1
   name: external-dns-cloudflare
   namespace: network
 ---
@@ -117,8 +117,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.15.1
-    helm.sh/chart: external-dns-1.15.2
+    app.kubernetes.io/version: 0.16.1
+    helm.sh/chart: external-dns-1.16.1
   name: external-dns-cloudflare
 rules:
 - apiGroups:
@@ -152,8 +152,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.15.1
-    helm.sh/chart: external-dns-1.15.2
+    app.kubernetes.io/version: 0.16.1
+    helm.sh/chart: external-dns-1.16.1
   name: external-dns-cloudflare-viewer
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -171,8 +171,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.15.1
-    helm.sh/chart: external-dns-1.15.2
+    app.kubernetes.io/version: 0.16.1
+    helm.sh/chart: external-dns-1.16.1
   name: external-dns-cloudflare
   namespace: network
 spec:
@@ -193,8 +193,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.15.1
-    helm.sh/chart: external-dns-1.15.2
+    app.kubernetes.io/version: 0.16.1
+    helm.sh/chart: external-dns-1.16.1
   name: external-dns-cloudflare
   namespace: network
 spec:
@@ -213,6 +213,7 @@ spec:
         app.kubernetes.io/instance: external-dns
         app.kubernetes.io/name: external-dns
     spec:
+      automountServiceAccountToken: true
       containers:
       - args:
         - --log-level=info
@@ -241,7 +242,7 @@ spec:
             secretKeyRef:
               key: CF_API_KEY
               name: external-dns-cloudflare
-        image: registry.k8s.io/external-dns/external-dns:v0.15.1
+        image: registry.k8s.io/external-dns/external-dns:v0.16.1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 2
@@ -314,8 +315,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.15.1
-    helm.sh/chart: external-dns-1.15.2
+    app.kubernetes.io/version: 0.16.1
+    helm.sh/chart: external-dns-1.16.1
   name: external-dns-cloudflare
   namespace: network
 spec:
