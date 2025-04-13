@@ -139,7 +139,7 @@ spec:
         envFrom:
         - secretRef:
             name: slskd
-        image: ghcr.io/slskd/slskd:0.22.3
+        image: ghcr.io/slskd/slskd:0.22.4
         livenessProbe:
           failureThreshold: 3
           httpGet:
