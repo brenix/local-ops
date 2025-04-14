@@ -66,7 +66,7 @@ package holos
 		downloads: {
 			enabled: true
 			type:    "nfs"
-			server:  "truenas.lan"
+			server:  "truenas.home.arpa"
 			path:    "/mnt/main/media"
 			globalMounts: [{path: "/downloads", subPath: "downloads"}]
 		}

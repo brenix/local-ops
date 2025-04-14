@@ -52,7 +52,7 @@ package holos
 		music: {
 			enabled: true
 			type:    "nfs"
-			server:  "truenas.lan"
+			server:  "truenas.home.arpa"
 			path:    "/mnt/main/media"
 			globalMounts: [{path: "/music", subPath: "music"}]
 		}

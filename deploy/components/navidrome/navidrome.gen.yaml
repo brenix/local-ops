@@ -110,7 +110,7 @@ spec:
       - name: music
         nfs:
           path: /mnt/main/media
-          server: truenas.lan
+          server: truenas.home.arpa
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

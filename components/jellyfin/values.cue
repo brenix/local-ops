@@ -46,7 +46,7 @@ package holos
 		media: {
 			enabled: true
 			type:    "nfs"
-			server:  "truenas.lan"
+			server:  "truenas.home.arpa"
 			path:    "/mnt/main/media"
 			globalMounts: [{path: "/media"}]
 		}

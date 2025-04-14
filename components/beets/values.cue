@@ -67,7 +67,7 @@ package holos
 		config: type: "emptyDir"
 		media: {
 			type:   "nfs"
-			server: "truenas.lan"
+			server: "truenas.home.arpa"
 			path:   "/mnt/main/media"
 			advancedMounts: main: main: [{
 				path:    "/media/downloads/soulseek/complete"
