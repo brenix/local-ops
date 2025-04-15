@@ -8,7 +8,7 @@ package holos
 		}]
 		image: {
 			repository: "frooodle/s-pdf"
-			tag:        "0.45.5"
+			tag:        "0.45.6"
 		}
 	}
 	ingress: main: {
