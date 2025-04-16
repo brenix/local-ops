@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "kubelet-csr-approver"
-		version: "1.2.6"
+		version: "1.2.7"
 		release: "kubelet-csr-approver"
 		repository: {
 			name: "postfinance"
