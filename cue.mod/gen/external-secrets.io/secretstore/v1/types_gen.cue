@@ -2,17 +2,16 @@
 
 //timoni:generate timoni mod vendor crd -f https://raw.githubusercontent.com/external-secrets/external-secrets/refs/tags/v0.16.1/deploy/crds/bundle.yaml
 
-package v1beta1
+package v1
 
 import (
 	"strings"
 	"struct"
 )
 
-// ClusterSecretStore represents a secure external location for
-// storing secrets, which can be referenced as part of `storeRef`
-// fields.
-#ClusterSecretStore: {
+// SecretStore represents a secure external location for storing
+// secrets, which can be referenced as part of `storeRef` fields.
+#SecretStore: {
 	// APIVersion defines the versioned schema of this representation
 	// of an object.
 	// Servers should convert recognized schemas to the latest
@@ -20,7 +19,7 @@ import (
 	// may reject unrecognized values.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	apiVersion: "external-secrets.io/v1beta1"
+	apiVersion: "external-secrets.io/v1"
 
 	// Kind is a string value representing the REST resource this
 	// object represents.
@@ -30,12 +29,12 @@ import (
 	// In CamelCase.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	kind: "ClusterSecretStore"
+	kind: "SecretStore"
 	metadata!: {
 		name!: strings.MaxRunes(253) & strings.MinRunes(1) & {
 			string
 		}
-		namespace?: strings.MaxRunes(63) & strings.MinRunes(1) & {
+		namespace!: strings.MaxRunes(63) & strings.MinRunes(1) & {
 			string
 		}
 		labels?: {
@@ -47,11 +46,11 @@ import (
 	}
 
 	// SecretStoreSpec defines the desired state of SecretStore.
-	spec!: #ClusterSecretStoreSpec
+	spec!: #SecretStoreSpec
 }
 
 // SecretStoreSpec defines the desired state of SecretStore.
-#ClusterSecretStoreSpec: {
+#SecretStoreSpec: {
 	// Used to constraint a ClusterSecretStore to specific namespaces.
 	// Relevant only to ClusterSecretStore
 	conditions?: [...{

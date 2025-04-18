@@ -746,7 +746,7 @@ spec:
     name: letsencrypt-production
   secretName: brenix.com-tls
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: nginx-external

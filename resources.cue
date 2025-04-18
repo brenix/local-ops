@@ -12,8 +12,8 @@ import (
 	hrv1 "gateway.networking.k8s.io/httproute/v1"
 	gwv1 "gateway.networking.k8s.io/gateway/v1"
 	ap "argoproj.io/appproject/v1alpha1"
-	es "external-secrets.io/externalsecret/v1beta1"
-	ss "external-secrets.io/secretstore/v1beta1"
+	es "external-secrets.io/externalsecret/v1"
+	ss "external-secrets.io/secretstore/v1"
 )
 
 #Resources: {

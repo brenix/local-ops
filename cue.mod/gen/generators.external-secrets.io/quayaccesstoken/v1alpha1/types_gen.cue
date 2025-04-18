@@ -6,10 +6,9 @@ package v1alpha1
 
 import "strings"
 
-// Password generates a random password based on the
-// configuration parameters in spec.
-// You can specify the length, characterset and other attributes.
-#Password: {
+// QuayAccessToken generates Quay oauth token for pulling/pushing
+// images
+#QuayAccessToken: {
 	// APIVersion defines the versioned schema of this representation
 	// of an object.
 	// Servers should convert recognized schemas to the latest
@@ -27,7 +26,7 @@ import "strings"
 	// In CamelCase.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	kind: "Password"
+	kind: "QuayAccessToken"
 	metadata!: {
 		name!: strings.MaxRunes(253) & strings.MinRunes(1) & {
 			string
@@ -42,36 +41,34 @@ import "strings"
 			[string]: string
 		}
 	}
-
-	// PasswordSpec controls the behavior of the password generator.
-	spec!: #PasswordSpec
+	spec!: #QuayAccessTokenSpec
 }
+#QuayAccessTokenSpec: {
+	// Name of the robot account you are federating with
+	robotAccount!: string
 
-// PasswordSpec controls the behavior of the password generator.
-#PasswordSpec: {
-	// set AllowRepeat to true to allow repeating characters.
-	allowRepeat!: bool
+	// Name of the service account you are federating with
+	serviceAccountRef!: {
+		// Audience specifies the `aud` claim for the service account
+		// token
+		// If the service account uses a well-known annotation for e.g.
+		// IRSA or GCP Workload Identity
+		// then this audiences will be appended to the list
+		audiences?: [...string]
 
-	// Digits specifies the number of digits in the generated
-	// password. If omitted it defaults to 25% of the length of the
-	// password
-	digits?: int
+		// The name of the ServiceAccount resource being referred to.
+		name!: strings.MaxRunes(253) & strings.MinRunes(1) & {
+			=~"^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$"
+		}
 
-	// Length of the password to be generated.
-	// Defaults to 24
-	length!: int
+		// Namespace of the resource being referred to.
+		// Ignored if referent is not cluster-scoped, otherwise defaults
+		// to the namespace of the referent.
+		namespace?: strings.MaxRunes(63) & strings.MinRunes(1) & {
+			=~"^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+		}
+	}
 
-	// Set NoUpper to disable uppercase characters
-	noUpper!: bool
-
-	// SymbolCharacters specifies the special characters that should
-	// be used
-	// in the generated password.
-	symbolCharacters?: string
-
-	// Symbols specifies the number of symbol characters in the
-	// generated
-	// password. If omitted it defaults to 25% of the length of the
-	// password
-	symbols?: int
+	// URL configures the Quay instance URL. Defaults to quay.io.
+	url?: string
 }

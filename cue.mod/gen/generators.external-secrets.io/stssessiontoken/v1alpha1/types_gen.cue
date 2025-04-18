@@ -6,18 +6,14 @@ package v1alpha1
 
 import "strings"
 
-// ECRAuthorizationTokenSpec uses the GetAuthorizationToken API to
-// retrieve an
+// STSSessionToken uses the GetSessionToken API to retrieve an
 // authorization token.
 // The authorization token is valid for 12 hours.
 // The authorizationToken returned is a base64 encoded string that
-// can be decoded
-// and used in a docker login command to authenticate to a
-// registry.
-// For more information, see Registry authentication
-// (https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth)
-// in the Amazon Elastic Container Registry User Guide.
-#ECRAuthorizationToken: {
+// can be decoded.
+// For more information, see GetSessionToken
+// (https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html).
+#STSSessionToken: {
 	// APIVersion defines the versioned schema of this representation
 	// of an object.
 	// Servers should convert recognized schemas to the latest
@@ -35,7 +31,7 @@ import "strings"
 	// In CamelCase.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	kind: "ECRAuthorizationToken"
+	kind: "STSSessionToken"
 	metadata!: {
 		name!: strings.MaxRunes(253) & strings.MinRunes(1) & {
 			string
@@ -50,9 +46,9 @@ import "strings"
 			[string]: string
 		}
 	}
-	spec!: #ECRAuthorizationTokenSpec
+	spec!: #STSSessionTokenSpec
 }
-#ECRAuthorizationTokenSpec: {
+#STSSessionTokenSpec: {
 	// Auth defines how to authenticate with AWS
 	auth?: {
 		jwt?: {
@@ -158,11 +154,30 @@ import "strings"
 	// Region specifies the region to operate in.
 	region!: string
 
+	// RequestParameters contains parameters that can be passed to the
+	// STS service.
+	requestParameters?: {
+		// SerialNumber is the identification number of the MFA device
+		// that is associated with the IAM user who is making
+		// the GetSessionToken call.
+		// Possible values: hardware device (such as GAHT12345678) or an
+		// Amazon Resource Name (ARN) for a virtual device
+		// (such as arn:aws:iam::123456789012:mfa/user)
+		serialNumber?: string
+
+		// SessionDuration The duration, in seconds, that the credentials
+		// should remain valid. Acceptable durations for
+		// IAM user sessions range from 900 seconds (15 minutes) to
+		// 129,600 seconds (36 hours), with 43,200 seconds
+		// (12 hours) as the default.
+		sessionDuration?: int64
+
+		// TokenCode is the value provided by the MFA device, if MFA is
+		// required.
+		tokenCode?: string
+	}
+
 	// You can assume a role before making calls to the
 	// desired AWS service.
 	role?: string
-
-	// Scope specifies the ECR service scope.
-	// Valid options are private and public.
-	scope?: string
 }

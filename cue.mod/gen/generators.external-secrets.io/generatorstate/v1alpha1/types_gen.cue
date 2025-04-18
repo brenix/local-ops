@@ -4,12 +4,12 @@
 
 package v1alpha1
 
-import "strings"
+import (
+	"strings"
+	"time"
+)
 
-// Password generates a random password based on the
-// configuration parameters in spec.
-// You can specify the length, characterset and other attributes.
-#Password: {
+#GeneratorState: {
 	// APIVersion defines the versioned schema of this representation
 	// of an object.
 	// Servers should convert recognized schemas to the latest
@@ -27,7 +27,7 @@ import "strings"
 	// In CamelCase.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	kind: "Password"
+	kind: "GeneratorState"
 	metadata!: {
 		name!: strings.MaxRunes(253) & strings.MinRunes(1) & {
 			string
@@ -42,36 +42,30 @@ import "strings"
 			[string]: string
 		}
 	}
-
-	// PasswordSpec controls the behavior of the password generator.
-	spec!: #PasswordSpec
+	spec!: #GeneratorStateSpec
 }
+#GeneratorStateSpec: {
+	// GarbageCollectionDeadline is the time after which the generator
+	// state
+	// will be deleted.
+	// It is set by the controller which creates the generator state
+	// and
+	// can be set configured by the user.
+	// If the garbage collection deadline is not set the generator
+	// state will not be deleted.
+	garbageCollectionDeadline?: time.Time
 
-// PasswordSpec controls the behavior of the password generator.
-#PasswordSpec: {
-	// set AllowRepeat to true to allow repeating characters.
-	allowRepeat!: bool
+	// Resource is the generator manifest that produced the state.
+	// It is a snapshot of the generator manifest at the time the
+	// state was produced.
+	// This manifest will be used to delete the resource. Any
+	// configuration that is referenced
+	// in the manifest should be available at the time of garbage
+	// collection. If that is not the case deletion will
+	// be blocked by a finalizer.
+	resource!: _
 
-	// Digits specifies the number of digits in the generated
-	// password. If omitted it defaults to 25% of the length of the
-	// password
-	digits?: int
-
-	// Length of the password to be generated.
-	// Defaults to 24
-	length!: int
-
-	// Set NoUpper to disable uppercase characters
-	noUpper!: bool
-
-	// SymbolCharacters specifies the special characters that should
-	// be used
-	// in the generated password.
-	symbolCharacters?: string
-
-	// Symbols specifies the number of symbol characters in the
-	// generated
-	// password. If omitted it defaults to 25% of the length of the
-	// password
-	symbols?: int
+	// State is the state that was produced by the generator
+	// implementation.
+	state!: _
 }

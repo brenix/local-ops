@@ -4,7 +4,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	bgpadv "metallb.io/bgpadvertisement/v1beta1"
 	bgppeer "metallb.io/bgppeer/v1beta2"
-	css "external-secrets.io/clustersecretstore/v1beta1"
+	css "external-secrets.io/clustersecretstore/v1"
 	ed "externaldns.k8s.io/dnsendpoint/v1alpha1"
 	ipaddresspool "metallb.io/ipaddresspool/v1beta1"
 	ks "kustomize.toolkit.fluxcd.io/kustomization/v1"

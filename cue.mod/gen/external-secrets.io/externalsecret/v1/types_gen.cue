@@ -2,7 +2,7 @@
 
 //timoni:generate timoni mod vendor crd -f https://raw.githubusercontent.com/external-secrets/external-secrets/refs/tags/v0.16.1/deploy/crds/bundle.yaml
 
-package v1beta1
+package v1
 
 import (
 	"strings"
@@ -18,7 +18,7 @@ import (
 	// may reject unrecognized values.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	apiVersion: "external-secrets.io/v1beta1"
+	apiVersion: "external-secrets.io/v1"
 
 	// Kind is a string value representing the REST resource this
 	// object represents.
