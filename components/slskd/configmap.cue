@@ -10,7 +10,7 @@ Component: {
 		data: {
 			"beets.sh": """
 				#!/usr/bin/env sh
-				name=$(echo "$1" | awk -F'"localDirectoryName": "' '{print $2}' | awk -F'",' '{print $1}')
+				name=$(echo "$1" | tr -d '\\\\' | jq -r '@uri "\\(.localDirectoryName)"')
 				wget -q -O/dev/null \\
 				     --post-data "name=${name}&path=${name}" \\
 				     --header="X-API-KEY: ${BETANIN_API_KEY}" \\
@@ -30,11 +30,19 @@ Component: {
 				    beets:
 				      on:
 				        - DownloadDirectoryComplete
-				      run: /bin/sh /scripts/beets.sh $DATA
+				      run:
+				        executable: /bin/sh
+				        arglist:
+				          - -c
+				          - /scripts/beets.sh "$SLSKD_SCRIPT_DATA"
 				    debug:
 				      on:
 				        - DownloadDirectoryComplete
-				      run: echo "$DATA" >> /config/debug.txt
+				      run:
+				        executable: /bin/sh
+				        arglist:
+				          - -c
+				          - echo "$SLSKD_SCRIPT_DATA" | tr -d '\\\\' >>/config/debug.txt
 				metrics:
 				  enabled: true
 				  url: /metrics
