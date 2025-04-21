@@ -5,11 +5,11 @@ metadata:
     meta.helm.sh/release-name: reloader
     meta.helm.sh/release-namespace: kube-system
   labels:
-    app.kubernetes.io/instance: reloader
+    app: reloader
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: reloader
-    app.kubernetes.io/version: v1.4.0
-    helm.sh/chart: reloader-2.1.0
+    chart: reloader-2.1.2
+    heritage: Helm
+    release: reloader
   name: reloader
   namespace: kube-system
 ---
@@ -20,11 +20,11 @@ metadata:
     meta.helm.sh/release-name: reloader
     meta.helm.sh/release-namespace: kube-system
   labels:
-    app.kubernetes.io/instance: reloader
+    app: reloader
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: reloader
-    app.kubernetes.io/version: v1.4.0
-    helm.sh/chart: reloader-2.1.0
+    chart: reloader-2.1.2
+    heritage: Helm
+    release: reloader
   name: reloader-role
 rules:
 - apiGroups:
@@ -78,11 +78,11 @@ metadata:
     meta.helm.sh/release-name: reloader
     meta.helm.sh/release-namespace: kube-system
   labels:
-    app.kubernetes.io/instance: reloader
+    app: reloader
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: reloader
-    app.kubernetes.io/version: v1.4.0
-    helm.sh/chart: reloader-2.1.0
+    chart: reloader-2.1.2
+    heritage: Helm
+    release: reloader
   name: reloader-role-binding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -100,14 +100,14 @@ metadata:
     meta.helm.sh/release-name: reloader
     meta.helm.sh/release-namespace: kube-system
   labels:
-    app.kubernetes.io/instance: reloader
+    app: reloader
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: reloader
-    app.kubernetes.io/version: v1.4.0
+    chart: reloader-2.1.2
     group: com.stakater.platform
-    helm.sh/chart: reloader-2.1.0
+    heritage: Helm
     provider: stakater
-    version: v1.4.0
+    release: reloader
+    version: v1.4.1
   name: reloader
   namespace: kube-system
 spec:
@@ -115,19 +115,19 @@ spec:
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app.kubernetes.io/instance: reloader
-      app.kubernetes.io/name: reloader
+      app: reloader
+      release: reloader
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: reloader
+        app: reloader
         app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/name: reloader
-        app.kubernetes.io/version: v1.4.0
+        chart: reloader-2.1.2
         group: com.stakater.platform
-        helm.sh/chart: reloader-2.1.0
+        heritage: Helm
         provider: stakater
-        version: v1.4.0
+        release: reloader
+        version: v1.4.1
     spec:
       containers:
       - args:
@@ -143,7 +143,7 @@ spec:
             resourceFieldRef:
               divisor: "1"
               resource: limits.memory
-        image: ghcr.io/stakater/reloader:v1.4.0
+        image: ghcr.io/stakater/reloader:v1.4.1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 5
