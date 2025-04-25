@@ -16,6 +16,4 @@ Component: #Helm & {
 	}
 
 	Values: #Values
-
-	KustomizeConfig: Kustomization: namespace: Namespace
 }

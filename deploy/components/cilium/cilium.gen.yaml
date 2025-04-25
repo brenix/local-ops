@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   labels:
     app.kubernetes.io/part-of: cilium
-  name: kube-system
+  name: cilium-secrets
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -16,6 +16,41 @@ kind: ServiceAccount
 metadata:
   name: cilium-operator
   namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/part-of: cilium
+  name: cilium-operator-tlsinterception-secrets
+  namespace: cilium-secrets
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - create
+  - delete
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/part-of: cilium
+  name: cilium-tlsinterception-secrets
+  namespace: cilium-secrets
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -46,41 +81,6 @@ rules:
   - ""
   resources:
   - configmaps
-  verbs:
-  - get
-  - list
-  - watch
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  labels:
-    app.kubernetes.io/part-of: cilium
-  name: cilium-operator-tlsinterception-secrets
-  namespace: kube-system
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  verbs:
-  - create
-  - delete
-  - update
-  - patch
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  labels:
-    app.kubernetes.io/part-of: cilium
-  name: cilium-tlsinterception-secrets
-  namespace: kube-system
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - secrets
   verbs:
   - get
   - list
@@ -427,40 +427,8 @@ kind: RoleBinding
 metadata:
   labels:
     app.kubernetes.io/part-of: cilium
-  name: cilium-bgp-control-plane-secrets
-  namespace: kube-system
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: cilium-bgp-control-plane-secrets
-subjects:
-- kind: ServiceAccount
-  name: cilium
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/part-of: cilium
-  name: cilium-config-agent
-  namespace: kube-system
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: cilium-config-agent
-subjects:
-- kind: ServiceAccount
-  name: cilium
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/part-of: cilium
   name: cilium-operator-tlsinterception-secrets
-  namespace: kube-system
+  namespace: cilium-secrets
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -476,11 +444,43 @@ metadata:
   labels:
     app.kubernetes.io/part-of: cilium
   name: cilium-tlsinterception-secrets
-  namespace: kube-system
+  namespace: cilium-secrets
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: cilium-tlsinterception-secrets
+subjects:
+- kind: ServiceAccount
+  name: cilium
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/part-of: cilium
+  name: cilium-bgp-control-plane-secrets
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: cilium-bgp-control-plane-secrets
+subjects:
+- kind: ServiceAccount
+  name: cilium
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/part-of: cilium
+  name: cilium-config-agent
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: cilium-config-agent
 subjects:
 - kind: ServiceAccount
   name: cilium
@@ -1197,7 +1197,6 @@ metadata:
   labels:
     advertise: bgp
   name: bgp-advertisements
-  namespace: kube-system
 spec:
   advertisements:
   - advertisementType: Service
@@ -1219,7 +1218,6 @@ apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPClusterConfig
 metadata:
   name: cilium-bgp
-  namespace: kube-system
 spec:
   bgpInstances:
   - localASN: 64513
@@ -1235,7 +1233,6 @@ apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPPeerConfig
 metadata:
   name: cilium-peer
-  namespace: kube-system
 spec:
   authSecretRef: bgp-auth-secret
   families:
@@ -1252,7 +1249,6 @@ apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: default
-  namespace: kube-system
 spec:
   blocks:
   - cidr: 192.168.2.0/24
