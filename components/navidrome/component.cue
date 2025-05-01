@@ -11,7 +11,7 @@ Component: #Helm & {
 		release: "navidrome"
 		repository: {
 			name: "bjw-s"
-			url:  "https://bjw-s.github.io/helm-charts"
+			url:  "https://bjw-s-labs.github.io/helm-charts"
 		}
 	}
 
