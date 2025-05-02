@@ -69,7 +69,7 @@ spec:
           value: unpoller
         - name: UP_UNIFI_DEFAULT_VERIFY_SSL
           value: "false"
-        image: ghcr.io/unpoller/unpoller:v2.14.1
+        image: ghcr.io/unpoller/unpoller:v2.15.3
         name: main
         resources:
           limits:
