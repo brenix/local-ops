@@ -37,7 +37,6 @@ controlPlane:
         - init_on_free=0
         - mitigations=off
         - security=none
-        - -selinux
         - net.ifnames=1
         - talos.auditd.disabled=1
       systemExtensions:
