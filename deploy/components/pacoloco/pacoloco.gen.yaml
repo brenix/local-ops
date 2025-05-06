@@ -6,7 +6,7 @@ data:
     purge_files_after: 360000
     download_timeout: 3600
     repos:
-      archilinux:
+      archlinux:
         urls:
           - https://arch.hu.fo/archlinux
           - https://arch.jsc.mx
@@ -152,7 +152,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/configMaps: 4d873ecf71071174761dcfe8230e3bf784c3cca71d14752391fb450751213b92
+        checksum/configMaps: 573d19712b8e910268d5f3aca5e3c927ba0c5d5d72bce1a2715d96d9e3e3a5af
       labels:
         app.kubernetes.io/component: main
         app.kubernetes.io/instance: pacoloco

@@ -54,7 +54,7 @@ package holos
 			purge_files_after: 360000
 			download_timeout: 3600
 			repos:
-			  archilinux:
+			  archlinux:
 			    urls:
 			      - https://arch.hu.fo/archlinux
 			      - https://arch.jsc.mx
