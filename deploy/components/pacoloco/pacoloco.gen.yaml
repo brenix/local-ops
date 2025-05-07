@@ -8,6 +8,7 @@ data:
     repos:
       archlinux:
         urls:
+          - https://archlinux.cachyos.org/repo/$repo/os/$arch
           - https://arch.hu.fo/archlinux
           - https://arch.jsc.mx
           - https://mirror.osbeck.com/archlinux
@@ -152,7 +153,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/configMaps: 573d19712b8e910268d5f3aca5e3c927ba0c5d5d72bce1a2715d96d9e3e3a5af
+        checksum/configMaps: 833ec36ac1d58eb836e201ac69a4aa7ae83add3394be79faf202729cf64047f0
       labels:
         app.kubernetes.io/component: main
         app.kubernetes.io/instance: pacoloco
