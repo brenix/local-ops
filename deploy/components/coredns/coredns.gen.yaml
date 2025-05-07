@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/instance: coredns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
-    helm.sh/chart: coredns-1.42.0
+    helm.sh/chart: coredns-1.42.1
     k8s-app: coredns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
@@ -19,7 +19,7 @@ metadata:
     app.kubernetes.io/instance: coredns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
-    helm.sh/chart: coredns-1.42.0
+    helm.sh/chart: coredns-1.42.1
     k8s-app: coredns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
@@ -50,7 +50,7 @@ metadata:
     app.kubernetes.io/instance: coredns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
-    helm.sh/chart: coredns-1.42.0
+    helm.sh/chart: coredns-1.42.1
     k8s-app: coredns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
@@ -98,7 +98,7 @@ metadata:
     app.kubernetes.io/instance: coredns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
-    helm.sh/chart: coredns-1.42.0
+    helm.sh/chart: coredns-1.42.1
     k8s-app: coredns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
@@ -112,7 +112,7 @@ metadata:
     app.kubernetes.io/instance: coredns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
-    helm.sh/chart: coredns-1.42.0
+    helm.sh/chart: coredns-1.42.1
     k8s-app: coredns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
@@ -124,10 +124,6 @@ spec:
   - name: udp-53
     port: 53
     protocol: UDP
-    targetPort: 53
-  - name: tcp-53
-    port: 53
-    protocol: TCP
     targetPort: 53
   selector:
     app.kubernetes.io/instance: coredns
@@ -146,7 +142,7 @@ metadata:
     app.kubernetes.io/instance: coredns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
-    helm.sh/chart: coredns-1.42.0
+    helm.sh/chart: coredns-1.42.1
     k8s-app: coredns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
@@ -170,7 +166,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
     app.kubernetes.io/version: 1.12.0
-    helm.sh/chart: coredns-1.42.0
+    helm.sh/chart: coredns-1.42.1
     k8s-app: coredns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
@@ -191,7 +187,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: eb3b96cf2ff3952dbc2b32378828ec71b2550c8fdae6010964c9e58877375d65
+        checksum/config: 7f5807b9c3961126dcf27f4b394a1039c02351345c2b02e592dd1eeb5d01d567
         scheduler.alpha.kubernetes.io/tolerations: '[{"key":"CriticalAddonsOnly",
           "operator":"Exists"}]'
       labels:
@@ -272,7 +268,7 @@ metadata:
     app.kubernetes.io/instance: coredns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: coredns
-    helm.sh/chart: coredns-1.42.0
+    helm.sh/chart: coredns-1.42.1
     k8s-app: coredns
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: CoreDNS
