@@ -149,7 +149,7 @@ spec:
       app.kubernetes.io/instance: pacoloco
       app.kubernetes.io/name: pacoloco
   strategy:
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
       annotations:

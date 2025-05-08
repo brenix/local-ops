@@ -3,7 +3,7 @@ package holos
 #Values: {
 	controllers: main: {
 		replicas: 1
-		strategy: "RollingUpdate"
+		strategy: "Recreate"
 		annotations: "reloader.stakater.com/auto": "true"
 		containers: main: {
 			image: {
