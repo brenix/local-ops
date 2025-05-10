@@ -2,9 +2,9 @@ clusterName: k8s
 endpoint: https://k8s.home.arpa:6443
 
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
-talosVersion: v1.9.6
+talosVersion: v1.10.1
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-kubernetesVersion: v1.32.4
+kubernetesVersion: v1.33.0
 
 additionalApiServerCertSans: &sans
   - k8s.home.arpa
@@ -32,13 +32,13 @@ controlPlane:
   schematic:
     customization:
       extraKernelArgs:
+        - -init_on_alloc
+        - -init_on_free
         - -selinux
         - apparmor=0
         - init_on_alloc=0
         - init_on_free=0
         - mitigations=off
-        - security=none
-        - net.ifnames=1
         - talos.auditd.disabled=1
       systemExtensions:
         officialExtensions:
@@ -86,7 +86,7 @@ controlPlane:
             service:
               disabled: true
 
-    # Disable Host DNS
+    # Enable Host DNS
     - |-
       machine:
         features:
@@ -106,6 +106,14 @@ controlPlane:
           nodeIP:
             validSubnets:
                 - 192.168.1.0/24
+
+    # Enable MutatingAdmissionPolicy
+    - |-
+      cluster:
+        apiServer:
+          extraArgs:
+            runtime-config: admissionregistration.k8s.io/v1alpha1=true
+            feature-gates: MutatingAdmissionPolicy=true
 
     # Tuning
     - |-
