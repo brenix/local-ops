@@ -32,6 +32,7 @@ controlPlane:
   schematic:
     customization:
       extraKernelArgs:
+        - -selinux
         - apparmor=0
         - init_on_alloc=0
         - init_on_free=0
