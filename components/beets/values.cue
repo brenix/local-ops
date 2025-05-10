@@ -6,7 +6,7 @@ package holos
 		containers: main: {
 			image: {
 				repository: "ghcr.io/home-operations/beets"
-				tag:        "2.2.0"
+				tag:        "2.3.0"
 			}
 			env: {
 				BEETS_CONFIG_PATH: "/config/.config/beets/config.yaml"
