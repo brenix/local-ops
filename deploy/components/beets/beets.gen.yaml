@@ -87,7 +87,7 @@ spec:
           value: "80"
         - name: TZ
           value: America/Los_Angeles
-        image: ghcr.io/home-operations/beets:2.3.0
+        image: ghcr.io/home-operations/beets:2.3.1
         livenessProbe:
           failureThreshold: 3
           initialDelaySeconds: 0
