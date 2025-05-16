@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		version: "3.7.3"
+		version: "4.0.1"
 		release: "stirlingpdf"
 		repository: {
 			name: "bjw-s"
