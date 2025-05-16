@@ -187,5 +187,5 @@ spec:
         persistentVolumeClaim:
           claimName: pacoloco
       - configMap:
-          name: pacoloco-config
+          name: pacoloco
         name: config

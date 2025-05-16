@@ -38,7 +38,7 @@ package holos
 		}
 		config: {
 			enabled: true
-			name:    "pacoloco-config"
+			name:    "pacoloco"
 			type:    "configMap"
 			globalMounts: [{
 				path:    "/etc/pacoloco.yaml"
