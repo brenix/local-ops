@@ -23,7 +23,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
     app.kubernetes.io/service: cloudflared
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: cloudflared
   namespace: network
 spec:
@@ -33,7 +33,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app.kubernetes.io/component: cloudflared
+    app.kubernetes.io/controller: cloudflared
     app.kubernetes.io/instance: cloudflared
     app.kubernetes.io/name: cloudflared
   type: ClusterIP
@@ -44,11 +44,11 @@ metadata:
   annotations:
     reloader.stakater.com/auto: "true"
   labels:
-    app.kubernetes.io/component: cloudflared
+    app.kubernetes.io/controller: cloudflared
     app.kubernetes.io/instance: cloudflared
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: cloudflared
   namespace: network
 spec:
@@ -56,7 +56,7 @@ spec:
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app.kubernetes.io/component: cloudflared
+      app.kubernetes.io/controller: cloudflared
       app.kubernetes.io/instance: cloudflared
       app.kubernetes.io/name: cloudflared
   strategy:
@@ -64,7 +64,7 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: cloudflared
+        app.kubernetes.io/controller: cloudflared
         app.kubernetes.io/instance: cloudflared
         app.kubernetes.io/name: cloudflared
     spec:
@@ -199,7 +199,7 @@ metadata:
     app.kubernetes.io/instance: cloudflared
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: cloudflared
   namespace: network
 spec:

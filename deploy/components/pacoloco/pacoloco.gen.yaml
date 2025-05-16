@@ -84,8 +84,8 @@ metadata:
     app.kubernetes.io/instance: pacoloco
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: pacoloco
-    helm.sh/chart: app-template-3.7.3
-  name: pacoloco-config
+    helm.sh/chart: app-template-4.0.1
+  name: pacoloco
   namespace: default
 ---
 apiVersion: v1
@@ -98,7 +98,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: pacoloco
     app.kubernetes.io/service: pacoloco
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: pacoloco
   namespace: default
 spec:
@@ -109,7 +109,7 @@ spec:
     protocol: TCP
     targetPort: 9129
   selector:
-    app.kubernetes.io/component: main
+    app.kubernetes.io/controller: main
     app.kubernetes.io/instance: pacoloco
     app.kubernetes.io/name: pacoloco
   type: LoadBalancer
@@ -133,11 +133,11 @@ metadata:
   annotations:
     reloader.stakater.com/auto: "true"
   labels:
-    app.kubernetes.io/component: main
+    app.kubernetes.io/controller: main
     app.kubernetes.io/instance: pacoloco
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: pacoloco
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: pacoloco
   namespace: default
 spec:
@@ -145,7 +145,7 @@ spec:
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app.kubernetes.io/component: main
+      app.kubernetes.io/controller: main
       app.kubernetes.io/instance: pacoloco
       app.kubernetes.io/name: pacoloco
   strategy:
@@ -155,7 +155,7 @@ spec:
       annotations:
         checksum/configMaps: 833ec36ac1d58eb836e201ac69a4aa7ae83add3394be79faf202729cf64047f0
       labels:
-        app.kubernetes.io/component: main
+        app.kubernetes.io/controller: main
         app.kubernetes.io/instance: pacoloco
         app.kubernetes.io/name: pacoloco
     spec:
