@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: stirlingpdf
     app.kubernetes.io/service: stirlingpdf
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: stirlingpdf
   namespace: default
 spec:
@@ -19,7 +19,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app.kubernetes.io/component: main
+    app.kubernetes.io/controller: main
     app.kubernetes.io/instance: stirlingpdf
     app.kubernetes.io/name: stirlingpdf
   type: LoadBalancer
@@ -28,11 +28,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/component: main
+    app.kubernetes.io/controller: main
     app.kubernetes.io/instance: stirlingpdf
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: stirlingpdf
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: stirlingpdf
   namespace: default
 spec:
@@ -40,7 +40,7 @@ spec:
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app.kubernetes.io/component: main
+      app.kubernetes.io/controller: main
       app.kubernetes.io/instance: stirlingpdf
       app.kubernetes.io/name: stirlingpdf
   strategy:
@@ -48,7 +48,7 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: main
+        app.kubernetes.io/controller: main
         app.kubernetes.io/instance: stirlingpdf
         app.kubernetes.io/name: stirlingpdf
     spec:
@@ -73,7 +73,7 @@ metadata:
     app.kubernetes.io/instance: stirlingpdf
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: stirlingpdf
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: stirlingpdf
   namespace: default
 spec:

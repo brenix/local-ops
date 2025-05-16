@@ -2,11 +2,11 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   labels:
-    app.kubernetes.io/component: fstrim
+    app.kubernetes.io/controller: fstrim
     app.kubernetes.io/instance: fstrim
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: fstrim
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: fstrim
   namespace: default
 spec:
@@ -19,7 +19,7 @@ spec:
       template:
         metadata:
           labels:
-            app.kubernetes.io/component: fstrim
+            app.kubernetes.io/controller: fstrim
             app.kubernetes.io/instance: fstrim
             app.kubernetes.io/name: fstrim
         spec:

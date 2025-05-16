@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prowlarr
     app.kubernetes.io/service: prowlarr
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: prowlarr
   namespace: default
 spec:
@@ -19,7 +19,7 @@ spec:
     protocol: TCP
     targetPort: 9696
   selector:
-    app.kubernetes.io/component: main
+    app.kubernetes.io/controller: main
     app.kubernetes.io/instance: prowlarr
     app.kubernetes.io/name: prowlarr
   type: LoadBalancer
@@ -41,11 +41,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/component: main
+    app.kubernetes.io/controller: main
     app.kubernetes.io/instance: prowlarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prowlarr
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: prowlarr
   namespace: default
 spec:
@@ -53,7 +53,7 @@ spec:
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app.kubernetes.io/component: main
+      app.kubernetes.io/controller: main
       app.kubernetes.io/instance: prowlarr
       app.kubernetes.io/name: prowlarr
   strategy:
@@ -61,7 +61,7 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: main
+        app.kubernetes.io/controller: main
         app.kubernetes.io/instance: prowlarr
         app.kubernetes.io/name: prowlarr
     spec:
@@ -97,7 +97,7 @@ metadata:
     app.kubernetes.io/instance: prowlarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prowlarr
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: prowlarr
   namespace: default
 spec:

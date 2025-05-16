@@ -31,7 +31,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: beets
     app.kubernetes.io/service: beets
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: beets
   namespace: default
 spec:
@@ -41,7 +41,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app.kubernetes.io/component: main
+    app.kubernetes.io/controller: main
     app.kubernetes.io/instance: beets
     app.kubernetes.io/name: beets
   type: ClusterIP
@@ -52,11 +52,11 @@ metadata:
   annotations:
     reloader.stakater.com/auto: "true"
   labels:
-    app.kubernetes.io/component: main
+    app.kubernetes.io/controller: main
     app.kubernetes.io/instance: beets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: beets
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: beets
   namespace: default
 spec:
@@ -64,7 +64,7 @@ spec:
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app.kubernetes.io/component: main
+      app.kubernetes.io/controller: main
       app.kubernetes.io/instance: beets
       app.kubernetes.io/name: beets
   strategy:
@@ -72,7 +72,7 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: main
+        app.kubernetes.io/controller: main
         app.kubernetes.io/instance: beets
         app.kubernetes.io/name: beets
     spec:
@@ -212,7 +212,7 @@ metadata:
     app.kubernetes.io/instance: beets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: beets
-    helm.sh/chart: app-template-3.7.3
+    helm.sh/chart: app-template-4.0.1
   name: beets
   namespace: default
 spec:
