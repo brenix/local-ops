@@ -56,7 +56,7 @@ package holos
 			repos:
 			  archlinux:
 			    urls:
-			      - https://archlinux.cachyos.org/repo/$repo/os/$arch
+			      # - https://archlinux.cachyos.org/repo/$repo/os/$arch
 			      - https://arch.hu.fo/archlinux
 			      - https://arch.jsc.mx
 			      - https://mirror.osbeck.com/archlinux
