@@ -2,7 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.17.2
+    controller-gen.kubebuilder.io/version: v0.17.3
     helm.sh/resource-policy: keep
   name: backups.postgresql.cnpg.io
 spec:
@@ -33,7 +33,8 @@ spec:
     name: v1
     schema:
       openAPIV3Schema:
-        description: Backup is the Schema for the backups API
+        description: A Backup resource is a request for a PostgreSQL backup by the
+          user.
         properties:
           apiVersion:
             description: |-
@@ -444,7 +445,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.17.2
+    controller-gen.kubebuilder.io/version: v0.17.3
     helm.sh/resource-policy: keep
   name: clusterimagecatalogs.postgresql.cnpg.io
 spec:
@@ -526,7 +527,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.17.2
+    controller-gen.kubebuilder.io/version: v0.17.3
     helm.sh/resource-policy: keep
   name: clusters.postgresql.cnpg.io
 spec:
@@ -1676,10 +1677,10 @@ spec:
                             description: |-
                               Compress a backup file (a tar file per tablespace) while streaming it
                               to the object store. Available options are empty string (no
-                              compression, default), `gzip`, `bzip2` or `snappy`.
+                              compression, default), `gzip`, `bzip2`, and `snappy`.
                             enum:
-                            - gzip
                             - bzip2
+                            - gzip
                             - snappy
                             type: string
                           encryption:
@@ -1867,11 +1868,15 @@ spec:
                           compression:
                             description: |-
                               Compress a WAL file before sending it to the object store. Available
-                              options are empty string (no compression, default), `gzip`, `bzip2` or `snappy`.
+                              options are empty string (no compression, default), `gzip`, `bzip2`,
+                              `lz4`, `snappy`, `xz`, and `zstd`.
                             enum:
-                            - gzip
                             - bzip2
+                            - gzip
+                            - lz4
                             - snappy
+                            - xz
+                            - zstd
                             type: string
                           encryption:
                             description: |-
@@ -3178,10 +3183,10 @@ spec:
                               description: |-
                                 Compress a backup file (a tar file per tablespace) while streaming it
                                 to the object store. Available options are empty string (no
-                                compression, default), `gzip`, `bzip2` or `snappy`.
+                                compression, default), `gzip`, `bzip2`, and `snappy`.
                               enum:
-                              - gzip
                               - bzip2
+                              - gzip
                               - snappy
                               type: string
                             encryption:
@@ -3369,11 +3374,15 @@ spec:
                             compression:
                               description: |-
                                 Compress a WAL file before sending it to the object store. Available
-                                options are empty string (no compression, default), `gzip`, `bzip2` or `snappy`.
+                                options are empty string (no compression, default), `gzip`, `bzip2`,
+                                `lz4`, `snappy`, `xz`, and `zstd`.
                               enum:
-                              - gzip
                               - bzip2
+                              - gzip
+                              - lz4
                               - snappy
+                              - xz
+                              - zstd
                               type: string
                             encryption:
                               description: |-
@@ -3590,9 +3599,6 @@ spec:
                     description: The major version of PostgreSQL we want to use from
                       the ImageCatalog
                     type: integer
-                    x-kubernetes-validations:
-                    - message: Major is immutable
-                      rule: self == oldSelf
                   name:
                     description: Name is the name of resource being referenced
                     type: string
@@ -4665,7 +4671,6 @@ spec:
                       feature
                     properties:
                       dataDurability:
-                        default: required
                         description: |-
                           If set to "required", data durability is strictly enforced. Write operations
                           with synchronous commit settings (`on`, `remote_write`, or `remote_apply`) will
@@ -4826,6 +4831,13 @@ spec:
                           More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                         format: int32
                         type: integer
+                      maximumLag:
+                        anyOf:
+                        - type: integer
+                        - type: string
+                        description: Lag limit. Used only for `streaming` strategy
+                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                        x-kubernetes-int-or-string: true
                       periodSeconds:
                         description: |-
                           How often (in seconds) to perform the probe.
@@ -4859,6 +4871,13 @@ spec:
                           More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                         format: int32
                         type: integer
+                      type:
+                        description: The probe strategy
+                        enum:
+                        - pg_isready
+                        - streaming
+                        - query
+                        type: string
                     type: object
                   startup:
                     description: The startup probe configuration
@@ -4875,6 +4894,13 @@ spec:
                           More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                         format: int32
                         type: integer
+                      maximumLag:
+                        anyOf:
+                        - type: integer
+                        - type: string
+                        description: Lag limit. Used only for `streaming` strategy
+                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                        x-kubernetes-int-or-string: true
                       periodSeconds:
                         description: |-
                           How often (in seconds) to perform the probe.
@@ -4908,6 +4934,13 @@ spec:
                           More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                         format: int32
                         type: integer
+                      type:
+                        description: The probe strategy
+                        enum:
+                        - pg_isready
+                        - streaming
+                        - query
+                        type: string
                     type: object
                 type: object
               projectedVolumeTemplate:
@@ -6418,10 +6451,6 @@ spec:
                   - hash
                   type: object
                 type: array
-              azurePVCUpdateEnabled:
-                description: AzurePVCUpdateEnabled shows if the PVC online upgrade
-                  is enabled for this cluster
-                type: boolean
               certificates:
                 description: The configuration for the CA and related certificates,
                   initialized with defaults.
@@ -6620,6 +6649,9 @@ spec:
                   description: InstanceReportedState describes the last reported state
                     of an instance during a reconciliation loop
                   properties:
+                    ip:
+                      description: IP address of the instance
+                      type: string
                     isPrimary:
                       description: indicates if an instance is the primary one
                       type: boolean
@@ -6710,6 +6742,20 @@ spec:
                 description: OnlineUpdateEnabled shows if the online upgrade is enabled
                   inside the cluster
                 type: boolean
+              pgDataImageInfo:
+                description: PGDataImageInfo contains the details of the latest image
+                  that has run on the current data directory.
+                properties:
+                  image:
+                    description: Image is the image name
+                    type: string
+                  majorVersion:
+                    description: MajorVersion is the major version of the image
+                    type: integer
+                required:
+                - image
+                - majorVersion
+                type: object
               phase:
                 description: Current phase of the cluster
                 type: string
@@ -6954,7 +7000,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.17.2
+    controller-gen.kubebuilder.io/version: v0.17.3
     helm.sh/resource-policy: keep
   name: databases.postgresql.cnpg.io
 spec:
@@ -7076,6 +7122,43 @@ spec:
                 - present
                 - absent
                 type: string
+              extensions:
+                description: The list of extensions to be managed in the database
+                items:
+                  description: ExtensionSpec configures an extension in a database
+                  properties:
+                    ensure:
+                      default: present
+                      description: |-
+                        Specifies whether an extension/schema should be present or absent in
+                        the database. If set to `present`, the extension/schema will be
+                        created if it does not exist. If set to `absent`, the
+                        extension/schema will be removed if it exists.
+                      enum:
+                      - present
+                      - absent
+                      type: string
+                    name:
+                      description: Name of the extension/schema
+                      type: string
+                    schema:
+                      description: |-
+                        The name of the schema in which to install the extension's objects,
+                        in case the extension allows its contents to be relocated. If not
+                        specified (default), and the extension's control file does not
+                        specify a schema either, the current default object creation schema
+                        is used.
+                      type: string
+                    version:
+                      description: |-
+                        The version of the extension to install. If empty, the operator will
+                        install the default version (whatever is specified in the
+                        extension's control file)
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
               icuLocale:
                 description: |-
                   Maps to the `ICU_LOCALE` parameter of `CREATE DATABASE`. This
@@ -7155,6 +7238,35 @@ spec:
                   Maps to the `OWNER TO` command of `ALTER DATABASE`.
                   The role name of the user who owns the database inside PostgreSQL.
                 type: string
+              schemas:
+                description: The list of schemas to be managed in the database
+                items:
+                  description: SchemaSpec configures a schema in a database
+                  properties:
+                    ensure:
+                      default: present
+                      description: |-
+                        Specifies whether an extension/schema should be present or absent in
+                        the database. If set to `present`, the extension/schema will be
+                        created if it does not exist. If set to `absent`, the
+                        extension/schema will be removed if it exists.
+                      enum:
+                      - present
+                      - absent
+                      type: string
+                    name:
+                      description: Name of the extension/schema
+                      type: string
+                    owner:
+                      description: |-
+                        The role name of the user who owns the schema inside PostgreSQL.
+                        It maps to the `AUTHORIZATION` parameter of `CREATE SCHEMA` and the
+                        `OWNER TO` command of `ALTER SCHEMA`.
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
               tablespace:
                 description: |-
                   Maps to the `TABLESPACE` parameter of `CREATE DATABASE`.
@@ -7194,6 +7306,28 @@ spec:
               applied:
                 description: Applied is true if the database was reconciled correctly
                 type: boolean
+              extensions:
+                description: Extensions is the status of the managed extensions
+                items:
+                  description: DatabaseObjectStatus is the status of the managed database
+                    objects
+                  properties:
+                    applied:
+                      description: |-
+                        True of the object has been installed successfully in
+                        the database
+                      type: boolean
+                    message:
+                      description: Message is the object reconciliation message
+                      type: string
+                    name:
+                      description: The name of the object
+                      type: string
+                  required:
+                  - applied
+                  - name
+                  type: object
+                type: array
               message:
                 description: Message is the reconciliation output message
                 type: string
@@ -7203,6 +7337,28 @@ spec:
                   desired state that was synchronized
                 format: int64
                 type: integer
+              schemas:
+                description: Schemas is the status of the managed schemas
+                items:
+                  description: DatabaseObjectStatus is the status of the managed database
+                    objects
+                  properties:
+                    applied:
+                      description: |-
+                        True of the object has been installed successfully in
+                        the database
+                      type: boolean
+                    message:
+                      description: Message is the object reconciliation message
+                      type: string
+                    name:
+                      description: The name of the object
+                      type: string
+                  required:
+                  - applied
+                  - name
+                  type: object
+                type: array
             type: object
         required:
         - metadata
@@ -7217,7 +7373,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.17.2
+    controller-gen.kubebuilder.io/version: v0.17.3
     helm.sh/resource-policy: keep
   name: imagecatalogs.postgresql.cnpg.io
 spec:
@@ -7298,7 +7454,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.17.2
+    controller-gen.kubebuilder.io/version: v0.17.3
     helm.sh/resource-policy: keep
   name: poolers.postgresql.cnpg.io
 spec:
@@ -16158,7 +16314,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.17.2
+    controller-gen.kubebuilder.io/version: v0.17.3
     helm.sh/resource-policy: keep
   name: publications.postgresql.cnpg.io
 spec:
@@ -16354,7 +16510,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.17.2
+    controller-gen.kubebuilder.io/version: v0.17.3
     helm.sh/resource-policy: keep
   name: scheduledbackups.postgresql.cnpg.io
 spec:
@@ -16546,7 +16702,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.17.2
+    controller-gen.kubebuilder.io/version: v0.17.3
     helm.sh/resource-policy: keep
   name: subscriptions.postgresql.cnpg.io
 spec:
@@ -16696,8 +16852,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
-    helm.sh/chart: cloudnative-pg-0.23.2
+    app.kubernetes.io/version: 1.26.0
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cloudnative-pg
   namespace: database
 ---
@@ -16708,8 +16864,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
-    helm.sh/chart: cloudnative-pg-0.23.2
+    app.kubernetes.io/version: 1.26.0
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cloudnative-pg
 rules:
 - apiGroups:
@@ -16935,8 +17091,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
-    helm.sh/chart: cloudnative-pg-0.23.2
+    app.kubernetes.io/version: 1.26.0
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cloudnative-pg-edit
 rules:
 - apiGroups:
@@ -16963,8 +17119,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
-    helm.sh/chart: cloudnative-pg-0.23.2
+    app.kubernetes.io/version: 1.26.0
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cloudnative-pg-view
 rules:
 - apiGroups:
@@ -16989,8 +17145,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
-    helm.sh/chart: cloudnative-pg-0.23.2
+    app.kubernetes.io/version: 1.26.0
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cloudnative-pg
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -17009,8 +17165,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
-    helm.sh/chart: cloudnative-pg-0.23.2
+    app.kubernetes.io/version: 1.26.0
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cnpg-controller-manager-config
   namespace: database
 ---
@@ -17464,15 +17620,47 @@ data:
         - setting:
             usage: "GAUGE"
             description: "Setting value"
+
+    pg_extensions:
+      query: |
+        SELECT
+         current_database() as datname,
+         name as extname,
+         default_version,
+         installed_version,
+         CASE
+           WHEN default_version = installed_version THEN 0
+           ELSE 1
+        END AS update_available
+        FROM pg_catalog.pg_available_extensions
+        WHERE installed_version IS NOT NULL
+      metrics:
+        - datname:
+            usage: "LABEL"
+            description: "Name of the database"
+        - extname:
+            usage: "LABEL"
+            description: "Extension name"
+        - default_version:
+            usage: "LABEL"
+            description: "Default version"
+        - installed_version:
+            usage: "LABEL"
+            description: "Installed version"
+        - update_available:
+            usage: "GAUGE"
+            description: "An update is available"
+      target_databases:
+        - '*'
 kind: ConfigMap
 metadata:
   labels:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
+    app.kubernetes.io/version: 1.26.0
     cnpg.io/reload: ""
-    helm.sh/chart: cloudnative-pg-0.23.2
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cnpg-default-monitoring
   namespace: database
 ---
@@ -26682,8 +26870,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
-    helm.sh/chart: cloudnative-pg-0.23.2
+    app.kubernetes.io/version: 1.26.0
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cnpg-webhook-service
   namespace: database
 spec:
@@ -26703,8 +26891,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
-    helm.sh/chart: cloudnative-pg-0.23.2
+    app.kubernetes.io/version: 1.26.0
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cloudnative-pg
   namespace: database
 spec:
@@ -26716,9 +26904,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: e862717d73269386a64d69c2ed11935dfe8c30dea6cd96cf7f8088695c1399d7
-        checksum/monitoring-config: f9ed49e6bb907f4b5ef189c3762306c4c9619d0eb38169dd039c24dc8f10e056
-        checksum/rbac: 642d48218725e6d13cddd0074bbecada81fc6161d1e11809ae4a38b8631abb24
+        checksum/config: 3bdd2b440de60450a11a61b667081ca0436f43364d48276ca09b5bec5e66d214
+        checksum/monitoring-config: c28b0cd172da90a32bbb23c11140d24813c1aae68fade0183fdeb694fa57b1d8
+        checksum/rbac: 9188a6eece674eb2644ca0c15b20da541503f43cc34fa6a603b3a11161b392c3
       labels:
         app.kubernetes.io/instance: cloudnative-pg
         app.kubernetes.io/name: cloudnative-pg
@@ -26734,14 +26922,14 @@ spec:
         - /manager
         env:
         - name: OPERATOR_IMAGE_NAME
-          value: ghcr.io/cloudnative-pg/cloudnative-pg:1.25.1
+          value: ghcr.io/cloudnative-pg/cloudnative-pg:1.26.0
         - name: OPERATOR_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MONITORING_QUERIES_CONFIGMAP
           value: cnpg-default-monitoring
-        image: ghcr.io/cloudnative-pg/cloudnative-pg:1.25.1
+        image: ghcr.io/cloudnative-pg/cloudnative-pg:1.26.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -26808,8 +26996,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
-    helm.sh/chart: cloudnative-pg-0.23.2
+    app.kubernetes.io/version: 1.26.0
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cnpg-mutating-webhook-configuration
 webhooks:
 - admissionReviewVersions:
@@ -26860,6 +27048,27 @@ webhooks:
     service:
       name: cnpg-webhook-service
       namespace: database
+      path: /mutate-postgresql-cnpg-io-v1-database
+      port: 443
+  failurePolicy: Fail
+  name: mdatabase.cnpg.io
+  rules:
+  - apiGroups:
+    - postgresql.cnpg.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - databases
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: database
       path: /mutate-postgresql-cnpg-io-v1-scheduledbackup
       port: 443
   failurePolicy: Fail
@@ -26883,8 +27092,8 @@ metadata:
     app.kubernetes.io/instance: cloudnative-pg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.25.1
-    helm.sh/chart: cloudnative-pg-0.23.2
+    app.kubernetes.io/version: 1.26.0
+    helm.sh/chart: cloudnative-pg-0.24.0
   name: cnpg-validating-webhook-configuration
 webhooks:
 - admissionReviewVersions:
@@ -26949,6 +27158,27 @@ webhooks:
     - UPDATE
     resources:
     - scheduledbackups
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: database
+      path: /validate-postgresql-cnpg-io-v1-database
+      port: 443
+  failurePolicy: Fail
+  name: vdatabase.cnpg.io
+  rules:
+  - apiGroups:
+    - postgresql.cnpg.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - databases
   sideEffects: None
 - admissionReviewVersions:
   - v1
