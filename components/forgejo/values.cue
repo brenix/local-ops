@@ -1,6 +1,7 @@
 package holos
 
 #Values: {
+	replicaCount: 1
 	gitea: {
 		admin: existingSecret: "gitea-admin"
 		config: {

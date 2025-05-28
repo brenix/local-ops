@@ -626,6 +626,7 @@ data:
   monitor-aggregation: medium
   monitor-aggregation-flags: all
   monitor-aggregation-interval: 5s
+  mtu: "0"
   nat-map-stats-entries: "32"
   nat-map-stats-interval: 30s
   node-port-bind-protection: "true"
@@ -658,7 +659,10 @@ data:
   tofqdns-endpoint-max-ip-per-hostname: "1000"
   tofqdns-idle-connection-grace-period: 0s
   tofqdns-max-deferred-connection-deletes: "10000"
+  tofqdns-min-ttl: "0"
+  tofqdns-proxy-port: "0"
   tofqdns-proxy-response-max-delay: 100ms
+  tunnel-port: "0"
   tunnel-protocol: vxlan
   tunnel-source-port-range: 0-0
   unmanaged-pod-watcher-interval: "15"
@@ -696,7 +700,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 343aa64ac08254292857875f182244a1240953ff3227589fc71ec9cb787497b8
+        cilium.io/cilium-configmap-checksum: 610aefa72bca9caf3bace029e155d09b89811a0aac4f9d7f6adf0d962c4b5a30
         prometheus.io/port: "9963"
         prometheus.io/scrape: "true"
       labels:
@@ -801,7 +805,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 343aa64ac08254292857875f182244a1240953ff3227589fc71ec9cb787497b8
+        cilium.io/cilium-configmap-checksum: 610aefa72bca9caf3bace029e155d09b89811a0aac4f9d7f6adf0d962c4b5a30
       labels:
         app.kubernetes.io/name: cilium-agent
         app.kubernetes.io/part-of: cilium

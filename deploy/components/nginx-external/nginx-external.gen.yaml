@@ -485,6 +485,7 @@ metadata:
   namespace: network
 spec:
   minReadySeconds: 0
+  progressDeadlineSeconds: 0
   replicas: 1
   revisionHistoryLimit: 10
   selector:
