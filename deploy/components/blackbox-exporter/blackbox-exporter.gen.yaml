@@ -141,7 +141,6 @@ spec:
         name: blackbox-exporter
         ports:
         - containerPort: 9115
-          hostPort: 0
           name: http
         readinessProbe:
           httpGet:
