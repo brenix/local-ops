@@ -33,6 +33,7 @@ package holos
 			}]
 			enableAdminAPI:                          true
 			retention:                               "90d"
+			maximumStartupDurationSeconds:           300
 			ruleSelectorNilUsesHelmValues:           false
 			serviceMonitorSelectorNilUsesHelmValues: false
 			storageSpec: volumeClaimTemplate: spec: {

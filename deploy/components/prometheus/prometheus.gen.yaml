@@ -70403,6 +70403,7 @@ spec:
   listenLocal: false
   logFormat: logfmt
   logLevel: info
+  maximumStartupDurationSeconds: 300
   paused: false
   podMonitorNamespaceSelector: {}
   podMonitorSelector:
