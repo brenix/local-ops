@@ -16,7 +16,8 @@ package holos
 	serviceMonitor: {
 		enabled: true
 		defaults: {
-			interval: "10s"
+			interval:      "10s"
+			scrapeTimeout: "10s"
 		}
 		targets: [
 			{
