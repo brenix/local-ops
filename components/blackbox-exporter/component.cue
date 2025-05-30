@@ -9,9 +9,9 @@ Component: #Helm & {
 	Chart: {
 		name:    "prometheus-blackbox-exporter"
 		version: "9.7.0"
-		release: "prometheus"
+		release: "prometheus-blackbox-exporter"
 		repository: {
-			name: "prometheus"
+			name: "prometheus-community"
 			url:  "https://prometheus-community.github.io/helm-charts"
 		}
 	}

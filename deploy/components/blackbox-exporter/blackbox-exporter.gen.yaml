@@ -2,12 +2,12 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/instance: prometheus-blackbox-exporter
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/version: v0.26.0
     helm.sh/chart: prometheus-blackbox-exporter-9.7.0
-  name: prometheus-prometheus-blackbox-exporter
+  name: prometheus-blackbox-exporter
   namespace: monitoring
 ---
 apiVersion: v1
@@ -22,24 +22,24 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/instance: prometheus-blackbox-exporter
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/version: v0.26.0
     helm.sh/chart: prometheus-blackbox-exporter-9.7.0
-  name: prometheus-prometheus-blackbox-exporter
+  name: prometheus-blackbox-exporter
   namespace: monitoring
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/instance: prometheus-blackbox-exporter
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/version: v0.26.0
     helm.sh/chart: prometheus-blackbox-exporter-9.7.0
-  name: prometheus-prometheus-blackbox-exporter
+  name: prometheus-blackbox-exporter
   namespace: monitoring
 spec:
   ports:
@@ -52,7 +52,7 @@ spec:
     protocol: TCP
     targetPort: reloader-web
   selector:
-    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/instance: prometheus-blackbox-exporter
     app.kubernetes.io/name: prometheus-blackbox-exporter
   type: ClusterIP
 ---
@@ -60,19 +60,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/instance: prometheus-blackbox-exporter
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/version: v0.26.0
     helm.sh/chart: prometheus-blackbox-exporter-9.7.0
-  name: prometheus-prometheus-blackbox-exporter
+  name: prometheus-blackbox-exporter
   namespace: monitoring
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: prometheus
+      app.kubernetes.io/instance: prometheus-blackbox-exporter
       app.kubernetes.io/name: prometheus-blackbox-exporter
   strategy:
     rollingUpdate:
@@ -82,7 +82,7 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: prometheus
+        app.kubernetes.io/instance: prometheus-blackbox-exporter
         app.kubernetes.io/name: prometheus-blackbox-exporter
     spec:
       automountServiceAccountToken: false
@@ -160,22 +160,22 @@ spec:
           name: config
       hostNetwork: false
       restartPolicy: Always
-      serviceAccountName: prometheus-prometheus-blackbox-exporter
+      serviceAccountName: prometheus-blackbox-exporter
       volumes:
       - configMap:
-          name: prometheus-prometheus-blackbox-exporter
+          name: prometheus-blackbox-exporter
         name: config
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   labels:
-    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/instance: prometheus-blackbox-exporter
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/version: v0.26.0
     helm.sh/chart: prometheus-blackbox-exporter-9.7.0
-  name: prometheus-prometheus-blackbox-exporter-google-ping
+  name: prometheus-blackbox-exporter-google-ping
   namespace: monitoring
 spec:
   endpoints:
@@ -201,11 +201,11 @@ spec:
     port: http
     scheme: http
     scrapeTimeout: 10s
-  jobLabel: prometheus
+  jobLabel: prometheus-blackbox-exporter
   namespaceSelector:
     matchNames:
     - monitoring
   selector:
     matchLabels:
-      app.kubernetes.io/instance: prometheus
+      app.kubernetes.io/instance: prometheus-blackbox-exporter
       app.kubernetes.io/name: prometheus-blackbox-exporter
