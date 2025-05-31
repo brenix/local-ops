@@ -70397,7 +70397,6 @@ spec:
         weight: 100
   automountServiceAccountToken: true
   enableAdminAPI: true
-  enforcedKeepDroppedTargets: 0
   externalUrl: http://prometheus.brenix.com/
   hostNetwork: false
   image: quay.io/prometheus/prometheus:v3.4.0
@@ -70405,7 +70404,6 @@ spec:
   logFormat: logfmt
   logLevel: info
   maximumStartupDurationSeconds: 300
-  minReadySeconds: 0
   paused: false
   podMonitorNamespaceSelector: {}
   podMonitorSelector:
@@ -70477,18 +70475,13 @@ spec:
           name: prometheus-kube-prometheus-admission
           optional: false
       serverName: prometheus-kube-prometheus-operator
-  labelLimit: 0
-  labelNameLengthLimit: 0
-  labelValueLengthLimit: 0
   namespaceSelector:
     matchNames:
     - monitoring
-  sampleLimit: 0
   selector:
     matchLabels:
       app: kube-prometheus-stack-operator
       release: prometheus
-  targetLimit: 0
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -70510,19 +70503,14 @@ spec:
     port: http-web
   - path: /metrics
     port: reloader-web
-  labelLimit: 0
-  labelNameLengthLimit: 0
-  labelValueLengthLimit: 0
   namespaceSelector:
     matchNames:
     - monitoring
-  sampleLimit: 0
   selector:
     matchLabels:
       app: kube-prometheus-stack-prometheus
       release: prometheus
       self-monitor: "true"
-  targetLimit: 0
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -70545,15 +70533,10 @@ spec:
   - port: http-metrics
     scheme: http
   jobLabel: jobLabel
-  labelLimit: 0
-  labelNameLengthLimit: 0
-  labelValueLengthLimit: 0
-  sampleLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/instance: prometheus
       app.kubernetes.io/name: prometheus-node-exporter
-  targetLimit: 0
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
