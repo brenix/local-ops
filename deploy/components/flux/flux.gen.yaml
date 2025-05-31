@@ -12,7 +12,7 @@ spec:
     name: default
   wait: true
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: default
@@ -23,7 +23,7 @@ spec:
     tag: main
   url: oci://ghcr.io/brenix/local-ops
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: flux

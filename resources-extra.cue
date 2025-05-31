@@ -8,7 +8,7 @@ import (
 	ed "externaldns.k8s.io/dnsendpoint/v1alpha1"
 	ipaddresspool "metallb.io/ipaddresspool/v1beta1"
 	ks "kustomize.toolkit.fluxcd.io/kustomization/v1"
-	ocirepository "source.toolkit.fluxcd.io/ocirepository/v1beta2"
+	ocirepository "source.toolkit.fluxcd.io/ocirepository/v1"
 	ciliumbgpadvertisement "cilium.io/ciliumbgpadvertisement/v2alpha1"
 	ciliumbgpclusterconfig "cilium.io/ciliumbgpclusterconfig/v2alpha1"
 	ciliumbgppeerconfig "cilium.io/ciliumbgppeerconfig/v2alpha1"
