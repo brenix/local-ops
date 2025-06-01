@@ -24,7 +24,7 @@
         "^components/.*\\.cue$"
       ],
       "matchStrings": [
-        "image:\\s*{\\s*repository:\\s*\"(?<depName>[^\"]+)\"\\s*tag:\\s*\"(?<currentValue>[^\"]+)\"\\s*}"
+        "image:\\s*{[\\s\\S]*?repository:\\s*\"(?<depName>[^\"]+)\"[\\s\\S]*?tag:\\s*\"(?<currentValue>[^\"]+)\"\\s*}"
       ],
       "datasourceTemplate": "docker"
     }
