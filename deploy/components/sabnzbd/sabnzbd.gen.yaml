@@ -95,9 +95,11 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: config
-        - mountPath: /downloads
+        - mountPath: /downloads/complete
           name: downloads
-          subPath: downloads
+          subPath: complete
+        - mountPath: /downloads/incomplete
+          name: incomplete
       dnsPolicy: ClusterFirst
       enableServiceLinks: false
       hostIPC: false
@@ -110,8 +112,10 @@ spec:
           claimName: sabnzbd
       - name: downloads
         nfs:
-          path: /mnt/main/media
+          path: /mnt/main/media/downloads
           server: truenas.home.arpa
+      - emptyDir: {}
+        name: incomplete
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

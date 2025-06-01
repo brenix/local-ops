@@ -67,8 +67,12 @@ package holos
 			enabled: true
 			type:    "nfs"
 			server:  "truenas.home.arpa"
-			path:    "/mnt/main/media"
-			globalMounts: [{path: "/downloads", subPath: "downloads"}]
+			path:    "/mnt/main/media/downloads"
+			globalMounts: [{path: "/downloads/complete", subPath: "complete"}]
+		}
+		incomplete: {
+			type: "emptyDir"
+			globalMounts: [{path: "/downloads/incomplete"}]
 		}
 	}
 	service: main: {
