@@ -1,0 +1,143 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: ping-exporter
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ping-exporter
+    app.kubernetes.io/version: 1.1.0
+    helm.sh/chart: ping-exporter-1.1.0
+  name: ping-exporter
+  namespace: monitoring
+---
+apiVersion: v1
+data:
+  config.yml: |
+    dns:
+      nameserver: 192.168.1.1
+      refresh: 2m15s
+    ping:
+      history-size: 42
+      interval: 10s
+      payload-size: 120
+      timeout: 3s
+    targets:
+    - google.com
+    - 192.168.1.1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: ping-exporter
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ping-exporter
+    app.kubernetes.io/version: 1.1.0
+    helm.sh/chart: ping-exporter-1.1.0
+  name: ping-exporter
+  namespace: monitoring
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: ping-exporter
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ping-exporter
+    app.kubernetes.io/version: 1.1.0
+    helm.sh/chart: ping-exporter-1.1.0
+  name: ping-exporter
+  namespace: monitoring
+spec:
+  ports:
+  - name: http
+    port: 9427
+    protocol: TCP
+    targetPort: http
+  selector:
+    app.kubernetes.io/instance: ping-exporter
+    app.kubernetes.io/name: ping-exporter
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: ping-exporter
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ping-exporter
+    app.kubernetes.io/version: 1.1.0
+    helm.sh/chart: ping-exporter-1.1.0
+  name: ping-exporter
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: ping-exporter
+      app.kubernetes.io/name: ping-exporter
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        checksum/config: 3aa2f5058b2e47ce4276f1289f292cc160f0b0cbba7190c72abc4f13e66f3f29
+      labels:
+        app.kubernetes.io/instance: ping-exporter
+        app.kubernetes.io/name: ping-exporter
+    spec:
+      containers:
+      - args:
+        - --config.path=/config/config.yml
+        command:
+        - /app/ping_exporter
+        image: czerwonk/ping_exporter:v1.1.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        name: ping-exporter
+        ports:
+        - containerPort: 9427
+          name: http
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_RAW
+        volumeMounts:
+        - mountPath: /config
+          name: config
+      securityContext: {}
+      serviceAccountName: ping-exporter
+      volumes:
+      - configMap:
+          name: ping-exporter
+        name: config
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    helm.sh/hook: test
+  labels:
+    app.kubernetes.io/instance: ping-exporter
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ping-exporter
+    app.kubernetes.io/version: 1.1.0
+    helm.sh/chart: ping-exporter-1.1.0
+  name: ping-exporter-test-connection
+  namespace: monitoring
+spec:
+  containers:
+  - args:
+    - ping-exporter:9427
+    command:
+    - wget
+    image: busybox
+    name: wget
+  restartPolicy: Never

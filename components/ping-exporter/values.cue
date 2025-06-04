@@ -4,7 +4,7 @@ package holos
 	config: {
 		targets: [
 			// "8.8.8.8",
-			// "google.com",
+			"google.com",
 			"192.168.1.1",
 		]
 
