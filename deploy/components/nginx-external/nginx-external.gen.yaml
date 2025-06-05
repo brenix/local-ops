@@ -445,31 +445,6 @@ spec:
     app.kubernetes.io/name: ingress-nginx
   type: ClusterIP
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: nginx-external
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
-  name: nginx-external-controller-metrics
-  namespace: network
-spec:
-  ports:
-  - name: metrics
-    port: 10254
-    protocol: TCP
-    targetPort: metrics
-  selector:
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: nginx-external
-    app.kubernetes.io/name: ingress-nginx
-  type: ClusterIP
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -515,7 +490,6 @@ spec:
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
         - --maxmind-license-key=np3a2QxKtv7Jk0xM
-        - --enable-metrics=true
         - --default-ssl-certificate=network/brenix.com-tls
         env:
         - name: POD_NAME
@@ -552,9 +526,6 @@ spec:
           protocol: TCP
         - containerPort: 443
           name: https
-          protocol: TCP
-        - containerPort: 10254
-          name: metrics
           protocol: TCP
         - containerPort: 8443
           name: webhook
@@ -765,31 +736,6 @@ spec:
       data:
         MAXMIND_LICENSE_KEY: '{{ .MAXMIND_API_KEY }}'
       engineVersion: v2
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  labels:
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: nginx-external
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
-  name: nginx-external-controller
-  namespace: network
-spec:
-  endpoints:
-  - interval: 30s
-    port: metrics
-  namespaceSelector:
-    any: true
-  selector:
-    matchLabels:
-      app.kubernetes.io/component: controller
-      app.kubernetes.io/instance: nginx-external
-      app.kubernetes.io/name: ingress-nginx
 ---
 apiVersion: networking.k8s.io/v1
 kind: IngressClass

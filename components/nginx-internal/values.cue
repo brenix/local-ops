@@ -39,9 +39,9 @@ package holos
 			name:            "internal"
 		}
 		metrics: {
-			enabled: true
+			enabled: false
 			serviceMonitor: {
-				enabled: true
+				enabled: false
 				namespaceSelector: any: true
 			}
 		}
@@ -52,7 +52,7 @@ package holos
 		}
 		service: annotations: {
 			"external-dns.alpha.kubernetes.io/hostname": "internal.brenix.com"
-			"lbipam.cilium.io/ips":       "192.168.2.21"
+			"lbipam.cilium.io/ips":                      "192.168.2.21"
 		}
 		terminationGracePeriodSeconds: 120
 		topologySpreadConstraints: [{

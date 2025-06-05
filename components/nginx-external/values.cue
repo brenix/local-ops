@@ -41,9 +41,9 @@ package holos
 		}
 		maxmindLicenseKey: "np3a2QxKtv7Jk0xM"
 		metrics: {
-			enabled: true
+			enabled: false
 			serviceMonitor: {
-				enabled: true
+				enabled: false
 				namespaceSelector: any: true
 			}
 		}
@@ -54,7 +54,7 @@ package holos
 		}
 		service: annotations: {
 			"external-dns.alpha.kubernetes.io/hostname": "external.brenix.com"
-			"lbipam.cilium.io/ips":       "192.168.2.20"
+			"lbipam.cilium.io/ips":                      "192.168.2.20"
 		}
 		terminationGracePeriodSeconds: 120
 		topologySpreadConstraints: [{
