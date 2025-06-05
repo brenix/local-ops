@@ -67,7 +67,18 @@ package holos
 			url:  "http://prometheus-operated:9090/"
 		}]
 	}
-	"grafana.ini": analytics: check_for_updates: false
+	"grafana.ini": {
+		analytics: check_for_updates: false
+		date_formats: {
+			full_date:       "MMM Do, YYYY @ hh:mm:ss a"
+			interval_second: "hh:mm:ss A"
+			interval_minute: "hh:mm A"
+			interval_hour:   "MMM DD hh:mm A"
+			interval_day:    "MMM DD"
+			interval_month:  "YYYY-MM"
+			interval_year:   "YYYY"
+		}
+	}
 	ingress: {
 		enabled: true
 		hosts: ["grafana.brenix.com"]

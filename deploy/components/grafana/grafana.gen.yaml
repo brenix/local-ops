@@ -138,6 +138,14 @@ data:
   grafana.ini: |
     [analytics]
     check_for_updates = false
+    [date_formats]
+    full_date = MMM Do, YYYY @ hh:mm:ss a
+    interval_day = MMM DD
+    interval_hour = MMM DD hh:mm A
+    interval_minute = hh:mm A
+    interval_month = YYYY-MM
+    interval_second = hh:mm:ss A
+    interval_year = YYYY
     [grafana_net]
     url = https://grafana.net
     [log]
@@ -261,7 +269,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 36b299468b79b4b7fc5491da5194a329c21f67fab312e818b002890b3e079fde
+        checksum/config: c02604b4f3b5f2b2f07485a4ec6a7b70052464aed8d21f1d803973bdff7d723b
         checksum/dashboards-json-config: 613258ce1829f117822f38863902cb9128c3768fa680a8c2a0292442c887c879
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         kubectl.kubernetes.io/default-container: grafana
