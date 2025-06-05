@@ -18,7 +18,7 @@ data:
       refresh: 2m15s
     ping:
       history-size: 42
-      interval: 10s
+      interval: 5s
       payload-size: 120
       timeout: 3s
     targets:
@@ -80,7 +80,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 4d88347c38a3a7058b1ec82b6bd7973f10e284b4505f02cfb13175c1d6fedc54
+        checksum/config: a8567eb69e80694dfecd6f36c60ddd68cc849d6e04d1a3c3893c835f41b5a146
       labels:
         app.kubernetes.io/instance: ping-exporter
         app.kubernetes.io/name: ping-exporter

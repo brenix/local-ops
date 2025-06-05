@@ -12,7 +12,7 @@ package holos
 		dns: nameserver: "192.168.1.1"
 
 		ping: {
-			interval: "10s"
+			interval: "5s"
 			timeout:  "3s"
 		}
 	}
