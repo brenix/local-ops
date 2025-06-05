@@ -24,6 +24,7 @@ data:
     targets:
     - google.com
     - 192.168.1.1
+    - 204.154.217.202
 kind: ConfigMap
 metadata:
   labels:
@@ -79,7 +80,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 3aa2f5058b2e47ce4276f1289f292cc160f0b0cbba7190c72abc4f13e66f3f29
+        checksum/config: 4d88347c38a3a7058b1ec82b6bd7973f10e284b4505f02cfb13175c1d6fedc54
       labels:
         app.kubernetes.io/instance: ping-exporter
         app.kubernetes.io/name: ping-exporter
