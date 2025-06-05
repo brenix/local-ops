@@ -11,9 +11,6 @@ spec:
     kind: CephBlockPoolRadosNamespace
     listKind: CephBlockPoolRadosNamespaceList
     plural: cephblockpoolradosnamespaces
-    shortNames:
-    - cephbprns
-    - cephrns
     singular: cephblockpoolradosnamespace
   scope: Namespaced
   versions:
@@ -202,77 +199,12 @@ spec:
                       daemon_health:
                         description: DaemonHealth is the health of the mirroring daemon
                         type: string
-                      group_health:
-                        description: GroupHealth is the health of the mirrored image
-                          group
-                        nullable: true
-                        type: string
-                      group_states:
-                        description: GroupStates is the various state for all mirrored
-                          image groups
-                        nullable: true
-                        properties:
-                          error:
-                            description: Error is when the mirroring state is errored
-                            type: integer
-                          replaying:
-                            description: Replaying is when the replay of the mirroring
-                              journal is on-going
-                            type: integer
-                          starting_replay:
-                            description: StartingReplay is when the replay of the
-                              mirroring journal starts
-                            type: integer
-                          stopped:
-                            description: Stopped is when the mirroring state is stopped
-                            type: integer
-                          stopping_replay:
-                            description: StopReplaying is when the replay of the mirroring
-                              journal stops
-                            type: integer
-                          syncing:
-                            description: Syncing is when the image is syncing
-                            type: integer
-                          unknown:
-                            description: Unknown is when the mirroring state is unknown
-                            type: integer
-                        type: object
                       health:
                         description: Health is the mirroring health
                         type: string
                       image_health:
                         description: ImageHealth is the health of the mirrored image
                         type: string
-                      image_states:
-                        description: ImageStates is the various state for all mirrored
-                          images
-                        nullable: true
-                        properties:
-                          error:
-                            description: Error is when the mirroring state is errored
-                            type: integer
-                          replaying:
-                            description: Replaying is when the replay of the mirroring
-                              journal is on-going
-                            type: integer
-                          starting_replay:
-                            description: StartingReplay is when the replay of the
-                              mirroring journal starts
-                            type: integer
-                          stopped:
-                            description: Stopped is when the mirroring state is stopped
-                            type: integer
-                          stopping_replay:
-                            description: StopReplaying is when the replay of the mirroring
-                              journal stops
-                            type: integer
-                          syncing:
-                            description: Syncing is when the image is syncing
-                            type: integer
-                          unknown:
-                            description: Unknown is when the mirroring state is unknown
-                            type: integer
-                        type: object
                       states:
                         description: States is the various state for all mirrored
                           images
@@ -382,8 +314,6 @@ spec:
     kind: CephBlockPool
     listKind: CephBlockPoolList
     plural: cephblockpools
-    shortNames:
-    - cephbp
     singular: cephblockpool
   scope: Namespaced
   versions:
@@ -740,77 +670,12 @@ spec:
                       daemon_health:
                         description: DaemonHealth is the health of the mirroring daemon
                         type: string
-                      group_health:
-                        description: GroupHealth is the health of the mirrored image
-                          group
-                        nullable: true
-                        type: string
-                      group_states:
-                        description: GroupStates is the various state for all mirrored
-                          image groups
-                        nullable: true
-                        properties:
-                          error:
-                            description: Error is when the mirroring state is errored
-                            type: integer
-                          replaying:
-                            description: Replaying is when the replay of the mirroring
-                              journal is on-going
-                            type: integer
-                          starting_replay:
-                            description: StartingReplay is when the replay of the
-                              mirroring journal starts
-                            type: integer
-                          stopped:
-                            description: Stopped is when the mirroring state is stopped
-                            type: integer
-                          stopping_replay:
-                            description: StopReplaying is when the replay of the mirroring
-                              journal stops
-                            type: integer
-                          syncing:
-                            description: Syncing is when the image is syncing
-                            type: integer
-                          unknown:
-                            description: Unknown is when the mirroring state is unknown
-                            type: integer
-                        type: object
                       health:
                         description: Health is the mirroring health
                         type: string
                       image_health:
                         description: ImageHealth is the health of the mirrored image
                         type: string
-                      image_states:
-                        description: ImageStates is the various state for all mirrored
-                          images
-                        nullable: true
-                        properties:
-                          error:
-                            description: Error is when the mirroring state is errored
-                            type: integer
-                          replaying:
-                            description: Replaying is when the replay of the mirroring
-                              journal is on-going
-                            type: integer
-                          starting_replay:
-                            description: StartingReplay is when the replay of the
-                              mirroring journal starts
-                            type: integer
-                          stopped:
-                            description: Stopped is when the mirroring state is stopped
-                            type: integer
-                          stopping_replay:
-                            description: StopReplaying is when the replay of the mirroring
-                              journal stops
-                            type: integer
-                          syncing:
-                            description: Syncing is when the image is syncing
-                            type: integer
-                          unknown:
-                            description: Unknown is when the mirroring state is unknown
-                            type: integer
-                        type: object
                       states:
                         description: States is the various state for all mirrored
                           images
@@ -928,8 +793,6 @@ spec:
     kind: CephBucketNotification
     listKind: CephBucketNotificationList
     plural: cephbucketnotifications
-    shortNames:
-    - cephbn
     singular: cephbucketnotification
   scope: Namespaced
   versions:
@@ -1099,8 +962,6 @@ spec:
     kind: CephBucketTopic
     listKind: CephBucketTopicList
     plural: cephbuckettopics
-    shortNames:
-    - cephbt
     singular: cephbuckettopic
   scope: Namespaced
   versions:
@@ -1353,8 +1214,6 @@ spec:
     kind: CephClient
     listKind: CephClientList
     plural: cephclients
-    shortNames:
-    - cephcl
     singular: cephclient
   scope: Namespaced
   versions:
@@ -1440,8 +1299,6 @@ spec:
     kind: CephCluster
     listKind: CephClusterList
     plural: cephclusters
-    shortNames:
-    - ceph
     singular: cephcluster
   scope: Namespaced
   versions:
@@ -3181,7 +3038,7 @@ spec:
                     x-kubernetes-validations:
                     - message: network provider must be disabled (reverted to empty
                         string) before a new provider is enabled
-                      rule: self == '' || oldSelf == '' || self == oldSelf
+                      rule: self == '' || self == oldSelf
                   selectors:
                     additionalProperties:
                       type: string
@@ -6758,8 +6615,6 @@ spec:
     kind: CephFilesystemMirror
     listKind: CephFilesystemMirrorList
     plural: cephfilesystemmirrors
-    shortNames:
-    - cephfsm
     singular: cephfilesystemmirror
   scope: Namespaced
   versions:
@@ -7440,8 +7295,6 @@ spec:
     kind: CephFilesystem
     listKind: CephFilesystemList
     plural: cephfilesystems
-    shortNames:
-    - cephfs
     singular: cephfilesystem
   scope: Namespaced
   versions:
@@ -9133,9 +8986,6 @@ spec:
     kind: CephFilesystemSubVolumeGroup
     listKind: CephFilesystemSubVolumeGroupList
     plural: cephfilesystemsubvolumegroups
-    shortNames:
-    - cephfssvg
-    - cephsvg
     singular: cephfilesystemsubvolumegroup
   scope: Namespaced
   versions:
@@ -9283,7 +9133,6 @@ spec:
     plural: cephnfses
     shortNames:
     - nfs
-    - cephnfs
     singular: cephnfs
   scope: Namespaced
   versions:
@@ -11286,8 +11135,6 @@ spec:
     kind: CephObjectRealm
     listKind: CephObjectRealmList
     plural: cephobjectrealms
-    shortNames:
-    - cephor
     singular: cephobjectrealm
   scope: Namespaced
   versions:
@@ -11382,8 +11229,6 @@ spec:
     kind: CephObjectStore
     listKind: CephObjectStoreList
     plural: cephobjectstores
-    shortNames:
-    - cephos
     singular: cephobjectstore
   scope: Namespaced
   versions:
@@ -13659,7 +13504,6 @@ spec:
     shortNames:
     - rcou
     - objectuser
-    - cephosu
     singular: cephobjectstoreuser
   scope: Namespaced
   versions:
@@ -14006,8 +13850,6 @@ spec:
     kind: CephObjectZoneGroup
     listKind: CephObjectZoneGroupList
     plural: cephobjectzonegroups
-    shortNames:
-    - cephozg
     singular: cephobjectzonegroup
   scope: Namespaced
   versions:
@@ -14107,8 +13949,6 @@ spec:
     kind: CephObjectZone
     listKind: CephObjectZoneList
     plural: cephobjectzones
-    shortNames:
-    - cephoz
     singular: cephobjectzone
   scope: Namespaced
   versions:
@@ -14733,8 +14573,6 @@ spec:
     kind: CephRBDMirror
     listKind: CephRBDMirrorList
     plural: cephrbdmirrors
-    shortNames:
-    - cephrbdm
     singular: cephrbdmirror
   scope: Namespaced
   versions:
@@ -15560,7 +15398,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cmd-reporter
@@ -15582,7 +15420,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr
@@ -15595,7 +15433,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-osd
@@ -15614,7 +15452,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-rgw
@@ -15627,7 +15465,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -15865,7 +15703,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16187,7 +16025,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rbd-csi-nodeplugin
@@ -16447,7 +16285,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cluster-mgmt
@@ -16480,7 +16318,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -16671,7 +16509,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr-cluster
@@ -16727,7 +16565,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-object-bucket
@@ -16803,7 +16641,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -17004,7 +16842,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -17094,7 +16932,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -17153,7 +16991,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -17367,17 +17205,17 @@ data:
           memory: 256Mi
   ROOK_CEPH_ALLOW_LOOP_DEVICES: "false"
   ROOK_CEPH_COMMANDS_TIMEOUT_SECONDS: "15"
-  ROOK_CSI_ATTACHER_IMAGE: registry.k8s.io/sig-storage/csi-attacher:v4.8.1
+  ROOK_CSI_ATTACHER_IMAGE: registry.k8s.io/sig-storage/csi-attacher:v4.8.0
   ROOK_CSI_CEPH_IMAGE: quay.io/cephcsi/cephcsi:v3.14.0
   ROOK_CSI_DISABLE_DRIVER: "false"
   ROOK_CSI_ENABLE_CEPHFS: "true"
   ROOK_CSI_ENABLE_NFS: "false"
   ROOK_CSI_ENABLE_RBD: "true"
   ROOK_CSI_IMAGE_PULL_POLICY: IfNotPresent
-  ROOK_CSI_PROVISIONER_IMAGE: registry.k8s.io/sig-storage/csi-provisioner:v5.2.0
+  ROOK_CSI_PROVISIONER_IMAGE: registry.k8s.io/sig-storage/csi-provisioner:v5.1.0
   ROOK_CSI_REGISTRAR_IMAGE: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.13.0
-  ROOK_CSI_RESIZER_IMAGE: registry.k8s.io/sig-storage/csi-resizer:v1.13.2
-  ROOK_CSI_SNAPSHOTTER_IMAGE: registry.k8s.io/sig-storage/csi-snapshotter:v8.2.1
+  ROOK_CSI_RESIZER_IMAGE: registry.k8s.io/sig-storage/csi-resizer:v1.13.1
+  ROOK_CSI_SNAPSHOTTER_IMAGE: registry.k8s.io/sig-storage/csi-snapshotter:v8.2.0
   ROOK_CSIADDONS_IMAGE: quay.io/csiaddons/k8s-sidecar:v0.12.0
   ROOK_ENABLE_DISCOVERY_DAEMON: "true"
   ROOK_LOG_LEVEL: INFO
@@ -17395,7 +17233,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.3
+    helm.sh/chart: rook-ceph-v1.17.2
     operator: rook
     storage-backend: ceph
   name: rook-ceph-operator
@@ -17411,7 +17249,7 @@ spec:
     metadata:
       labels:
         app: rook-ceph-operator
-        helm.sh/chart: rook-ceph-v1.17.3
+        helm.sh/chart: rook-ceph-v1.17.2
     spec:
       containers:
       - args:
@@ -17438,7 +17276,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: docker.io/rook/ceph:v1.17.3
+        image: docker.io/rook/ceph:v1.17.2
         imagePullPolicy: IfNotPresent
         name: rook-ceph-operator
         resources:

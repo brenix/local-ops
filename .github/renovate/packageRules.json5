@@ -25,6 +25,11 @@
       "allowedVersions": "<=8.0"
     },
     {
+      "description": "Skip bad ceph-operator release",
+      "matchPackageNames": "rook-ceph",
+      "allowedVersions": "!/1.17.3$/"
+    },
+    {
       "matchManagers": ["github-actions"],
       "automerge": true,
       "automergeType": "branch",
