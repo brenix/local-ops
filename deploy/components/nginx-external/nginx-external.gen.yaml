@@ -8,8 +8,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external
   namespace: network
 ---
@@ -26,8 +26,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-admission
   namespace: network
 ---
@@ -40,8 +40,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external
   namespace: network
 rules:
@@ -135,8 +135,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-admission
   namespace: network
 rules:
@@ -156,8 +156,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external
 rules:
 - apiGroups:
@@ -243,8 +243,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-admission
 rules:
 - apiGroups:
@@ -264,8 +264,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external
   namespace: network
 roleRef:
@@ -289,8 +289,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-admission
   namespace: network
 roleRef:
@@ -310,8 +310,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -334,8 +334,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-admission
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -378,8 +378,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-controller
   namespace: network
 ---
@@ -395,8 +395,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-controller
   namespace: network
 spec:
@@ -429,8 +429,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-controller-admission
   namespace: network
 spec:
@@ -454,8 +454,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-controller
   namespace: network
 spec:
@@ -475,8 +475,8 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: ingress-nginx
         app.kubernetes.io/part-of: ingress-nginx
-        app.kubernetes.io/version: 1.12.2
-        helm.sh/chart: ingress-nginx-4.12.2
+        app.kubernetes.io/version: 1.12.3
+        helm.sh/chart: ingress-nginx-4.12.3
     spec:
       containers:
       - args:
@@ -502,7 +502,7 @@ spec:
               fieldPath: metadata.namespace
         - name: LD_PRELOAD
           value: /usr/local/lib/libmimalloc.so
-        image: registry.k8s.io/ingress-nginx/controller:v1.12.2@sha256:03497ee984628e95eca9b2279e3f3a3c1685dd48635479e627d219f00c8eefa9
+        image: registry.k8s.io/ingress-nginx/controller:v1.12.3@sha256:ac444cd9515af325ba577b596fe4f27a34be1aa330538e8b317ad9d6c8fb94ee
         imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:
@@ -594,8 +594,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-admission-create
   namespace: network
 spec:
@@ -607,8 +607,8 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: ingress-nginx
         app.kubernetes.io/part-of: ingress-nginx
-        app.kubernetes.io/version: 1.12.2
-        helm.sh/chart: ingress-nginx-4.12.2
+        app.kubernetes.io/version: 1.12.3
+        helm.sh/chart: ingress-nginx-4.12.3
       name: nginx-external-admission-create
     spec:
       containers:
@@ -622,7 +622,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.5.3@sha256:2cf4ebfa82a37c357455458f6dfc334aea1392d508270b2517795a9933a02524
+        image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.5.4@sha256:7a38cf0f8480775baaee71ab519c7465fd1dfeac66c421f28f087786e631456e
         imagePullPolicy: IfNotPresent
         name: create
         securityContext:
@@ -640,6 +640,7 @@ spec:
         kubernetes.io/os: linux
       restartPolicy: OnFailure
       serviceAccountName: nginx-external-admission
+  ttlSecondsAfterFinished: 0
 ---
 apiVersion: batch/v1
 kind: Job
@@ -653,8 +654,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-admission-patch
   namespace: network
 spec:
@@ -666,8 +667,8 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: ingress-nginx
         app.kubernetes.io/part-of: ingress-nginx
-        app.kubernetes.io/version: 1.12.2
-        helm.sh/chart: ingress-nginx-4.12.2
+        app.kubernetes.io/version: 1.12.3
+        helm.sh/chart: ingress-nginx-4.12.3
       name: nginx-external-admission-patch
     spec:
       containers:
@@ -683,7 +684,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.5.3@sha256:2cf4ebfa82a37c357455458f6dfc334aea1392d508270b2517795a9933a02524
+        image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.5.4@sha256:7a38cf0f8480775baaee71ab519c7465fd1dfeac66c421f28f087786e631456e
         imagePullPolicy: IfNotPresent
         name: patch
         securityContext:
@@ -701,6 +702,7 @@ spec:
         kubernetes.io/os: linux
       restartPolicy: OnFailure
       serviceAccountName: nginx-external-admission
+  ttlSecondsAfterFinished: 0
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -746,8 +748,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: external
 spec:
   controller: k8s.io/external
@@ -761,8 +763,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-    helm.sh/chart: ingress-nginx-4.12.2
+    app.kubernetes.io/version: 1.12.3
+    helm.sh/chart: ingress-nginx-4.12.3
   name: nginx-external-admission
 webhooks:
 - admissionReviewVersions:
