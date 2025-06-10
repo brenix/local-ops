@@ -8,8 +8,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: certificaterequests.cert-manager.io
 spec:
   group: cert-manager.io
@@ -329,8 +329,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: certificates.cert-manager.io
 spec:
   group: cert-manager.io
@@ -403,10 +403,6 @@ spec:
                 description: |-
                   Defines extra output formats of the private key and signed certificate chain
                   to be written to this Certificate's target Secret.
-
-                  This is a Beta Feature enabled by default. It can be disabled with the
-                  `--feature-gates=AdditionalCertificateOutputFormats=false` option set on both
-                  the controller and webhook components.
                 items:
                   description: |-
                     CertificateAdditionalOutputFormat defines an additional output format of a
@@ -607,7 +603,7 @@ spec:
                           `LegacyRC2`: Deprecated. Not supported by default in OpenSSL 3 or Java 20.
                           `LegacyDES`: Less secure algorithm. Use this option for maximal compatibility.
                           `Modern2023`: Secure algorithm. Use this option in case you have to always use secure algorithms
-                          (eg. because of company policy). Please note that the security of the algorithm is not that important
+                          (e.g., because of company policy). Please note that the security of the algorithm is not that important
                           in reality, because the unencrypted certificate and private key are also stored in the Secret.
                         enum:
                         - LegacyRC2
@@ -770,7 +766,11 @@ spec:
                       to await user intervention.
                       If set to `Always`, a private key matching the specified requirements
                       will be generated whenever a re-issuance occurs.
-                      Default is `Never` for backward compatibility.
+                      Default is `Always`.
+                      The default was changed from `Never` to `Always` in cert-manager >=v1.18.0.
+                      The new default can be disabled by setting the
+                      `--feature-gates=DefaultPrivateKeyRotationPolicyAlways=false` option on
+                      the controller component.
                     enum:
                     - Never
                     - Always
@@ -831,8 +831,7 @@ spec:
                   revisions exceeds this number.
 
                   If set, revisionHistoryLimit must be a value of `1` or greater.
-                  If unset (`nil`), revisions will not be garbage collected.
-                  Default value is `nil`.
+                  Default value is `1`.
                 format: int32
                 type: integer
               secretName:
@@ -863,6 +862,21 @@ spec:
                       Kubernetes Secret.
                     type: object
                 type: object
+              signatureAlgorithm:
+                description: |-
+                  Signature algorithm to use.
+                  Allowed values for RSA keys: SHA256WithRSA, SHA384WithRSA, SHA512WithRSA.
+                  Allowed values for ECDSA keys: ECDSAWithSHA256, ECDSAWithSHA384, ECDSAWithSHA512.
+                  Allowed values for Ed25519 keys: PureEd25519.
+                enum:
+                - SHA256WithRSA
+                - SHA384WithRSA
+                - SHA512WithRSA
+                - ECDSAWithSHA256
+                - ECDSAWithSHA384
+                - ECDSAWithSHA512
+                - PureEd25519
+                type: string
               subject:
                 description: |-
                   Requested set of X509 certificate subject attributes.
@@ -1123,8 +1137,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: challenges.acme.cert-manager.io
 spec:
   group: acme.cert-manager.io
@@ -1188,9 +1202,9 @@ spec:
                 type: string
               dnsName:
                 description: |-
-                  dnsName is the identifier that this challenge is for, e.g. example.com.
+                  dnsName is the identifier that this challenge is for, e.g., example.com.
                   If the requested DNSName is a 'wildcard', this field MUST be set to the
-                  non-wildcard domain, e.g. for `*.example.com`, it must be `example.com`.
+                  non-wildcard domain, e.g., for `*.example.com`, it must be `example.com`.
                 type: string
               issuerRef:
                 description: |-
@@ -1379,17 +1393,17 @@ spec:
                               If set, ClientID, ClientSecret and TenantID must not be set.
                             properties:
                               clientID:
-                                description: client ID of the managed identity, can
-                                  not be used at the same time as resourceID
+                                description: client ID of the managed identity, cannot
+                                  be used at the same time as resourceID
                                 type: string
                               resourceID:
                                 description: |-
-                                  resource ID of the managed identity, can not be used at the same time as clientID
+                                  resource ID of the managed identity, cannot be used at the same time as clientID
                                   Cannot be used for Azure Managed Service Identity
                                 type: string
                               tenantID:
-                                description: tenant ID of the managed identity, can
-                                  not be used at the same time as resourceID
+                                description: tenant ID of the managed identity, cannot
+                                  be used at the same time as resourceID
                                 type: string
                             type: object
                           resourceGroupName:
@@ -1707,7 +1721,7 @@ spec:
                               when challenges are processed.
                               This can contain arbitrary JSON data.
                               Secret values should not be specified in this stanza.
-                              If secret values are needed (e.g. credentials for a DNS service), you
+                              If secret values are needed (e.g., credentials for a DNS service), you
                               should use a SecretKeySelector to reference a Secret resource.
                               For details on the schema of this field, consult the webhook provider
                               implementation's documentation.
@@ -1723,7 +1737,7 @@ spec:
                             description: |-
                               The name of the solver to use, as defined in the webhook provider
                               implementation.
-                              This will typically be the name of the provider, e.g. 'cloudflare'.
+                              This will typically be the name of the provider, e.g., 'cloudflare'.
                             type: string
                         required:
                         - groupName
@@ -1735,7 +1749,7 @@ spec:
                       Configures cert-manager to attempt to complete authorizations by
                       performing the HTTP01 challenge flow.
                       It is not possible to obtain certificates for wildcard domain names
-                      (e.g. `*.example.com`) using the HTTP01 challenge mechanism.
+                      (e.g., `*.example.com`) using the HTTP01 challenge mechanism.
                     properties:
                       gatewayHTTPRoute:
                         description: |-
@@ -4526,8 +4540,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: clusterissuers.cert-manager.io
 spec:
   group: cert-manager.io
@@ -4537,6 +4551,8 @@ spec:
     kind: ClusterIssuer
     listKind: ClusterIssuerList
     plural: clusterissuers
+    shortNames:
+    - ciss
     singular: clusterissuer
   scope: Cluster
   versions:
@@ -4679,7 +4695,7 @@ spec:
                       PreferredChain is the chain to use if the ACME server outputs multiple.
                       PreferredChain is no guarantee that this one gets delivered by the ACME
                       endpoint.
-                      For example, for Let's Encrypt's DST crosssign you would use:
+                      For example, for Let's Encrypt's DST cross-sign you would use:
                       "DST Root CA X3" or "ISRG Root X1" for the newer Let's Encrypt root CA.
                       This value picks the first certificate bundle in the combined set of
                       ACME default and alternative chains that has a root-most certificate with
@@ -4708,6 +4724,11 @@ spec:
                     required:
                     - name
                     type: object
+                  profile:
+                    description: |-
+                      Profile allows requesting a certificate profile from the ACME server.
+                      Supported profiles are listed by the server's ACME directory URL.
+                    type: string
                   server:
                     description: |-
                       Server is the URL used to access the ACME server's 'directory' endpoint.
@@ -4895,16 +4916,16 @@ spec:
                                   properties:
                                     clientID:
                                       description: client ID of the managed identity,
-                                        can not be used at the same time as resourceID
+                                        cannot be used at the same time as resourceID
                                       type: string
                                     resourceID:
                                       description: |-
-                                        resource ID of the managed identity, can not be used at the same time as clientID
+                                        resource ID of the managed identity, cannot be used at the same time as clientID
                                         Cannot be used for Azure Managed Service Identity
                                       type: string
                                     tenantID:
                                       description: tenant ID of the managed identity,
-                                        can not be used at the same time as resourceID
+                                        cannot be used at the same time as resourceID
                                       type: string
                                   type: object
                                 resourceGroupName:
@@ -5224,7 +5245,7 @@ spec:
                                     when challenges are processed.
                                     This can contain arbitrary JSON data.
                                     Secret values should not be specified in this stanza.
-                                    If secret values are needed (e.g. credentials for a DNS service), you
+                                    If secret values are needed (e.g., credentials for a DNS service), you
                                     should use a SecretKeySelector to reference a Secret resource.
                                     For details on the schema of this field, consult the webhook provider
                                     implementation's documentation.
@@ -5240,7 +5261,7 @@ spec:
                                   description: |-
                                     The name of the solver to use, as defined in the webhook provider
                                     implementation.
-                                    This will typically be the name of the provider, e.g. 'cloudflare'.
+                                    This will typically be the name of the provider, e.g., 'cloudflare'.
                                   type: string
                               required:
                               - groupName
@@ -5252,7 +5273,7 @@ spec:
                             Configures cert-manager to attempt to complete authorizations by
                             performing the HTTP01 challenge flow.
                             It is not possible to obtain certificates for wildcard domain names
-                            (e.g. `*.example.com`) using the HTTP01 challenge mechanism.
+                            (e.g., `*.example.com`) using the HTTP01 challenge mechanism.
                           properties:
                             gatewayHTTPRoute:
                               description: |-
@@ -8299,6 +8320,11 @@ spec:
                     description: 'Server is the connection address for the Vault server,
                       e.g: "https://vault.example.com:8200".'
                     type: string
+                  serverName:
+                    description: |-
+                      ServerName is used to verify the hostname on the returned certificates
+                      by the Vault server.
+                    type: string
                 required:
                 - auth
                 - path
@@ -8335,7 +8361,7 @@ spec:
                       url:
                         description: |-
                           URL is the base URL for Venafi Cloud.
-                          Defaults to "https://api.venafi.cloud/v1".
+                          Defaults to "https://api.venafi.cloud/".
                         type: string
                     required:
                     - apiTokenSecretRef
@@ -8508,8 +8534,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: issuers.cert-manager.io
 spec:
   group: cert-manager.io
@@ -8519,6 +8545,8 @@ spec:
     kind: Issuer
     listKind: IssuerList
     plural: issuers
+    shortNames:
+    - iss
     singular: issuer
   scope: Namespaced
   versions:
@@ -8660,7 +8688,7 @@ spec:
                       PreferredChain is the chain to use if the ACME server outputs multiple.
                       PreferredChain is no guarantee that this one gets delivered by the ACME
                       endpoint.
-                      For example, for Let's Encrypt's DST crosssign you would use:
+                      For example, for Let's Encrypt's DST cross-sign you would use:
                       "DST Root CA X3" or "ISRG Root X1" for the newer Let's Encrypt root CA.
                       This value picks the first certificate bundle in the combined set of
                       ACME default and alternative chains that has a root-most certificate with
@@ -8689,6 +8717,11 @@ spec:
                     required:
                     - name
                     type: object
+                  profile:
+                    description: |-
+                      Profile allows requesting a certificate profile from the ACME server.
+                      Supported profiles are listed by the server's ACME directory URL.
+                    type: string
                   server:
                     description: |-
                       Server is the URL used to access the ACME server's 'directory' endpoint.
@@ -8876,16 +8909,16 @@ spec:
                                   properties:
                                     clientID:
                                       description: client ID of the managed identity,
-                                        can not be used at the same time as resourceID
+                                        cannot be used at the same time as resourceID
                                       type: string
                                     resourceID:
                                       description: |-
-                                        resource ID of the managed identity, can not be used at the same time as clientID
+                                        resource ID of the managed identity, cannot be used at the same time as clientID
                                         Cannot be used for Azure Managed Service Identity
                                       type: string
                                     tenantID:
                                       description: tenant ID of the managed identity,
-                                        can not be used at the same time as resourceID
+                                        cannot be used at the same time as resourceID
                                       type: string
                                   type: object
                                 resourceGroupName:
@@ -9205,7 +9238,7 @@ spec:
                                     when challenges are processed.
                                     This can contain arbitrary JSON data.
                                     Secret values should not be specified in this stanza.
-                                    If secret values are needed (e.g. credentials for a DNS service), you
+                                    If secret values are needed (e.g., credentials for a DNS service), you
                                     should use a SecretKeySelector to reference a Secret resource.
                                     For details on the schema of this field, consult the webhook provider
                                     implementation's documentation.
@@ -9221,7 +9254,7 @@ spec:
                                   description: |-
                                     The name of the solver to use, as defined in the webhook provider
                                     implementation.
-                                    This will typically be the name of the provider, e.g. 'cloudflare'.
+                                    This will typically be the name of the provider, e.g., 'cloudflare'.
                                   type: string
                               required:
                               - groupName
@@ -9233,7 +9266,7 @@ spec:
                             Configures cert-manager to attempt to complete authorizations by
                             performing the HTTP01 challenge flow.
                             It is not possible to obtain certificates for wildcard domain names
-                            (e.g. `*.example.com`) using the HTTP01 challenge mechanism.
+                            (e.g., `*.example.com`) using the HTTP01 challenge mechanism.
                           properties:
                             gatewayHTTPRoute:
                               description: |-
@@ -12280,6 +12313,11 @@ spec:
                     description: 'Server is the connection address for the Vault server,
                       e.g: "https://vault.example.com:8200".'
                     type: string
+                  serverName:
+                    description: |-
+                      ServerName is used to verify the hostname on the returned certificates
+                      by the Vault server.
+                    type: string
                 required:
                 - auth
                 - path
@@ -12316,7 +12354,7 @@ spec:
                       url:
                         description: |-
                           URL is the base URL for Venafi Cloud.
-                          Defaults to "https://api.venafi.cloud/v1".
+                          Defaults to "https://api.venafi.cloud/".
                         type: string
                     required:
                     - apiTokenSecretRef
@@ -12489,8 +12527,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: orders.acme.cert-manager.io
 spec:
   group: acme.cert-manager.io
@@ -12594,6 +12632,11 @@ spec:
                 required:
                 - name
                 type: object
+              profile:
+                description: |-
+                  Profile allows requesting a certificate profile from the ACME server.
+                  Supported profiles are listed by the server's ACME directory URL.
+                type: string
               request:
                 description: |-
                   Certificate signing request bytes in DER encoding.
@@ -12637,7 +12680,7 @@ spec:
                             type: string
                           type:
                             description: |-
-                              Type is the type of challenge being offered, e.g. 'http-01', 'dns-01',
+                              Type is the type of challenge being offered, e.g., 'http-01', 'dns-01',
                               'tls-sni-01', etc.
                               This is the raw value retrieved from the ACME server.
                               Only 'http-01' and 'dns-01' are supported by cert-manager, other values
@@ -12757,8 +12800,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager
   namespace: cert-manager
 ---
@@ -12772,8 +12815,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-cainjector
   namespace: cert-manager
 ---
@@ -12787,8 +12830,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-webhook
   namespace: cert-manager
 ---
@@ -12801,8 +12844,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-cainjector:leaderelection
   namespace: cert-manager
 rules:
@@ -12833,8 +12876,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-tokenrequest
   namespace: cert-manager
 rules:
@@ -12856,8 +12899,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-webhook:dynamic-serving
   namespace: cert-manager
 rules:
@@ -12888,8 +12931,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager:leaderelection
   namespace: cert-manager
 rules:
@@ -12919,8 +12962,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-cainjector
 rules:
 - apiGroups:
@@ -12989,8 +13032,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
     rbac.authorization.k8s.io/aggregate-to-cluster-reader: "true"
   name: cert-manager-cluster-view
 rules:
@@ -13012,8 +13055,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-approve:cert-manager-io
 rules:
 - apiGroups:
@@ -13035,8 +13078,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-certificates
 rules:
 - apiGroups:
@@ -13106,8 +13149,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-certificatesigningrequests
 rules:
 - apiGroups:
@@ -13151,115 +13194,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
-  name: cert-manager-controller-challenges
-rules:
-- apiGroups:
-  - acme.cert-manager.io
-  resources:
-  - challenges
-  - challenges/status
-  verbs:
-  - update
-  - patch
-- apiGroups:
-  - acme.cert-manager.io
-  resources:
-  - challenges
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - cert-manager.io
-  resources:
-  - issuers
-  - clusterissuers
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
-  - patch
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  - services
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - networking.k8s.io
-  resources:
-  - ingresses
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-  - update
-- apiGroups:
-  - gateway.networking.k8s.io
-  resources:
-  - httproutes
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-  - update
-- apiGroups:
-  - route.openshift.io
-  resources:
-  - routes/custom-host
-  verbs:
-  - create
-- apiGroups:
-  - acme.cert-manager.io
-  resources:
-  - challenges/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  verbs:
-  - get
-  - list
-  - watch
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  labels:
-    app: cert-manager
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-clusterissuers
 rules:
 - apiGroups:
@@ -13306,8 +13242,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-ingress-shim
 rules:
 - apiGroups:
@@ -13377,8 +13313,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-issuers
 rules:
 - apiGroups:
@@ -13425,8 +13361,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-orders
 rules:
 - apiGroups:
@@ -13493,8 +13429,76 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
+  name: cert-manager-dns01-controller-challenges
+rules:
+- apiGroups:
+  - acme.cert-manager.io
+  resources:
+  - challenges
+  - challenges/status
+  verbs:
+  - update
+  - patch
+- apiGroups:
+  - acme.cert-manager.io
+  resources:
+  - challenges
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - cert-manager.io
+  resources:
+  - issuers
+  - clusterissuers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - acme.cert-manager.io
+  resources:
+  - challenges/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: cert-manager
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: cert-manager
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
   name: cert-manager-edit
@@ -13538,8 +13542,107 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
+  name: cert-manager-http01-controller-challenges
+rules:
+- apiGroups:
+  - acme.cert-manager.io
+  resources:
+  - challenges
+  - challenges/status
+  verbs:
+  - update
+  - patch
+- apiGroups:
+  - acme.cert-manager.io
+  resources:
+  - challenges
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - cert-manager.io
+  resources:
+  - issuers
+  - clusterissuers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - acme.cert-manager.io
+  resources:
+  - challenges/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - gateway.networking.k8s.io
+  resources:
+  - httproutes
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - route.openshift.io
+  resources:
+  - routes/custom-host
+  verbs:
+  - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: cert-manager
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: cert-manager
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
     rbac.authorization.k8s.io/aggregate-to-cluster-reader: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
@@ -13575,8 +13678,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-webhook:subjectaccessreviews
 rules:
 - apiGroups:
@@ -13595,8 +13698,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-cainjector:leaderelection
   namespace: cert-manager
 roleRef:
@@ -13617,8 +13720,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-cert-manager-tokenrequest
   namespace: cert-manager
 roleRef:
@@ -13639,8 +13742,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-webhook:dynamic-serving
   namespace: cert-manager
 roleRef:
@@ -13661,8 +13764,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager:leaderelection
   namespace: cert-manager
 roleRef:
@@ -13683,8 +13786,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-cainjector
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -13704,8 +13807,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-approve:cert-manager-io
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -13725,8 +13828,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-certificates
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -13746,8 +13849,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-certificatesigningrequests
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -13767,29 +13870,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
-  name: cert-manager-controller-challenges
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cert-manager-controller-challenges
-subjects:
-- kind: ServiceAccount
-  name: cert-manager
-  namespace: cert-manager
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  labels:
-    app: cert-manager
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-clusterissuers
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -13809,8 +13891,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-ingress-shim
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -13830,8 +13912,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-issuers
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -13851,13 +13933,55 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-controller-orders
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: cert-manager-controller-orders
+subjects:
+- kind: ServiceAccount
+  name: cert-manager
+  namespace: cert-manager
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: cert-manager
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: cert-manager
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
+  name: cert-manager-dns01-controller-challenges
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cert-manager-dns01-controller-challenges
+subjects:
+- kind: ServiceAccount
+  name: cert-manager
+  namespace: cert-manager
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: cert-manager
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: cert-manager
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
+  name: cert-manager-http01-controller-challenges
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cert-manager-http01-controller-challenges
 subjects:
 - kind: ServiceAccount
   name: cert-manager
@@ -13872,8 +13996,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-webhook:subjectaccessreviews
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -13893,8 +14017,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager
   namespace: cert-manager
 spec:
@@ -13902,7 +14026,7 @@ spec:
   - name: tcp-prometheus-servicemonitor
     port: 9402
     protocol: TCP
-    targetPort: 9402
+    targetPort: http-metrics
   selector:
     app.kubernetes.io/component: controller
     app.kubernetes.io/instance: cert-manager
@@ -13918,8 +14042,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-cainjector
   namespace: cert-manager
 spec:
@@ -13942,8 +14066,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-webhook
   namespace: cert-manager
 spec:
@@ -13971,8 +14095,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager
   namespace: cert-manager
 spec:
@@ -13990,15 +14114,15 @@ spec:
         app.kubernetes.io/instance: cert-manager
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: cert-manager
-        app.kubernetes.io/version: v1.17.2
-        helm.sh/chart: cert-manager-v1.17.2
+        app.kubernetes.io/version: v1.18.0
+        helm.sh/chart: cert-manager-v1.18.0
     spec:
       containers:
       - args:
         - --v=2
         - --cluster-resource-namespace=$(POD_NAMESPACE)
         - --leader-election-namespace=cert-manager
-        - --acme-http01-solver-image=quay.io/jetstack/cert-manager-acmesolver:v1.17.2
+        - --acme-http01-solver-image=quay.io/jetstack/cert-manager-acmesolver:v1.18.0
         - --max-concurrent-challenges=60
         - --dns01-recursive-nameservers-only=true
         - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
@@ -14007,7 +14131,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: quay.io/jetstack/cert-manager-controller:v1.17.2
+        image: quay.io/jetstack/cert-manager-controller:v1.18.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 8
@@ -14055,8 +14179,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cainjector
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-cainjector
   namespace: cert-manager
 spec:
@@ -14074,8 +14198,8 @@ spec:
         app.kubernetes.io/instance: cert-manager
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: cainjector
-        app.kubernetes.io/version: v1.17.2
-        helm.sh/chart: cert-manager-v1.17.2
+        app.kubernetes.io/version: v1.18.0
+        helm.sh/chart: cert-manager-v1.18.0
     spec:
       containers:
       - args:
@@ -14086,7 +14210,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: quay.io/jetstack/cert-manager-cainjector:v1.17.2
+        image: quay.io/jetstack/cert-manager-cainjector:v1.18.0
         imagePullPolicy: IfNotPresent
         name: cert-manager-cainjector
         ports:
@@ -14117,8 +14241,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-webhook
   namespace: cert-manager
 spec:
@@ -14136,8 +14260,8 @@ spec:
         app.kubernetes.io/instance: cert-manager
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: webhook
-        app.kubernetes.io/version: v1.17.2
-        helm.sh/chart: cert-manager-v1.17.2
+        app.kubernetes.io/version: v1.18.0
+        helm.sh/chart: cert-manager-v1.18.0
     spec:
       containers:
       - args:
@@ -14153,13 +14277,13 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: quay.io/jetstack/cert-manager-webhook:v1.17.2
+        image: quay.io/jetstack/cert-manager-webhook:v1.18.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
           httpGet:
             path: /livez
-            port: 6080
+            port: healthcheck
             scheme: HTTP
           initialDelaySeconds: 60
           periodSeconds: 10
@@ -14180,7 +14304,7 @@ spec:
           failureThreshold: 3
           httpGet:
             path: /healthz
-            port: 6080
+            port: healthcheck
             scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 5
@@ -14271,8 +14395,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
     prometheus: default
   name: cert-manager
   namespace: cert-manager
@@ -14282,7 +14406,7 @@ spec:
     interval: 60s
     path: /metrics
     scrapeTimeout: 30s
-    targetPort: 9402
+    targetPort: http-metrics
   jobLabel: cert-manager
   selector:
     matchExpressions:
@@ -14314,8 +14438,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-webhook
 webhooks:
 - admissionReviewVersions:
@@ -14351,8 +14475,8 @@ metadata:
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: webhook
-    app.kubernetes.io/version: v1.17.2
-    helm.sh/chart: cert-manager-v1.17.2
+    app.kubernetes.io/version: v1.18.0
+    helm.sh/chart: cert-manager-v1.18.0
   name: cert-manager-webhook
 webhooks:
 - admissionReviewVersions:
