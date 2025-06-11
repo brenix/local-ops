@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/instance: fstrim
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: fstrim
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: fstrim
   namespace: default
 spec:

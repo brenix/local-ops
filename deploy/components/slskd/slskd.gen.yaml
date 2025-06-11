@@ -64,7 +64,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: slskd
     app.kubernetes.io/service: slskd
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: slskd
   namespace: default
 spec:
@@ -107,7 +107,7 @@ metadata:
     app.kubernetes.io/instance: slskd
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: slskd
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: slskd
   namespace: default
 spec:
@@ -260,7 +260,7 @@ metadata:
     app.kubernetes.io/instance: slskd
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: slskd
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: slskd
   namespace: default
 spec:

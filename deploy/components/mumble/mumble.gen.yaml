@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: mumble
     app.kubernetes.io/service: mumble
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: mumble
   namespace: default
 spec:
@@ -49,7 +49,7 @@ metadata:
     app.kubernetes.io/instance: mumble
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: mumble
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: mumble
   namespace: default
 spec:

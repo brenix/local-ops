@@ -84,7 +84,7 @@ metadata:
     app.kubernetes.io/instance: pacoloco
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: pacoloco
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: pacoloco
   namespace: default
 ---
@@ -98,7 +98,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: pacoloco
     app.kubernetes.io/service: pacoloco
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: pacoloco
   namespace: default
 spec:
@@ -137,7 +137,7 @@ metadata:
     app.kubernetes.io/instance: pacoloco
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: pacoloco
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: pacoloco
   namespace: default
 spec:

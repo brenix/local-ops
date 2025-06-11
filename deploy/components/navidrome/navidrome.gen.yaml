@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: navidrome
     app.kubernetes.io/service: navidrome
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: navidrome
   namespace: default
 spec:
@@ -45,7 +45,7 @@ metadata:
     app.kubernetes.io/instance: navidrome
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: navidrome
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: navidrome
   namespace: default
 spec:
@@ -121,7 +121,7 @@ metadata:
     app.kubernetes.io/instance: navidrome
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: navidrome
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.0
   name: navidrome
   namespace: default
 spec:
