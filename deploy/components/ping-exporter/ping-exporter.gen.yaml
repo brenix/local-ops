@@ -22,9 +22,7 @@ data:
       payload-size: 120
       timeout: 3s
     targets:
-    - google.com
-    - 192.168.1.1
-    - 204.154.217.202
+    - 8.8.8.8
 kind: ConfigMap
 metadata:
   labels:
@@ -80,7 +78,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 4d88347c38a3a7058b1ec82b6bd7973f10e284b4505f02cfb13175c1d6fedc54
+        checksum/config: 46831fe33b59b4062abe21609bc3d265590e70c8cccdf49aace178c98b9382d7
       labels:
         app.kubernetes.io/instance: ping-exporter
         app.kubernetes.io/name: ping-exporter

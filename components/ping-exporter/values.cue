@@ -3,10 +3,7 @@ package holos
 #Values: {
 	config: {
 		targets: [
-			// "8.8.8.8",
-			"google.com",
-			"192.168.1.1",
-			"204.154.217.202",
+			"8.8.8.8",
 		]
 
 		dns: nameserver: "192.168.1.1"
