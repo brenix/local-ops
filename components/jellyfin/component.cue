@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		version: "4.0.1"
+		version: "4.1.0"
 		release: "jellyfin"
 		repository: {
 			name: "bjw-s"
