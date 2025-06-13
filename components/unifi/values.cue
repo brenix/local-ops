@@ -18,21 +18,12 @@ package holos
 			tag:        "9.1.120"
 		}
 	}
-	ingress: main: {
-		annotations: "nginx.ingress.kubernetes.io/backend-protocol": "HTTPS"
-		className: "internal"
-		hosts: [{
-			host: "{{.Release.Name }}.brenix.com"
-			paths: [{
-				path: "/"
-				service: {
-					identifier: "main"
-					port:       "http"
-				}
-			}]
-		}]
-		tls: [{
-			hosts: ["{{.Release.Name }}.brenix.com"]
+	route: main: {
+		hostnames: ["{{ .Release.Name }}.brenix.com"]
+		parentRefs: [{
+			name:        "internal"
+			namespace:   "kube-system"
+			sectionName: "https"
 		}]
 	}
 	persistence: data: {
@@ -55,9 +46,10 @@ package holos
 				port:     10001
 				protocol: "UDP"
 			}
-			http: {
-				port:     8443
-				protocol: "HTTPS"
+			https: {
+				port:        8443
+				protocol:    "HTTPS"
+				appProtocol: "https"
 			}
 			"portal-http": {
 				enabled:  false

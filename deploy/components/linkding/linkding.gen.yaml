@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: linkding
     app.kubernetes.io/service: linkding
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: linkding
   namespace: default
 spec:
@@ -47,7 +47,7 @@ metadata:
     app.kubernetes.io/instance: linkding
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: linkding
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: linkding
   namespace: default
 spec:
@@ -118,29 +118,30 @@ spec:
         LD_SUPERUSER_PASSWORD: '{{ .LINKDING_PASS }}'
       engineVersion: v2
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   labels:
     app.kubernetes.io/instance: linkding
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: linkding
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: linkding
   namespace: default
 spec:
-  ingressClassName: internal
+  hostnames:
+  - linkding.brenix.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: linkding.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: linkding
-            port:
-              number: 9090
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - linkding.brenix.com
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: linkding
+      namespace: default
+      port: 9090
+      weight: 1

@@ -64,7 +64,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: slskd
     app.kubernetes.io/service: slskd
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: slskd
   namespace: default
 spec:
@@ -107,7 +107,7 @@ metadata:
     app.kubernetes.io/instance: slskd
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: slskd
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: slskd
   namespace: default
 spec:
@@ -253,29 +253,30 @@ spec:
         SLSKD_SLSK_USERNAME: '{{ .SLSKD_SLSK_USERNAME }}'
       engineVersion: v2
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   labels:
     app.kubernetes.io/instance: slskd
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: slskd
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: slskd
   namespace: default
 spec:
-  ingressClassName: internal
+  hostnames:
+  - slskd.brenix.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: slskd.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: slskd
-            port:
-              number: 80
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - slskd.brenix.com
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: slskd
+      namespace: default
+      port: 80
+      weight: 1

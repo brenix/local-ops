@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: sonarr
     app.kubernetes.io/service: sonarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: sonarr
   namespace: default
 spec:
@@ -58,7 +58,7 @@ metadata:
     app.kubernetes.io/instance: sonarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: sonarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: sonarr
   namespace: default
 spec:
@@ -131,29 +131,30 @@ spec:
           path: /mnt/main/media
           server: truenas.home.arpa
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   labels:
     app.kubernetes.io/instance: sonarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: sonarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: sonarr
   namespace: default
 spec:
-  ingressClassName: internal
+  hostnames:
+  - sonarr.brenix.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: sonarr.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: sonarr
-            port:
-              number: 8989
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - sonarr.brenix.com
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: sonarr
+      namespace: default
+      port: 8989
+      weight: 1

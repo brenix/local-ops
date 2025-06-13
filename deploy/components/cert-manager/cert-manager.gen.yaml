@@ -14125,7 +14125,7 @@ spec:
         - --acme-http01-solver-image=quay.io/jetstack/cert-manager-acmesolver:v1.18.0
         - --max-concurrent-challenges=60
         - --dns01-recursive-nameservers-only=true
-        - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
+        - --dns01-recursive-nameservers=https://1.1.1.1:443/dns-query,https://1.0.0.1:443/dns-query
         env:
         - name: POD_NAMESPACE
           valueFrom:
@@ -14157,10 +14157,6 @@ spec:
             drop:
             - ALL
           readOnlyRootFilesystem: true
-      dnsConfig:
-        nameservers:
-        - 1.1.1.1
-        - 9.9.9.9
       enableServiceLinks: false
       nodeSelector:
         kubernetes.io/os: linux

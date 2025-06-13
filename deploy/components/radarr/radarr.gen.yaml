@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: radarr
     app.kubernetes.io/service: radarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: radarr
   namespace: default
 spec:
@@ -58,7 +58,7 @@ metadata:
     app.kubernetes.io/instance: radarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: radarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: radarr
   namespace: default
 spec:
@@ -131,29 +131,30 @@ spec:
           path: /mnt/main/media
           server: truenas.home.arpa
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   labels:
     app.kubernetes.io/instance: radarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: radarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: radarr
   namespace: default
 spec:
-  ingressClassName: internal
+  hostnames:
+  - radarr.brenix.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: radarr.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: radarr
-            port:
-              number: 7878
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - radarr.brenix.com
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: radarr
+      namespace: default
+      port: 7878
+      weight: 1

@@ -79,12 +79,13 @@ package holos
 			interval_year:   "YYYY"
 		}
 	}
-	ingress: {
+	route: main: {
 		enabled: true
-		hosts: ["grafana.brenix.com"]
-		ingressClassName: "internal"
-		tls: [{
-			hosts: ["grafana.brenix.com"]
+		hostnames: ["grafana.brenix.com"]
+		parentRefs: [{
+			name:        "internal"
+			namespace:   "kube-system"
+			sectionName: "https"
 		}]
 	}
 	persistence: {

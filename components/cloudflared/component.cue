@@ -7,13 +7,15 @@ Component: #Helm & {
 	Namespace: "network"
 	Chart: {
 		name:    "app-template"
-		version: "4.0.1"
+		version: "4.1.1"
 		release: "cloudflared"
 		repository: {
 			name: "bjw-s"
 			url:  "https://bjw-s-labs.github.io/helm-charts"
 		}
 	}
+
+	APIVersions: ["gateway.networking.k8s.io/v1/HTTPRoute"]
 
 	Values: #Values
 
@@ -28,9 +30,9 @@ Component: #Helm & {
 
 			ingress:
 			  - hostname: brenix.com
-			    service: https://nginx-external-controller.network.svc.cluster.local:443
+			    service: https://cilium-gateway-external.kube-system.svc.cluster.local
 			  - hostname: "*.brenix.com"
-			    service: https://nginx-external-controller.network.svc.cluster.local:443
+			    service: https://cilium-gateway-external.kube-system.svc.cluster.local
 			  - service: http_status:404
 			"""
 	}

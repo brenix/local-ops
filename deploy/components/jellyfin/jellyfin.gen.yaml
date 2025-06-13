@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: jellyfin
     app.kubernetes.io/service: jellyfin
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: jellyfin
   namespace: default
 spec:
@@ -58,7 +58,7 @@ metadata:
     app.kubernetes.io/instance: jellyfin
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: jellyfin
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: jellyfin
   namespace: default
 spec:
@@ -131,31 +131,30 @@ spec:
       - emptyDir: {}
         name: transcode
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
-  annotations:
-    external-dns.alpha.kubernetes.io/target: external.brenix.com
   labels:
     app.kubernetes.io/instance: jellyfin
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: jellyfin
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: jellyfin
   namespace: default
 spec:
-  ingressClassName: external
+  hostnames:
+  - jellyfin.brenix.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: jellyfin.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: jellyfin
-            port:
-              number: 8096
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - jellyfin.brenix.com
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: jellyfin
+      namespace: default
+      port: 8096
+      weight: 1

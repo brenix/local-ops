@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: navidrome
     app.kubernetes.io/service: navidrome
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: navidrome
   namespace: default
 spec:
@@ -45,7 +45,7 @@ metadata:
     app.kubernetes.io/instance: navidrome
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: navidrome
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: navidrome
   namespace: default
 spec:
@@ -112,31 +112,30 @@ spec:
           path: /mnt/main/media
           server: truenas.home.arpa
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
-  annotations:
-    external-dns.alpha.kubernetes.io/target: external.brenix.com
   labels:
     app.kubernetes.io/instance: navidrome
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: navidrome
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: navidrome
   namespace: default
 spec:
-  ingressClassName: external
+  hostnames:
+  - navidrome.brenix.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: music.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: navidrome
-            port:
-              number: 4533
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - music.brenix.com
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: navidrome
+      namespace: default
+      port: 4533
+      weight: 1

@@ -15,12 +15,13 @@ package holos
 	kubeStateMetrics: enabled:      false
 	kubelet: enabled:               false
 	prometheus: {
-		ingress: {
+		route: main: {
 			enabled: true
-			hosts: ["{{ .Release.Name }}.brenix.com"]
-			ingressClassName: "internal"
-			tls: [{
-				hosts: ["{{ .Release.Name }}.brenix.com"]
+			hostnames: ["prometheus.brenix.com"]
+			parentRefs: [{
+				name:        "internal"
+				namespace:   "kube-system"
+				sectionName: "https"
 			}]
 		}
 		prometheusSpec: {
@@ -32,6 +33,7 @@ package holos
 				}]
 			}]
 			enableAdminAPI:                          true
+			externalUrl:                             "https://prometheus.brenix.com"
 			retention:                               "90d"
 			maximumStartupDurationSeconds:           300
 			ruleSelectorNilUsesHelmValues:           false

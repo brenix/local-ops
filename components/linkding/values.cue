@@ -21,20 +21,12 @@ package holos
 		}
 		strategy: "Recreate"
 	}
-	ingress: main: {
-		className: "internal"
-		hosts: [{
-			host: "{{ .Release.Name }}.brenix.com"
-			paths: [{
-				path: "/"
-				service: {
-					identifier: "main"
-					port:       "http"
-				}
-			}]
-		}]
-		tls: [{
-			hosts: ["{{ .Release.Name }}.brenix.com"]
+	route: main: {
+		hostnames: ["{{ .Release.Name }}.brenix.com"]
+		parentRefs: [{
+			name:        "internal"
+			namespace:   "kube-system"
+			sectionName: "https"
 		}]
 	}
 	persistence: data: {

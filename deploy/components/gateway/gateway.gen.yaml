@@ -1,0 +1,104 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: brenix.com
+  namespace: kube-system
+spec:
+  commonName: brenix.com
+  dnsNames:
+  - brenix.com
+  - '*.brenix.com'
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  secretName: brenix.com-tls
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/target: external.brenix.com
+  name: external
+  namespace: kube-system
+spec:
+  addresses:
+  - type: IPAddress
+    value: 192.168.2.20
+  gatewayClassName: cilium
+  infrastructure:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: external.brenix.com
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: '*.brenix.com'
+    name: http
+    port: 80
+    protocol: HTTP
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: '*.brenix.com'
+    name: https
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - kind: Secret
+        name: brenix.com-tls
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/target: internal.brenix.com
+  name: internal
+  namespace: kube-system
+spec:
+  addresses:
+  - type: IPAddress
+    value: 192.168.2.21
+  gatewayClassName: cilium
+  infrastructure:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: internal.brenix.com
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: '*.brenix.com'
+    name: http
+    port: 80
+    protocol: HTTP
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: '*.brenix.com'
+    name: https
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - kind: Secret
+        name: brenix.com-tls
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: httpsredirect
+  namespace: kube-system
+spec:
+  parentRefs:
+  - name: internal
+    namespace: kube-system
+    sectionName: http
+  - name: external
+    namespace: kube-system
+    sectionName: http
+  rules:
+  - filters:
+    - requestRedirect:
+        scheme: https
+        statusCode: 301
+      type: RequestRedirect

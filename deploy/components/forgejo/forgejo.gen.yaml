@@ -630,8 +630,8 @@ spec:
         username: '{{ .GITEA_USER }}'
       engineVersion: v2
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   labels:
     app: forgejo
@@ -644,19 +644,18 @@ metadata:
   name: forgejo
   namespace: default
 spec:
-  ingressClassName: internal
+  hostnames:
+  - git.brenix.com
+  parentRefs:
+  - name: internal
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: git.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: forgejo-http
-            port:
-              name: http
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - git.brenix.com
-    secretName: null
+  - backendRefs:
+    - kind: Service
+      name: forgejo-http
+      port: 3000
+    matches:
+    - path:
+        type: PathPrefix
+        value: /

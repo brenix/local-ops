@@ -16,19 +16,13 @@ package holos
 			session: PROVIDER: "memory"
 		}
 	}
-	ingress: {
-		className:  "internal"
-		enabled:    true
-		apiVersion: "networking.k8s.io/v1"
-		hosts: [{
-			host: "git.brenix.com"
-			paths: [{
-				path:     "/"
-				pathType: "Prefix"
-			}]
-		}]
-		tls: [{
-			hosts: ["git.brenix.com"]
+	httpRoute: {
+		enabled: true
+		hostnames: ["git.brenix.com"]
+		parentRefs: [{
+			name:        "internal"
+			namespace:   "kube-system"
+			sectionName: "https"
 		}]
 	}
 	postgresql: enabled:      false

@@ -6,9 +6,9 @@ data:
 
     ingress:
       - hostname: brenix.com
-        service: https://nginx-external-controller.network.svc.cluster.local:443
+        service: https://cilium-gateway-external.kube-system.svc.cluster.local
       - hostname: "*.brenix.com"
-        service: https://nginx-external-controller.network.svc.cluster.local:443
+        service: https://cilium-gateway-external.kube-system.svc.cluster.local
       - service: http_status:404
 kind: ConfigMap
 metadata:
@@ -23,7 +23,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
     app.kubernetes.io/service: cloudflared
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: cloudflared
   namespace: network
 spec:
@@ -48,7 +48,7 @@ metadata:
     app.kubernetes.io/instance: cloudflared
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: cloudflared
   namespace: network
 spec:
@@ -89,7 +89,7 @@ spec:
           value: "true"
         - name: TUNNEL_TRANSPORT_PROTOCOL
           value: quic
-        image: docker.io/cloudflare/cloudflared:2025.5.0
+        image: docker.io/cloudflare/cloudflared:2025.6.0
         livenessProbe:
           failureThreshold: 3
           httpGet:
@@ -199,7 +199,7 @@ metadata:
     app.kubernetes.io/instance: cloudflared
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: cloudflared
   namespace: network
 spec:

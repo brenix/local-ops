@@ -27,21 +27,12 @@ package holos
 		ports: http: port: 4533
 		type: "LoadBalancer"
 	}
-	ingress: main: {
-		annotations: "external-dns.alpha.kubernetes.io/target": "external.brenix.com"
-		className: "external"
-		hosts: [{
-			host: "music.brenix.com"
-			paths: [{
-				path: "/"
-				service: {
-					identifier: "main"
-					port:       "http"
-				}
-			}]
-		}]
-		tls: [{
-			hosts: ["music.brenix.com"]
+	route: main: {
+		hostnames: ["{{ .Release.Name }}.brenix.com"]
+		parentRefs: [{
+			name:        "external"
+			namespace:   "kube-system"
+			sectionName: "https"
 		}]
 	}
 	persistence: {

@@ -3,6 +3,7 @@
   "extends": [
     "docker:enableMajor",
     ":disableRateLimiting",
+    ":dependencyDashboard",
     ":semanticCommits",
     ":semanticCommitTypeAll(chore)",
     ":skipStatusChecks",

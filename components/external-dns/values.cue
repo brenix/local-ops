@@ -16,10 +16,11 @@ package holos
 		}
 	}]
 	extraArgs: [
-		"--ingress-class=external",
+		"--cloudflare-dns-records-per-page=1000",
 		"--cloudflare-proxied",
 		"--crd-source-apiversion=externaldns.k8s.io/v1alpha1",
 		"--crd-source-kind=DNSEndpoint",
+		"--gateway-name=external",
 	]
 	fullnameOverride: "external-dns-cloudflare"
 	podAnnotations: "secret.reloader.stakater.com/reload": "external-dns-cloudflare-secret"
@@ -28,8 +29,9 @@ package holos
 	serviceMonitor: enabled: true
 	sources: [
 		"crd",
-		"ingress",
+		"gateway-httproute",
 	]
-	txtOwnerId: "default"
-	txtPrefix:  "k8s."
+	triggerLoopOnEvent: true
+	txtOwnerId:         "default"
+	txtPrefix:          "k8s."
 }

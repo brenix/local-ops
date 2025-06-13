@@ -15,7 +15,7 @@ package holos
 		datapathMode:    "netkit"
 		masquerade:      true
 		preallocateMaps: true
-		tproxy:          true
+		// tproxy:          true
 		events: trace: enabled: false
 	}
 	bgp: {
@@ -31,7 +31,11 @@ package holos
 	k8sNetworkPolicy: {
 		enabled: false
 	}
-	envoy: enabled:  false
+	gatewayAPI: {
+		enabled:           true
+		enableAlpn:        true
+		xffNumTrustedHops: 1
+	}
 	hubble: enabled: false
 	loadBalancer: {
 		acceleration: "best-effort"

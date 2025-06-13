@@ -7,13 +7,15 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		version: "4.0.1"
+		version: "4.1.1"
 		release: "mongodb"
 		repository: {
 			name: "bjw-s"
 			url:  "https://bjw-s-labs.github.io/helm-charts"
 		}
 	}
+
+	APIVersions: ["gateway.networking.k8s.io/v1/HTTPRoute"]
 
 	Values: #Values
 

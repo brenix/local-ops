@@ -31,7 +31,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: beets
     app.kubernetes.io/service: beets
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: beets
   namespace: default
 spec:
@@ -56,7 +56,7 @@ metadata:
     app.kubernetes.io/instance: beets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: beets
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: beets
   namespace: default
 spec:
@@ -205,29 +205,30 @@ spec:
           body = "$name"
       engineVersion: v2
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   labels:
     app.kubernetes.io/instance: beets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: beets
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: beets
   namespace: default
 spec:
-  ingressClassName: internal
+  hostnames:
+  - beets.brenix.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: beets.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: beets
-            port:
-              number: 80
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - beets.brenix.com
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: beets
+      namespace: default
+      port: 80
+      weight: 1

@@ -1,14 +1,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-    name: nginx-internal
+    name: gateway
     namespace: flux-system
 spec:
     force: true
     interval: 30m
-    path: components/nginx-internal
+    path: components/gateway
     prune: true
     sourceRef:
         kind: OCIRepository
         name: default
-    targetNamespace: network
+    targetNamespace: kube-system

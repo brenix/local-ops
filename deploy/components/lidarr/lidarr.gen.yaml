@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: lidarr
     app.kubernetes.io/service: lidarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: lidarr
   namespace: default
 spec:
@@ -45,7 +45,7 @@ metadata:
     app.kubernetes.io/instance: lidarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: lidarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: lidarr
   namespace: default
 spec:
@@ -113,29 +113,30 @@ spec:
           path: /mnt/main/media
           server: truenas.home.arpa
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   labels:
     app.kubernetes.io/instance: lidarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: lidarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: lidarr
   namespace: default
 spec:
-  ingressClassName: internal
+  hostnames:
+  - lidarr.brenix.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: lidarr.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: lidarr
-            port:
-              number: 8686
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - lidarr.brenix.com
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: lidarr
+      namespace: default
+      port: 8686
+      weight: 1

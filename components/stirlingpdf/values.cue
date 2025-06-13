@@ -11,20 +11,12 @@ package holos
 			tag:        "0.46.2"
 		}
 	}
-	ingress: main: {
-		className: "internal"
-		hosts: [{
-			host: "pdf.brenix.com"
-			paths: [{
-				path: "/"
-				service: {
-					identifier: "main"
-					port:       "http"
-				}
-			}]
-		}]
-		tls: [{
-			hosts: ["pdf.brenix.com"]
+	route: main: {
+		hostnames: ["pdf.brenix.com"]
+		parentRefs: [{
+			name:        "internal"
+			namespace:   "kube-system"
+			sectionName: "https"
 		}]
 	}
 	service: main: {

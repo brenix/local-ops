@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: jellyseerr
     app.kubernetes.io/service: jellyseerr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: jellyseerr
   namespace: default
 spec:
@@ -45,7 +45,7 @@ metadata:
     app.kubernetes.io/instance: jellyseerr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: jellyseerr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: jellyseerr
   namespace: default
 spec:
@@ -88,31 +88,31 @@ spec:
         persistentVolumeClaim:
           claimName: jellyseerr
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
-  annotations:
-    external-dns.alpha.kubernetes.io/target: external.brenix.com
   labels:
     app.kubernetes.io/instance: jellyseerr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: jellyseerr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: jellyseerr
   namespace: default
 spec:
-  ingressClassName: external
+  hostnames:
+  - jellyseerr.brenix.com
+  - requests.brenix.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: jellyseerr.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: jellyseerr
-            port:
-              number: 5055
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - jellyseerr.brenix.com
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: jellyseerr
+      namespace: default
+      port: 5055
+      weight: 1

@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prowlarr
     app.kubernetes.io/service: prowlarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: prowlarr
   namespace: default
 spec:
@@ -45,7 +45,7 @@ metadata:
     app.kubernetes.io/instance: prowlarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prowlarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: prowlarr
   namespace: default
 spec:
@@ -90,29 +90,30 @@ spec:
         persistentVolumeClaim:
           claimName: prowlarr
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   labels:
     app.kubernetes.io/instance: prowlarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prowlarr
-    helm.sh/chart: app-template-4.0.1
+    helm.sh/chart: app-template-4.1.1
   name: prowlarr
   namespace: default
 spec:
-  ingressClassName: internal
+  hostnames:
+  - prowlarr.brenix.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: kube-system
+    sectionName: https
   rules:
-  - host: prowlarr.brenix.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: prowlarr
-            port:
-              number: 9696
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - prowlarr.brenix.com
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: prowlarr
+      namespace: default
+      port: 9696
+      weight: 1
