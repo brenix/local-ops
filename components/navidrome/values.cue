@@ -28,7 +28,7 @@ package holos
 		type: "LoadBalancer"
 	}
 	route: main: {
-		hostnames: ["{{ .Release.Name }}.brenix.com"]
+		hostnames: ["music.brenix.com"]
 		parentRefs: [{
 			name:        "external"
 			namespace:   "kube-system"

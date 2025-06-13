@@ -124,7 +124,7 @@ metadata:
   namespace: default
 spec:
   hostnames:
-  - navidrome.brenix.com
+  - music.brenix.com
   parentRefs:
   - group: gateway.networking.k8s.io
     kind: Gateway
