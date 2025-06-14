@@ -1,29 +1,31 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "docker:enableMajor",
-    ":disableRateLimiting",
-    ":dependencyDashboard",
-    ":semanticCommits",
-    ":semanticCommitTypeAll(chore)",
-    ":skipStatusChecks",
-    "github>brenix/local-ops//.github/renovate/packageRules.json5",
-    "github>brenix/local-ops//.github/renovate/commitMessage.json5",
-    "github>brenix/local-ops//.github/renovate/semantic-commits.json5",
-    "github>brenix/local-ops//.github/renovate/customManagers.json5"
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'docker:enableMajor',
+    ':disableRateLimiting',
+    ':dependencyDashboard',
+    ':semanticCommits',
+    ':semanticCommitTypeAll(chore)',
+    ':skipStatusChecks',
+    'github>brenix/local-ops//.github/renovate/packageRules.json5',
+    'github>brenix/local-ops//.github/renovate/commitMessage.json5',
+    'github>brenix/local-ops//.github/renovate/semantic-commits.json5',
+    'github>brenix/local-ops//.github/renovate/customManagers.json5',
   ],
-  "enabled": true,
-  "rebaseWhen": "conflicted",
-  "onboarding": false,
-  "requireConfig": "ignored",
-  "pre-commit": {
-    "enabled": false
+  enabled: true,
+  rebaseWhen: 'conflicted',
+  onboarding: false,
+  requireConfig: 'ignored',
+  'pre-commit': {
+    enabled: false,
   },
-  "ignorePaths": [
-    "deploy/**",
-    "components/**/vendor/**"
+  ignorePaths: [
+    'deploy/**',
+    'components/**/vendor/**',
   ],
-  "kubernetes": {
-    "fileMatch": ["\\.yaml$"]
-  }
+  kubernetes: {
+    managerFilePatterns: [
+      '/\\.yaml$/',
+    ],
+  },
 }
