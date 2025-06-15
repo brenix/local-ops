@@ -10,11 +10,13 @@ package holos
 		bbr:     true
 		enabled: true
 	}
+	debug: enabled:          true
 	endpointRoutes: enabled: true
 	bpf: {
 		datapathMode:    "netkit"
 		masquerade:      true
 		preallocateMaps: true
+		tproxy:          true
 		events: trace: enabled: false
 	}
 	// bpfClockProbe: true // TODO
@@ -30,6 +32,8 @@ package holos
 	}
 	envoy: {
 		rollOutPods: true
+		log: defaultLevel: "debug"
+		debug: admin: enabled:               true
 		prometheus: serviceMonitor: enabled: true
 	}
 	k8sNetworkPolicy: {
