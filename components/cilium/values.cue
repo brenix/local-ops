@@ -15,7 +15,6 @@ package holos
 		datapathMode:    "netkit"
 		masquerade:      true
 		preallocateMaps: true
-		// tproxy:          true
 		events: trace: enabled: false
 	}
 	// bpfClockProbe: true
@@ -37,9 +36,10 @@ package holos
 		enabled: false
 	}
 	gatewayAPI: {
-		enabled:           true
-		enableAlpn:        true
-		xffNumTrustedHops: 1
+		enabled:               true
+		enableAlpn:            true
+		xffNumTrustedHops:     1
+		externalTrafficPolicy: "Local"
 	}
 	hubble: enabled: false
 	localRedirectPolicy: true
