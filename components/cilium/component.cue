@@ -18,6 +18,7 @@ Component: #Helm & {
 	APIVersions: [
 		"gateway.networking.k8s.io/v1/GatewayClass",
 		"gateway.networking.k8s.io/v1/HTTPRoute",
+		"monitoring.coreos.com/v1/ServiceMonitor",
 	]
 
 	Values: #Values

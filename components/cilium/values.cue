@@ -18,6 +18,7 @@ package holos
 		// tproxy:          true
 		events: trace: enabled: false
 	}
+	bpfClockProbe: true
 	bgp: {
 		enabled: false
 		announce: {
@@ -28,6 +29,10 @@ package holos
 	bgpControlPlane: {
 		enabled: true
 	}
+	envoy: {
+		rollOutPods: true
+		prometheus: serviceMonitor: enabled: true
+	}
 	k8sNetworkPolicy: {
 		enabled: false
 	}
@@ -37,6 +42,7 @@ package holos
 		xffNumTrustedHops: 1
 	}
 	hubble: enabled: false
+	localRedirectPolicy: true
 	loadBalancer: {
 		acceleration: "best-effort"
 		algorithm:    "maglev"
@@ -47,8 +53,14 @@ package holos
 		rollOutPods:       true
 		replicas:          1
 		priorityClassName: "system-cluster-critical"
+		dashboards: enabled: true
 	}
 	enableCriticalPriorityClass: false
+	prometheus: {
+		enabled: true
+		serviceMonitor: enabled:        true
+		serviceMonitor: trustCRDsExist: true
+	}
 
 	// Talos requirements
 	ipam: mode: "kubernetes"
