@@ -699,7 +699,6 @@ data:
   enable-bgp-control-plane-status-report: "true"
   enable-bpf-clock-probe: "false"
   enable-bpf-masquerade: "true"
-  enable-bpf-tproxy: "true"
   enable-endpoint-health-checking: "true"
   enable-endpoint-lockdown-on-policy-overflow: "false"
   enable-endpoint-routes: "true"
@@ -1952,7 +1951,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 9dd0afbf94d4f17d73221f76752959d894778dfa81c2aa10aa8ef6c4604b1466
+        cilium.io/cilium-configmap-checksum: 0780258ae6bad56ff358586c7f46c03bbcaf59582e67049dd4da22b989f1b27a
         prometheus.io/port: "9963"
         prometheus.io/scrape: "true"
       labels:
@@ -2065,7 +2064,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 9dd0afbf94d4f17d73221f76752959d894778dfa81c2aa10aa8ef6c4604b1466
+        cilium.io/cilium-configmap-checksum: 0780258ae6bad56ff358586c7f46c03bbcaf59582e67049dd4da22b989f1b27a
         kubectl.kubernetes.io/default-container: cilium-agent
       labels:
         app.kubernetes.io/name: cilium-agent
@@ -2674,7 +2673,6 @@ spec:
     service:
       addresses:
       - LoadBalancerIP
-  - advertisementType: PodCIDR
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPClusterConfig

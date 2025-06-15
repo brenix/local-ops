@@ -15,17 +15,9 @@ package holos
 		datapathMode:    "netkit"
 		masquerade:      true
 		preallocateMaps: true
-		tproxy:          true
 		events: trace: enabled: false
 	}
-	// bpfClockProbe: true // TODO
-	bgp: {
-		enabled: false
-		announce: {
-			loadbalancerIP: true
-			podCIDR:        true
-		}
-	}
+	// bpfClockProbe: true
 	bgpControlPlane: {
 		enabled: true
 	}

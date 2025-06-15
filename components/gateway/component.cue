@@ -57,11 +57,10 @@ Component: #Kubernetes & {
 				metadata: annotations: "external-dns.alpha.kubernetes.io/target": "external.brenix.com"
 				spec: {
 					gatewayClassName: "cilium"
-					addresses: [{
-						type:  "IPAddress"
-						value: "192.168.2.20"
-					}]
-					infrastructure: annotations: "external-dns.alpha.kubernetes.io/hostname": "external.brenix.com"
+					infrastructure: annotations: {
+						"external-dns.alpha.kubernetes.io/hostname": "external.brenix.com"
+						"lbipam.cilium.io/ips":                      "192.168.2.20"
+					}
 					listeners: [{
 						name:     "http"
 						protocol: "HTTP"
@@ -87,11 +86,10 @@ Component: #Kubernetes & {
 				metadata: annotations: "external-dns.alpha.kubernetes.io/target": "internal.brenix.com"
 				spec: {
 					gatewayClassName: "cilium"
-					addresses: [{
-						type:  "IPAddress"
-						value: "192.168.2.21"
-					}]
-					infrastructure: annotations: "external-dns.alpha.kubernetes.io/hostname": "internal.brenix.com"
+					infrastructure: annotations: {
+						"external-dns.alpha.kubernetes.io/hostname": "internal.brenix.com"
+						"lbipam.cilium.io/ips":                      "192.168.2.21"
+					}
 					listeners: [{
 						name:     "http"
 						protocol: "HTTP"

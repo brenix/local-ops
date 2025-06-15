@@ -37,17 +37,12 @@ Component: {
 	Resources: CiliumBGPAdvertisement: (Name): {
 		metadata: name: "bgp-advertisements"
 		metadata: labels: advertise: "bgp"
-		spec: advertisements: [
-			{
-				advertisementType: "Service"
-				service: addresses: ["LoadBalancerIP"]
-				selector: matchExpressions: [{key: "somekey", operator: "NotIn", values: ["never-used-value"]}]
-				attributes: communities: standard: ["64512"]
-			},
-			{
-				advertisementType: "PodCIDR"
-			}
-		]
+		spec: advertisements: [{
+			advertisementType: "Service"
+			service: addresses: ["LoadBalancerIP"]
+			selector: matchExpressions: [{key: "somekey", operator: "NotIn", values: ["never-used-value"]}]
+			attributes: communities: standard: ["64512"]
+		}]
 	}
 
 	Resources: CiliumLoadBalancerIPPool: (Name): {
