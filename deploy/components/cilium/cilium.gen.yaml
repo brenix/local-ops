@@ -659,7 +659,7 @@ data:
   bpf-events-drop-enabled: "true"
   bpf-events-policy-verdict-enabled: "true"
   bpf-events-trace-enabled: "false"
-  bpf-lb-acceleration: best-effort
+  bpf-lb-acceleration: disabled
   bpf-lb-algorithm: maglev
   bpf-lb-algorithm-annotation: "false"
   bpf-lb-external-clusterip: "false"
@@ -759,7 +759,7 @@ data:
   ipam: kubernetes
   ipam-cilium-node-update-rate: 15s
   iptables-random-fully: "false"
-  ipv4-native-routing-cidr: 10.244.0.0/16
+  ipv4-native-routing-cidr: 10.0.0.0/8
   k8s-require-ipv4-pod-cidr: "false"
   k8s-require-ipv6-pod-cidr: "false"
   kube-proxy-replacement: "true"
@@ -1951,7 +1951,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 2e948f3e62cfa118f2bd2bfa490d1e77995e4eed48e2240ddae45b7ee24b7ff3
+        cilium.io/cilium-configmap-checksum: 391bf4765468ceb7a7c7e7572e0b8721e17a89c097b49e30bffa3a1bec7b609c
         prometheus.io/port: "9963"
         prometheus.io/scrape: "true"
       labels:
@@ -2064,7 +2064,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 2e948f3e62cfa118f2bd2bfa490d1e77995e4eed48e2240ddae45b7ee24b7ff3
+        cilium.io/cilium-configmap-checksum: 391bf4765468ceb7a7c7e7572e0b8721e17a89c097b49e30bffa3a1bec7b609c
         kubectl.kubernetes.io/default-container: cilium-agent
       labels:
         app.kubernetes.io/name: cilium-agent

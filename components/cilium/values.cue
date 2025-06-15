@@ -5,7 +5,7 @@ package holos
 	priorityClassName:     "system-cluster-critical"
 	autoDirectNodeRoutes:  true
 	routingMode:           "native"
-	ipv4NativeRoutingCIDR: "10.244.0.0/16"
+	ipv4NativeRoutingCIDR: "10.0.0.0/8"
 	bandwidthManager: {
 		bbr:     true
 		enabled: true
@@ -43,9 +43,8 @@ package holos
 	hubble: enabled: false
 	localRedirectPolicy: true
 	loadBalancer: {
-		acceleration: "best-effort"
-		algorithm:    "maglev"
-		mode:         "dsr"
+		algorithm: "maglev"
+		mode:      "dsr"
 	}
 	operator: {
 		enabled:           true
