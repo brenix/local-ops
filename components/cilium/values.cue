@@ -17,12 +17,12 @@ package holos
 		preallocateMaps: true
 		events: trace: enabled: false
 	}
-	// bpfClockProbe: true
+	// bpfClockProbe: true // TODO
 	bgp: {
 		enabled: false
 		announce: {
 			loadbalancerIP: true
-			podCIDR:        false
+			podCIDR:        true
 		}
 	}
 	bgpControlPlane: {

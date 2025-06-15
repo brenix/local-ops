@@ -2658,6 +2658,7 @@ spec:
     service:
       addresses:
       - LoadBalancerIP
+  - advertisementType: PodCIDR
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPClusterConfig
