@@ -697,7 +697,7 @@ data:
   enable-bbr-hostns-only: "false"
   enable-bgp-control-plane: "true"
   enable-bgp-control-plane-status-report: "true"
-  enable-bpf-clock-probe: "true"
+  enable-bpf-clock-probe: "false"
   enable-bpf-masquerade: "true"
   enable-endpoint-health-checking: "true"
   enable-endpoint-lockdown-on-policy-overflow: "false"
@@ -1951,7 +1951,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: a7f86626e48e0308ef0e6f8c6d061a1b5309b1d3e5ff7a2eba37c4e3cab9e85c
+        cilium.io/cilium-configmap-checksum: 2e948f3e62cfa118f2bd2bfa490d1e77995e4eed48e2240ddae45b7ee24b7ff3
         prometheus.io/port: "9963"
         prometheus.io/scrape: "true"
       labels:
@@ -2064,7 +2064,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: a7f86626e48e0308ef0e6f8c6d061a1b5309b1d3e5ff7a2eba37c4e3cab9e85c
+        cilium.io/cilium-configmap-checksum: 2e948f3e62cfa118f2bd2bfa490d1e77995e4eed48e2240ddae45b7ee24b7ff3
         kubectl.kubernetes.io/default-container: cilium-agent
       labels:
         app.kubernetes.io/name: cilium-agent

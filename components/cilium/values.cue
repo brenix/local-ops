@@ -18,7 +18,7 @@ package holos
 		// tproxy:          true
 		events: trace: enabled: false
 	}
-	bpfClockProbe: true
+	// bpfClockProbe: true
 	bgp: {
 		enabled: false
 		announce: {
