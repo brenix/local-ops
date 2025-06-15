@@ -67,7 +67,7 @@ Component: #Kubernetes & {
 						protocol: "HTTP"
 						port:     80
 						hostname: "*.brenix.com"
-						allowedRoutes: namespaces: from: "All"
+						allowedRoutes: namespaces: from: "Same"
 					}, {
 						name:     "https"
 						protocol: "HTTPS"
@@ -97,7 +97,7 @@ Component: #Kubernetes & {
 						protocol: "HTTP"
 						port:     80
 						hostname: "*.brenix.com"
-						allowedRoutes: namespaces: from: "All"
+						allowedRoutes: namespaces: from: "Same"
 					}, {
 						name:     "https"
 						protocol: "HTTPS"

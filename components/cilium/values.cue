@@ -5,7 +5,7 @@ package holos
 	priorityClassName:     "system-cluster-critical"
 	autoDirectNodeRoutes:  true
 	routingMode:           "native"
-	ipv4NativeRoutingCIDR: "10.0.0.0/8"
+	ipv4NativeRoutingCIDR: "10.244.0.0/16"
 	bandwidthManager: {
 		bbr:     true
 		enabled: true
@@ -89,7 +89,7 @@ package holos
 	k8sServiceHost: "127.0.0.1" // Kubeprism
 	k8sServicePort: "7445"
 
-	l2announcements: enabled: true
+	l2announcements: enabled: false
 	externalIPs: enabled:     true
 	devices: "eno+"
 }
