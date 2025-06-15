@@ -10,7 +10,6 @@ package holos
 		bbr:     true
 		enabled: true
 	}
-	debug: enabled:          true
 	endpointRoutes: enabled: true
 	bpf: {
 		datapathMode:    "netkit"
@@ -32,7 +31,6 @@ package holos
 	}
 	envoy: {
 		rollOutPods: true
-		log: defaultLevel: "debug"
 		debug: admin: enabled:               true
 		prometheus: serviceMonitor: enabled: true
 	}
@@ -93,7 +91,7 @@ package holos
 	k8sServiceHost: "127.0.0.1" // Kubeprism
 	k8sServicePort: "7445"
 
-	l2announcements: enabled: false
+	l2announcements: enabled: true
 	externalIPs: enabled:     true
 	devices: "eno+"
 }
