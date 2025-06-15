@@ -36,10 +36,9 @@ package holos
 		enabled: false
 	}
 	gatewayAPI: {
-		enabled:               true
-		enableAlpn:            true
-		xffNumTrustedHops:     1
-		externalTrafficPolicy: "Local"
+		enabled:           true
+		enableAlpn:        true
+		xffNumTrustedHops: 1
 	}
 	hubble: enabled: false
 	localRedirectPolicy: true

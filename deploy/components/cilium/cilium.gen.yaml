@@ -747,7 +747,7 @@ data:
   gateway-api-hostnetwork-enabled: "false"
   gateway-api-hostnetwork-nodelabelselector: ""
   gateway-api-secrets-namespace: cilium-secrets
-  gateway-api-service-externaltrafficpolicy: Local
+  gateway-api-service-externaltrafficpolicy: Cluster
   gateway-api-xff-num-trusted-hops: "1"
   health-check-icmp-failure-threshold: "3"
   http-retry-count: "3"
@@ -1951,7 +1951,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 753f811673de2d7838da3aac5f36b1dddc1e7151d14c256cbae9ef46488949da
+        cilium.io/cilium-configmap-checksum: 2e948f3e62cfa118f2bd2bfa490d1e77995e4eed48e2240ddae45b7ee24b7ff3
         prometheus.io/port: "9963"
         prometheus.io/scrape: "true"
       labels:
@@ -2064,7 +2064,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 753f811673de2d7838da3aac5f36b1dddc1e7151d14c256cbae9ef46488949da
+        cilium.io/cilium-configmap-checksum: 2e948f3e62cfa118f2bd2bfa490d1e77995e4eed48e2240ddae45b7ee24b7ff3
         kubectl.kubernetes.io/default-container: cilium-agent
       labels:
         app.kubernetes.io/name: cilium-agent
