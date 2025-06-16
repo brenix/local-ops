@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "kube-system"
 	Chart: {
 		name:    "coredns"
-		version: "1.42.3"
+		version: "1.42.4"
 		repository: {
 			name: "coredns"
 			url:  "https://coredns.github.io/helm"
