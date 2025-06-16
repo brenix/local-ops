@@ -20,7 +20,7 @@ package holos
 	route: main: {
 		hostnames: ["{{ .Release.Name }}.brenix.com"]
 		parentRefs: [{
-			name:        "internal"
+			name:        "external"
 			namespace:   "kube-system"
 			sectionName: "https"
 		}]
