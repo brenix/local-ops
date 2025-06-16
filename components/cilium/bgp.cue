@@ -4,6 +4,14 @@ Component: {
 	Name:      string
 	Namespace: string
 
+	Resources: CiliumL2AnnouncementPolicy: (Name): {
+		metadata: name: "l2-policy"
+		spec: {
+			loadBalancerIPs: true
+			interfaces: ["^eno[0-9]+"]
+			nodeSelector: matchLabels: "kubernetes.io/os": "linux"
+		}
+	}
 	Resources: CiliumBGPClusterConfig: (Name): {
 		metadata: name: "cilium-bgp"
 		spec: bgpInstances: [{

@@ -9,6 +9,7 @@ import (
 	ipaddresspool "metallb.io/ipaddresspool/v1beta1"
 	ks "kustomize.toolkit.fluxcd.io/kustomization/v1"
 	ocirepository "source.toolkit.fluxcd.io/ocirepository/v1"
+	ciliuml2announcementpolicy "cilium.io/ciliuml2announcementpolicy/v2alpha1"
 	ciliumbgpadvertisement "cilium.io/ciliumbgpadvertisement/v2alpha1"
 	ciliumbgpclusterconfig "cilium.io/ciliumbgpclusterconfig/v2alpha1"
 	ciliumbgppeerconfig "cilium.io/ciliumbgppeerconfig/v2alpha1"
@@ -25,8 +26,9 @@ import (
 	OCIRepository?: [_]:         ocirepository.#OCIRepository
 	PersistentVolumeClaim?: [_]: corev1.#PersistentVolumeClaim
 
-	CiliumBGPAdvertisement?: [_]:   ciliumbgpadvertisement.#CiliumBGPAdvertisement
-	CiliumBGPClusterConfig?: [_]:   ciliumbgpclusterconfig.#CiliumBGPClusterConfig
-	CiliumBGPPeerConfig?: [_]:      ciliumbgppeerconfig.#CiliumBGPPeerConfig
-	CiliumLoadBalancerIPPool?: [_]: ciliumloadbalancerippool.#CiliumLoadBalancerIPPool
+	CiliumBGPAdvertisement?: [_]:     ciliumbgpadvertisement.#CiliumBGPAdvertisement
+	CiliumBGPClusterConfig?: [_]:     ciliumbgpclusterconfig.#CiliumBGPClusterConfig
+	CiliumBGPPeerConfig?: [_]:        ciliumbgppeerconfig.#CiliumBGPPeerConfig
+	CiliumL2AnnouncementPolicy?: [_]: ciliuml2announcementpolicy.#CiliumL2AnnouncementPolicy
+	CiliumLoadBalancerIPPool?: [_]:   ciliumloadbalancerippool.#CiliumLoadBalancerIPPool
 }

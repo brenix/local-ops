@@ -27,6 +27,7 @@ package holos
 		debug: admin: enabled:               true
 		prometheus: serviceMonitor: enabled: true
 	}
+	enableIPv4BIGTCP: true
 	k8sNetworkPolicy: {
 		enabled: false
 	}
@@ -46,7 +47,6 @@ package holos
 		rollOutPods:       true
 		replicas:          1
 		priorityClassName: "system-cluster-critical"
-		dashboards: enabled: true
 	}
 	enableCriticalPriorityClass: false
 	prometheus: {
