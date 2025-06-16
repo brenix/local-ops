@@ -22,6 +22,7 @@ package holos
 		enabled: true
 	}
 	envoy: {
+		enabled:     false
 		rollOutPods: true
 		debug: admin: enabled:               true
 		prometheus: serviceMonitor: enabled: true
@@ -29,11 +30,11 @@ package holos
 	k8sNetworkPolicy: {
 		enabled: false
 	}
-	gatewayAPI: {
-		enabled:           true
-		enableAlpn:        true
-		xffNumTrustedHops: 1
-	}
+	// gatewayAPI: {
+	// 	enabled:           true
+	// 	enableAlpn:        true
+	// 	xffNumTrustedHops: 1
+	// }
 	hubble: enabled: false
 	localRedirectPolicy: true
 	loadBalancer: {
