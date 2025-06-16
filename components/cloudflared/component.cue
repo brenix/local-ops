@@ -26,13 +26,14 @@ Component: #Helm & {
 		metadata: namespace: Namespace
 		data: "config.yaml": """
 			originRequest:
+			  http2Origin: true
 			  originServerName: external.brenix.com
 
 			ingress:
 			  - hostname: brenix.com
-			    service: https://cilium-gateway-external.kube-system.svc.cluster.local
+			    service: https://envoy-kube-system-external-e7092cdf.kube-system.svc.cluster.local
 			  - hostname: "*.brenix.com"
-			    service: https://cilium-gateway-external.kube-system.svc.cluster.local
+			    service: https://envoy-kube-system-external-e7092cdf.kube-system.svc.cluster.local
 			  - service: http_status:404
 			"""
 	}
