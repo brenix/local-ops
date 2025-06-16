@@ -21,7 +21,7 @@ metadata:
   name: external
   namespace: kube-system
 spec:
-  gatewayClassName: cilium
+  gatewayClassName: envoy
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: external.brenix.com
@@ -54,7 +54,7 @@ metadata:
   name: internal
   namespace: kube-system
 spec:
-  gatewayClassName: cilium
+  gatewayClassName: envoy
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: internal.brenix.com

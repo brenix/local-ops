@@ -56,7 +56,7 @@ Component: #Kubernetes & {
 				metadata: namespace: Namespace
 				metadata: annotations: "external-dns.alpha.kubernetes.io/target": "external.brenix.com"
 				spec: {
-					gatewayClassName: "cilium"
+					gatewayClassName: "envoy"
 					infrastructure: annotations: {
 						"external-dns.alpha.kubernetes.io/hostname": "external.brenix.com"
 						"lbipam.cilium.io/ips":                      "192.168.2.20"
@@ -85,7 +85,7 @@ Component: #Kubernetes & {
 				metadata: namespace: Namespace
 				metadata: annotations: "external-dns.alpha.kubernetes.io/target": "internal.brenix.com"
 				spec: {
-					gatewayClassName: "cilium"
+					gatewayClassName: "envoy"
 					infrastructure: annotations: {
 						"external-dns.alpha.kubernetes.io/hostname": "internal.brenix.com"
 						"lbipam.cilium.io/ips":                      "192.168.2.21"

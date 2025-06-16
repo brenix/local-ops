@@ -7,6 +7,7 @@ import (
 	css "external-secrets.io/clustersecretstore/v1"
 	ed "externaldns.k8s.io/dnsendpoint/v1alpha1"
 	ipaddresspool "metallb.io/ipaddresspool/v1beta1"
+	gwcv1 "gateway.networking.k8s.io/gatewayclass/v1"
 	ks "kustomize.toolkit.fluxcd.io/kustomization/v1"
 	ocirepository "source.toolkit.fluxcd.io/ocirepository/v1"
 	ciliuml2announcementpolicy "cilium.io/ciliuml2announcementpolicy/v2alpha1"
@@ -14,6 +15,15 @@ import (
 	ciliumbgpclusterconfig "cilium.io/ciliumbgpclusterconfig/v2alpha1"
 	ciliumbgppeerconfig "cilium.io/ciliumbgppeerconfig/v2alpha1"
 	ciliumloadbalancerippool "cilium.io/ciliumloadbalancerippool/v2alpha1"
+	// backend "gateway.envoyproxy.io/backend/v1alpha1"
+	backendtrafficpolicy "gateway.envoyproxy.io/backendtrafficpolicy/v1alpha1"
+	clienttrafficpolicy "gateway.envoyproxy.io/clienttrafficpolicy/v1alpha1"
+	// envoyextensionpolicy "gateway.envoyproxy.io/envoyextensionpolicy/v1alpha1"
+	// envoypatchpolicy "gateway.envoyproxy.io/envoypatchpolicy/v1alpha1"
+	envoyproxy "gateway.envoyproxy.io/envoyproxy/v1alpha1"
+	// httproutefilter "gateway.envoyproxy.io/httproutefilter/v1alpha1"
+	// securitypolicy "gateway.envoyproxy.io/securitypolicy/v1alpha1"
+
 )
 
 #Resources: {
@@ -25,6 +35,10 @@ import (
 	Kustomization?: [_]:         ks.#Kustomization
 	OCIRepository?: [_]:         ocirepository.#OCIRepository
 	PersistentVolumeClaim?: [_]: corev1.#PersistentVolumeClaim
+	GatewayClass?: [_]:          gwcv1.#GatewayClass
+	BackendTrafficPolicy?: [_]:  backendtrafficpolicy.#BackendTrafficPolicy
+	ClientTrafficPolicy?: [_]:   clienttrafficpolicy.#ClientTrafficPolicy
+	EnvoyProxy?: [_]:            envoyproxy.#EnvoyProxy
 
 	CiliumBGPAdvertisement?: [_]:     ciliumbgpadvertisement.#CiliumBGPAdvertisement
 	CiliumBGPClusterConfig?: [_]:     ciliumbgpclusterconfig.#CiliumBGPClusterConfig
