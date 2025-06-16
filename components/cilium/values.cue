@@ -22,10 +22,7 @@ package holos
 		enabled: true
 	}
 	envoy: {
-		enabled:     false
-		rollOutPods: true
-		debug: admin: enabled:               true
-		prometheus: serviceMonitor: enabled: true
+		enabled: false
 	}
 	enableIPv4BIGTCP: true
 	k8sNetworkPolicy: {

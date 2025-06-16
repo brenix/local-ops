@@ -644,7 +644,6 @@ data:
   preallocate-bpf-maps: "true"
   procfs: /host/proc
   prometheus-serve-addr: :9962
-  proxy-admin-port: "9901"
   proxy-connect-timeout: "2"
   proxy-idle-timeout-seconds: "60"
   proxy-initial-fetch-timeout: "30"
@@ -727,7 +726,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 640957c5d12575230f5341a493cf499ee8ef4068cdc14d1b89f43ebf7a7133f1
+        cilium.io/cilium-configmap-checksum: 9c1f063c6255ab95388dbf9a3939e39e8eca4385b168133454d63c4d027fd40c
         prometheus.io/port: "9963"
         prometheus.io/scrape: "true"
       labels:
@@ -840,7 +839,7 @@ spec:
   template:
     metadata:
       annotations:
-        cilium.io/cilium-configmap-checksum: 640957c5d12575230f5341a493cf499ee8ef4068cdc14d1b89f43ebf7a7133f1
+        cilium.io/cilium-configmap-checksum: 9c1f063c6255ab95388dbf9a3939e39e8eca4385b168133454d63c4d027fd40c
         kubectl.kubernetes.io/default-container: cilium-agent
       labels:
         app.kubernetes.io/name: cilium-agent
@@ -946,10 +945,6 @@ spec:
         - containerPort: 9964
           hostPort: 9964
           name: envoy-metrics
-          protocol: TCP
-        - containerPort: 9901
-          hostPort: 9901
-          name: envoy-admin
           protocol: TCP
         readinessProbe:
           failureThreshold: 3

@@ -30,6 +30,10 @@ package holos
 	sources: [
 		"crd",
 		"gateway-httproute",
+		"gateway-grpcroute",
+		"gateway-tlsroute",
+		"gateway-tcproute",
+		"gateway-udproute",
 	]
 	triggerLoopOnEvent: true
 	txtOwnerId:         "default"
