@@ -13,6 +13,35 @@ spec:
     name: letsencrypt-production
   secretName: brenix.com-tls
 ---
+apiVersion: external-secrets.io/v1alpha1
+kind: PushSecret
+metadata:
+  name: brenix.com-tls
+  namespace: kube-system
+spec:
+  data:
+  - match:
+      remoteRef:
+        property: tls.crt
+        remoteKey: BRENIX_COM_CRT
+      secretKey: tls.crt
+  - match:
+      remoteRef:
+        property: tls.key
+        remoteKey: BRENIX_COM_KEY
+      secretKey: tls.key
+  secretStoreRefs:
+  - kind: ClusterSecretStore
+    name: doppler
+  selector:
+    secret:
+      name: brenix.com-tls
+  template:
+    data:
+      tls.crt: '{{ index . "tls.crt" | b64enc }}'
+      tls.key: '{{ index . "tls.key" | b64enc }}'
+    engineVersion: v2
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:

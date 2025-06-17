@@ -23,6 +23,42 @@ Component: #Kubernetes & {
 				]
 			}
 		}
+		PushSecret: (Name): {
+			metadata: name:      "brenix.com-tls"
+			metadata: namespace: Namespace
+			spec: {
+				secretStoreRefs: [{
+					name: "doppler"
+					kind: "ClusterSecretStore"
+				}]
+				selector: secret: name: "brenix.com-tls"
+				template: {
+					engineVersion: "v2"
+					data: {
+						"tls.crt": "{{ index . \"tls.crt\" | b64enc }}"
+						"tls.key": "{{ index . \"tls.key\" | b64enc }}"
+					}
+				}
+				data: [{
+					match: {
+						secretKey: "tls.crt"
+						remoteRef: {
+							remoteKey: "BRENIX_COM_CRT"
+							property:  "tls.crt"
+						}
+					}
+				}, {
+					match: {
+						secretKey: "tls.key"
+						remoteRef: {
+							remoteKey: "BRENIX_COM_KEY"
+							property:  "tls.key"
+						}
+					}
+				}]
+			}
+
+		}
 		HTTPRoute: Redirect: {
 			metadata: name:      "httpsredirect"
 			metadata: namespace: Namespace

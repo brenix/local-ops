@@ -5,6 +5,7 @@ import (
 	bgpadv "metallb.io/bgpadvertisement/v1beta1"
 	bgppeer "metallb.io/bgppeer/v1beta2"
 	css "external-secrets.io/clustersecretstore/v1"
+	ps "external-secrets.io/pushsecret/v1alpha1"
 	ed "externaldns.k8s.io/dnsendpoint/v1alpha1"
 	ipaddresspool "metallb.io/ipaddresspool/v1beta1"
 	gwcv1 "gateway.networking.k8s.io/gatewayclass/v1"
@@ -39,6 +40,7 @@ import (
 	BackendTrafficPolicy?: [_]:  backendtrafficpolicy.#BackendTrafficPolicy
 	ClientTrafficPolicy?: [_]:   clienttrafficpolicy.#ClientTrafficPolicy
 	EnvoyProxy?: [_]:            envoyproxy.#EnvoyProxy
+	PushSecret?: [_]:            ps.#PushSecret
 
 	CiliumBGPAdvertisement?: [_]:     ciliumbgpadvertisement.#CiliumBGPAdvertisement
 	CiliumBGPClusterConfig?: [_]:     ciliumbgpclusterconfig.#CiliumBGPClusterConfig
