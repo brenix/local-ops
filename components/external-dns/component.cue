@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "external-dns"
-		version: "1.16.1"
+		version: "1.17.0"
 		repository: {
 			name: "external-dns"
 			url:  "https://kubernetes-sigs.github.io/external-dns"
