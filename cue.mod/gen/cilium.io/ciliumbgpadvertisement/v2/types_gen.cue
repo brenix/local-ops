@@ -2,7 +2,7 @@
 
 //timoni:generate timoni vendor crd -f https://raw.githubusercontent.com/cilium/cilium/refs/tags/v1.18.0-pre.3/pkg/k8s/apis/cilium.io/client/crds/v2/ciliumbgpadvertisements.yaml
 
-package v2alpha1
+package v2
 
 import "strings"
 
@@ -16,7 +16,7 @@ import "strings"
 	// may reject unrecognized values.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	apiVersion: "cilium.io/v2alpha1"
+	apiVersion: "cilium.io/v2"
 
 	// Kind is a string value representing the REST resource this
 	// object represents.

@@ -2,7 +2,7 @@
 
 //timoni:generate timoni vendor crd -f https://raw.githubusercontent.com/cilium/cilium/refs/tags/v1.18.0-pre.3/pkg/k8s/apis/cilium.io/client/crds/v2/ciliumbgpclusterconfigs.yaml
 
-package v2alpha1
+package v2
 
 import (
 	"strings"
@@ -19,7 +19,7 @@ import (
 	// may reject unrecognized values.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	apiVersion: "cilium.io/v2alpha1"
+	apiVersion: "cilium.io/v2"
 
 	// Kind is a string value representing the REST resource this
 	// object represents.
@@ -75,6 +75,18 @@ import (
 		// Peers is a list of neighboring BGP peers for this virtual
 		// router
 		peers?: [...{
+			// AutoDiscovery is the configuration for auto-discovery of the
+			// peer address.
+			autoDiscovery?: {
+				defaultGateway?: {
+					// addressFamily is the address family of the default gateway.
+					addressFamily: "ipv4" | "ipv6"
+				}
+
+				// mode is the mode of the auto-discovery.
+				mode: "DefaultGateway"
+			}
+
 			// Name is the name of the BGP peer. It is a unique identifier for
 			// the peer within the BGP instance.
 			name: strings.MaxRunes(255) & strings.MinRunes(1)
@@ -90,19 +102,7 @@ import (
 			// PeerAddress is the IP address of the neighbor.
 			// Supports IPv4 and IPv6 addresses.
 			peerAddress?: =~"((^\\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\\s*$)|(^\\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:)))(%.+)?\\s*$))"
-
-			// PeerConfigRef is a reference to a peer configuration resource.
-			// If not specified, the default BGP configuration is used for
-			// this peer.
 			peerConfigRef?: {
-				// Group is the group of the peer config resource.
-				// If not specified, the default of "cilium.io" is used.
-				group?: string | *"cilium.io"
-
-				// Kind is the kind of the peer config resource.
-				// If not specified, the default of "CiliumBGPPeerConfig" is used.
-				kind?: string | *"CiliumBGPPeerConfig"
-
 				// Name is the name of the peer config resource.
 				// Name refers to the name of a Kubernetes object (typically a
 				// CiliumBGPPeerConfig).

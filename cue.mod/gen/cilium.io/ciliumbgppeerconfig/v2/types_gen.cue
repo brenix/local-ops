@@ -2,7 +2,7 @@
 
 //timoni:generate timoni vendor crd -f https://raw.githubusercontent.com/cilium/cilium/refs/tags/v1.18.0-pre.3/pkg/k8s/apis/cilium.io/client/crds/v2/ciliumbgppeerconfigs.yaml
 
-package v2alpha1
+package v2
 
 import "strings"
 
@@ -14,7 +14,7 @@ import "strings"
 	// may reject unrecognized values.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	apiVersion: "cilium.io/v2alpha1"
+	apiVersion: "cilium.io/v2"
 
 	// Kind is a string value representing the REST resource this
 	// object represents.
@@ -159,22 +159,7 @@ import "strings"
 		// If not specified, defaults to 30 seconds.
 		keepAliveTimeSeconds?: int & <=65535 & >=1 | *30
 	}
-
-	// Transport defines the BGP transport parameters for the peer.
-	//
-	// If not specified, the default transport parameters are used.
 	transport?: {
-		// Deprecated
-		// LocalPort is the local port to be used for the BGP session.
-		//
-		// If not specified, ephemeral port will be picked to initiate a
-		// connection.
-		//
-		// This field is deprecated and will be removed in a future
-		// release.
-		// Local port configuration is unnecessary and is not recommended.
-		localPort?: uint16 & >=1
-
 		// PeerPort is the peer port to be used for the BGP session.
 		//
 		// If not specified, defaults to TCP port 179.
