@@ -8,7 +8,7 @@ package holos
 		}
 		image: {
 			repository: "docker.io/fallenbagel/jellyseerr"
-			tag:        "2.6.0"
+			tag:        "2.7.0"
 		}
 	}
 	route: main: {
