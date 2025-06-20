@@ -37,6 +37,19 @@ spec:
       storage: 1Gi
   storageClassName: ceph-block
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyseerr-cache
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-block
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -75,6 +88,8 @@ spec:
         image: docker.io/fallenbagel/jellyseerr:2.7.0
         name: main
         volumeMounts:
+        - mountPath: /app/config/cache
+          name: cache
         - mountPath: /app/config
           name: config
       dnsPolicy: ClusterFirst
@@ -84,6 +99,9 @@ spec:
       hostPID: false
       serviceAccountName: default
       volumes:
+      - name: cache
+        persistentVolumeClaim:
+          claimName: jellyseerr-cache
       - name: config
         persistentVolumeClaim:
           claimName: jellyseerr

@@ -10,4 +10,13 @@ Component: Resources: PersistentVolumeClaim: {
 			storageClassName: "ceph-block"
 		}
 	}
+	cache: {
+		apiVersion: "v1"
+		metadata: name: "jellyseerr-cache"
+		spec: {
+			accessModes: ["ReadWriteOnce"]
+			resources: requests: storage: "1Gi"
+			storageClassName: "ceph-block"
+		}
+	}
 }

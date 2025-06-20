@@ -19,9 +19,16 @@ package holos
 			sectionName: "https"
 		}]
 	}
-	persistence: config: {
-		existingClaim: "jellyseerr"
-		globalMounts: [{path: "/app/config"}]
+	persistence: {
+		config: {
+			existingClaim: "jellyseerr"
+			globalMounts: [{path: "/app/config"}]
+		}
+		cache: {
+			enabled:       true
+			existingClaim: "jellyseerr-cache"
+			globalMounts: [{path: "/app/config/cache"}]
+		}
 	}
 	service: main: {
 		annotations: "lbipam.cilium.io/ips": "192.168.2.8"
