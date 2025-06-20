@@ -622,6 +622,7 @@ spec:
                   targetSizeRatio:
                     description: TargetSizeRatio gives a hint (%) to Ceph in terms
                       of expected consumption of the total cluster capacity
+                    minimum: 0
                     type: number
                 required:
                 - size
@@ -1613,6 +1614,11 @@ spec:
                         - quick
                         type: string
                     type: object
+                  wipeDevicesFromOtherClusters:
+                    description: |-
+                      WipeDevicesFromOtherClusters wipes the OSD disks belonging to other clusters. This is useful in scenarios where ceph cluster
+                      was reinstalled but OSD disk still contains the metadata from previous ceph cluster.
+                    type: boolean
                 type: object
               continueUpgradeAfterChecksEvenIfNotHealthy:
                 description: ContinueUpgradeAfterChecksEvenIfNotHealthy defines if
@@ -7671,6 +7677,7 @@ spec:
                         targetSizeRatio:
                           description: TargetSizeRatio gives a hint (%) to Ceph in
                             terms of expected consumption of the total cluster capacity
+                          minimum: 0
                           type: number
                       required:
                       - size
@@ -7881,6 +7888,7 @@ spec:
                       targetSizeRatio:
                         description: TargetSizeRatio gives a hint (%) to Ceph in terms
                           of expected consumption of the total cluster capacity
+                        minimum: 0
                         type: number
                     required:
                     - size
@@ -11659,6 +11667,7 @@ spec:
                       targetSizeRatio:
                         description: TargetSizeRatio gives a hint (%) to Ceph in terms
                           of expected consumption of the total cluster capacity
+                        minimum: 0
                         type: number
                     required:
                     - size
@@ -13317,6 +13326,7 @@ spec:
                       targetSizeRatio:
                         description: TargetSizeRatio gives a hint (%) to Ceph in terms
                           of expected consumption of the total cluster capacity
+                        minimum: 0
                         type: number
                     required:
                     - size
@@ -14340,6 +14350,7 @@ spec:
                       targetSizeRatio:
                         description: TargetSizeRatio gives a hint (%) to Ceph in terms
                           of expected consumption of the total cluster capacity
+                        minimum: 0
                         type: number
                     required:
                     - size
@@ -14545,6 +14556,7 @@ spec:
                       targetSizeRatio:
                         description: TargetSizeRatio gives a hint (%) to Ceph in terms
                           of expected consumption of the total cluster capacity
+                        minimum: 0
                         type: number
                     required:
                     - size
@@ -15559,7 +15571,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cmd-reporter
@@ -15581,7 +15593,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr
@@ -15594,7 +15606,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-osd
@@ -15613,7 +15625,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-rgw
@@ -15626,7 +15638,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -15864,7 +15876,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16186,7 +16198,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rbd-csi-nodeplugin
@@ -16446,7 +16458,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cluster-mgmt
@@ -16479,7 +16491,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -16670,7 +16682,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr-cluster
@@ -16726,7 +16738,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-object-bucket
@@ -16802,7 +16814,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -17003,7 +17015,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -17093,7 +17105,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -17152,7 +17164,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -17394,7 +17406,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.4
+    helm.sh/chart: rook-ceph-v1.17.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-operator
@@ -17410,7 +17422,7 @@ spec:
     metadata:
       labels:
         app: rook-ceph-operator
-        helm.sh/chart: rook-ceph-v1.17.4
+        helm.sh/chart: rook-ceph-v1.17.5
     spec:
       containers:
       - args:
@@ -17437,7 +17449,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: docker.io/rook/ceph:v1.17.4
+        image: docker.io/rook/ceph:v1.17.5
         imagePullPolicy: IfNotPresent
         name: rook-ceph-operator
         resources:
