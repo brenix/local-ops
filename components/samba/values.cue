@@ -50,7 +50,7 @@ package holos
 		}
 		image: {
 			repository: "ghcr.io/crazy-max/samba"
-			tag:        "4.19.9"
+			tag:        "4.21.4"
 		}
 	}
 	defaultPodOptions: {
