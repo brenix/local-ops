@@ -6,9 +6,9 @@ metadata:
     app.kubernetes.io/instance: forgejo
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: forgejo
-    app.kubernetes.io/version: 11.0.1
-    helm.sh/chart: forgejo-12.5.1
-    version: 11.0.1
+    app.kubernetes.io/version: 11.0.2
+    helm.sh/chart: forgejo-12.5.2
+    version: 11.0.2
   name: forgejo
   namespace: default
 stringData:
@@ -182,9 +182,9 @@ metadata:
     app.kubernetes.io/instance: forgejo
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: forgejo
-    app.kubernetes.io/version: 11.0.1
-    helm.sh/chart: forgejo-12.5.1
-    version: 11.0.1
+    app.kubernetes.io/version: 11.0.2
+    helm.sh/chart: forgejo-12.5.2
+    version: 11.0.2
   name: forgejo-init
   namespace: default
 stringData:
@@ -291,9 +291,9 @@ metadata:
     app.kubernetes.io/instance: forgejo
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: forgejo
-    app.kubernetes.io/version: 11.0.1
-    helm.sh/chart: forgejo-12.5.1
-    version: 11.0.1
+    app.kubernetes.io/version: 11.0.2
+    helm.sh/chart: forgejo-12.5.2
+    version: 11.0.2
   name: forgejo-inline-config
   namespace: default
 stringData:
@@ -338,9 +338,9 @@ metadata:
     app.kubernetes.io/instance: forgejo
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: forgejo
-    app.kubernetes.io/version: 11.0.1
-    helm.sh/chart: forgejo-12.5.1
-    version: 11.0.1
+    app.kubernetes.io/version: 11.0.2
+    helm.sh/chart: forgejo-12.5.2
+    version: 11.0.2
   name: forgejo-http
   namespace: default
 spec:
@@ -364,9 +364,9 @@ metadata:
     app.kubernetes.io/instance: forgejo
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: forgejo
-    app.kubernetes.io/version: 11.0.1
-    helm.sh/chart: forgejo-12.5.1
-    version: 11.0.1
+    app.kubernetes.io/version: 11.0.2
+    helm.sh/chart: forgejo-12.5.2
+    version: 11.0.2
   name: forgejo-ssh
   namespace: default
 spec:
@@ -403,9 +403,9 @@ metadata:
     app.kubernetes.io/instance: forgejo
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: forgejo
-    app.kubernetes.io/version: 11.0.1
-    helm.sh/chart: forgejo-12.5.1
-    version: 11.0.1
+    app.kubernetes.io/version: 11.0.2
+    helm.sh/chart: forgejo-12.5.2
+    version: 11.0.2
   name: forgejo
   namespace: default
 spec:
@@ -422,15 +422,15 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: c892a52532b0527a960a9658cf4630435fce687edaf6999731bd9d1b151c18f4
+        checksum/config: 811b2c033a32cac7a15469f060982bb2a84538af946ce44c3970cbed76c64edd
       labels:
         app: forgejo
         app.kubernetes.io/instance: forgejo
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: forgejo
-        app.kubernetes.io/version: 11.0.1
-        helm.sh/chart: forgejo-12.5.1
-        version: 11.0.1
+        app.kubernetes.io/version: 11.0.2
+        helm.sh/chart: forgejo-12.5.2
+        version: 11.0.2
     spec:
       containers:
       - env:
@@ -450,7 +450,7 @@ spec:
           value: /tmp/gitea
         - name: HOME
           value: /data/gitea/git
-        image: code.forgejo.org/forgejo/forgejo:11.0.1-rootless
+        image: code.forgejo.org/forgejo/forgejo:11.0.2-rootless
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 10
@@ -494,7 +494,7 @@ spec:
           value: /data
         - name: GITEA_TEMP
           value: /tmp/gitea
-        image: code.forgejo.org/forgejo/forgejo:11.0.1-rootless
+        image: code.forgejo.org/forgejo/forgejo:11.0.2-rootless
         imagePullPolicy: IfNotPresent
         name: init-directories
         resources:
@@ -521,7 +521,7 @@ spec:
           value: /data
         - name: GITEA_TEMP
           value: /tmp/gitea
-        image: code.forgejo.org/forgejo/forgejo:11.0.1-rootless
+        image: code.forgejo.org/forgejo/forgejo:11.0.2-rootless
         imagePullPolicy: IfNotPresent
         name: init-app-ini
         resources:
@@ -564,7 +564,7 @@ spec:
               name: gitea-admin
         - name: GITEA_ADMIN_PASSWORD_MODE
           value: keepUpdated
-        image: code.forgejo.org/forgejo/forgejo:11.0.1-rootless
+        image: code.forgejo.org/forgejo/forgejo:11.0.2-rootless
         imagePullPolicy: IfNotPresent
         name: configure-gitea
         resources:
@@ -638,9 +638,9 @@ metadata:
     app.kubernetes.io/instance: forgejo
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: forgejo
-    app.kubernetes.io/version: 11.0.1
-    helm.sh/chart: forgejo-12.5.1
-    version: 11.0.1
+    app.kubernetes.io/version: 11.0.2
+    helm.sh/chart: forgejo-12.5.2
+    version: 11.0.2
   name: forgejo
   namespace: default
 spec:

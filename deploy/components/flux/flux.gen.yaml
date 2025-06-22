@@ -31,5 +31,5 @@ metadata:
 spec:
   interval: 10m
   ref:
-    tag: v2.6.1
+    tag: v2.6.2
   url: oci://ghcr.io/fluxcd/flux-manifests
