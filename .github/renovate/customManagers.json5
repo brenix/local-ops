@@ -11,9 +11,10 @@
       ],
       "matchStrings": [
         // "Chart:\\s*{\\s*name:\\s*\"(?<depName>[^\"]+)\"\\s*version:\\s*\"(?<currentValue>[^\"]+)\"\\s*repository:\\s*{\\s*name:\\s*\"[^\"]*\"\\s*url:\\s*\"(?<registryUrl>[^\"]+)\"\\s*}\\s*}"
-        "Chart:\\s*{[\\s\\S]*?name:\\s*\"(?<depName>[^\"]+)\"[\\s\\S]*?version:\\s*\"(?<currentValue>[^\"]+)\"[\\s\\S]*?url:\\s*\"(?<registryUrl>[^\"]+)\""
+        "Chart:\\s*{[\\s\\S]*?name:\\s*\"(?<depName>[^\"]+)\"[\\s\\S]*?version:\\s*\"(?<currentValue>[^\"]+)\"[\\s\\S]*?url:\\s*\"(?<registryUrl>[^\"]+)\"",
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+(:\\s|=)(&\\S+\\s)?(?<currentValue>\\S+)"
       ],
-      "datasourceTemplate": "helm"
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
     },
     {
       "customType": "regex",

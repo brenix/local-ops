@@ -14,8 +14,10 @@ Component: #Kustomize & {
 			metadata: namespace: Namespace
 			spec: {
 				interval: "10m"
-				// renovate: datasource=github-releases depName=fluxcd/flux2
-				ref: tag: "v2.6.1"
+				ref: {
+					// renovate: datasource=github-releases depName=fluxcd/flux2
+					tag: "v2.6.1"
+				}
 				url: "oci://ghcr.io/fluxcd/flux-manifests"
 			}
 		}

@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: false
 	Chart: {
 		name:    "oci://code.forgejo.org/forgejo-helm/forgejo"
-		version: "12.5.1"
+		version: "12.5.2"
 		release: Name
 	}
 
