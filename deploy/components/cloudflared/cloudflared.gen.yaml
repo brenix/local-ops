@@ -24,7 +24,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
     app.kubernetes.io/service: cloudflared
-    helm.sh/chart: app-template-4.1.1
+    helm.sh/chart: app-template-4.1.2
   name: cloudflared
   namespace: network
 spec:
@@ -49,7 +49,7 @@ metadata:
     app.kubernetes.io/instance: cloudflared
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
-    helm.sh/chart: app-template-4.1.1
+    helm.sh/chart: app-template-4.1.2
   name: cloudflared
   namespace: network
 spec:
@@ -200,7 +200,7 @@ metadata:
     app.kubernetes.io/instance: cloudflared
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudflared
-    helm.sh/chart: app-template-4.1.1
+    helm.sh/chart: app-template-4.1.2
   name: cloudflared
   namespace: network
 spec:
