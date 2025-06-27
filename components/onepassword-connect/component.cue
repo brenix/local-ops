@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "security"
 	Chart: {
 		name:    "connect"
-		version: "1.17.0"
+		version: "1.17.1"
 		repository: {
 			name: "onepassword"
 			url:  "https://1password.github.io/connect-helm-charts"
