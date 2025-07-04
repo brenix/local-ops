@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "cert-manager"
-		version: "v1.18.1"
+		version: "v1.18.2"
 		repository: {
 			name: "jetstack"
 			url:  "https://charts.jetstack.io"
