@@ -7,7 +7,7 @@ metadata:
   labels:
     app: reloader
     app.kubernetes.io/managed-by: Helm
-    chart: reloader-2.1.4
+    chart: reloader-2.1.5
     heritage: Helm
     release: reloader
   name: reloader
@@ -22,7 +22,7 @@ metadata:
   labels:
     app: reloader
     app.kubernetes.io/managed-by: Helm
-    chart: reloader-2.1.4
+    chart: reloader-2.1.5
     heritage: Helm
     release: reloader
   name: reloader-role
@@ -80,7 +80,7 @@ metadata:
   labels:
     app: reloader
     app.kubernetes.io/managed-by: Helm
-    chart: reloader-2.1.4
+    chart: reloader-2.1.5
     heritage: Helm
     release: reloader
   name: reloader-role-binding
@@ -102,12 +102,12 @@ metadata:
   labels:
     app: reloader
     app.kubernetes.io/managed-by: Helm
-    chart: reloader-2.1.4
+    chart: reloader-2.1.5
     group: com.stakater.platform
     heritage: Helm
     provider: stakater
     release: reloader
-    version: v1.4.4
+    version: v1.4.5
   name: reloader
   namespace: kube-system
 spec:
@@ -122,12 +122,12 @@ spec:
       labels:
         app: reloader
         app.kubernetes.io/managed-by: Helm
-        chart: reloader-2.1.4
+        chart: reloader-2.1.5
         group: com.stakater.platform
         heritage: Helm
         provider: stakater
         release: reloader
-        version: v1.4.4
+        version: v1.4.5
     spec:
       containers:
       - args:
@@ -143,7 +143,7 @@ spec:
             resourceFieldRef:
               divisor: "1"
               resource: limits.memory
-        image: ghcr.io/stakater/reloader:v1.4.4
+        image: ghcr.io/stakater/reloader:v1.4.5
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 5
