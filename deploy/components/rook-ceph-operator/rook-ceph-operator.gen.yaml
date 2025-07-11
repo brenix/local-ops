@@ -1398,6 +1398,19 @@ spec:
                 x-kubernetes-preserve-unknown-fields: true
               name:
                 type: string
+              removeSecret:
+                description: |-
+                  RemoveSecret indicates whether the current secret for this ceph client should be removed or not.
+                  If true, the K8s secret will be deleted, but the cephx keyring will remain until the CR is deleted.
+                type: boolean
+              secretName:
+                description: |-
+                  SecretName is the name of the secret created for this ceph client.
+                  If not specified, the default name is "rook-ceph-client-" as a prefix to the CR name.
+                type: string
+                x-kubernetes-validations:
+                - message: SecretName is immutable and cannot be changed
+                  rule: self == oldSelf
             required:
             - caps
             type: object
@@ -1668,6 +1681,11 @@ spec:
                         description: Enables read affinity for CSI driver.
                         type: boolean
                     type: object
+                  skipUserCreation:
+                    description: |-
+                      SkipUserCreation determines whether CSI users and their associated secrets should be skipped.
+                      If set to true, the user must manually manage these secrets.
+                    type: boolean
                 type: object
               dashboard:
                 description: Dashboard settings
@@ -2967,6 +2985,12 @@ spec:
                   exporter:
                     description: Ceph exporter configuration
                     properties:
+                      hostNetwork:
+                        description: Whether host networking is enabled for CephExporter.
+                          If not set, the network settings from CephCluster.spec.networking
+                          will be applied.
+                        nullable: true
+                        type: boolean
                       perfCountersPrioLimit:
                         default: 5
                         description: Only performance counters greater than or equal
@@ -15571,7 +15595,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cmd-reporter
@@ -15593,7 +15617,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr
@@ -15606,7 +15630,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-osd
@@ -15625,7 +15649,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-rgw
@@ -15638,7 +15662,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -15876,7 +15900,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -16198,7 +16222,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rbd-csi-nodeplugin
@@ -16458,7 +16482,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cluster-mgmt
@@ -16491,7 +16515,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -16682,7 +16706,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr-cluster
@@ -16738,7 +16762,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-object-bucket
@@ -16814,7 +16838,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -17015,7 +17039,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -17105,7 +17129,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -17164,7 +17188,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -17379,7 +17403,7 @@ data:
   ROOK_CEPH_ALLOW_LOOP_DEVICES: "false"
   ROOK_CEPH_COMMANDS_TIMEOUT_SECONDS: "15"
   ROOK_CSI_ATTACHER_IMAGE: registry.k8s.io/sig-storage/csi-attacher:v4.8.1
-  ROOK_CSI_CEPH_IMAGE: quay.io/cephcsi/cephcsi:v3.14.0
+  ROOK_CSI_CEPH_IMAGE: quay.io/cephcsi/cephcsi:v3.14.1
   ROOK_CSI_DISABLE_DRIVER: "false"
   ROOK_CSI_ENABLE_CEPHFS: "true"
   ROOK_CSI_ENABLE_NFS: "false"
@@ -17406,7 +17430,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.17.5
+    helm.sh/chart: rook-ceph-v1.17.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-operator
@@ -17422,7 +17446,7 @@ spec:
     metadata:
       labels:
         app: rook-ceph-operator
-        helm.sh/chart: rook-ceph-v1.17.5
+        helm.sh/chart: rook-ceph-v1.17.6
     spec:
       containers:
       - args:
@@ -17449,7 +17473,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: docker.io/rook/ceph:v1.17.5
+        image: docker.io/rook/ceph:v1.17.6
         imagePullPolicy: IfNotPresent
         name: rook-ceph-operator
         resources:
