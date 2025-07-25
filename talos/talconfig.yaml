@@ -2,9 +2,9 @@ clusterName: k8s
 endpoint: https://k8s.home.arpa:6443
 
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
-talosVersion: v1.10.4
+talosVersion: v1.10.5
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-kubernetesVersion: v1.33.1
+kubernetesVersion: v1.33.3
 
 additionalApiServerCertSans: &sans
   - k8s.home.arpa
