@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		version: "4.1.2"
+		version: "4.2.0"
 		release: "recyclarr"
 		repository: {
 			name: "bjw-s"

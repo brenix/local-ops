@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prowlarr
     app.kubernetes.io/service: prowlarr
-    helm.sh/chart: app-template-4.1.2
+    helm.sh/chart: app-template-4.2.0
   name: prowlarr
   namespace: default
 spec:
@@ -45,7 +45,7 @@ metadata:
     app.kubernetes.io/instance: prowlarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prowlarr
-    helm.sh/chart: app-template-4.1.2
+    helm.sh/chart: app-template-4.2.0
   name: prowlarr
   namespace: default
 spec:
@@ -97,7 +97,7 @@ metadata:
     app.kubernetes.io/instance: prowlarr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prowlarr
-    helm.sh/chart: app-template-4.1.2
+    helm.sh/chart: app-template-4.2.0
   name: prowlarr
   namespace: default
 spec:
