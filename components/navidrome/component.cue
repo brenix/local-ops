@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		version: "4.1.2"
+		version: "4.2.0"
 		release: "navidrome"
 		repository: {
 			name: "bjw-s"
