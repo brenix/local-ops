@@ -6,12 +6,46 @@ metadata:
     meta.helm.sh/release-namespace: kube-system
   labels:
     app: reloader
+    app.kubernetes.io/instance: reloader
     app.kubernetes.io/managed-by: Helm
-    chart: reloader-2.1.5
+    app.kubernetes.io/name: reloader
+    app.kubernetes.io/version: v1.4.6
+    chart: reloader-2.2.0
+    helm.sh/chart: reloader-2.2.0
     heritage: Helm
     release: reloader
   name: reloader
   namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  annotations:
+    meta.helm.sh/release-name: reloader
+    meta.helm.sh/release-namespace: kube-system
+  labels:
+    app: reloader
+    app.kubernetes.io/instance: reloader
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: reloader
+    app.kubernetes.io/version: v1.4.6
+    chart: reloader-2.2.0
+    helm.sh/chart: reloader-2.2.0
+    heritage: Helm
+    release: reloader
+  name: reloader-metadata-role
+  namespace: kube-system
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - list
+  - get
+  - watch
+  - create
+  - update
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -21,8 +55,12 @@ metadata:
     meta.helm.sh/release-namespace: kube-system
   labels:
     app: reloader
+    app.kubernetes.io/instance: reloader
     app.kubernetes.io/managed-by: Helm
-    chart: reloader-2.1.5
+    app.kubernetes.io/name: reloader
+    app.kubernetes.io/version: v1.4.6
+    chart: reloader-2.2.0
+    helm.sh/chart: reloader-2.2.0
     heritage: Helm
     release: reloader
   name: reloader-role
@@ -72,6 +110,33 @@ rules:
   - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  annotations:
+    meta.helm.sh/release-name: reloader
+    meta.helm.sh/release-namespace: kube-system
+  labels:
+    app: reloader
+    app.kubernetes.io/instance: reloader
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: reloader
+    app.kubernetes.io/version: v1.4.6
+    chart: reloader-2.2.0
+    helm.sh/chart: reloader-2.2.0
+    heritage: Helm
+    release: reloader
+  name: reloader-metadata-role-binding
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: reloader-metadata-role
+subjects:
+- kind: ServiceAccount
+  name: reloader
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   annotations:
@@ -79,8 +144,12 @@ metadata:
     meta.helm.sh/release-namespace: kube-system
   labels:
     app: reloader
+    app.kubernetes.io/instance: reloader
     app.kubernetes.io/managed-by: Helm
-    chart: reloader-2.1.5
+    app.kubernetes.io/name: reloader
+    app.kubernetes.io/version: v1.4.6
+    chart: reloader-2.2.0
+    helm.sh/chart: reloader-2.2.0
     heritage: Helm
     release: reloader
   name: reloader-role-binding
@@ -101,13 +170,17 @@ metadata:
     meta.helm.sh/release-namespace: kube-system
   labels:
     app: reloader
+    app.kubernetes.io/instance: reloader
     app.kubernetes.io/managed-by: Helm
-    chart: reloader-2.1.5
+    app.kubernetes.io/name: reloader
+    app.kubernetes.io/version: v1.4.6
+    chart: reloader-2.2.0
     group: com.stakater.platform
+    helm.sh/chart: reloader-2.2.0
     heritage: Helm
     provider: stakater
     release: reloader
-    version: v1.4.5
+    version: v1.4.6
   name: reloader
   namespace: kube-system
 spec:
@@ -121,13 +194,17 @@ spec:
     metadata:
       labels:
         app: reloader
+        app.kubernetes.io/instance: reloader
         app.kubernetes.io/managed-by: Helm
-        chart: reloader-2.1.5
+        app.kubernetes.io/name: reloader
+        app.kubernetes.io/version: v1.4.6
+        chart: reloader-2.2.0
         group: com.stakater.platform
+        helm.sh/chart: reloader-2.2.0
         heritage: Helm
         provider: stakater
         release: reloader
-        version: v1.4.5
+        version: v1.4.6
     spec:
       containers:
       - args:
@@ -143,7 +220,13 @@ spec:
             resourceFieldRef:
               divisor: "1"
               resource: limits.memory
-        image: ghcr.io/stakater/reloader:v1.4.5
+        - name: RELOADER_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: RELOADER_DEPLOYMENT_NAME
+          value: reloader
+        image: ghcr.io/stakater/reloader:v1.4.6
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 5
