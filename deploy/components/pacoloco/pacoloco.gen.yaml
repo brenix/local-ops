@@ -21,7 +21,7 @@ data:
           - https://cdn-mirror.chaotic.cx
       cachyos:
         urls:
-          - https://cdn-1.cachyos.org
+          - https://cdn-1.cachyos.org/repo
           - https://cdn77.cachyos.org/repo
           - https://mirror.scholarshub.world/repo
           - https://us.cachyos.org/repo
@@ -30,7 +30,7 @@ data:
           - https://cdn.cachyos.org/repo
       cachyos-v3:
         urls:
-          - https://cdn-1.cachyos.org
+          - https://cdn-1.cachyos.org/repo
           - https://cdn77.cachyos.org/repo
           - https://us.cachyos.org/repo
           - https://mirror.cachyos.org/repo
@@ -38,7 +38,7 @@ data:
           - https://cdn.cachyos.org/repo
       cachyos-v4:
         urls:
-          - https://cdn-1.cachyos.org
+          - https://cdn-1.cachyos.org/repo
           - https://cdn77.cachyos.org/repo
           - https://us.cachyos.org/repo
           - https://mirror.cachyos.org/repo
@@ -119,7 +119,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/configMaps: 323d92cc38e5cbf13fd804355999653df9bd7670933c5d80837dcf3d67b18058
+        checksum/configMaps: cca4613947063589e47ceec7c95a8da6313b78454bed259ff881a64489eb0337
       labels:
         app.kubernetes.io/controller: main
         app.kubernetes.io/instance: pacoloco

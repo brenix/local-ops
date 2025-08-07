@@ -69,7 +69,7 @@ package holos
 			      - https://cdn-mirror.chaotic.cx
 			  cachyos:
 			    urls:
-			      - https://cdn-1.cachyos.org
+			      - https://cdn-1.cachyos.org/repo
 			      - https://cdn77.cachyos.org/repo
 			      - https://mirror.scholarshub.world/repo
 			      - https://us.cachyos.org/repo
@@ -78,7 +78,7 @@ package holos
 			      - https://cdn.cachyos.org/repo
 			  cachyos-v3:
 			    urls:
-			      - https://cdn-1.cachyos.org
+			      - https://cdn-1.cachyos.org/repo
 			      - https://cdn77.cachyos.org/repo
 			      - https://us.cachyos.org/repo
 			      - https://mirror.cachyos.org/repo
@@ -86,7 +86,7 @@ package holos
 			      - https://cdn.cachyos.org/repo
 			  cachyos-v4:
 			    urls:
-			      - https://cdn-1.cachyos.org
+			      - https://cdn-1.cachyos.org/repo
 			      - https://cdn77.cachyos.org/repo
 			      - https://us.cachyos.org/repo
 			      - https://mirror.cachyos.org/repo
