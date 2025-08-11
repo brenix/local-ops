@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "prometheus-blackbox-exporter"
-		version: "11.2.1"
+		version: "11.2.2"
 		release: "prometheus-blackbox-exporter"
 		repository: {
 			name: "prometheus-community"
