@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "kube-prometheus-stack"
-		version: "76.3.0"
+		version: "76.4.0"
 		release: "prometheus"
 		repository: {
 			name: "prometheus"
