@@ -1,5 +1,6 @@
 [tools]
 flux2 = "latest"
+gh = "latest"
 "github:budimanjojo/talhelper" = "latest"
 "github:holos-run/holos" = "latest"
 helm = "latest"
@@ -8,3 +9,6 @@ terraform = "latest"
 
 [tasks.render]
 run = "cd {{ config_root }}; holos render platform"
+
+[tasks.mergeall]
+run = "gh pr list --json number -q '.[].number' | xargs -I% gh pr merge % -s -d"
