@@ -1,0 +1,10 @@
+[tools]
+flux2 = "latest"
+"github:budimanjojo/talhelper" = "latest"
+"github:holos-run/holos" = "latest"
+helm = "latest"
+talosctl = "latest"
+terraform = "latest"
+
+[tasks.render]
+run = "cd {{ config_root }}; holos render platform"
