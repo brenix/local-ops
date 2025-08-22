@@ -1,4 +1,5 @@
 [tools]
+doppler = "latest"
 flux2 = "latest"
 gh = "latest"
 "github:budimanjojo/talhelper" = "latest"
@@ -6,6 +7,7 @@ gh = "latest"
 helm = "latest"
 talosctl = "latest"
 terraform = "latest"
+timoni = "latest"
 
 [tasks.render]
 run = "cd {{ config_root }}; holos render platform"
