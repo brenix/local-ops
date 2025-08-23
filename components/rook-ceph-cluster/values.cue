@@ -71,7 +71,7 @@ package holos
 			enabled:              true
 			name:                 "ceph-block"
 			isDefault:            true
-			reclaimPolicy:        "Delete"
+			reclaimPolicy:        "Retain"
 			allowVolumeExpansion: true
 			volumeBindingMode:    "Immediate"
 			parameters: {
