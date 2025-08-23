@@ -10,7 +10,7 @@ terraform = "latest"
 timoni = "latest"
 
 [tasks.render]
-run = "cd {{ config_root }}; holos render platform"
+run = "cd {{ config_root }}; rm -rf deploy; holos render platform"
 
 [tasks.mergeall]
 run = "gh pr list --json number -q '.[].number' | xargs -I% gh pr merge % -s -d"
