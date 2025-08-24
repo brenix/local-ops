@@ -112,7 +112,7 @@ package holos
 			}
 			preservePoolsOnDelete: true
 			gateway: {
-				port: 80
+				port: 8180
 				resources: {
 					limits: memory: "2Gi"
 					requests: {

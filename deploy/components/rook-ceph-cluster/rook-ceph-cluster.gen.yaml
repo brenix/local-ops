@@ -203,7 +203,7 @@ spec:
       bulk: "true"
   gateway:
     instances: 1
-    port: 80
+    port: 8180
     priorityClassName: system-cluster-critical
     resources:
       limits:
@@ -232,7 +232,7 @@ spec:
   rules:
   - backendRefs:
     - name: rook-ceph-rgw-ceph-objectstore
-      port: 80
+      port: 8180
     matches:
     - path:
         type: PathPrefix
