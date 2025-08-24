@@ -95,5 +95,58 @@ package holos
 	}
 
 	cephFileSystems: []
-	// cephObjectStores: []
+	cephObjectStores: [{
+		name: "ceph-objectstore"
+		spec: {
+			metadataPool: {
+				failureDomain: "host"
+				replicated: size: 3
+			}
+			dataPool: {
+				failureDomain: "host"
+				erasureCoded: {
+					dataChunks:   2
+					codingChunks: 1
+				}
+				parameters: bulk: "true"
+			}
+			preservePoolsOnDelete: true
+			gateway: {
+				port: 80
+				resources: {
+					limits: memory: "2Gi"
+					requests: {
+						cpu:    "1000m"
+						memory: "1Gi"
+					}
+				}
+				instances: 2
+				priorityClassName: "system-cluster-critical"
+			}
+		}
+		storageClass: {
+			enabled:           true
+			name:              "ceph-bucket"
+			reclaimPolicy:     "Delete"
+			volumeBindingMode: "Immediate"
+			annotations: {}
+			labels: {}
+			parameters: {
+				region: "us-east-1"
+			}
+		}
+		ingress: {
+			enabled: false
+		}
+		route: {
+			enabled: true
+			host: name: "s3.brenix.com"
+			parentRefs: [{
+				name:        "internal"
+				namespace:   "kube-system"
+				sectionName: "https"
+			}]
+		}
+	}]
+
 }
