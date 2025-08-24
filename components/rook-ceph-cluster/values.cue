@@ -141,6 +141,8 @@ package holos
 		route: {
 			enabled: true
 			host: name: "s3.brenix.com"
+			host: path: "/"
+			host: pathType: "PathPrefix"
 			parentRefs: [{
 				name:        "internal"
 				namespace:   "kube-system"
