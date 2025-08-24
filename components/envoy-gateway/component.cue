@@ -95,7 +95,7 @@ Component: #Helm & {
 						"http/1.1",
 					]
 				}
-				http3: {}
+				// http3: {}
 			}
 
 		}
