@@ -120,7 +120,7 @@ package holos
 						memory: "1Gi"
 					}
 				}
-				instances: 2
+				instances: 1
 				priorityClassName: "system-cluster-critical"
 			}
 		}

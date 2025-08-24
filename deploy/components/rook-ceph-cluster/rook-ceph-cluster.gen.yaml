@@ -202,7 +202,7 @@ spec:
     parameters:
       bulk: "true"
   gateway:
-    instances: 2
+    instances: 1
     port: 80
     priorityClassName: system-cluster-critical
     resources:
