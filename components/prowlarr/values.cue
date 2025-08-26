@@ -9,7 +9,7 @@ package holos
 		}
 		image: {
 			repository: "lscr.io/linuxserver/prowlarr"
-			tag:        "1.37.0"
+			tag:        "2.0.5"
 		}
 	}
 	route: main: {
