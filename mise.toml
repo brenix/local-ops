@@ -1,4 +1,5 @@
 [tools]
+cue = "latest"
 doppler = "latest"
 flux2 = "latest"
 gh = "latest"
