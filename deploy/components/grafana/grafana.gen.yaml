@@ -5,8 +5,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana
   namespace: monitoring
 ---
@@ -16,8 +16,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana
   namespace: monitoring
 rules: []
@@ -28,8 +28,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana-clusterrole
 rules:
 - apiGroups:
@@ -48,8 +48,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana
   namespace: monitoring
 roleRef:
@@ -67,8 +67,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana-clusterrolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -163,8 +163,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana
   namespace: monitoring
 ---
@@ -189,8 +189,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana-config-dashboards
   namespace: monitoring
 ---
@@ -201,9 +201,9 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
+    app.kubernetes.io/version: 12.1.1
     dashboard-provider: default
-    helm.sh/chart: grafana-9.4.0
+    helm.sh/chart: grafana-9.4.3
   name: grafana-dashboards-default
   namespace: monitoring
 ---
@@ -213,8 +213,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana
   namespace: monitoring
 spec:
@@ -236,8 +236,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana
   namespace: monitoring
 spec:
@@ -253,8 +253,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana
   namespace: monitoring
 spec:
@@ -270,14 +270,14 @@ spec:
     metadata:
       annotations:
         checksum/config: 01fb1c766c4c5fc957a9846a0a4cf0d131e6dbc9def668eee3ff0f8af29fda79
-        checksum/dashboards-json-config: 952874ae82307f2aa03792d416748aa4f3ce1916d1351455b30e0dd4c873dcd2
+        checksum/dashboards-json-config: 4baed04a57592c041195b7dbe599882a61cfbca0fea002cd80f763a3a3fbcd23
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         kubectl.kubernetes.io/default-container: grafana
       labels:
         app.kubernetes.io/instance: grafana
         app.kubernetes.io/name: grafana
-        app.kubernetes.io/version: 12.1.0
-        helm.sh/chart: grafana-9.4.0
+        app.kubernetes.io/version: 12.1.1
+        helm.sh/chart: grafana-9.4.3
     spec:
       automountServiceAccountToken: true
       containers:
@@ -306,7 +306,7 @@ spec:
           value: http://localhost:3000/api/admin/provisioning/dashboards/reload
         - name: REQ_METHOD
           value: POST
-        image: quay.io/kiwigrid/k8s-sidecar:1.30.3
+        image: quay.io/kiwigrid/k8s-sidecar:1.30.10
         imagePullPolicy: IfNotPresent
         name: grafana-sc-dashboard
         securityContext:
@@ -344,7 +344,7 @@ spec:
           value: http://localhost:3000/api/admin/provisioning/datasources/reload
         - name: REQ_METHOD
           value: POST
-        image: quay.io/kiwigrid/k8s-sidecar:1.30.3
+        image: quay.io/kiwigrid/k8s-sidecar:1.30.10
         imagePullPolicy: IfNotPresent
         name: grafana-sc-datasources
         securityContext:
@@ -385,7 +385,7 @@ spec:
           value: /var/lib/grafana/plugins
         - name: GF_PATHS_PROVISIONING
           value: /etc/grafana/provisioning
-        image: docker.io/grafana/grafana:12.1.0
+        image: docker.io/grafana/grafana:12.1.1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 10
@@ -540,8 +540,8 @@ metadata:
     app: grafana-prometheus
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana
   namespace: monitoring
 spec:
@@ -569,8 +569,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: grafana
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/version: 12.1.0
-    helm.sh/chart: grafana-9.4.0
+    app.kubernetes.io/version: 12.1.1
+    helm.sh/chart: grafana-9.4.3
   name: grafana
   namespace: monitoring
 spec:
