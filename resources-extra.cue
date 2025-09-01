@@ -24,6 +24,7 @@ import (
 	envoyproxy "gateway.envoyproxy.io/envoyproxy/v1alpha1"
 	// httproutefilter "gateway.envoyproxy.io/httproutefilter/v1alpha1"
 	// securitypolicy "gateway.envoyproxy.io/securitypolicy/v1alpha1"
+	plan "upgrade.cattle.io/plan/v1"
 
 )
 
@@ -47,4 +48,6 @@ import (
 	CiliumBGPPeerConfig?: [_]:        ciliumbgppeerconfig.#CiliumBGPPeerConfig
 	CiliumL2AnnouncementPolicy?: [_]: ciliuml2announcementpolicy.#CiliumL2AnnouncementPolicy
 	CiliumLoadBalancerIPPool?: [_]:   ciliumloadbalancerippool.#CiliumLoadBalancerIPPool
+
+	Plan?: [_]: plan.#Plan
 }
