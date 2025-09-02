@@ -21,7 +21,8 @@ package holos
 			}
 			image: {
 				repository: "docker.io/cloudflare/cloudflared"
-				tag:        "2025.8.1"
+				// renovate: datasource=github-releases depname=cloudflare/cloudflared
+				tag: "2025.8.1"
 			}
 			probes: {
 				liveness: {
