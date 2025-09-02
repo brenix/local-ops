@@ -16,7 +16,7 @@ Component: #Kustomize & {
 				interval: "10m"
 				ref: {
 					// renovate: datasource=github-releases depName=fluxcd/flux2
-					tag: "v2.6.2"
+					tag: "v2.6.4"
 				}
 				url: "oci://ghcr.io/fluxcd/flux-manifests"
 			}
