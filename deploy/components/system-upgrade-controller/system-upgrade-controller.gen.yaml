@@ -86,7 +86,7 @@ spec:
           value: "99"
         - name: SYSTEM_UPGRADE_JOB_PRIVILEGED
           value: "false"
-        image: docker.io/rancher/system-upgrade-controller:v0.16.2
+        image: docker.io/rancher/system-upgrade-controller:v0.16.3
         name: app
         securityContext:
           allowPrivilegeEscalation: false
