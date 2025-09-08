@@ -108,8 +108,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.18.0
-    helm.sh/chart: external-dns-1.18.0
+    app.kubernetes.io/version: 0.19.0
+    helm.sh/chart: external-dns-1.19.0
   name: external-dns-cloudflare
   namespace: network
 ---
@@ -120,8 +120,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.18.0
-    helm.sh/chart: external-dns-1.18.0
+    app.kubernetes.io/version: 0.19.0
+    helm.sh/chart: external-dns-1.19.0
   name: external-dns-cloudflare
 rules:
 - apiGroups:
@@ -202,8 +202,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.18.0
-    helm.sh/chart: external-dns-1.18.0
+    app.kubernetes.io/version: 0.19.0
+    helm.sh/chart: external-dns-1.19.0
   name: external-dns-cloudflare-viewer
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -221,8 +221,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.18.0
-    helm.sh/chart: external-dns-1.18.0
+    app.kubernetes.io/version: 0.19.0
+    helm.sh/chart: external-dns-1.19.0
   name: external-dns-cloudflare
   namespace: network
 spec:
@@ -243,8 +243,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.18.0
-    helm.sh/chart: external-dns-1.18.0
+    app.kubernetes.io/version: 0.19.0
+    helm.sh/chart: external-dns-1.19.0
   name: external-dns-cloudflare
   namespace: network
 spec:
@@ -298,7 +298,7 @@ spec:
             secretKeyRef:
               key: CF_API_KEY
               name: external-dns-cloudflare
-        image: registry.k8s.io/external-dns/external-dns:v0.18.0
+        image: registry.k8s.io/external-dns/external-dns:v0.19.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 2
@@ -371,8 +371,8 @@ metadata:
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.18.0
-    helm.sh/chart: external-dns-1.18.0
+    app.kubernetes.io/version: 0.19.0
+    helm.sh/chart: external-dns-1.19.0
   name: external-dns-cloudflare
   namespace: network
 spec:
