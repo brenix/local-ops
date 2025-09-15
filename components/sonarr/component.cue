@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		version: "4.2.0"
+		version: "4.3.0"
 		release: "sonarr"
 		repository: {
 			name: "bjw-s"
