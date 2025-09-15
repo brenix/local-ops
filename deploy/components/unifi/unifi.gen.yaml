@@ -104,7 +104,7 @@ spec:
         envFrom:
         - secretRef:
             name: unifi
-        image: lscr.io/linuxserver/unifi-network-application:9.3.45
+        image: lscr.io/linuxserver/unifi-network-application:9.4.19
         name: main
         volumeMounts:
         - mountPath: /config
