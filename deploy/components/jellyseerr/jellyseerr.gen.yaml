@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: jellyseerr
     app.kubernetes.io/service: jellyseerr
-    helm.sh/chart: app-template-4.2.0
+    helm.sh/chart: app-template-4.3.0
   name: jellyseerr
   namespace: default
 spec:
@@ -58,7 +58,7 @@ metadata:
     app.kubernetes.io/instance: jellyseerr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: jellyseerr
-    helm.sh/chart: app-template-4.2.0
+    helm.sh/chart: app-template-4.3.0
   name: jellyseerr
   namespace: default
 spec:
@@ -113,7 +113,7 @@ metadata:
     app.kubernetes.io/instance: jellyseerr
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: jellyseerr
-    helm.sh/chart: app-template-4.2.0
+    helm.sh/chart: app-template-4.3.0
   name: jellyseerr
   namespace: default
 spec:
