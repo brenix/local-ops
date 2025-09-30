@@ -8,7 +8,7 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name:    "ingress-nginx"
-		version: "4.13.2"
+		version: "4.13.3"
 		release: "nginx-external"
 		repository: {
 			name: "ingress-nginx"
