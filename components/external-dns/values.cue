@@ -17,7 +17,7 @@ package holos
 	}]
 	extraArgs: [
 		"--cloudflare-dns-records-per-page=1000",
-		"--cloudflare-proxied",
+		// "--cloudflare-proxied",
 		"--crd-source-apiversion=externaldns.k8s.io/v1alpha1",
 		"--crd-source-kind=DNSEndpoint",
 		"--gateway-name=external",
