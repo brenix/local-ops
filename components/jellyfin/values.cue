@@ -24,6 +24,23 @@ package holos
 			namespace:   "kube-system"
 			sectionName: "https"
 		}]
+		rules: [
+			{
+				backendRefs: [
+					{
+						group:     ""
+						kind:      "Service"
+						name:      "jellyfin"
+						namespace: "default"
+						port:      8096
+						weight:    1
+					},
+				]
+				timeouts: {
+					request: "1h"
+				}
+			},
+		]
 	}
 	persistence: {
 		config: {
@@ -56,7 +73,10 @@ package holos
 		annotations: "lbipam.cilium.io/ips": "192.168.2.7"
 		controller:            "main"
 		externalTrafficPolicy: "Local"
-		ports: http: port: 8096
+		ports: http: {
+			port:        8096
+			appProtocol: "kubernetes.io/ws"
+		}
 		type: "LoadBalancer"
 	}
 }

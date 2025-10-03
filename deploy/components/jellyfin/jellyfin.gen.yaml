@@ -14,7 +14,8 @@ metadata:
 spec:
   externalTrafficPolicy: Local
   ports:
-  - name: http
+  - appProtocol: kubernetes.io/ws
+    name: http
     port: 8096
     protocol: TCP
     targetPort: 8096
@@ -158,3 +159,5 @@ spec:
       namespace: default
       port: 8096
       weight: 1
+    timeouts:
+      request: 1h
