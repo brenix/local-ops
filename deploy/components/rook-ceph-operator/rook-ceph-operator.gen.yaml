@@ -481,6 +481,7 @@ spec:
               enableCrushUpdates:
                 description: Allow rook operator to change the pool CRUSH tunables
                   once the pool is created
+                nullable: true
                 type: boolean
               enableRBDStats:
                 description: EnableRBDStats is used to enable gathering of statistics
@@ -979,7 +980,14 @@ spec:
     singular: cephbucketnotification
   scope: Namespaced
   versions:
-  - name: v1
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Phase
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
     schema:
       openAPIV3Schema:
         description: CephBucketNotification represents a Bucket Notifications
@@ -6549,8 +6557,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: cephconnections.csi.ceph.io
 spec:
   group: csi.ceph.io
@@ -8113,6 +8121,7 @@ spec:
                     enableCrushUpdates:
                       description: Allow rook operator to change the pool CRUSH tunables
                         once the pool is created
+                      nullable: true
                       type: boolean
                     enableRBDStats:
                       description: EnableRBDStats is used to enable gathering of statistics
@@ -8332,6 +8341,7 @@ spec:
                   enableCrushUpdates:
                     description: Allow rook operator to change the pool CRUSH tunables
                       once the pool is created
+                    nullable: true
                     type: boolean
                   enableRBDStats:
                     description: EnableRBDStats is used to enable gathering of statistics
@@ -9932,7 +9942,14 @@ spec:
     singular: cephnfs
   scope: Namespaced
   versions:
-  - name: v1
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Phase
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
     schema:
       openAPIV3Schema:
         description: CephNFS represents a Ceph NFS
@@ -11875,8 +11892,34 @@ spec:
             - server
             type: object
           status:
-            description: Status represents the status of an object
+            description: NFSStatus represents the status of Ceph NFS
             properties:
+              cephx:
+                properties:
+                  daemon:
+                    description: Daemon shows the CephX key status for local Ceph
+                      daemons associated with this resources.
+                    properties:
+                      keyCephVersion:
+                        description: |-
+                          KeyCephVersion reports the Ceph version that created the current generation's keys. This is
+                          same string format as reported by `CephCluster.status.version.version` to allow them to be
+                          compared. E.g., `20.2.0-0`.
+                          For all newly-created resources, this field set to the version of Ceph that created the key.
+                          The special value "Uninitialized" indicates that keys are being created for the first time.
+                          An empty string indicates that the version is unknown, as expected in brownfield deployments.
+                        type: string
+                      keyGeneration:
+                        description: |-
+                          KeyGeneration represents the CephX key generation for the last successful reconcile.
+                          For all newly-created resources, this field is set to `1`.
+                          When keys are rotated due to any rotation policy, the generation is incremented or updated to
+                          the configured policy generation.
+                          Generation `0` indicates that keys existed prior to the implementation of key tracking.
+                        format: int32
+                        type: integer
+                    type: object
+                type: object
               conditions:
                 items:
                   description: Condition represents a status condition on any Rook-Ceph
@@ -11936,7 +11979,14 @@ spec:
     singular: cephobjectrealm
   scope: Namespaced
   versions:
-  - name: v1
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Phase
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
     schema:
       openAPIV3Schema:
         description: CephObjectRealm represents a Ceph Object Store Gateway Realm
@@ -12161,6 +12211,7 @@ spec:
                   enableCrushUpdates:
                     description: Allow rook operator to change the pool CRUSH tunables
                       once the pool is created
+                    nullable: true
                     type: boolean
                   enableRBDStats:
                     description: EnableRBDStats is used to enable gathering of statistics
@@ -13832,6 +13883,7 @@ spec:
                   enableCrushUpdates:
                     description: Allow rook operator to change the pool CRUSH tunables
                       once the pool is created
+                    nullable: true
                     type: boolean
                   enableRBDStats:
                     description: EnableRBDStats is used to enable gathering of statistics
@@ -14549,7 +14601,7 @@ spec:
                   are found
                 type: string
               displayName:
-                description: The display name for the ceph users
+                description: The display name for the ceph user.
                 type: string
               keys:
                 description: |-
@@ -14744,7 +14796,7 @@ spec:
             description: ObjectZoneGroupSpec represent the spec of an ObjectZoneGroup
             properties:
               realm:
-                description: The display name for the ceph users
+                description: The name of the realm the zone group is a member of.
                 type: string
             required:
             - realm
@@ -14892,6 +14944,7 @@ spec:
                   enableCrushUpdates:
                     description: Allow rook operator to change the pool CRUSH tunables
                       once the pool is created
+                    nullable: true
                     type: boolean
                   enableRBDStats:
                     description: EnableRBDStats is used to enable gathering of statistics
@@ -15103,6 +15156,7 @@ spec:
                   enableCrushUpdates:
                     description: Allow rook operator to change the pool CRUSH tunables
                       once the pool is created
+                    nullable: true
                     type: boolean
                   enableRBDStats:
                     description: EnableRBDStats is used to enable gathering of statistics
@@ -15382,7 +15436,7 @@ spec:
                     type: boolean
                 type: object
               zoneGroup:
-                description: The display name for the ceph users
+                description: The name of the zone group the zone is a member of.
                 type: string
             required:
             - zoneGroup
@@ -16172,8 +16226,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: clientprofilemappings.csi.ceph.io
 spec:
   group: csi.ceph.io
@@ -16322,8 +16376,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: clientprofiles.csi.ceph.io
 spec:
   group: csi.ceph.io
@@ -16580,8 +16634,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: drivers.csi.ceph.io
 spec:
   group: csi.ceph.io
@@ -17218,8 +17272,8 @@ spec:
                               most preferred is the one with the greatest sum of weights, i.e.
                               for each node that meets all of the scheduling requirements (resource
                               request, requiredDuringScheduling anti-affinity expressions, etc.),
-                              compute a sum by iterating through the elements of this field and adding
-                              "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the
+                              compute a sum by iterating through the elements of this field and subtracting
+                              "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the
                               node(s) with the highest sum are the most preferred.
                             items:
                               description: The weights of all of the matched WeightedPodAffinityTerm
@@ -17658,7 +17712,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -17718,7 +17772,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -17778,7 +17832,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -17838,7 +17892,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -17898,7 +17952,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -17958,7 +18012,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -18018,7 +18072,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -18078,7 +18132,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -18138,7 +18192,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -18978,15 +19032,13 @@ spec:
                                             volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.
                                             If specified, the CSI driver will create or update the volume with the attributes defined
                                             in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,
-                                            it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass
-                                            will be applied to the claim but it's not allowed to reset this field to empty string once it is set.
-                                            If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass
-                                            will be set by the persistentvolume controller if it exists.
+                                            it can be changed after the claim is created. An empty string or nil value indicates that no
+                                            VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state,
+                                            this field can be reset to its previous value (including nil) to cancel the modification.
                                             If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be
                                             set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource
                                             exists.
                                             More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
-                                            (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
                                           type: string
                                         volumeMode:
                                           description: |-
@@ -19168,12 +19220,10 @@ spec:
                               description: |-
                                 glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime.
                                 Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
-                                More info: https://examples.k8s.io/volumes/glusterfs/README.md
                               properties:
                                 endpoints:
-                                  description: |-
-                                    endpoints is the endpoint name that details Glusterfs topology.
-                                    More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+                                  description: endpoints is the endpoint name that
+                                    details Glusterfs topology.
                                   type: string
                                 path:
                                   description: |-
@@ -19252,7 +19302,7 @@ spec:
                               description: |-
                                 iscsi represents an ISCSI Disk resource that is attached to a
                                 kubelet's host machine and then exposed to the pod.
-                                More info: https://examples.k8s.io/volumes/iscsi/README.md
+                                More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
                               properties:
                                 chapAuthDiscovery:
                                   description: chapAuthDiscovery defines whether support
@@ -19678,6 +19728,111 @@ spec:
                                             type: array
                                             x-kubernetes-list-type: atomic
                                         type: object
+                                      podCertificate:
+                                        description: |-
+                                          Projects an auto-rotating credential bundle (private key and certificate
+                                          chain) that the pod can use either as a TLS client or server.
+
+                                          Kubelet generates a private key and uses it to send a
+                                          PodCertificateRequest to the named signer.  Once the signer approves the
+                                          request and issues a certificate chain, Kubelet writes the key and
+                                          certificate chain to the pod filesystem.  The pod does not start until
+                                          certificates have been issued for each podCertificate projected volume
+                                          source in its spec.
+
+                                          Kubelet will begin trying to rotate the certificate at the time indicated
+                                          by the signer using the PodCertificateRequest.Status.BeginRefreshAt
+                                          timestamp.
+
+                                          Kubelet can write a single file, indicated by the credentialBundlePath
+                                          field, or separate files, indicated by the keyPath and
+                                          certificateChainPath fields.
+
+                                          The credential bundle is a single file in PEM format.  The first PEM
+                                          entry is the private key (in PKCS#8 format), and the remaining PEM
+                                          entries are the certificate chain issued by the signer (typically,
+                                          signers will return their certificate chain in leaf-to-root order).
+
+                                          Prefer using the credential bundle format, since your application code
+                                          can read it atomically.  If you use keyPath and certificateChainPath,
+                                          your application must make two separate file reads. If these coincide
+                                          with a certificate rotation, it is possible that the private key and leaf
+                                          certificate you read may not correspond to each other.  Your application
+                                          will need to check for this condition, and re-read until they are
+                                          consistent.
+
+                                          The named signer controls chooses the format of the certificate it
+                                          issues; consult the signer implementation's documentation to learn how to
+                                          use the certificates it issues.
+                                        properties:
+                                          certificateChainPath:
+                                            description: |-
+                                              Write the certificate chain at this path in the projected volume.
+
+                                              Most applications should use credentialBundlePath.  When using keyPath
+                                              and certificateChainPath, your application needs to check that the key
+                                              and leaf certificate are consistent, because it is possible to read the
+                                              files mid-rotation.
+                                            type: string
+                                          credentialBundlePath:
+                                            description: |-
+                                              Write the credential bundle at this path in the projected volume.
+
+                                              The credential bundle is a single file that contains multiple PEM blocks.
+                                              The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private
+                                              key.
+
+                                              The remaining blocks are CERTIFICATE blocks, containing the issued
+                                              certificate chain from the signer (leaf and any intermediates).
+
+                                              Using credentialBundlePath lets your Pod's application code make a single
+                                              atomic read that retrieves a consistent key and certificate chain.  If you
+                                              project them to separate files, your application code will need to
+                                              additionally check that the leaf certificate was issued to the key.
+                                            type: string
+                                          keyPath:
+                                            description: |-
+                                              Write the key at this path in the projected volume.
+
+                                              Most applications should use credentialBundlePath.  When using keyPath
+                                              and certificateChainPath, your application needs to check that the key
+                                              and leaf certificate are consistent, because it is possible to read the
+                                              files mid-rotation.
+                                            type: string
+                                          keyType:
+                                            description: |-
+                                              The type of keypair Kubelet will generate for the pod.
+
+                                              Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384",
+                                              "ECDSAP521", and "ED25519".
+                                            type: string
+                                          maxExpirationSeconds:
+                                            description: |-
+                                              maxExpirationSeconds is the maximum lifetime permitted for the
+                                              certificate.
+
+                                              Kubelet copies this value verbatim into the PodCertificateRequests it
+                                              generates for this projection.
+
+                                              If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver
+                                              will reject values shorter than 3600 (1 hour).  The maximum allowable
+                                              value is 7862400 (91 days).
+
+                                              The signer implementation is then free to issue a certificate with any
+                                              lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600
+                                              seconds (1 hour).  This constraint is enforced by kube-apiserver.
+                                              `kubernetes.io` signers will never issue certificates with a lifetime
+                                              longer than 24 hours.
+                                            format: int32
+                                            type: integer
+                                          signerName:
+                                            description: Kubelet's generated CSRs
+                                              will be addressed to this signer.
+                                            type: string
+                                        required:
+                                        - keyType
+                                        - signerName
+                                        type: object
                                       secret:
                                         description: secret information about the
                                           secret data to project
@@ -19812,7 +19967,6 @@ spec:
                               description: |-
                                 rbd represents a Rados Block Device mount on the host that shares a pod's lifetime.
                                 Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
-                                More info: https://examples.k8s.io/volumes/rbd/README.md
                               properties:
                                 fsType:
                                   description: |-
@@ -20096,9 +20250,6 @@ spec:
                           required:
                           - name
                           type: object
-                      required:
-                      - mount
-                      - volume
                       type: object
                     type: array
                 type: object
@@ -20845,8 +20996,8 @@ spec:
                               most preferred is the one with the greatest sum of weights, i.e.
                               for each node that meets all of the scheduling requirements (resource
                               request, requiredDuringScheduling anti-affinity expressions, etc.),
-                              compute a sum by iterating through the elements of this field and adding
-                              "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the
+                              compute a sum by iterating through the elements of this field and subtracting
+                              "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the
                               node(s) with the highest sum are the most preferred.
                             items:
                               description: The weights of all of the matched WeightedPodAffinityTerm
@@ -21228,7 +21379,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -21288,7 +21439,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -21348,7 +21499,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -21408,7 +21559,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -21468,7 +21619,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -21601,7 +21752,7 @@ spec:
                               pod is available (Ready for at least minReadySeconds) the old DaemonSet pod
                               on that node is marked deleted. If the old pod becomes unavailable for any
                               reason (Ready transitions to false, is evicted, or is drained) an updated
-                              pod is immediatedly created on that node without considering surge limits.
+                              pod is immediately created on that node without considering surge limits.
                               Allowing surge implies the possibility that the resources consumed by the
                               daemonset on any given node can double if the readiness check fails, and
                               so resource intensive daemonsets should take into account that they may
@@ -22379,15 +22530,13 @@ spec:
                                             volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.
                                             If specified, the CSI driver will create or update the volume with the attributes defined
                                             in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,
-                                            it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass
-                                            will be applied to the claim but it's not allowed to reset this field to empty string once it is set.
-                                            If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass
-                                            will be set by the persistentvolume controller if it exists.
+                                            it can be changed after the claim is created. An empty string or nil value indicates that no
+                                            VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state,
+                                            this field can be reset to its previous value (including nil) to cancel the modification.
                                             If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be
                                             set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource
                                             exists.
                                             More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
-                                            (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
                                           type: string
                                         volumeMode:
                                           description: |-
@@ -22569,12 +22718,10 @@ spec:
                               description: |-
                                 glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime.
                                 Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
-                                More info: https://examples.k8s.io/volumes/glusterfs/README.md
                               properties:
                                 endpoints:
-                                  description: |-
-                                    endpoints is the endpoint name that details Glusterfs topology.
-                                    More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+                                  description: endpoints is the endpoint name that
+                                    details Glusterfs topology.
                                   type: string
                                 path:
                                   description: |-
@@ -22653,7 +22800,7 @@ spec:
                               description: |-
                                 iscsi represents an ISCSI Disk resource that is attached to a
                                 kubelet's host machine and then exposed to the pod.
-                                More info: https://examples.k8s.io/volumes/iscsi/README.md
+                                More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
                               properties:
                                 chapAuthDiscovery:
                                   description: chapAuthDiscovery defines whether support
@@ -23079,6 +23226,111 @@ spec:
                                             type: array
                                             x-kubernetes-list-type: atomic
                                         type: object
+                                      podCertificate:
+                                        description: |-
+                                          Projects an auto-rotating credential bundle (private key and certificate
+                                          chain) that the pod can use either as a TLS client or server.
+
+                                          Kubelet generates a private key and uses it to send a
+                                          PodCertificateRequest to the named signer.  Once the signer approves the
+                                          request and issues a certificate chain, Kubelet writes the key and
+                                          certificate chain to the pod filesystem.  The pod does not start until
+                                          certificates have been issued for each podCertificate projected volume
+                                          source in its spec.
+
+                                          Kubelet will begin trying to rotate the certificate at the time indicated
+                                          by the signer using the PodCertificateRequest.Status.BeginRefreshAt
+                                          timestamp.
+
+                                          Kubelet can write a single file, indicated by the credentialBundlePath
+                                          field, or separate files, indicated by the keyPath and
+                                          certificateChainPath fields.
+
+                                          The credential bundle is a single file in PEM format.  The first PEM
+                                          entry is the private key (in PKCS#8 format), and the remaining PEM
+                                          entries are the certificate chain issued by the signer (typically,
+                                          signers will return their certificate chain in leaf-to-root order).
+
+                                          Prefer using the credential bundle format, since your application code
+                                          can read it atomically.  If you use keyPath and certificateChainPath,
+                                          your application must make two separate file reads. If these coincide
+                                          with a certificate rotation, it is possible that the private key and leaf
+                                          certificate you read may not correspond to each other.  Your application
+                                          will need to check for this condition, and re-read until they are
+                                          consistent.
+
+                                          The named signer controls chooses the format of the certificate it
+                                          issues; consult the signer implementation's documentation to learn how to
+                                          use the certificates it issues.
+                                        properties:
+                                          certificateChainPath:
+                                            description: |-
+                                              Write the certificate chain at this path in the projected volume.
+
+                                              Most applications should use credentialBundlePath.  When using keyPath
+                                              and certificateChainPath, your application needs to check that the key
+                                              and leaf certificate are consistent, because it is possible to read the
+                                              files mid-rotation.
+                                            type: string
+                                          credentialBundlePath:
+                                            description: |-
+                                              Write the credential bundle at this path in the projected volume.
+
+                                              The credential bundle is a single file that contains multiple PEM blocks.
+                                              The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private
+                                              key.
+
+                                              The remaining blocks are CERTIFICATE blocks, containing the issued
+                                              certificate chain from the signer (leaf and any intermediates).
+
+                                              Using credentialBundlePath lets your Pod's application code make a single
+                                              atomic read that retrieves a consistent key and certificate chain.  If you
+                                              project them to separate files, your application code will need to
+                                              additionally check that the leaf certificate was issued to the key.
+                                            type: string
+                                          keyPath:
+                                            description: |-
+                                              Write the key at this path in the projected volume.
+
+                                              Most applications should use credentialBundlePath.  When using keyPath
+                                              and certificateChainPath, your application needs to check that the key
+                                              and leaf certificate are consistent, because it is possible to read the
+                                              files mid-rotation.
+                                            type: string
+                                          keyType:
+                                            description: |-
+                                              The type of keypair Kubelet will generate for the pod.
+
+                                              Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384",
+                                              "ECDSAP521", and "ED25519".
+                                            type: string
+                                          maxExpirationSeconds:
+                                            description: |-
+                                              maxExpirationSeconds is the maximum lifetime permitted for the
+                                              certificate.
+
+                                              Kubelet copies this value verbatim into the PodCertificateRequests it
+                                              generates for this projection.
+
+                                              If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver
+                                              will reject values shorter than 3600 (1 hour).  The maximum allowable
+                                              value is 7862400 (91 days).
+
+                                              The signer implementation is then free to issue a certificate with any
+                                              lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600
+                                              seconds (1 hour).  This constraint is enforced by kube-apiserver.
+                                              `kubernetes.io` signers will never issue certificates with a lifetime
+                                              longer than 24 hours.
+                                            format: int32
+                                            type: integer
+                                          signerName:
+                                            description: Kubelet's generated CSRs
+                                              will be addressed to this signer.
+                                            type: string
+                                        required:
+                                        - keyType
+                                        - signerName
+                                        type: object
                                       secret:
                                         description: secret information about the
                                           secret data to project
@@ -23213,7 +23465,6 @@ spec:
                               description: |-
                                 rbd represents a Rados Block Device mount on the host that shares a pod's lifetime.
                                 Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
-                                More info: https://examples.k8s.io/volumes/rbd/README.md
                               properties:
                                 fsType:
                                   description: |-
@@ -23497,9 +23748,6 @@ spec:
                           required:
                           - name
                           type: object
-                      required:
-                      - mount
-                      - volume
                       type: object
                     type: array
                 type: object
@@ -24151,8 +24399,8 @@ spec:
                               most preferred is the one with the greatest sum of weights, i.e.
                               for each node that meets all of the scheduling requirements (resource
                               request, requiredDuringScheduling anti-affinity expressions, etc.),
-                              compute a sum by iterating through the elements of this field and adding
-                              "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the
+                              compute a sum by iterating through the elements of this field and subtracting
+                              "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the
                               node(s) with the highest sum are the most preferred.
                             items:
                               description: The weights of all of the matched WeightedPodAffinityTerm
@@ -24591,7 +24839,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -24651,7 +24899,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -24711,7 +24959,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -24771,7 +25019,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -24831,7 +25079,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -24891,7 +25139,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -24951,7 +25199,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -25011,7 +25259,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -25071,7 +25319,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -25911,15 +26159,13 @@ spec:
                                             volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.
                                             If specified, the CSI driver will create or update the volume with the attributes defined
                                             in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,
-                                            it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass
-                                            will be applied to the claim but it's not allowed to reset this field to empty string once it is set.
-                                            If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass
-                                            will be set by the persistentvolume controller if it exists.
+                                            it can be changed after the claim is created. An empty string or nil value indicates that no
+                                            VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state,
+                                            this field can be reset to its previous value (including nil) to cancel the modification.
                                             If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be
                                             set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource
                                             exists.
                                             More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
-                                            (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
                                           type: string
                                         volumeMode:
                                           description: |-
@@ -26101,12 +26347,10 @@ spec:
                               description: |-
                                 glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime.
                                 Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
-                                More info: https://examples.k8s.io/volumes/glusterfs/README.md
                               properties:
                                 endpoints:
-                                  description: |-
-                                    endpoints is the endpoint name that details Glusterfs topology.
-                                    More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+                                  description: endpoints is the endpoint name that
+                                    details Glusterfs topology.
                                   type: string
                                 path:
                                   description: |-
@@ -26185,7 +26429,7 @@ spec:
                               description: |-
                                 iscsi represents an ISCSI Disk resource that is attached to a
                                 kubelet's host machine and then exposed to the pod.
-                                More info: https://examples.k8s.io/volumes/iscsi/README.md
+                                More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
                               properties:
                                 chapAuthDiscovery:
                                   description: chapAuthDiscovery defines whether support
@@ -26611,6 +26855,111 @@ spec:
                                             type: array
                                             x-kubernetes-list-type: atomic
                                         type: object
+                                      podCertificate:
+                                        description: |-
+                                          Projects an auto-rotating credential bundle (private key and certificate
+                                          chain) that the pod can use either as a TLS client or server.
+
+                                          Kubelet generates a private key and uses it to send a
+                                          PodCertificateRequest to the named signer.  Once the signer approves the
+                                          request and issues a certificate chain, Kubelet writes the key and
+                                          certificate chain to the pod filesystem.  The pod does not start until
+                                          certificates have been issued for each podCertificate projected volume
+                                          source in its spec.
+
+                                          Kubelet will begin trying to rotate the certificate at the time indicated
+                                          by the signer using the PodCertificateRequest.Status.BeginRefreshAt
+                                          timestamp.
+
+                                          Kubelet can write a single file, indicated by the credentialBundlePath
+                                          field, or separate files, indicated by the keyPath and
+                                          certificateChainPath fields.
+
+                                          The credential bundle is a single file in PEM format.  The first PEM
+                                          entry is the private key (in PKCS#8 format), and the remaining PEM
+                                          entries are the certificate chain issued by the signer (typically,
+                                          signers will return their certificate chain in leaf-to-root order).
+
+                                          Prefer using the credential bundle format, since your application code
+                                          can read it atomically.  If you use keyPath and certificateChainPath,
+                                          your application must make two separate file reads. If these coincide
+                                          with a certificate rotation, it is possible that the private key and leaf
+                                          certificate you read may not correspond to each other.  Your application
+                                          will need to check for this condition, and re-read until they are
+                                          consistent.
+
+                                          The named signer controls chooses the format of the certificate it
+                                          issues; consult the signer implementation's documentation to learn how to
+                                          use the certificates it issues.
+                                        properties:
+                                          certificateChainPath:
+                                            description: |-
+                                              Write the certificate chain at this path in the projected volume.
+
+                                              Most applications should use credentialBundlePath.  When using keyPath
+                                              and certificateChainPath, your application needs to check that the key
+                                              and leaf certificate are consistent, because it is possible to read the
+                                              files mid-rotation.
+                                            type: string
+                                          credentialBundlePath:
+                                            description: |-
+                                              Write the credential bundle at this path in the projected volume.
+
+                                              The credential bundle is a single file that contains multiple PEM blocks.
+                                              The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private
+                                              key.
+
+                                              The remaining blocks are CERTIFICATE blocks, containing the issued
+                                              certificate chain from the signer (leaf and any intermediates).
+
+                                              Using credentialBundlePath lets your Pod's application code make a single
+                                              atomic read that retrieves a consistent key and certificate chain.  If you
+                                              project them to separate files, your application code will need to
+                                              additionally check that the leaf certificate was issued to the key.
+                                            type: string
+                                          keyPath:
+                                            description: |-
+                                              Write the key at this path in the projected volume.
+
+                                              Most applications should use credentialBundlePath.  When using keyPath
+                                              and certificateChainPath, your application needs to check that the key
+                                              and leaf certificate are consistent, because it is possible to read the
+                                              files mid-rotation.
+                                            type: string
+                                          keyType:
+                                            description: |-
+                                              The type of keypair Kubelet will generate for the pod.
+
+                                              Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384",
+                                              "ECDSAP521", and "ED25519".
+                                            type: string
+                                          maxExpirationSeconds:
+                                            description: |-
+                                              maxExpirationSeconds is the maximum lifetime permitted for the
+                                              certificate.
+
+                                              Kubelet copies this value verbatim into the PodCertificateRequests it
+                                              generates for this projection.
+
+                                              If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver
+                                              will reject values shorter than 3600 (1 hour).  The maximum allowable
+                                              value is 7862400 (91 days).
+
+                                              The signer implementation is then free to issue a certificate with any
+                                              lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600
+                                              seconds (1 hour).  This constraint is enforced by kube-apiserver.
+                                              `kubernetes.io` signers will never issue certificates with a lifetime
+                                              longer than 24 hours.
+                                            format: int32
+                                            type: integer
+                                          signerName:
+                                            description: Kubelet's generated CSRs
+                                              will be addressed to this signer.
+                                            type: string
+                                        required:
+                                        - keyType
+                                        - signerName
+                                        type: object
                                       secret:
                                         description: secret information about the
                                           secret data to project
@@ -26745,7 +27094,6 @@ spec:
                               description: |-
                                 rbd represents a Rados Block Device mount on the host that shares a pod's lifetime.
                                 Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
-                                More info: https://examples.k8s.io/volumes/rbd/README.md
                               properties:
                                 fsType:
                                   description: |-
@@ -27773,8 +28121,8 @@ spec:
                               most preferred is the one with the greatest sum of weights, i.e.
                               for each node that meets all of the scheduling requirements (resource
                               request, requiredDuringScheduling anti-affinity expressions, etc.),
-                              compute a sum by iterating through the elements of this field and adding
-                              "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the
+                              compute a sum by iterating through the elements of this field and subtracting
+                              "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the
                               node(s) with the highest sum are the most preferred.
                             items:
                               description: The weights of all of the matched WeightedPodAffinityTerm
@@ -28156,7 +28504,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -28216,7 +28564,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -28276,7 +28624,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -28336,7 +28684,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -28396,7 +28744,7 @@ spec:
                               Claims lists the names of resources, defined in spec.resourceClaims,
                               that are used by this container.
 
-                              This is an alpha field and requires enabling the
+                              This field depends on the
                               DynamicResourceAllocation feature gate.
 
                               This field is immutable. It can only be set for containers.
@@ -28529,7 +28877,7 @@ spec:
                               pod is available (Ready for at least minReadySeconds) the old DaemonSet pod
                               on that node is marked deleted. If the old pod becomes unavailable for any
                               reason (Ready transitions to false, is evicted, or is drained) an updated
-                              pod is immediatedly created on that node without considering surge limits.
+                              pod is immediately created on that node without considering surge limits.
                               Allowing surge implies the possibility that the resources consumed by the
                               daemonset on any given node can double if the readiness check fails, and
                               so resource intensive daemonsets should take into account that they may
@@ -29307,15 +29655,13 @@ spec:
                                             volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.
                                             If specified, the CSI driver will create or update the volume with the attributes defined
                                             in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,
-                                            it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass
-                                            will be applied to the claim but it's not allowed to reset this field to empty string once it is set.
-                                            If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass
-                                            will be set by the persistentvolume controller if it exists.
+                                            it can be changed after the claim is created. An empty string or nil value indicates that no
+                                            VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state,
+                                            this field can be reset to its previous value (including nil) to cancel the modification.
                                             If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be
                                             set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource
                                             exists.
                                             More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
-                                            (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
                                           type: string
                                         volumeMode:
                                           description: |-
@@ -29497,12 +29843,10 @@ spec:
                               description: |-
                                 glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime.
                                 Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
-                                More info: https://examples.k8s.io/volumes/glusterfs/README.md
                               properties:
                                 endpoints:
-                                  description: |-
-                                    endpoints is the endpoint name that details Glusterfs topology.
-                                    More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+                                  description: endpoints is the endpoint name that
+                                    details Glusterfs topology.
                                   type: string
                                 path:
                                   description: |-
@@ -29581,7 +29925,7 @@ spec:
                               description: |-
                                 iscsi represents an ISCSI Disk resource that is attached to a
                                 kubelet's host machine and then exposed to the pod.
-                                More info: https://examples.k8s.io/volumes/iscsi/README.md
+                                More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
                               properties:
                                 chapAuthDiscovery:
                                   description: chapAuthDiscovery defines whether support
@@ -30007,6 +30351,111 @@ spec:
                                             type: array
                                             x-kubernetes-list-type: atomic
                                         type: object
+                                      podCertificate:
+                                        description: |-
+                                          Projects an auto-rotating credential bundle (private key and certificate
+                                          chain) that the pod can use either as a TLS client or server.
+
+                                          Kubelet generates a private key and uses it to send a
+                                          PodCertificateRequest to the named signer.  Once the signer approves the
+                                          request and issues a certificate chain, Kubelet writes the key and
+                                          certificate chain to the pod filesystem.  The pod does not start until
+                                          certificates have been issued for each podCertificate projected volume
+                                          source in its spec.
+
+                                          Kubelet will begin trying to rotate the certificate at the time indicated
+                                          by the signer using the PodCertificateRequest.Status.BeginRefreshAt
+                                          timestamp.
+
+                                          Kubelet can write a single file, indicated by the credentialBundlePath
+                                          field, or separate files, indicated by the keyPath and
+                                          certificateChainPath fields.
+
+                                          The credential bundle is a single file in PEM format.  The first PEM
+                                          entry is the private key (in PKCS#8 format), and the remaining PEM
+                                          entries are the certificate chain issued by the signer (typically,
+                                          signers will return their certificate chain in leaf-to-root order).
+
+                                          Prefer using the credential bundle format, since your application code
+                                          can read it atomically.  If you use keyPath and certificateChainPath,
+                                          your application must make two separate file reads. If these coincide
+                                          with a certificate rotation, it is possible that the private key and leaf
+                                          certificate you read may not correspond to each other.  Your application
+                                          will need to check for this condition, and re-read until they are
+                                          consistent.
+
+                                          The named signer controls chooses the format of the certificate it
+                                          issues; consult the signer implementation's documentation to learn how to
+                                          use the certificates it issues.
+                                        properties:
+                                          certificateChainPath:
+                                            description: |-
+                                              Write the certificate chain at this path in the projected volume.
+
+                                              Most applications should use credentialBundlePath.  When using keyPath
+                                              and certificateChainPath, your application needs to check that the key
+                                              and leaf certificate are consistent, because it is possible to read the
+                                              files mid-rotation.
+                                            type: string
+                                          credentialBundlePath:
+                                            description: |-
+                                              Write the credential bundle at this path in the projected volume.
+
+                                              The credential bundle is a single file that contains multiple PEM blocks.
+                                              The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private
+                                              key.
+
+                                              The remaining blocks are CERTIFICATE blocks, containing the issued
+                                              certificate chain from the signer (leaf and any intermediates).
+
+                                              Using credentialBundlePath lets your Pod's application code make a single
+                                              atomic read that retrieves a consistent key and certificate chain.  If you
+                                              project them to separate files, your application code will need to
+                                              additionally check that the leaf certificate was issued to the key.
+                                            type: string
+                                          keyPath:
+                                            description: |-
+                                              Write the key at this path in the projected volume.
+
+                                              Most applications should use credentialBundlePath.  When using keyPath
+                                              and certificateChainPath, your application needs to check that the key
+                                              and leaf certificate are consistent, because it is possible to read the
+                                              files mid-rotation.
+                                            type: string
+                                          keyType:
+                                            description: |-
+                                              The type of keypair Kubelet will generate for the pod.
+
+                                              Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384",
+                                              "ECDSAP521", and "ED25519".
+                                            type: string
+                                          maxExpirationSeconds:
+                                            description: |-
+                                              maxExpirationSeconds is the maximum lifetime permitted for the
+                                              certificate.
+
+                                              Kubelet copies this value verbatim into the PodCertificateRequests it
+                                              generates for this projection.
+
+                                              If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver
+                                              will reject values shorter than 3600 (1 hour).  The maximum allowable
+                                              value is 7862400 (91 days).
+
+                                              The signer implementation is then free to issue a certificate with any
+                                              lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600
+                                              seconds (1 hour).  This constraint is enforced by kube-apiserver.
+                                              `kubernetes.io` signers will never issue certificates with a lifetime
+                                              longer than 24 hours.
+                                            format: int32
+                                            type: integer
+                                          signerName:
+                                            description: Kubelet's generated CSRs
+                                              will be addressed to this signer.
+                                            type: string
+                                        required:
+                                        - keyType
+                                        - signerName
+                                        type: object
                                       secret:
                                         description: secret information about the
                                           secret data to project
@@ -30141,7 +30590,6 @@ spec:
                               description: |-
                                 rbd represents a Rados Block Device mount on the host that shares a pod's lifetime.
                                 Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
-                                More info: https://examples.k8s.io/volumes/rbd/README.md
                               properties:
                                 fsType:
                                   description: |-
@@ -30584,8 +31032,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: operatorconfigs.csi.ceph.io
 spec:
   group: csi.ceph.io
@@ -31229,8 +31677,8 @@ spec:
                                   most preferred is the one with the greatest sum of weights, i.e.
                                   for each node that meets all of the scheduling requirements (resource
                                   request, requiredDuringScheduling anti-affinity expressions, etc.),
-                                  compute a sum by iterating through the elements of this field and adding
-                                  "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the
+                                  compute a sum by iterating through the elements of this field and subtracting
+                                  "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the
                                   node(s) with the highest sum are the most preferred.
                                 items:
                                   description: The weights of all of the matched WeightedPodAffinityTerm
@@ -31672,7 +32120,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -31733,7 +32181,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -31794,7 +32242,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -31855,7 +32303,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -31916,7 +32364,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -31977,7 +32425,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -32038,7 +32486,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -32099,7 +32547,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -32160,7 +32608,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -33005,15 +33453,13 @@ spec:
                                                 volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.
                                                 If specified, the CSI driver will create or update the volume with the attributes defined
                                                 in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,
-                                                it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass
-                                                will be applied to the claim but it's not allowed to reset this field to empty string once it is set.
-                                                If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass
-                                                will be set by the persistentvolume controller if it exists.
+                                                it can be changed after the claim is created. An empty string or nil value indicates that no
+                                                VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state,
+                                                this field can be reset to its previous value (including nil) to cancel the modification.
                                                 If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be
                                                 set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource
                                                 exists.
                                                 More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
-                                                (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
                                               type: string
                                             volumeMode:
                                               description: |-
@@ -33198,12 +33644,10 @@ spec:
                                   description: |-
                                     glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime.
                                     Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
-                                    More info: https://examples.k8s.io/volumes/glusterfs/README.md
                                   properties:
                                     endpoints:
-                                      description: |-
-                                        endpoints is the endpoint name that details Glusterfs topology.
-                                        More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+                                      description: endpoints is the endpoint name
+                                        that details Glusterfs topology.
                                       type: string
                                     path:
                                       description: |-
@@ -33282,7 +33726,7 @@ spec:
                                   description: |-
                                     iscsi represents an ISCSI Disk resource that is attached to a
                                     kubelet's host machine and then exposed to the pod.
-                                    More info: https://examples.k8s.io/volumes/iscsi/README.md
+                                    More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
                                   properties:
                                     chapAuthDiscovery:
                                       description: chapAuthDiscovery defines whether
@@ -33716,6 +34160,111 @@ spec:
                                                 type: array
                                                 x-kubernetes-list-type: atomic
                                             type: object
+                                          podCertificate:
+                                            description: |-
+                                              Projects an auto-rotating credential bundle (private key and certificate
+                                              chain) that the pod can use either as a TLS client or server.
+
+                                              Kubelet generates a private key and uses it to send a
+                                              PodCertificateRequest to the named signer.  Once the signer approves the
+                                              request and issues a certificate chain, Kubelet writes the key and
+                                              certificate chain to the pod filesystem.  The pod does not start until
+                                              certificates have been issued for each podCertificate projected volume
+                                              source in its spec.
+
+                                              Kubelet will begin trying to rotate the certificate at the time indicated
+                                              by the signer using the PodCertificateRequest.Status.BeginRefreshAt
+                                              timestamp.
+
+                                              Kubelet can write a single file, indicated by the credentialBundlePath
+                                              field, or separate files, indicated by the keyPath and
+                                              certificateChainPath fields.
+
+                                              The credential bundle is a single file in PEM format.  The first PEM
+                                              entry is the private key (in PKCS#8 format), and the remaining PEM
+                                              entries are the certificate chain issued by the signer (typically,
+                                              signers will return their certificate chain in leaf-to-root order).
+
+                                              Prefer using the credential bundle format, since your application code
+                                              can read it atomically.  If you use keyPath and certificateChainPath,
+                                              your application must make two separate file reads. If these coincide
+                                              with a certificate rotation, it is possible that the private key and leaf
+                                              certificate you read may not correspond to each other.  Your application
+                                              will need to check for this condition, and re-read until they are
+                                              consistent.
+
+                                              The named signer controls chooses the format of the certificate it
+                                              issues; consult the signer implementation's documentation to learn how to
+                                              use the certificates it issues.
+                                            properties:
+                                              certificateChainPath:
+                                                description: |-
+                                                  Write the certificate chain at this path in the projected volume.
+
+                                                  Most applications should use credentialBundlePath.  When using keyPath
+                                                  and certificateChainPath, your application needs to check that the key
+                                                  and leaf certificate are consistent, because it is possible to read the
+                                                  files mid-rotation.
+                                                type: string
+                                              credentialBundlePath:
+                                                description: |-
+                                                  Write the credential bundle at this path in the projected volume.
+
+                                                  The credential bundle is a single file that contains multiple PEM blocks.
+                                                  The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private
+                                                  key.
+
+                                                  The remaining blocks are CERTIFICATE blocks, containing the issued
+                                                  certificate chain from the signer (leaf and any intermediates).
+
+                                                  Using credentialBundlePath lets your Pod's application code make a single
+                                                  atomic read that retrieves a consistent key and certificate chain.  If you
+                                                  project them to separate files, your application code will need to
+                                                  additionally check that the leaf certificate was issued to the key.
+                                                type: string
+                                              keyPath:
+                                                description: |-
+                                                  Write the key at this path in the projected volume.
+
+                                                  Most applications should use credentialBundlePath.  When using keyPath
+                                                  and certificateChainPath, your application needs to check that the key
+                                                  and leaf certificate are consistent, because it is possible to read the
+                                                  files mid-rotation.
+                                                type: string
+                                              keyType:
+                                                description: |-
+                                                  The type of keypair Kubelet will generate for the pod.
+
+                                                  Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384",
+                                                  "ECDSAP521", and "ED25519".
+                                                type: string
+                                              maxExpirationSeconds:
+                                                description: |-
+                                                  maxExpirationSeconds is the maximum lifetime permitted for the
+                                                  certificate.
+
+                                                  Kubelet copies this value verbatim into the PodCertificateRequests it
+                                                  generates for this projection.
+
+                                                  If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver
+                                                  will reject values shorter than 3600 (1 hour).  The maximum allowable
+                                                  value is 7862400 (91 days).
+
+                                                  The signer implementation is then free to issue a certificate with any
+                                                  lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600
+                                                  seconds (1 hour).  This constraint is enforced by kube-apiserver.
+                                                  `kubernetes.io` signers will never issue certificates with a lifetime
+                                                  longer than 24 hours.
+                                                format: int32
+                                                type: integer
+                                              signerName:
+                                                description: Kubelet's generated CSRs
+                                                  will be addressed to this signer.
+                                                type: string
+                                            required:
+                                            - keyType
+                                            - signerName
+                                            type: object
                                           secret:
                                             description: secret information about
                                               the secret data to project
@@ -33853,7 +34402,6 @@ spec:
                                   description: |-
                                     rbd represents a Rados Block Device mount on the host that shares a pod's lifetime.
                                     Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
-                                    More info: https://examples.k8s.io/volumes/rbd/README.md
                                   properties:
                                     fsType:
                                       description: |-
@@ -34138,9 +34686,6 @@ spec:
                               required:
                               - name
                               type: object
-                          required:
-                          - mount
-                          - volume
                           type: object
                         type: array
                     type: object
@@ -34891,8 +35436,8 @@ spec:
                                   most preferred is the one with the greatest sum of weights, i.e.
                                   for each node that meets all of the scheduling requirements (resource
                                   request, requiredDuringScheduling anti-affinity expressions, etc.),
-                                  compute a sum by iterating through the elements of this field and adding
-                                  "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the
+                                  compute a sum by iterating through the elements of this field and subtracting
+                                  "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the
                                   node(s) with the highest sum are the most preferred.
                                 items:
                                   description: The weights of all of the matched WeightedPodAffinityTerm
@@ -35276,7 +35821,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -35337,7 +35882,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -35398,7 +35943,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -35459,7 +36004,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -35520,7 +36065,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -35656,7 +36201,7 @@ spec:
                                   pod is available (Ready for at least minReadySeconds) the old DaemonSet pod
                                   on that node is marked deleted. If the old pod becomes unavailable for any
                                   reason (Ready transitions to false, is evicted, or is drained) an updated
-                                  pod is immediatedly created on that node without considering surge limits.
+                                  pod is immediately created on that node without considering surge limits.
                                   Allowing surge implies the possibility that the resources consumed by the
                                   daemonset on any given node can double if the readiness check fails, and
                                   so resource intensive daemonsets should take into account that they may
@@ -36437,15 +36982,13 @@ spec:
                                                 volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.
                                                 If specified, the CSI driver will create or update the volume with the attributes defined
                                                 in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,
-                                                it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass
-                                                will be applied to the claim but it's not allowed to reset this field to empty string once it is set.
-                                                If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass
-                                                will be set by the persistentvolume controller if it exists.
+                                                it can be changed after the claim is created. An empty string or nil value indicates that no
+                                                VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state,
+                                                this field can be reset to its previous value (including nil) to cancel the modification.
                                                 If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be
                                                 set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource
                                                 exists.
                                                 More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
-                                                (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
                                               type: string
                                             volumeMode:
                                               description: |-
@@ -36630,12 +37173,10 @@ spec:
                                   description: |-
                                     glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime.
                                     Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
-                                    More info: https://examples.k8s.io/volumes/glusterfs/README.md
                                   properties:
                                     endpoints:
-                                      description: |-
-                                        endpoints is the endpoint name that details Glusterfs topology.
-                                        More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+                                      description: endpoints is the endpoint name
+                                        that details Glusterfs topology.
                                       type: string
                                     path:
                                       description: |-
@@ -36714,7 +37255,7 @@ spec:
                                   description: |-
                                     iscsi represents an ISCSI Disk resource that is attached to a
                                     kubelet's host machine and then exposed to the pod.
-                                    More info: https://examples.k8s.io/volumes/iscsi/README.md
+                                    More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
                                   properties:
                                     chapAuthDiscovery:
                                       description: chapAuthDiscovery defines whether
@@ -37148,6 +37689,111 @@ spec:
                                                 type: array
                                                 x-kubernetes-list-type: atomic
                                             type: object
+                                          podCertificate:
+                                            description: |-
+                                              Projects an auto-rotating credential bundle (private key and certificate
+                                              chain) that the pod can use either as a TLS client or server.
+
+                                              Kubelet generates a private key and uses it to send a
+                                              PodCertificateRequest to the named signer.  Once the signer approves the
+                                              request and issues a certificate chain, Kubelet writes the key and
+                                              certificate chain to the pod filesystem.  The pod does not start until
+                                              certificates have been issued for each podCertificate projected volume
+                                              source in its spec.
+
+                                              Kubelet will begin trying to rotate the certificate at the time indicated
+                                              by the signer using the PodCertificateRequest.Status.BeginRefreshAt
+                                              timestamp.
+
+                                              Kubelet can write a single file, indicated by the credentialBundlePath
+                                              field, or separate files, indicated by the keyPath and
+                                              certificateChainPath fields.
+
+                                              The credential bundle is a single file in PEM format.  The first PEM
+                                              entry is the private key (in PKCS#8 format), and the remaining PEM
+                                              entries are the certificate chain issued by the signer (typically,
+                                              signers will return their certificate chain in leaf-to-root order).
+
+                                              Prefer using the credential bundle format, since your application code
+                                              can read it atomically.  If you use keyPath and certificateChainPath,
+                                              your application must make two separate file reads. If these coincide
+                                              with a certificate rotation, it is possible that the private key and leaf
+                                              certificate you read may not correspond to each other.  Your application
+                                              will need to check for this condition, and re-read until they are
+                                              consistent.
+
+                                              The named signer controls chooses the format of the certificate it
+                                              issues; consult the signer implementation's documentation to learn how to
+                                              use the certificates it issues.
+                                            properties:
+                                              certificateChainPath:
+                                                description: |-
+                                                  Write the certificate chain at this path in the projected volume.
+
+                                                  Most applications should use credentialBundlePath.  When using keyPath
+                                                  and certificateChainPath, your application needs to check that the key
+                                                  and leaf certificate are consistent, because it is possible to read the
+                                                  files mid-rotation.
+                                                type: string
+                                              credentialBundlePath:
+                                                description: |-
+                                                  Write the credential bundle at this path in the projected volume.
+
+                                                  The credential bundle is a single file that contains multiple PEM blocks.
+                                                  The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private
+                                                  key.
+
+                                                  The remaining blocks are CERTIFICATE blocks, containing the issued
+                                                  certificate chain from the signer (leaf and any intermediates).
+
+                                                  Using credentialBundlePath lets your Pod's application code make a single
+                                                  atomic read that retrieves a consistent key and certificate chain.  If you
+                                                  project them to separate files, your application code will need to
+                                                  additionally check that the leaf certificate was issued to the key.
+                                                type: string
+                                              keyPath:
+                                                description: |-
+                                                  Write the key at this path in the projected volume.
+
+                                                  Most applications should use credentialBundlePath.  When using keyPath
+                                                  and certificateChainPath, your application needs to check that the key
+                                                  and leaf certificate are consistent, because it is possible to read the
+                                                  files mid-rotation.
+                                                type: string
+                                              keyType:
+                                                description: |-
+                                                  The type of keypair Kubelet will generate for the pod.
+
+                                                  Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384",
+                                                  "ECDSAP521", and "ED25519".
+                                                type: string
+                                              maxExpirationSeconds:
+                                                description: |-
+                                                  maxExpirationSeconds is the maximum lifetime permitted for the
+                                                  certificate.
+
+                                                  Kubelet copies this value verbatim into the PodCertificateRequests it
+                                                  generates for this projection.
+
+                                                  If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver
+                                                  will reject values shorter than 3600 (1 hour).  The maximum allowable
+                                                  value is 7862400 (91 days).
+
+                                                  The signer implementation is then free to issue a certificate with any
+                                                  lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600
+                                                  seconds (1 hour).  This constraint is enforced by kube-apiserver.
+                                                  `kubernetes.io` signers will never issue certificates with a lifetime
+                                                  longer than 24 hours.
+                                                format: int32
+                                                type: integer
+                                              signerName:
+                                                description: Kubelet's generated CSRs
+                                                  will be addressed to this signer.
+                                                type: string
+                                            required:
+                                            - keyType
+                                            - signerName
+                                            type: object
                                           secret:
                                             description: secret information about
                                               the secret data to project
@@ -37285,7 +37931,6 @@ spec:
                                   description: |-
                                     rbd represents a Rados Block Device mount on the host that shares a pod's lifetime.
                                     Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
-                                    More info: https://examples.k8s.io/volumes/rbd/README.md
                                   properties:
                                     fsType:
                                       description: |-
@@ -37570,9 +38215,6 @@ spec:
                               required:
                               - name
                               type: object
-                          required:
-                          - mount
-                          - volume
                           type: object
                         type: array
                     type: object
@@ -38239,8 +38881,8 @@ spec:
                                   most preferred is the one with the greatest sum of weights, i.e.
                                   for each node that meets all of the scheduling requirements (resource
                                   request, requiredDuringScheduling anti-affinity expressions, etc.),
-                                  compute a sum by iterating through the elements of this field and adding
-                                  "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the
+                                  compute a sum by iterating through the elements of this field and subtracting
+                                  "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the
                                   node(s) with the highest sum are the most preferred.
                                 items:
                                   description: The weights of all of the matched WeightedPodAffinityTerm
@@ -38682,7 +39324,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -38743,7 +39385,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -38804,7 +39446,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -38865,7 +39507,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -38926,7 +39568,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -38987,7 +39629,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -39048,7 +39690,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -39109,7 +39751,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -39170,7 +39812,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -40015,15 +40657,13 @@ spec:
                                                 volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.
                                                 If specified, the CSI driver will create or update the volume with the attributes defined
                                                 in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,
-                                                it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass
-                                                will be applied to the claim but it's not allowed to reset this field to empty string once it is set.
-                                                If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass
-                                                will be set by the persistentvolume controller if it exists.
+                                                it can be changed after the claim is created. An empty string or nil value indicates that no
+                                                VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state,
+                                                this field can be reset to its previous value (including nil) to cancel the modification.
                                                 If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be
                                                 set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource
                                                 exists.
                                                 More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
-                                                (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
                                               type: string
                                             volumeMode:
                                               description: |-
@@ -40208,12 +40848,10 @@ spec:
                                   description: |-
                                     glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime.
                                     Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
-                                    More info: https://examples.k8s.io/volumes/glusterfs/README.md
                                   properties:
                                     endpoints:
-                                      description: |-
-                                        endpoints is the endpoint name that details Glusterfs topology.
-                                        More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+                                      description: endpoints is the endpoint name
+                                        that details Glusterfs topology.
                                       type: string
                                     path:
                                       description: |-
@@ -40292,7 +40930,7 @@ spec:
                                   description: |-
                                     iscsi represents an ISCSI Disk resource that is attached to a
                                     kubelet's host machine and then exposed to the pod.
-                                    More info: https://examples.k8s.io/volumes/iscsi/README.md
+                                    More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
                                   properties:
                                     chapAuthDiscovery:
                                       description: chapAuthDiscovery defines whether
@@ -40726,6 +41364,111 @@ spec:
                                                 type: array
                                                 x-kubernetes-list-type: atomic
                                             type: object
+                                          podCertificate:
+                                            description: |-
+                                              Projects an auto-rotating credential bundle (private key and certificate
+                                              chain) that the pod can use either as a TLS client or server.
+
+                                              Kubelet generates a private key and uses it to send a
+                                              PodCertificateRequest to the named signer.  Once the signer approves the
+                                              request and issues a certificate chain, Kubelet writes the key and
+                                              certificate chain to the pod filesystem.  The pod does not start until
+                                              certificates have been issued for each podCertificate projected volume
+                                              source in its spec.
+
+                                              Kubelet will begin trying to rotate the certificate at the time indicated
+                                              by the signer using the PodCertificateRequest.Status.BeginRefreshAt
+                                              timestamp.
+
+                                              Kubelet can write a single file, indicated by the credentialBundlePath
+                                              field, or separate files, indicated by the keyPath and
+                                              certificateChainPath fields.
+
+                                              The credential bundle is a single file in PEM format.  The first PEM
+                                              entry is the private key (in PKCS#8 format), and the remaining PEM
+                                              entries are the certificate chain issued by the signer (typically,
+                                              signers will return their certificate chain in leaf-to-root order).
+
+                                              Prefer using the credential bundle format, since your application code
+                                              can read it atomically.  If you use keyPath and certificateChainPath,
+                                              your application must make two separate file reads. If these coincide
+                                              with a certificate rotation, it is possible that the private key and leaf
+                                              certificate you read may not correspond to each other.  Your application
+                                              will need to check for this condition, and re-read until they are
+                                              consistent.
+
+                                              The named signer controls chooses the format of the certificate it
+                                              issues; consult the signer implementation's documentation to learn how to
+                                              use the certificates it issues.
+                                            properties:
+                                              certificateChainPath:
+                                                description: |-
+                                                  Write the certificate chain at this path in the projected volume.
+
+                                                  Most applications should use credentialBundlePath.  When using keyPath
+                                                  and certificateChainPath, your application needs to check that the key
+                                                  and leaf certificate are consistent, because it is possible to read the
+                                                  files mid-rotation.
+                                                type: string
+                                              credentialBundlePath:
+                                                description: |-
+                                                  Write the credential bundle at this path in the projected volume.
+
+                                                  The credential bundle is a single file that contains multiple PEM blocks.
+                                                  The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private
+                                                  key.
+
+                                                  The remaining blocks are CERTIFICATE blocks, containing the issued
+                                                  certificate chain from the signer (leaf and any intermediates).
+
+                                                  Using credentialBundlePath lets your Pod's application code make a single
+                                                  atomic read that retrieves a consistent key and certificate chain.  If you
+                                                  project them to separate files, your application code will need to
+                                                  additionally check that the leaf certificate was issued to the key.
+                                                type: string
+                                              keyPath:
+                                                description: |-
+                                                  Write the key at this path in the projected volume.
+
+                                                  Most applications should use credentialBundlePath.  When using keyPath
+                                                  and certificateChainPath, your application needs to check that the key
+                                                  and leaf certificate are consistent, because it is possible to read the
+                                                  files mid-rotation.
+                                                type: string
+                                              keyType:
+                                                description: |-
+                                                  The type of keypair Kubelet will generate for the pod.
+
+                                                  Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384",
+                                                  "ECDSAP521", and "ED25519".
+                                                type: string
+                                              maxExpirationSeconds:
+                                                description: |-
+                                                  maxExpirationSeconds is the maximum lifetime permitted for the
+                                                  certificate.
+
+                                                  Kubelet copies this value verbatim into the PodCertificateRequests it
+                                                  generates for this projection.
+
+                                                  If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver
+                                                  will reject values shorter than 3600 (1 hour).  The maximum allowable
+                                                  value is 7862400 (91 days).
+
+                                                  The signer implementation is then free to issue a certificate with any
+                                                  lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600
+                                                  seconds (1 hour).  This constraint is enforced by kube-apiserver.
+                                                  `kubernetes.io` signers will never issue certificates with a lifetime
+                                                  longer than 24 hours.
+                                                format: int32
+                                                type: integer
+                                              signerName:
+                                                description: Kubelet's generated CSRs
+                                                  will be addressed to this signer.
+                                                type: string
+                                            required:
+                                            - keyType
+                                            - signerName
+                                            type: object
                                           secret:
                                             description: secret information about
                                               the secret data to project
@@ -40863,7 +41606,6 @@ spec:
                                   description: |-
                                     rbd represents a Rados Block Device mount on the host that shares a pod's lifetime.
                                     Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
-                                    More info: https://examples.k8s.io/volumes/rbd/README.md
                                   properties:
                                     fsType:
                                       description: |-
@@ -41896,8 +42638,8 @@ spec:
                                   most preferred is the one with the greatest sum of weights, i.e.
                                   for each node that meets all of the scheduling requirements (resource
                                   request, requiredDuringScheduling anti-affinity expressions, etc.),
-                                  compute a sum by iterating through the elements of this field and adding
-                                  "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the
+                                  compute a sum by iterating through the elements of this field and subtracting
+                                  "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the
                                   node(s) with the highest sum are the most preferred.
                                 items:
                                   description: The weights of all of the matched WeightedPodAffinityTerm
@@ -42281,7 +43023,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -42342,7 +43084,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -42403,7 +43145,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -42464,7 +43206,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -42525,7 +43267,7 @@ spec:
                                   Claims lists the names of resources, defined in spec.resourceClaims,
                                   that are used by this container.
 
-                                  This is an alpha field and requires enabling the
+                                  This field depends on the
                                   DynamicResourceAllocation feature gate.
 
                                   This field is immutable. It can only be set for containers.
@@ -42661,7 +43403,7 @@ spec:
                                   pod is available (Ready for at least minReadySeconds) the old DaemonSet pod
                                   on that node is marked deleted. If the old pod becomes unavailable for any
                                   reason (Ready transitions to false, is evicted, or is drained) an updated
-                                  pod is immediatedly created on that node without considering surge limits.
+                                  pod is immediately created on that node without considering surge limits.
                                   Allowing surge implies the possibility that the resources consumed by the
                                   daemonset on any given node can double if the readiness check fails, and
                                   so resource intensive daemonsets should take into account that they may
@@ -43442,15 +44184,13 @@ spec:
                                                 volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.
                                                 If specified, the CSI driver will create or update the volume with the attributes defined
                                                 in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,
-                                                it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass
-                                                will be applied to the claim but it's not allowed to reset this field to empty string once it is set.
-                                                If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass
-                                                will be set by the persistentvolume controller if it exists.
+                                                it can be changed after the claim is created. An empty string or nil value indicates that no
+                                                VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state,
+                                                this field can be reset to its previous value (including nil) to cancel the modification.
                                                 If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be
                                                 set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource
                                                 exists.
                                                 More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
-                                                (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
                                               type: string
                                             volumeMode:
                                               description: |-
@@ -43635,12 +44375,10 @@ spec:
                                   description: |-
                                     glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime.
                                     Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
-                                    More info: https://examples.k8s.io/volumes/glusterfs/README.md
                                   properties:
                                     endpoints:
-                                      description: |-
-                                        endpoints is the endpoint name that details Glusterfs topology.
-                                        More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+                                      description: endpoints is the endpoint name
+                                        that details Glusterfs topology.
                                       type: string
                                     path:
                                       description: |-
@@ -43719,7 +44457,7 @@ spec:
                                   description: |-
                                     iscsi represents an ISCSI Disk resource that is attached to a
                                     kubelet's host machine and then exposed to the pod.
-                                    More info: https://examples.k8s.io/volumes/iscsi/README.md
+                                    More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
                                   properties:
                                     chapAuthDiscovery:
                                       description: chapAuthDiscovery defines whether
@@ -44153,6 +44891,111 @@ spec:
                                                 type: array
                                                 x-kubernetes-list-type: atomic
                                             type: object
+                                          podCertificate:
+                                            description: |-
+                                              Projects an auto-rotating credential bundle (private key and certificate
+                                              chain) that the pod can use either as a TLS client or server.
+
+                                              Kubelet generates a private key and uses it to send a
+                                              PodCertificateRequest to the named signer.  Once the signer approves the
+                                              request and issues a certificate chain, Kubelet writes the key and
+                                              certificate chain to the pod filesystem.  The pod does not start until
+                                              certificates have been issued for each podCertificate projected volume
+                                              source in its spec.
+
+                                              Kubelet will begin trying to rotate the certificate at the time indicated
+                                              by the signer using the PodCertificateRequest.Status.BeginRefreshAt
+                                              timestamp.
+
+                                              Kubelet can write a single file, indicated by the credentialBundlePath
+                                              field, or separate files, indicated by the keyPath and
+                                              certificateChainPath fields.
+
+                                              The credential bundle is a single file in PEM format.  The first PEM
+                                              entry is the private key (in PKCS#8 format), and the remaining PEM
+                                              entries are the certificate chain issued by the signer (typically,
+                                              signers will return their certificate chain in leaf-to-root order).
+
+                                              Prefer using the credential bundle format, since your application code
+                                              can read it atomically.  If you use keyPath and certificateChainPath,
+                                              your application must make two separate file reads. If these coincide
+                                              with a certificate rotation, it is possible that the private key and leaf
+                                              certificate you read may not correspond to each other.  Your application
+                                              will need to check for this condition, and re-read until they are
+                                              consistent.
+
+                                              The named signer controls chooses the format of the certificate it
+                                              issues; consult the signer implementation's documentation to learn how to
+                                              use the certificates it issues.
+                                            properties:
+                                              certificateChainPath:
+                                                description: |-
+                                                  Write the certificate chain at this path in the projected volume.
+
+                                                  Most applications should use credentialBundlePath.  When using keyPath
+                                                  and certificateChainPath, your application needs to check that the key
+                                                  and leaf certificate are consistent, because it is possible to read the
+                                                  files mid-rotation.
+                                                type: string
+                                              credentialBundlePath:
+                                                description: |-
+                                                  Write the credential bundle at this path in the projected volume.
+
+                                                  The credential bundle is a single file that contains multiple PEM blocks.
+                                                  The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private
+                                                  key.
+
+                                                  The remaining blocks are CERTIFICATE blocks, containing the issued
+                                                  certificate chain from the signer (leaf and any intermediates).
+
+                                                  Using credentialBundlePath lets your Pod's application code make a single
+                                                  atomic read that retrieves a consistent key and certificate chain.  If you
+                                                  project them to separate files, your application code will need to
+                                                  additionally check that the leaf certificate was issued to the key.
+                                                type: string
+                                              keyPath:
+                                                description: |-
+                                                  Write the key at this path in the projected volume.
+
+                                                  Most applications should use credentialBundlePath.  When using keyPath
+                                                  and certificateChainPath, your application needs to check that the key
+                                                  and leaf certificate are consistent, because it is possible to read the
+                                                  files mid-rotation.
+                                                type: string
+                                              keyType:
+                                                description: |-
+                                                  The type of keypair Kubelet will generate for the pod.
+
+                                                  Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384",
+                                                  "ECDSAP521", and "ED25519".
+                                                type: string
+                                              maxExpirationSeconds:
+                                                description: |-
+                                                  maxExpirationSeconds is the maximum lifetime permitted for the
+                                                  certificate.
+
+                                                  Kubelet copies this value verbatim into the PodCertificateRequests it
+                                                  generates for this projection.
+
+                                                  If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver
+                                                  will reject values shorter than 3600 (1 hour).  The maximum allowable
+                                                  value is 7862400 (91 days).
+
+                                                  The signer implementation is then free to issue a certificate with any
+                                                  lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600
+                                                  seconds (1 hour).  This constraint is enforced by kube-apiserver.
+                                                  `kubernetes.io` signers will never issue certificates with a lifetime
+                                                  longer than 24 hours.
+                                                format: int32
+                                                type: integer
+                                              signerName:
+                                                description: Kubelet's generated CSRs
+                                                  will be addressed to this signer.
+                                                type: string
+                                            required:
+                                            - keyType
+                                            - signerName
+                                            type: object
                                           secret:
                                             description: secret information about
                                               the secret data to project
@@ -44290,7 +45133,6 @@ spec:
                                   description: |-
                                     rbd represents a Rados Block Device mount on the host that shares a pod's lifetime.
                                     Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
-                                    More info: https://examples.k8s.io/volumes/rbd/README.md
                                   properties:
                                     fsType:
                                       description: |-
@@ -44623,8 +45465,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-cephfs-ctrlplugin-sa
   namespace: rook-ceph
 ---
@@ -44635,8 +45477,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-cephfs-nodeplugin-sa
   namespace: rook-ceph
 ---
@@ -44647,8 +45489,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-controller-manager
   namespace: rook-ceph
 ---
@@ -44659,8 +45501,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-nfs-ctrlplugin-sa
   namespace: rook-ceph
 ---
@@ -44671,8 +45513,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-nfs-nodeplugin-sa
   namespace: rook-ceph
 ---
@@ -44683,8 +45525,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-rbd-ctrlplugin-sa
   namespace: rook-ceph
 ---
@@ -44695,8 +45537,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-rbd-nodeplugin-sa
   namespace: rook-ceph
 ---
@@ -44717,7 +45559,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cmd-reporter
@@ -44739,7 +45581,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr
@@ -44752,7 +45594,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-osd
@@ -44771,7 +45613,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-rgw
@@ -44784,7 +45626,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -44821,8 +45663,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-cephfs-ctrlplugin-r
   namespace: rook-ceph
 rules:
@@ -44875,8 +45717,51 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
+  name: ceph-csi-cephfs-nodeplugin-r
+  namespace: rook-ceph
+rules:
+- apiGroups:
+  - csiaddons.openshift.io
+  resources:
+  - csiaddonsnodes
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - replicasets
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - deployments/finalizers
+  - daemonsets/finalizers
+  verbs:
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ceph-csi
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-leader-election-role
   namespace: rook-ceph
 rules:
@@ -44919,8 +45804,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-rbd-ctrlplugin-r
   namespace: rook-ceph
 rules:
@@ -44973,8 +45858,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-rbd-nodeplugin-r
   namespace: rook-ceph
 rules:
@@ -45217,7 +46102,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -45282,8 +46167,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-cephconnection-viewer-role
 rules:
 - apiGroups:
@@ -45308,8 +46193,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-cephconnections-editor-role
 rules:
 - apiGroups:
@@ -45338,8 +46223,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-cephfs-ctrlplugin-cr
 rules:
 - apiGroups:
@@ -45349,6 +46234,7 @@ rules:
   verbs:
   - get
   - list
+  - watch
 - apiGroups:
   - ""
   resources:
@@ -45540,8 +46426,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-cephfs-nodeplugin-cr
 rules:
 - apiGroups:
@@ -45599,8 +46485,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-clientprofile-viewer-role
 rules:
 - apiGroups:
@@ -45625,8 +46511,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-clientprofilemapping-editor-role
 rules:
 - apiGroups:
@@ -45655,8 +46541,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-clientprofilemapping-viewer-role
 rules:
 - apiGroups:
@@ -45681,8 +46567,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-clientprofiles-editor-role
 rules:
 - apiGroups:
@@ -45711,8 +46597,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-driver-editor-role
 rules:
 - apiGroups:
@@ -45741,8 +46627,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-driver-viewer-role
 rules:
 - apiGroups:
@@ -45767,8 +46653,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-manager-role
 rules:
 - apiGroups:
@@ -45875,8 +46761,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-metrics-auth-role
 rules:
 - apiGroups:
@@ -45899,8 +46785,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-metrics-reader
 rules:
 - nonResourceURLs:
@@ -45915,8 +46801,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-nfs-ctrlplugin-cr
 rules:
 - apiGroups:
@@ -46054,8 +46940,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-nfs-nodeplugin-cr
 rules:
 - apiGroups:
@@ -46072,8 +46958,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-operatorconfig-editor-role
 rules:
 - apiGroups:
@@ -46102,8 +46988,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-operatorconfig-viewer-role
 rules:
 - apiGroups:
@@ -46128,8 +47014,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-rbd-ctrlplugin-cr
 rules:
 - apiGroups:
@@ -46360,8 +47246,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-rbd-nodeplugin-cr
 rules:
 - apiGroups:
@@ -46696,7 +47582,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rbd-csi-nodeplugin
@@ -46964,7 +47850,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cluster-mgmt
@@ -46997,7 +47883,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -47188,7 +48074,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr-cluster
@@ -47244,7 +48130,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-object-bucket
@@ -47320,7 +48206,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -47409,8 +48295,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-cephfs-ctrlplugin-rb
   namespace: rook-ceph
 roleRef:
@@ -47429,8 +48315,28 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
+  name: ceph-csi-cephfs-nodeplugin-rb
+  namespace: rook-ceph
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ceph-csi-cephfs-nodeplugin-r
+subjects:
+- kind: ServiceAccount
+  name: ceph-csi-cephfs-nodeplugin-sa
+  namespace: rook-ceph
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ceph-csi
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-leader-election-rolebinding
   namespace: rook-ceph
 roleRef:
@@ -47449,8 +48355,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-rbd-ctrlplugin-rb
   namespace: rook-ceph
 roleRef:
@@ -47469,8 +48375,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-rbd-nodeplugin-rb
   namespace: rook-ceph
 roleRef:
@@ -47601,7 +48507,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -47622,8 +48528,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-cephfs-ctrlplugin-crb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -47641,8 +48547,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-cephfs-nodeplugin-crb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -47660,8 +48566,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-manager-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -47679,8 +48585,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-metrics-auth-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -47698,8 +48604,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-nfs-ctrlplugin-crb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -47717,11 +48623,11 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-nfs-nodeplugin-crb
 roleRef:
-  apiGroup: ""
+  apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: ceph-csi-nfs-nodeplugin-cr
 subjects:
@@ -47736,8 +48642,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-rbd-ctrlplugin-crb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -47755,8 +48661,8 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    app.kubernetes.io/version: v0.4.1
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-rbd-nodeplugin-crb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -47843,7 +48749,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -47902,7 +48808,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -48146,9 +49052,9 @@ metadata:
     app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ceph-csi
-    app.kubernetes.io/version: v0.4.0
+    app.kubernetes.io/version: v0.4.1
     control-plane: controller-manager
-    helm.sh/chart: ceph-csi-operator-0.4.0
+    helm.sh/chart: ceph-csi-operator-0.4.1
   name: ceph-csi-controller-manager
   namespace: rook-ceph
 spec:
@@ -48183,7 +49089,7 @@ spec:
           value: ""
         - name: KUBERNETES_CLUSTER_DOMAIN
           value: cluster.local
-        image: quay.io/cephcsi/ceph-csi-operator:v0.4.0
+        image: quay.io/cephcsi/ceph-csi-operator:v0.4.1
         livenessProbe:
           httpGet:
             path: /healthz
@@ -48210,6 +49116,7 @@ spec:
             drop:
             - ALL
           readOnlyRootFilesystem: true
+      imagePullSecrets: []
       securityContext:
         runAsNonRoot: true
       serviceAccountName: ceph-csi-controller-manager
@@ -48222,7 +49129,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.2
+    helm.sh/chart: rook-ceph-v1.18.3
     operator: rook
     storage-backend: ceph
   name: rook-ceph-operator
@@ -48238,7 +49145,7 @@ spec:
     metadata:
       labels:
         app: rook-ceph-operator
-        helm.sh/chart: rook-ceph-v1.18.2
+        helm.sh/chart: rook-ceph-v1.18.3
     spec:
       containers:
       - args:
@@ -48265,7 +49172,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: docker.io/rook/ceph:v1.18.2
+        image: docker.io/rook/ceph:v1.18.3
         imagePullPolicy: IfNotPresent
         name: rook-ceph-operator
         resources:
