@@ -14,10 +14,10 @@ data:
     WEB 480p\n            qualities: [\"WEBDL-480p\", \"WEBRip-480p\"]\n          -
     name: DVD\n          - name: SDTV\n\n    custom_formats:\n      - trash_ids:\n
     \         - c9eafd50846d299b862ca9bb6ea91950 # x265\n        assign_scores_to:\n
-    \         - name: WEB-1080p\n            score: 3000\n          - name: Any\n
-    \           score: 3000\n      - trash_ids:\n          - cddfb4e32db826151d97352b8e37c648
+    \         - name: WEB-1080p\n            score: -100\n          - name: Any\n
+    \           score: -100\n      - trash_ids:\n          - cddfb4e32db826151d97352b8e37c648
     # x264\n        assign_scores_to:\n          - name: WEB-1080p\n            score:
-    2000\n          - name: Any\n            score: 2000\n      - trash_ids:\n          -
+    3000\n          - name: Any\n            score: 3000\n      - trash_ids:\n          -
     32b367365729d530ca1c124a0b180c64 # Bad Dual Groups\n          - 82d40da2bc6923f41e14394075dd4b03
     # No-RlsGroup\n          - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated\n          -
     06d66ab109d4d2eddb2794d21526d140 # Retags\n          - 1b3994c551cbb92a2c781af061f4ab44
@@ -37,9 +37,9 @@ data:
     5c44f52a8714fdd79bb4d98e2673be1f # Retags\n          - f537cf427b64c38c8e36298f657e4828
     # Scene\n        assign_scores_to:\n          - name: SQP-1 (1080p)\n      - trash_ids:\n
     \         - 9170d55c319f4fe40da8711ba9d8050d # x265\n        assign_scores_to:\n
-    \         - name: SQP-1 (1080p)\n            score: 3000\n      - trash_ids:\n
+    \         - name: SQP-1 (1080p)\n            score: -100\n      - trash_ids:\n
     \         - 2899d84dc9372de3408e6d8cc18e9666 # x264\n        assign_scores_to:\n
-    \         - name: SQP-1 (1080p)\n            score: 2000\n      - trash_ids:\n
+    \         - name: SQP-1 (1080p)\n            score: 3000\n      - trash_ids:\n
     \         - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p\n        assign_scores_to:\n
     \         - name: SQP-1 (1080p)\n            score: -100\n"
 kind: ConfigMap

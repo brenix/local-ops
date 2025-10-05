@@ -53,16 +53,16 @@ Component: {
 			          - c9eafd50846d299b862ca9bb6ea91950 # x265
 			        assign_scores_to:
 			          - name: WEB-1080p
-			            score: 3000
+			            score: -100
 			          - name: Any
-			            score: 3000
+			            score: -100
 			      - trash_ids:
 			          - cddfb4e32db826151d97352b8e37c648 # x264
 			        assign_scores_to:
 			          - name: WEB-1080p
-			            score: 2000
+			            score: 3000
 			          - name: Any
-			            score: 2000
+			            score: 3000
 			      - trash_ids:
 			          - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
 			          - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
@@ -115,12 +115,12 @@ Component: {
 			          - 9170d55c319f4fe40da8711ba9d8050d # x265
 			        assign_scores_to:
 			          - name: SQP-1 (1080p)
-			            score: 3000
+			            score: -100
 			      - trash_ids:
 			          - 2899d84dc9372de3408e6d8cc18e9666 # x264
 			        assign_scores_to:
 			          - name: SQP-1 (1080p)
-			            score: 2000
+			            score: 3000
 			      - trash_ids:
 			          - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p
 			        assign_scores_to:
