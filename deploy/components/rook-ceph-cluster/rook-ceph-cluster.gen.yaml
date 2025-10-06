@@ -35,7 +35,8 @@ volumeBindingMode: Immediate
 ---
 apiVersion: v1
 data:
-  config: |
+  config: |2
+
     [global]
     bdev_enable_discard = true
     bdev_async_discard = true
@@ -64,7 +65,6 @@ spec:
   cephVersion:
     allowUnsupported: false
     image: quay.io/ceph/ceph:v19.2.3
-    imagePullPolicy: null
   cleanupPolicy:
     allowUninstallWithVolumes: false
     confirmation: ""
