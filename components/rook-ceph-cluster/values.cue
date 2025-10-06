@@ -13,6 +13,7 @@ package holos
 		osd_class_update_on_start = false
 
 		"""
+	cephImage: imagePullPolicy: "Always"
 	cephClusterSpec: {
 		crashCollector: disable: true
 		dashboard: {
@@ -120,7 +121,7 @@ package holos
 						memory: "1Gi"
 					}
 				}
-				instances: 1
+				instances:         1
 				priorityClassName: "system-cluster-critical"
 			}
 		}
@@ -140,8 +141,8 @@ package holos
 		}
 		route: {
 			enabled: true
-			host: name: "s3.brenix.com"
-			host: path: "/"
+			host: name:     "s3.brenix.com"
+			host: path:     "/"
 			host: pathType: "PathPrefix"
 			parentRefs: [{
 				name:        "internal"

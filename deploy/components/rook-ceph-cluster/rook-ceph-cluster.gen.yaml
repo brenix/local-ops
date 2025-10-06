@@ -64,7 +64,7 @@ spec:
   cephVersion:
     allowUnsupported: false
     image: quay.io/ceph/ceph:v19.2.3
-    imagePullPolicy: null
+    imagePullPolicy: Always
   cleanupPolicy:
     allowUninstallWithVolumes: false
     confirmation: ""
