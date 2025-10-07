@@ -2,65 +2,61 @@ package holos
 
 #Values: {
 	monitoring: {
-		enabled:               false
-		createPrometheusRules: false
+		enabled:               true
+		createPrometheusRules: true
 	}
-	toolbox: enabled: false
-	configOverride: """
-		[global]
-		bdev_enable_discard = true
-		bdev_async_discard = true
-		osd_class_update_on_start = false
-
-		"""
-	cephImage: imagePullPolicy: "Always"
+	toolbox: enabled: true
+	route: dashboard: {
+		host: {
+			name:     "rook.brenix.com"
+			path:     "/"
+			pathType: "PathPrefix"
+		}
+		parentRefs: [{
+			name:        "internal"
+			namespace:   "kube-system"
+			sectionName: "https"
+		}]
+	}
 	cephClusterSpec: {
-		crashCollector: disable: true
+		cephConfig: global: {
+			bdev_enable_discard:            "true"  // quote
+			bdev_async_discard_threads:     "1"     // quote
+			osd_class_update_on_start:      "false" // quote
+			device_failure_prediction_mode: "local" // requires mgr module
+		}
+		cleanupPolicy: wipeDevicesFromOtherClusters: true
+		crashCollector: disable:                     false
+		csi: readAffinity: enabled: true
 		dashboard: {
 			enabled:            true
 			urlPrefix:          "/"
 			ssl:                false
 			prometheusEndpoint: "http://prometheus-operated.monitoring.svc.cluster.local:9090"
 		}
+		mgr: modules: [{
+			name:    "diskprediction_local"
+			enabled: true
+		}, {
+			name:    "insights"
+			enabled: true
+		}, {
+			name:    "pg_autoscaler"
+			enabled: true
+		}, {
+			name:    "rook"
+			enabled: true
+		}]
 		network: {
 			provider: "host"
 			connections: requireMsgr2: true
 		}
-		resources: {
-			mgr: {
-				requests: {
-					cpu:    "100m"
-					memory: "512Mi"
-				}
-				limits: memory: "2Gi"
-			}
-			mon: {
-				requests: {
-					cpu:    "50m"
-					memory: "512Mi"
-				}
-				limits: memory: "1Gi"
-			}
-			osd: {
-				requests: {
-					cpu:    "500m"
-					memory: "2Gi"
-				}
-				limits: memory: "4Gi"
-			}
-			"mgr-sidecar": {
-				requests: {
-					cpu:    "50m"
-					memory: "128Mi"
-				}
-				limits: memory: "256Mi"
-			}
+		storage: {
+			useAllNodes:      true
+			useAllDevices:    false
+			devicePathFilter: "/dev/disk/by-id/nvme-CT500P3SSD8_24414BC7.*"
+			config: osdsPerDevice: "1"
 		}
-		// storage: {
-		//  useAllNodes:   false
-		//  useAllDevices: false
-		//  config: osdsPerDevice: "1"
-		// }
 	}
 	cephBlockPools: [{
 		name: "ceph-blockpool"
@@ -72,18 +68,21 @@ package holos
 			enabled:              true
 			name:                 "ceph-block"
 			isDefault:            true
-			reclaimPolicy:        "Retain"
+			reclaimPolicy:        "Delete"
 			allowVolumeExpansion: true
 			volumeBindingMode:    "Immediate"
+			mountOptions: ["discard"]
 			parameters: {
+				compression_mode:                                        "aggressive"
+				compression_algorithm:                                   "zstd"
 				imageFormat:                                             "2"
-				imageFeatures:                                           "layering"
+				imageFeatures:                                           "layering,fast-diff,object-map,deep-flatten,exclusive-lock"
 				"csi.storage.k8s.io/provisioner-secret-name":            "rook-csi-rbd-provisioner"
-				"csi.storage.k8s.io/provisioner-secret-namespace":       "rook-ceph"
+				"csi.storage.k8s.io/provisioner-secret-namespace":       "{{ .Release.Namespace }}"
 				"csi.storage.k8s.io/controller-expand-secret-name":      "rook-csi-rbd-provisioner"
-				"csi.storage.k8s.io/controller-expand-secret-namespace": "rook-ceph"
+				"csi.storage.k8s.io/controller-expand-secret-namespace": "{{ .Release.Namespace }}"
 				"csi.storage.k8s.io/node-stage-secret-name":             "rook-csi-rbd-node"
-				"csi.storage.k8s.io/node-stage-secret-namespace":        "rook-ceph"
+				"csi.storage.k8s.io/node-stage-secret-namespace":        "{{ .Release.Namespace }}"
 				"csi.storage.k8s.io/fstype":                             "ext4"
 			}
 		}
@@ -94,62 +93,61 @@ package holos
 		isDefault:      false
 		deletionPolicy: "Delete"
 	}
-
-	cephFileSystems: []
-	cephObjectStores: [{
-		name: "ceph-objectstore"
+	cephFileSystems: [{
+		name: "ceph-filesystem"
 		spec: {
-			metadataPool: {
+			metadataPool: replicated: size: 3
+			dataPools: [{
 				failureDomain: "host"
 				replicated: size: 3
-			}
-			dataPool: {
-				failureDomain: "host"
-				erasureCoded: {
-					dataChunks:   2
-					codingChunks: 1
-				}
-				parameters: bulk: "true"
-			}
-			preservePoolsOnDelete: true
-			gateway: {
-				port: 8180
+				name: "data0"
+			}]
+			metadataServer: {
+				activeCount:       1
+				activeStandby:     true
+				priorityClassName: "system-cluster-critical"
+				placement: topologySpreadConstraints: [{
+					maxSkew:           1
+					topologyKey:       "kubernetes.io/hostname"
+					whenUnsatisfiable: "DoNotSchedule"
+					labelSelector: matchLabels: {
+						"app.kubernetes.io/name":    "ceph-mds"
+						"app.kubernetes.io/part-of": "ceph-filesystem"
+					}
+				}]
 				resources: {
-					limits: memory: "2Gi"
 					requests: {
-						cpu:    "1000m"
+						cpu:    "100m"
 						memory: "1Gi"
 					}
+					limits: memory: "4Gi"
 				}
-				instances:         1
-				priorityClassName: "system-cluster-critical"
 			}
 		}
 		storageClass: {
-			enabled:           true
-			name:              "ceph-bucket"
-			reclaimPolicy:     "Delete"
-			volumeBindingMode: "Immediate"
-			annotations: {}
-			labels: {}
+			enabled:              true
+			isDefault:            false
+			name:                 "ceph-filesystem"
+			pool:                 "data0"
+			reclaimPolicy:        "Delete"
+			allowVolumeExpansion: true
+			volumeBindingMode:    "Immediate"
 			parameters: {
-				region: "us-east-1"
+				"csi.storage.k8s.io/provisioner-secret-name":            "rook-csi-cephfs-provisioner"
+				"csi.storage.k8s.io/provisioner-secret-namespace":       "{{ .Release.Namespace }}"
+				"csi.storage.k8s.io/controller-expand-secret-name":      "rook-csi-cephfs-provisioner"
+				"csi.storage.k8s.io/controller-expand-secret-namespace": "{{ .Release.Namespace }}"
+				"csi.storage.k8s.io/node-stage-secret-name":             "rook-csi-cephfs-node"
+				"csi.storage.k8s.io/node-stage-secret-namespace":        "{{ .Release.Namespace }}"
+				"csi.storage.k8s.io/fstype":                             "ext4"
 			}
 		}
-		ingress: {
-			enabled: false
-		}
-		route: {
-			enabled: true
-			host: name:     "s3.brenix.com"
-			host: path:     "/"
-			host: pathType: "PathPrefix"
-			parentRefs: [{
-				name:        "internal"
-				namespace:   "kube-system"
-				sectionName: "https"
-			}]
-		}
 	}]
-
+	cephFileSystemVolumeSnapshotClass: {
+		enabled:        true
+		name:           "csi-ceph-filesystem"
+		isDefault:      false
+		deletionPolicy: "Delete"
+	}
+	cephObjectStores: []
 }
