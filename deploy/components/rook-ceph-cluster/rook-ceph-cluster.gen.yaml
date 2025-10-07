@@ -221,7 +221,7 @@ spec:
     wipeDevicesFromOtherClusters: true
   continueUpgradeAfterChecksEvenIfNotHealthy: false
   crashCollector:
-    disable: false
+    disable: true
   csi:
     readAffinity:
       enabled: true

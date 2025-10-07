@@ -26,7 +26,7 @@ package holos
 			device_failure_prediction_mode: "local" // requires mgr module
 		}
 		cleanupPolicy: wipeDevicesFromOtherClusters: true
-		crashCollector: disable:                     false
+		crashCollector: disable:                     true
 		csi: readAffinity: enabled: true
 		dashboard: {
 			enabled:            true
