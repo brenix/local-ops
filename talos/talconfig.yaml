@@ -128,7 +128,7 @@ controlPlane:
           net.ipv4.tcp_adv_win_scale: -2
           net.ipv4.tcp_notsent_lowat: 131072
           vm.nr_hugepages: 1024
-          vm.max_map_count: 1048576
+          vm.max_map_count: 1677720
 
     # Enable KubePrism
     - |-
