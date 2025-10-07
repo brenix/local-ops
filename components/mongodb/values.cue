@@ -5,7 +5,7 @@ package holos
 		containers: main: {
 			image: {
 				repository: "docker.io/library/mongo"
-				tag:        "4.4"
+				tag:        "8.0"
 			}
 			probes: {
 				liveness: enabled:  false

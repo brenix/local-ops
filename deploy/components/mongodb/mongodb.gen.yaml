@@ -64,7 +64,7 @@ spec:
     spec:
       automountServiceAccountToken: true
       containers:
-      - image: docker.io/library/mongo:4.4
+      - image: docker.io/library/mongo:8.0
         name: main
         volumeMounts:
         - mountPath: /data/db
