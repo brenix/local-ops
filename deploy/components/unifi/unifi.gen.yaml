@@ -109,10 +109,10 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: data
-      dnsPolicy: ClusterFirstWithHostNet
+      dnsPolicy: ClusterFirst
       enableServiceLinks: false
       hostIPC: false
-      hostNetwork: true
+      hostNetwork: false
       hostPID: false
       serviceAccountName: default
       volumes:

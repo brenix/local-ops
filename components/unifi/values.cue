@@ -18,10 +18,6 @@ package holos
 			tag:        "9.3.45"
 		}
 	}
-	defaultPodOptions: {
-		hostNetwork: true
-		dnsPolicy:   "ClusterFirstWithHostNet"
-	}
 	route: main: {
 		hostnames: ["{{ .Release.Name }}.brenix.com"]
 		parentRefs: [{
