@@ -35,7 +35,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 8Gi
   storageClassName: ceph-block
 ---
 apiVersion: v1
@@ -48,7 +48,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 4Gi
   storageClassName: ceph-block
 ---
 apiVersion: apps/v1

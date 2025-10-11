@@ -6,7 +6,7 @@ Component: Resources: PersistentVolumeClaim: {
 		metadata: name: "jellyfin-data"
 		spec: {
 			accessModes: ["ReadWriteOnce"]
-			resources: requests: storage: "2Gi"
+			resources: requests: storage: "4Gi"
 			storageClassName: "ceph-block"
 		}
 	}
@@ -15,7 +15,7 @@ Component: Resources: PersistentVolumeClaim: {
 		metadata: name: "jellyfin-cache"
 		spec: {
 			accessModes: ["ReadWriteOnce"]
-			resources: requests: storage: "1Gi"
+			resources: requests: storage: "8Gi"
 			storageClassName: "ceph-block"
 		}
 	}
