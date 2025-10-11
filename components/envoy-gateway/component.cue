@@ -8,8 +8,8 @@ Component: #Helm & {
 	EnableHooks: true
 	Chart: {
 		name: "oci://docker.io/envoyproxy/gateway-helm"
-		// renovate: datasource=docker depName=envoyproxy/gateway-helm
-		version: "1.4.1"
+		// renovate: datasource=docker depName=docker.io/envoyproxy/gateway-helm
+		version: "1.5.3"
 		release: Name
 	}
 
@@ -67,6 +67,9 @@ Component: #Helm & {
 					kind:  "Gateway"
 					name:  "external"
 				}]
+				connection: bufferLimit: "8Mi"
+				tcpKeepalive: {}
+				timeout: http: requestTimeout: "0s"
 				compression: [{
 					type: "Brotli"
 				}, {
@@ -88,6 +91,10 @@ Component: #Helm & {
 					name:  "external"
 				}]
 				clientIPDetection: xForwardedFor: numTrustedHops: 1
+				connection: {
+					bufferLimit:             "4Mi"
+					maxAcceptPerSocketEvent: 0
+				}
 				tls: {
 					minVersion: "1.2"
 					alpnProtocols: [
@@ -95,7 +102,14 @@ Component: #Helm & {
 						"http/1.1",
 					]
 				}
+				http2: {
+					initialStreamWindowSize:     "512Ki"
+					initialConnectionWindowSize: "8Mi"
+					onInvalidMessage:            "TerminateStream"
+				}
 				http3: {}
+				timeout: http: requestReceivedTimeout: "0s"
+				tcpKeepalive: {}
 			}
 
 		}
