@@ -9,7 +9,8 @@ package holos
 		}
 		image: {
 			repository: "lscr.io/linuxserver/jellyfin"
-			tag:        "10.10.7"
+			tag:        "nightly-version-2025100605ubu2404"
+			pullPolicy: "Always"
 		}
 		resources: {
 			requests: memory: "512Mi"

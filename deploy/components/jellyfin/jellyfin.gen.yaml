@@ -88,7 +88,8 @@ spec:
           value: "1000"
         - name: TZ
           value: America/Los_Angeles
-        image: lscr.io/linuxserver/jellyfin:10.10.7
+        image: lscr.io/linuxserver/jellyfin:nightly-version-2025100605ubu2404
+        imagePullPolicy: Always
         name: main
         resources:
           limits:
