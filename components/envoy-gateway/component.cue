@@ -31,7 +31,7 @@ Component: #Helm & {
 			metadata: name:      "config"
 			metadata: namespace: Namespace
 			spec: {
-				telemetry: metrics: prometheus: {}
+				telemetry: metrics: prometheus: compression: type: "Gzip"
 				shutdown: drainTimeout: "60s"
 				logging: level: default: "info"
 				provider: {
