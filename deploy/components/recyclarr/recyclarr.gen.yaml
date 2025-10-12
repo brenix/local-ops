@@ -5,43 +5,27 @@ data:
     \   replace_existing_custom_formats: true\n\n    include:\n      - template: sonarr-quality-definition-series\n
     \     - template: sonarr-v4-quality-profile-web-1080p\n      - template: sonarr-v4-custom-formats-web-1080p\n\n
     \   quality_definition:\n      type: series\n      preferred_ratio: 0\n\n    quality_profiles:\n
-    \     - name: WEB-1080p\n      - name: Any\n        reset_unmatched_scores:\n
-    \         enabled: true\n        upgrade:\n          allowed: false\n          until_quality:
-    WEB 1080p\n          until_score: 3000\n        quality_sort: top\n        qualities:\n
-    \         - name: WEB 1080p\n            qualities: [\"WEBDL-1080p\", \"WEBRip-1080p\"]\n
-    \         - name: HDTV-1080p\n          - name: WEB 720p\n            qualities:
-    [\"WEBDL-720p\", \"WEBRip-720p\"]\n          - name: HDTV-720p\n          - name:
-    WEB 480p\n            qualities: [\"WEBDL-480p\", \"WEBRip-480p\"]\n          -
-    name: DVD\n          - name: SDTV\n\n    custom_formats:\n      - trash_ids:\n
-    \         - c9eafd50846d299b862ca9bb6ea91950 # x265\n        assign_scores_to:\n
-    \         - name: WEB-1080p\n            score: -100\n          - name: Any\n
-    \           score: -100\n      - trash_ids:\n          - cddfb4e32db826151d97352b8e37c648
-    # x264\n        assign_scores_to:\n          - name: WEB-1080p\n            score:
-    3000\n          - name: Any\n            score: 3000\n      - trash_ids:\n          -
-    32b367365729d530ca1c124a0b180c64 # Bad Dual Groups\n          - 82d40da2bc6923f41e14394075dd4b03
-    # No-RlsGroup\n          - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated\n          -
-    06d66ab109d4d2eddb2794d21526d140 # Retags\n          - 1b3994c551cbb92a2c781af061f4ab44
-    # Scene\n        assign_scores_to:\n          - name: WEB-1080p\n          - name:
-    Any\n      - trash_ids:\n          - 1bef6c151fa35093015b0bfef18279e5 # 2160p\n
-    \       assign_scores_to:\n          - name: WEB-1080p\n            score: -100\n
-    \         - name: Any\n            score: -100\n      \nradarr:\n  radarr:\n    base_url:
-    http://radarr.default.svc.cluster.local:7878\n    api_key: !env_var RADARR_API_KEY\n\n
-    \   delete_old_custom_formats: true\n    replace_existing_custom_formats: true\n\n
-    \   quality_definition:\n      type: movie\n      preferred_ratio: 0\n\n    quality_profiles:\n
-    \     - name: SQP-1 (1080p)\n\n    include:\n      - template: radarr-quality-definition-sqp-streaming\n
+    \     - name: WEB-1080p\n\n    custom_formats:\n      - trash_ids:\n          -
+    47435ece6b99a0b477caf360e79ba0bb # x265 (HD)\n          - 1bef6c151fa35093015b0bfef18279e5
+    # 2160p\n        assign_scores_to:\n          - name: WEB-1080p\n            score:
+    0\n\n      - trash_ids:\n          - 32b367365729d530ca1c124a0b180c64 # Bad Dual
+    Groups\n          - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup\n          -
+    e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated\n          - 06d66ab109d4d2eddb2794d21526d140
+    # Retags\n          - 1b3994c551cbb92a2c781af061f4ab44 # Scene\n        assign_scores_to:\n
+    \         - name: WEB-1080p\n\n      \nradarr:\n  radarr:\n    base_url: http://radarr.default.svc.cluster.local:7878\n
+    \   api_key: !env_var RADARR_API_KEY\n\n    delete_old_custom_formats: true\n
+    \   replace_existing_custom_formats: true\n\n    include:\n      - template: radarr-quality-definition-sqp-streaming\n
     \     - template: radarr-quality-profile-sqp-1-1080p\n      - template: radarr-custom-formats-sqp-1-1080p\n\n
-    \   custom_formats:\n      - trash_ids:\n          - 7a0d1ad358fee9f5b074af3ef3f9d9ef
-    # hallowed\n          - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups\n          -
-    90cedc1fea7ea5d11298bebd3d1d3223 # EVO (no WEBDL)\n          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5
-    # No-RlsGroup\n          - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated\n          -
-    5c44f52a8714fdd79bb4d98e2673be1f # Retags\n          - f537cf427b64c38c8e36298f657e4828
-    # Scene\n        assign_scores_to:\n          - name: SQP-1 (1080p)\n      - trash_ids:\n
-    \         - 9170d55c319f4fe40da8711ba9d8050d # x265\n        assign_scores_to:\n
-    \         - name: SQP-1 (1080p)\n            score: -100\n      - trash_ids:\n
-    \         - 2899d84dc9372de3408e6d8cc18e9666 # x264\n        assign_scores_to:\n
-    \         - name: SQP-1 (1080p)\n            score: 3000\n      - trash_ids:\n
-    \         - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p\n        assign_scores_to:\n
-    \         - name: SQP-1 (1080p)\n            score: -100\n"
+    \   quality_definition:\n      type: movie\n      preferred_ratio: 0\n\n    quality_profiles:\n
+    \     - name: SQP-1 (1080p)\n\n    custom_formats:\n      - trash_ids:\n          -
+    839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)\n          - fb392fb0d61a010ae38e49ceaa24a1ef
+    # 2160p\n        assign_scores_to:\n          - name: SQP-1 (1080p)\n            score:
+    0\n\n      - trash_ids:\n          - b6832f586342ef70d9c128d40c07b872 # Bad Dual
+    Groups\n          - cc444569854e9de0b084ab2b8b1532b2 # Black and White Editions\n
+    \         - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup\n          - 7357cf5161efbf8c4d5d0c30b4815ee2
+    # Obfuscated\n          - 5c44f52a8714fdd79bb4d98e2673be1f # Retags\n          -
+    f537cf427b64c38c8e36298f657e4828 # Scene\n        assign_scores_to:\n          -
+    name: SQP-1 (1080p)\n"
 kind: ConfigMap
 metadata:
   annotations:
