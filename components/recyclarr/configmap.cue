@@ -68,6 +68,12 @@ Component: {
 			      - name: SQP-1 (1080p)
 
 			    custom_formats:
+				  - trash_ids:
+				      - 2899d84dc9372de3408e6d8cc18e9666 # x264
+			        assign_scores_to:
+				      - name: SQP-1 (1080p)
+				        score: 1000
+					
 			      - trash_ids:
 			          - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
 			          - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p
