@@ -17,9 +17,9 @@ data:
     \   replace_existing_custom_formats: true\n\n    include:\n      - template: radarr-quality-definition-sqp-streaming\n
     \     - template: radarr-quality-profile-sqp-1-1080p\n      - template: radarr-custom-formats-sqp-1-1080p\n\n
     \   quality_definition:\n      type: movie\n      preferred_ratio: 0\n\n    quality_profiles:\n
-    \     - name: SQP-1 (1080p)\n\n    custom_formats:\n\t  - trash_ids:\n\t      -
-    2899d84dc9372de3408e6d8cc18e9666 # x264\n        assign_scores_to:\n\t      -
-    name: SQP-1 (1080p)\n\t        score: 1000\n\t\t\n      - trash_ids:\n          -
+    \     - name: SQP-1 (1080p)\n\n    custom_formats:\n      - trash_ids:\n          -
+    2899d84dc9372de3408e6d8cc18e9666 # x264\n        assign_scores_to:\n          -
+    name: SQP-1 (1080p)\n            score: 1000\n\n      - trash_ids:\n          -
     839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)\n          - fb392fb0d61a010ae38e49ceaa24a1ef
     # 2160p\n        assign_scores_to:\n          - name: SQP-1 (1080p)\n            score:
     0\n\n      - trash_ids:\n          - b6832f586342ef70d9c128d40c07b872 # Bad Dual
