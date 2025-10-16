@@ -7,7 +7,7 @@ Component: #Helm & {
 	Namespace: "default"
 	Chart: {
 		name:    "app-template"
-		version: "4.3.0"
+		version: "4.4.0"
 		release: "samba"
 		repository: {
 			name: "bjw-s"
