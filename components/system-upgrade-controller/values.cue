@@ -6,7 +6,7 @@ package holos
 		containers: app: {
 			image: {
 				repository: "docker.io/rancher/system-upgrade-controller"
-				tag:        "v0.16.3"
+				tag:        "v0.17.0"
 			}
 			env: {
 				SYSTEM_UPGRADE_CONTROLLER_LEADER_ELECT: true
