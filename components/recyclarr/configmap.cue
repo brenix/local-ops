@@ -31,6 +31,12 @@ Component: {
 
 			    custom_formats:
 			      - trash_ids:
+			          - 834e534f103938853ffced4203b53e72 # 2.0 Stereo
+			        assign_scores_to:
+			          - name: WEB-1080p
+			            score: 100
+
+			      - trash_ids:
 			          - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
 			          - 1bef6c151fa35093015b0bfef18279e5 # 2160p
 			        assign_scores_to:
@@ -73,6 +79,12 @@ Component: {
 			        assign_scores_to:
 			          - name: SQP-1 (1080p)
 			            score: 1000
+
+			      - trash_ids:
+			          - 89dac1be53d5268a7e10a19d3c896826 # 2.0 Stereo
+			        assign_scores_to:
+			          - name: SQP-1 (1080p)
+			            score: 100
 
 			      - trash_ids:
 			          - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
