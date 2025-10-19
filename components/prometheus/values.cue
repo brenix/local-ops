@@ -38,6 +38,7 @@ package holos
 			maximumStartupDurationSeconds:           300
 			ruleSelectorNilUsesHelmValues:           false
 			serviceMonitorSelectorNilUsesHelmValues: false
+			podMonitorSelectorNilUsesHelmValues:     false
 			storageSpec: volumeClaimTemplate: spec: {
 				accessModes: ["ReadWriteOnce"]
 				resources: requests: storage: "10Gi"
