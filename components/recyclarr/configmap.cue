@@ -41,7 +41,7 @@ Component: {
 			          - 1bef6c151fa35093015b0bfef18279e5 # 2160p
 			        assign_scores_to:
 			          - name: WEB-1080p
-			            score: 0
+			            score: -100
 
 			      - trash_ids:
 			          - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
@@ -91,7 +91,7 @@ Component: {
 			          - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p
 			        assign_scores_to:
 			          - name: SQP-1 (1080p)
-			            score: 0
+			            score: -100
 
 			      - trash_ids:
 			          - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
