@@ -15,7 +15,7 @@ package holos
 		}]
 		image: {
 			repository: "lscr.io/linuxserver/unifi-network-application"
-			tag:        "9.4.19"
+			tag:        "9.5.21"
 		}
 	}
 	route: main: {
