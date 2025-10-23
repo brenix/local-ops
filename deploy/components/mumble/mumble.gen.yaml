@@ -83,7 +83,7 @@ spec:
         envFrom:
         - secretRef:
             name: mumble
-        image: ghcr.io/mumble-voip/mumble-server:v1.5.735
+        image: ghcr.io/mumble-voip/mumble-server:v1.5.857
         name: main
         resources:
           limits:
