@@ -17,7 +17,7 @@ package holos
 			}]
 			image: {
 				repository: "ghcr.io/mumble-voip/mumble-server"
-				tag:        "v1.5.735"
+				tag:        "v1.5.857"
 			}
 			resources: {
 				requests: {
