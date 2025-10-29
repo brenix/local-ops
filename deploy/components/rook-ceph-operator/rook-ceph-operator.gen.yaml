@@ -8546,6 +8546,22 @@ spec:
                     nullable: true
                     type: object
                     x-kubernetes-preserve-unknown-fields: true
+                  cacheMemoryLimitFactor:
+                    description: |-
+                      CacheMemoryLimitFactor is the factor applied to the memory limit to determine the MDS cache memory limit.
+                      MDS cache memory limit should be set to 50-60% of RAM reserved for the MDS container.
+                      MDS uses approximately 125% of the value of mds_cache_memory_limit in RAM.
+                      This factor is applied when resources.limits.memory is set.
+                    maximum: 1
+                    minimum: 0
+                    type: number
+                  cacheMemoryRequestFactor:
+                    description: |-
+                      CacheMemoryRequestFactor is the factor applied to the memory request to determine the MDS cache memory limit.
+                      This factor is applied when resources.requests.memory is set and resources.limits.memory is not set.
+                    maximum: 1
+                    minimum: 0
+                    type: number
                   labels:
                     additionalProperties:
                       type: string
@@ -45557,9 +45573,12 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cmd-reporter
@@ -45569,6 +45588,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-default
@@ -45579,9 +45605,12 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr
@@ -45592,9 +45621,12 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-osd
@@ -45603,6 +45635,16 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-purge-osd
   namespace: rook-ceph
 ---
@@ -45611,9 +45653,12 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-rgw
@@ -45624,9 +45669,12 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -45635,24 +45683,64 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-csi-cephfs-plugin-sa
   namespace: rook-ceph
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-csi-cephfs-provisioner-sa
   namespace: rook-ceph
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-csi-rbd-plugin-sa
   namespace: rook-ceph
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-csi-rbd-provisioner-sa
   namespace: rook-ceph
 ---
@@ -45897,6 +45985,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: cephfs-external-provisioner-cfg
   namespace: rook-ceph
 rules:
@@ -45915,6 +46013,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rbd-external-provisioner-cfg
   namespace: rook-ceph
 rules:
@@ -45933,6 +46041,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-cmd-reporter
   namespace: rook-ceph
 rules:
@@ -45952,6 +46070,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-mgr
   namespace: rook-ceph
 rules:
@@ -46025,6 +46153,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-osd
   namespace: rook-ceph
 rules:
@@ -46061,6 +46199,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-purge-osd
   namespace: rook-ceph
 rules:
@@ -46100,9 +46248,12 @@ kind: Role
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -47321,6 +47472,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: cephfs-csi-nodeplugin
 rules:
 - apiGroups:
@@ -47357,6 +47518,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: cephfs-external-provisioner-runner
 rules:
 - apiGroups:
@@ -47580,9 +47751,12 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rbd-csi-nodeplugin
@@ -47642,6 +47816,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rbd-external-provisioner-runner
 rules:
 - apiGroups:
@@ -47848,9 +48032,12 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cluster-mgmt
@@ -47881,9 +48068,12 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -48072,9 +48262,12 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr-cluster
@@ -48112,6 +48305,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-mgr-system
 rules:
 - apiGroups:
@@ -48128,9 +48331,12 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-object-bucket
@@ -48189,6 +48395,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-osd
 rules:
 - apiGroups:
@@ -48204,9 +48420,12 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -48391,6 +48610,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: cephfs-csi-provisioner-role-cfg
   namespace: rook-ceph
 roleRef:
@@ -48405,6 +48634,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rbd-csi-provisioner-role-cfg
   namespace: rook-ceph
 roleRef:
@@ -48419,6 +48658,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-cluster-mgmt
   namespace: rook-ceph
 roleRef:
@@ -48433,6 +48682,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-cmd-reporter
   namespace: rook-ceph
 roleRef:
@@ -48447,6 +48706,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-mgr
   namespace: rook-ceph
 roleRef:
@@ -48461,6 +48730,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-mgr-system
   namespace: rook-ceph
 roleRef:
@@ -48475,6 +48754,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-osd
   namespace: rook-ceph
 roleRef:
@@ -48489,6 +48778,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-purge-osd
   namespace: rook-ceph
 roleRef:
@@ -48505,9 +48804,12 @@ kind: RoleBinding
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -48676,6 +48978,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: cephfs-csi-nodeplugin-role
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -48689,6 +49001,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: cephfs-csi-provisioner-role
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -48719,6 +49041,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rbd-csi-nodeplugin
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -48732,6 +49064,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rbd-csi-provisioner-role
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -48747,9 +49089,12 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -48765,6 +49110,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-mgr-cluster
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -48778,6 +49133,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-object-bucket
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -48791,6 +49156,16 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-osd
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -48806,9 +49181,12 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -49042,6 +49420,16 @@ data:
   ROOK_USE_CSI_OPERATOR: "true"
 kind: ConfigMap
 metadata:
+  labels:
+    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
+    operator: rook
+    storage-backend: ceph
   name: rook-ceph-operator-config
   namespace: rook-ceph
 ---
@@ -49127,9 +49515,12 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/created-by: helm
+    app.kubernetes.io/instance: rook-ceph-operator
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rook-ceph
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.18.4
+    app.kubernetes.io/version: v1.18.6
+    helm.sh/chart: rook-ceph-v1.18.6
     operator: rook
     storage-backend: ceph
   name: rook-ceph-operator
@@ -49145,7 +49536,7 @@ spec:
     metadata:
       labels:
         app: rook-ceph-operator
-        helm.sh/chart: rook-ceph-v1.18.4
+        helm.sh/chart: rook-ceph-v1.18.6
     spec:
       containers:
       - args:
@@ -49172,7 +49563,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: docker.io/rook/ceph:v1.18.4
+        image: docker.io/rook/ceph:v1.18.6
         imagePullPolicy: IfNotPresent
         name: rook-ceph-operator
         resources:
