@@ -11,7 +11,7 @@ Component: {
 			target: template: {
 				engineVersion: "v2"
 				data: {
-					"config.toml": """
+					"aws": """
 						[default]
 						aws_access_key_id = "{{ .MINIO_USER }}"
 						aws_secret_access_key = "{{ .MINIO_PASSWORD }}"
