@@ -21,6 +21,7 @@ package holos
 	credentials: {
 		existingSecret: "minio-creds"
 	}
+	configuration: features: "EnableCSI"
 	configuration: backupStorageLocation: [{
 		name: "default"
 		// provider is the name for the backup storage location provider.
@@ -49,4 +50,5 @@ package holos
 		schedule: "0 4 * * *"
 		template: ttl: "24h0m0s"
 	}
+	deployNodeAgent: true
 }
