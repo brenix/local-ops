@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "blackbox-exporter"
 	Namespace:   "monitoring"
 	EnableHooks: true
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "prometheus-blackbox-exporter"
 		version: "11.4.2"

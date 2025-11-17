@@ -5,6 +5,7 @@ holos: Component.BuildPlan
 Component: #Helm & {
 	Name:      "velero"
 	Namespace: "velero"
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "velero"
 		version: "11.1.1"

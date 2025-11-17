@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "forgejo"
 	Namespace:   "default"
 	EnableHooks: false
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "oci://code.forgejo.org/forgejo-helm/forgejo"
 		version: "12.5.2"

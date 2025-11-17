@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "cloudnative-pg"
 	Namespace:   "database"
 	EnableHooks: true
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "cloudnative-pg"
 		version: "0.26.1"

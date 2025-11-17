@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "cert-manager"
 	Namespace:   "cert-manager"
 	EnableHooks: true
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "cert-manager"
 		version: "v1.19.1"

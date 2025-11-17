@@ -5,6 +5,7 @@ holos: Component.BuildPlan
 Component: #Helm & {
 	Name:      "unpoller"
 	Namespace: "monitoring"
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "app-template"
 		version: "4.4.0"

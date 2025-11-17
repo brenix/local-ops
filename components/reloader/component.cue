@@ -5,6 +5,7 @@ holos: Component.BuildPlan
 Component: #Helm & {
 	Name:      "reloader"
 	Namespace: "kube-system"
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "reloader"
 		version: "2.2.5"

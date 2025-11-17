@@ -5,6 +5,7 @@ holos: Component.BuildPlan
 Component: #Helm & {
 	Name:      "rook-ceph-cluster"
 	Namespace: "rook-ceph"
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "rook-ceph-cluster"
 		version: "v1.18.7"

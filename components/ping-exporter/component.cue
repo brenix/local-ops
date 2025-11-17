@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "ping-exporter"
 	Namespace:   "monitoring"
 	EnableHooks: true
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "ping-exporter"
 		version: "1.1.0"

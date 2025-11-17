@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "kubelet-csr-approver"
 	Namespace:   "kube-system"
 	EnableHooks: true
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "kubelet-csr-approver"
 		version: "1.2.12"

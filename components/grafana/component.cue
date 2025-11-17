@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "grafana"
 	Namespace:   "monitoring"
 	EnableHooks: true
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "grafana"
 		version: "10.1.4"

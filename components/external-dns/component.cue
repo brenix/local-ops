@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "external-dns"
 	Namespace:   "network"
 	EnableHooks: true
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "external-dns"
 		version: "1.19.0"

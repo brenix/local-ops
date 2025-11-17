@@ -5,6 +5,7 @@ holos: Component.BuildPlan
 Component: #Helm & {
 	Name:      "onepassword-connect"
 	Namespace: "security"
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "connect"
 		version: "2.0.5"

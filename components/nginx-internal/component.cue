@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "nginx-internal"
 	Namespace:   "network"
 	EnableHooks: true
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "ingress-nginx"
 		version: "4.14.0"

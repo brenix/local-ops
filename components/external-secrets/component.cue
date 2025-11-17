@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "external-secrets"
 	Namespace:   "security"
 	EnableHooks: true
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "external-secrets"
 		version: "1.0.0"

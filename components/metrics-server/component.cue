@@ -5,6 +5,7 @@ holos: Component.BuildPlan
 Component: #Helm & {
 	Name:      "metrics-server"
 	Namespace: "kube-system"
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "metrics-server"
 		version: "3.13.0"

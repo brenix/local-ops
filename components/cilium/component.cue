@@ -6,6 +6,7 @@ Component: #Helm & {
 	Name:        "cilium"
 	Namespace:   "kube-system"
 	EnableHooks: true
+	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "cilium"
 		version: "1.18.4"
