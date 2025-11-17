@@ -9,7 +9,7 @@ package holos
 		}
 		image: {
 			repository: "lscr.io/linuxserver/jellyfin"
-			tag:        "10.11.1"
+			tag:        "10.11.3"
 			pullPolicy: "Always"
 		}
 		resources: {

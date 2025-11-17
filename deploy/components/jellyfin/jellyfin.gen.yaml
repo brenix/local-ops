@@ -88,7 +88,7 @@ spec:
           value: "1000"
         - name: TZ
           value: America/Los_Angeles
-        image: lscr.io/linuxserver/jellyfin:10.11.1
+        image: lscr.io/linuxserver/jellyfin:10.11.3
         imagePullPolicy: Always
         name: main
         resources:
