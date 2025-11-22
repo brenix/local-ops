@@ -9,7 +9,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "prometheus-blackbox-exporter"
-		version: "11.4.2"
+		version: "11.5.0"
 		release: "prometheus-blackbox-exporter"
 		repository: {
 			name: "prometheus-community"
