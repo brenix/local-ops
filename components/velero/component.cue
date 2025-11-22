@@ -8,7 +8,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "velero"
-		version: "11.1.1"
+		version: "11.2.0"
 		release: "velero"
 		repository: {
 			name: "vmware-tanzu"
