@@ -2,7 +2,7 @@
 cilium-cli = "0.18.8"
 cue = "0.15.0"
 doppler = "3.75.1"
-flux2 = "2.7.3"
+flux2 = "2.7.5"
 gh = "2.83.1"
 "github:budimanjojo/talhelper" = "3.0.39"
 "github:holos-run/holos" = "0.105.1"
