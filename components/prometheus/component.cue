@@ -9,7 +9,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "kube-prometheus-stack"
-		version: "79.7.1"
+		version: "79.8.2"
 		release: "prometheus"
 		repository: {
 			name: "prometheus"
