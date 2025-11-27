@@ -32,6 +32,8 @@ jobs:
 
       - name: Render manifests with Holos
         uses: holos-run/holos-action@v1
+        with:
+          version: v0.105.1
               
       - name: Commit changes and push
         shell: bash
