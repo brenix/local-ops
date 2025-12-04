@@ -8,7 +8,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "rook-ceph"
-		version: "v1.18.7"
+		version: "v1.18.8"
 		release: "rook-ceph-operator"
 		repository: {
 			name: "rook-ceph"
