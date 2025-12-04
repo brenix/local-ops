@@ -22,7 +22,7 @@ package holos
 			}]
 			image: {
 				repository: "ghcr.io/slskd/slskd"
-				tag:        "0.24.0"
+				tag:        "0.24.1"
 			}
 			probes: {
 				liveness: {
