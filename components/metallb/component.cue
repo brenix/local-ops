@@ -8,7 +8,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "metallb"
-		version: "0.15.2"
+		version: "0.15.3"
 		repository: {
 			name: "metallb"
 			url:  "https://metallb.github.io/metallb"
