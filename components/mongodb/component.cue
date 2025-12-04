@@ -8,7 +8,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "app-template"
-		version: "4.4.0"
+		version: "4.5.0"
 		release: "mongodb"
 		repository: {
 			name: "bjw-s"
