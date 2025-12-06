@@ -9,7 +9,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "ingress-nginx"
-		version: "4.14.0"
+		version: "4.14.1"
 		release: "nginx-internal"
 		repository: {
 			name: "ingress-nginx"
