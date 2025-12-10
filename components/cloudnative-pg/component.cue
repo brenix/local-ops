@@ -9,7 +9,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "cloudnative-pg"
-		version: "0.26.1"
+		version: "0.27.0"
 		repository: {
 			name: "cloudnative-pg"
 			url:  "https://cloudnative-pg.github.io/charts"
