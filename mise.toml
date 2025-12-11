@@ -1,6 +1,5 @@
 [tools]
 cilium-cli = "0.18.8"
-cue = "0.15.1"
 doppler = "3.75.1"
 flux2 = "2.7.5"
 gh = "2.83.1"
