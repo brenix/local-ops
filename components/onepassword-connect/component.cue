@@ -8,7 +8,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "connect"
-		version: "2.0.5"
+		version: "2.1.1"
 		repository: {
 			name: "onepassword"
 			url:  "https://1password.github.io/connect-helm-charts"
