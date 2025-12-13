@@ -7,7 +7,7 @@ gh = "2.83.1"
 "github:holos-run/holos" = "0.105.1"
 helm = "4.0.4"
 talosctl = "1.11.5"
-terraform = "1.14.1"
+terraform = "1.14.2"
 timoni = "0.25.2"
 
 [tasks.render]
