@@ -14,7 +14,7 @@ package holos
 		containers: app: {
 			image: {
 				repository: "ghcr.io/recyclarr/recyclarr"
-				tag:        "7.4.0@sha256:619c3b8920a179f2c578acd0f54e9a068f57c049aff840469eed66e93a4be2cf"
+				tag:        "7.5.2"
 			}
 			envFrom: [{
 				secretRef: name: "recyclarr"

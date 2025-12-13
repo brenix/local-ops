@@ -25,7 +25,13 @@ Component: {
 			    quality_definition:
 			      type: series
 			      preferred_ratio: 0
-			      max: 100
+			      qualities:
+			        - name: WEBDL-1080p
+			          max: 200
+			          preferred: 60
+			        - name: WEBRip-1080p
+			          max: 200
+			          preferred: 60
 
 			    quality_profiles:
 			      - name: WEB-1080p
@@ -69,7 +75,25 @@ Component: {
 			    quality_definition:
 			      type: movie
 			      preferred_ratio: 0
-			      max: 100
+			      qualities:
+			        - name: Bluray-1080p
+			          max: 200
+			          preferred: 60
+			        - name: WEBDL-1080p
+			          max: 200
+			          preferred: 60
+			        - name: WebRip-1080p
+			          max: 200
+			          preferred: 60
+			        - name: WEBDL-720p
+			          max: 200
+			          preferred: 60
+			        - name: WebRip-720p
+			          max: 200
+			          preferred: 60
+			        - name: Bluray-720p
+			          max: 200
+			          preferred: 60
 
 			    quality_profiles:
 			      - name: SQP-1 (1080p)
