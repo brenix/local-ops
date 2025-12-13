@@ -8,7 +8,7 @@ package holos
 		}]
 		image: {
 			repository: "frooodle/s-pdf"
-			tag:        "2.1.1"
+			tag:        "2.1.2"
 		}
 	}
 	route: main: {
