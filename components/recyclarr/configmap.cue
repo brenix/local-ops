@@ -25,7 +25,6 @@ Component: {
 			    quality_definition:
 			      type: series
 			      preferred_ratio: 0
-			      preferred: 50
 			      max: 100
 
 			    quality_profiles:
@@ -70,7 +69,6 @@ Component: {
 			    quality_definition:
 			      type: movie
 			      preferred_ratio: 0
-			      preferred: 50
 			      max: 100
 
 			    quality_profiles:

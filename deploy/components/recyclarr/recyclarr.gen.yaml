@@ -4,8 +4,8 @@ data:
     \   api_key: !env_var SONARR_API_KEY\n\n    delete_old_custom_formats: true\n
     \   replace_existing_custom_formats: true\n\n    include:\n      - template: sonarr-quality-definition-series\n
     \     - template: sonarr-v4-quality-profile-web-1080p\n      - template: sonarr-v4-custom-formats-web-1080p\n\n
-    \   quality_definition:\n      type: series\n      preferred_ratio: 0\n      preferred:
-    50\n      max: 100\n\n    quality_profiles:\n      - name: WEB-1080p\n\n    custom_formats:\n
+    \   quality_definition:\n      type: series\n      preferred_ratio: 0\n      max:
+    100\n\n    quality_profiles:\n      - name: WEB-1080p\n\n    custom_formats:\n
     \     - trash_ids:\n          - 834e534f103938853ffced4203b53e72 # 2.0 Stereo\n
     \       assign_scores_to:\n          - name: WEB-1080p\n            score: 100\n\n
     \     - trash_ids:\n          - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)\n
@@ -18,8 +18,8 @@ data:
     \   api_key: !env_var RADARR_API_KEY\n\n    delete_old_custom_formats: true\n
     \   replace_existing_custom_formats: true\n\n    include:\n      - template: radarr-quality-definition-sqp-streaming\n
     \     - template: radarr-quality-profile-sqp-1-1080p\n      - template: radarr-custom-formats-sqp-1-1080p\n\n
-    \   quality_definition:\n      type: movie\n      preferred_ratio: 0\n      preferred:
-    50\n      max: 100\n\n    quality_profiles:\n      - name: SQP-1 (1080p)\n\n    custom_formats:\n
+    \   quality_definition:\n      type: movie\n      preferred_ratio: 0\n      max:
+    100\n\n    quality_profiles:\n      - name: SQP-1 (1080p)\n\n    custom_formats:\n
     \     - trash_ids:\n          - 2899d84dc9372de3408e6d8cc18e9666 # x264\n        assign_scores_to:\n
     \         - name: SQP-1 (1080p)\n            score: 1000\n\n      - trash_ids:\n
     \         - 89dac1be53d5268a7e10a19d3c896826 # 2.0 Stereo\n        assign_scores_to:\n
