@@ -9,7 +9,7 @@ package holos
 			}]
 			image: {
 				repository: "sissbruecker/linkding"
-				tag:        "1.44.1"
+				tag:        "1.44.2"
 			}
 			resources: {
 				limits: memory: "512M"
