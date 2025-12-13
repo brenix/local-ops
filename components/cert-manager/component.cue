@@ -9,7 +9,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "cert-manager"
-		version: "v1.19.1"
+		version: "v1.19.2"
 		repository: {
 			name: "jetstack"
 			url:  "https://charts.jetstack.io"
