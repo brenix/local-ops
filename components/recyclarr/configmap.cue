@@ -25,6 +25,8 @@ Component: {
 			    quality_definition:
 			      type: series
 			      preferred_ratio: 0
+			      preferred: 50
+			      max: 100
 
 			    quality_profiles:
 			      - name: WEB-1080p
@@ -68,6 +70,8 @@ Component: {
 			    quality_definition:
 			      type: movie
 			      preferred_ratio: 0
+			      preferred: 50
+			      max: 100
 
 			    quality_profiles:
 			      - name: SQP-1 (1080p)
