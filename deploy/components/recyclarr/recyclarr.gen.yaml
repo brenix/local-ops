@@ -11,8 +11,8 @@ data:
     834e534f103938853ffced4203b53e72 # 2.0 Stereo\n        assign_scores_to:\n          -
     name: WEB-1080p\n            score: 100\n\n      - trash_ids:\n          - 47435ece6b99a0b477caf360e79ba0bb
     # x265 (HD)\n          - 1bef6c151fa35093015b0bfef18279e5 # 2160p\n        assign_scores_to:\n
-    \         - name: WEB-1080p\n            score: -100\n\n      - trash_ids:\n          -
-    32b367365729d530ca1c124a0b180c64 # Bad Dual Groups\n          - 82d40da2bc6923f41e14394075dd4b03
+    \         - name: WEB-1080p\n            score: -1000\n\n      - trash_ids:\n
+    \         - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups\n          - 82d40da2bc6923f41e14394075dd4b03
     # No-RlsGroup\n          - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated\n          -
     06d66ab109d4d2eddb2794d21526d140 # Retags\n        assign_scores_to:\n          -
     name: WEB-1080p\n\n      \nradarr:\n  radarr:\n    base_url: http://radarr.default.svc.cluster.local:7878\n
@@ -32,7 +32,7 @@ data:
     Stereo\n        assign_scores_to:\n          - name: SQP-1 (1080p)\n            score:
     100\n\n      - trash_ids:\n          - 839bea857ed2c0a8e084f3cbdbd65ecb # x265
     (no HDR/DV)\n          - fb392fb0d61a010ae38e49ceaa24a1ef # 2160p\n        assign_scores_to:\n
-    \         - name: SQP-1 (1080p)\n            score: -100\n\n      - trash_ids:\n
+    \         - name: SQP-1 (1080p)\n            score: -1000\n\n      - trash_ids:\n
     \         - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups\n          - cc444569854e9de0b084ab2b8b1532b2
     # Black and White Editions\n          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup\n
     \         - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated\n          - 5c44f52a8714fdd79bb4d98e2673be1f
