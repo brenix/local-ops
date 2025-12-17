@@ -9,7 +9,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "cilium"
-		version: "1.18.4"
+		version: "1.18.5"
 		repository: {
 			name: "cilium"
 			url:  "https://helm.cilium.io"
