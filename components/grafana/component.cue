@@ -9,7 +9,7 @@ Component: #Helm & {
 	KubeVersion: "1.32.0"
 	Chart: {
 		name:    "grafana"
-		version: "10.3.1"
+		version: "10.3.2"
 		repository: {
 			name: "grafana"
 			url:  "https://grafana.github.io/helm-charts"
