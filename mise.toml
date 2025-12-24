@@ -10,6 +10,9 @@ talosctl = "1.11.6"
 terraform = "1.14.3"
 timoni = "0.25.2"
 
+[env]
+TALOSCONFIG = "{{ config_root }}/clusterconfig/talosconfig"
+
 [tasks.render]
 run = "cd {{ config_root }}; rm -rf deploy; holos render platform"
 
