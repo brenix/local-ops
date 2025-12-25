@@ -6,7 +6,7 @@ gh = "2.83.2"
 "github:budimanjojo/talhelper" = "3.0.43"
 "github:holos-run/holos" = "0.106.0"
 helm = "4.0.4"
-talosctl = "1.10.9"
+talosctl = "1.12.0"
 terraform = "1.14.3"
 timoni = "0.25.2"
 
