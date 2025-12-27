@@ -4,10 +4,10 @@ metadata:
     name: flux
     namespace: flux-system
 spec:
-    force: true
+    force: false
     interval: 30m
     path: components/flux
-    prune: true
+    prune: false
     sourceRef:
         kind: OCIRepository
         name: default

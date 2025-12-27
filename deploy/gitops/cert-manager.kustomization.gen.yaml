@@ -4,10 +4,10 @@ metadata:
     name: cert-manager
     namespace: flux-system
 spec:
-    force: true
+    force: false
     interval: 30m
     path: components/cert-manager
-    prune: true
+    prune: false
     sourceRef:
         kind: OCIRepository
         name: default

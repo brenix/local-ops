@@ -4,10 +4,10 @@ metadata:
     name: node-feature-discovery
     namespace: flux-system
 spec:
-    force: true
+    force: false
     interval: 30m
     path: components/node-feature-discovery
-    prune: true
+    prune: false
     sourceRef:
         kind: OCIRepository
         name: default

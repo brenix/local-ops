@@ -4,10 +4,10 @@ metadata:
     name: grafana
     namespace: flux-system
 spec:
-    force: true
+    force: false
     interval: 30m
     path: components/grafana
-    prune: true
+    prune: false
     sourceRef:
         kind: OCIRepository
         name: default

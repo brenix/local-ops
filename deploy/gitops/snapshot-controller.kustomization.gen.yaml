@@ -4,10 +4,10 @@ metadata:
     name: snapshot-controller
     namespace: flux-system
 spec:
-    force: true
+    force: false
     interval: 30m
     path: components/snapshot-controller
-    prune: true
+    prune: false
     sourceRef:
         kind: OCIRepository
         name: default

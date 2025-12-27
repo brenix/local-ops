@@ -4,10 +4,10 @@ metadata:
     name: prowlarr
     namespace: flux-system
 spec:
-    force: true
+    force: false
     interval: 30m
     path: components/prowlarr
-    prune: true
+    prune: false
     sourceRef:
         kind: OCIRepository
         name: default

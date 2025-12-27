@@ -4,10 +4,10 @@ metadata:
     name: system-upgrade-controller
     namespace: flux-system
 spec:
-    force: true
+    force: false
     interval: 30m
     path: components/system-upgrade-controller
-    prune: true
+    prune: false
     sourceRef:
         kind: OCIRepository
         name: default

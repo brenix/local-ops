@@ -4,10 +4,10 @@ metadata:
     name: ping-exporter
     namespace: flux-system
 spec:
-    force: true
+    force: false
     interval: 30m
     path: components/ping-exporter
-    prune: true
+    prune: false
     sourceRef:
         kind: OCIRepository
         name: default

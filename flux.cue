@@ -25,8 +25,8 @@ import (
 					targetNamespace: Namespace
 					interval:        "30m"
 					path:            ResourcesPath
-					prune:           true
-					force:           true
+					prune:           false
+					force:           false
 					sourceRef: {
 						kind: "OCIRepository"
 						name: "default"

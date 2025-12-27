@@ -4,10 +4,10 @@ metadata:
     name: rook-ceph-operator
     namespace: flux-system
 spec:
-    force: true
+    force: false
     interval: 30m
     path: components/rook-ceph-operator
-    prune: true
+    prune: false
     sourceRef:
         kind: OCIRepository
         name: default

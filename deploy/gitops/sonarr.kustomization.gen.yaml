@@ -4,10 +4,10 @@ metadata:
     name: sonarr
     namespace: flux-system
 spec:
-    force: true
+    force: false
     interval: 30m
     path: components/sonarr
-    prune: true
+    prune: false
     sourceRef:
         kind: OCIRepository
         name: default
