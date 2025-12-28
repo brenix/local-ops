@@ -1,3 +1,5 @@
+:warning: This repository is no longer active. See [home-ops](https://github.com/brenix/home-ops)
+
 ## Overview
 
 Configuration for my self-hosted kubernetes cluster, managed using
